@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reserva Confirmada — Vichuquén Lodge y Marina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #263852; --cream: #fff8ef; --sand: #e8d6b6;
+      --tan: #cdac87; --blue: #b6c9da; --gray: #717170;
+      --ink: #272526; --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; display: flex; flex-direction: column; }
+    .page { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .card {
+      background: #fff; border-radius: 20px; padding: 3rem 2.5rem;
+      max-width: 520px; width: 100%; text-align: center;
+      box-shadow: 0 8px 40px rgba(38,56,82,.1);
+    }
+    .icon-ok {
+      width: 64px; height: 64px; background: #e6f4ec; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .icon-ok svg { width: 32px; height: 32px; }
+    .icon-loading {
+      width: 64px; height: 64px; border: 3px solid var(--sand);
+      border-top-color: var(--navy); border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      margin: 0 auto 1.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 600; color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+    .subtitle { color: var(--gray); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; }
+    .resumen {
+      background: var(--sand); border-radius: var(--radius);
+      padding: 1.25rem 1.5rem; text-align: left; margin-bottom: 2rem;
+    }
+    .resumen-row {
+      display: flex; justify-content: space-between;
+      font-size: 0.88rem; padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(38,56,82,.08);
+    }
+    .resumen-row:last-child { border-bottom: none; }
+    .resumen-row strong { color: var(--navy); }
+    .resumen-row span { color: var(--gray); }
+    .abono-row { font-weight: 700; font-size: 1rem; color: var(--navy); }
+    .btn {
+      display: inline-block; padding: 0.9rem 2.5rem;
+      background: var(--navy); color: #fff; border-radius: 10px;
+      font-size: 0.92rem; font-weight: 600; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: #1a2738; }
+    .footer-note { font-size: 0.78rem; color: var(--gray); margin-top: 1.5rem; }
+    .logo-wrap { padding: 1.5rem 2rem; }
+    .logo-wrap img { height: 40px; }
+    #stateVerifying .icon-loading { display: block; }
+    #stateError h1 { color: #b91c1c; }
+    .error-icon {
+      width: 64px; height: 64px; background: #fef2f2; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem; font-size: 1.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo-wrap">
+    <a href="/"><img src="assets/img/logo.jpg" alt="Vichuquén Lodge y Marina" /></a>
+  </div>
+
+  <div class="page">
+    <div class="card">
+
+      <!-- Estado: verificando -->
+      <div id="stateVerifying">
+        <div class="icon-loading"></div>
+        <h1>Verificando pago…</h1>
+        <p class="subtitle">Estamos confirmando tu reserva. Esto toma solo un momento.</p>
+      </div>
+
+      <!-- Estado: confirmada -->
+      <div id="stateOk" hidden>
+        <div class="icon-ok">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 12l5 5L19 7" stroke="#1a5c3a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h1>¡Reserva confirmada!</h1>
+        <p class="subtitle">
+          Hemos recibido tu abono. Te enviamos los detalles por correo electrónico.<br>
+          El saldo restante se paga al llegar al lodge.
+        </p>
+        <div class="resumen" id="resumenDetalles">
+          <!-- Llenado por JS -->
+        </div>
+        <a href="/" class="btn">Volver al inicio</a>
+        <p class="footer-note">¿Preguntas? Escríbenos a <strong>reservas@vichuquenlodge.cl</strong></p>
+      </div>
+
+      <!-- Estado: error -->
+      <div id="stateError" hidden>
+        <div class="error-icon">⚠️</div>
+        <h1>No encontramos la reserva</h1>
+        <p class="subtitle">
+          El pago puede estar siendo procesado. Si ya pagaste,<br>
+          recibirás la confirmación por email en los próximos minutos.
+        </p>
+        <a href="/#reservas" class="btn">Intentar de nuevo</a>
+        <p class="footer-note">¿Necesitas ayuda? Escríbenos a <strong>reservas@vichuquenlodge.cl</strong></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!--
+    EmailJS — configura tus credenciales en https://www.emailjs.com
+    1. Crea una cuenta gratuita
+    2. Agrega un servicio de email (Gmail, Outlook, etc.)
+    3. Crea 2 templates: uno para huésped y uno para el lodge
+    4. Reemplaza los valores EMAILJS_* abajo
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    var EMAILJS_PUBLIC_KEY  = 'REEMPLAZA_CON_TU_PUBLIC_KEY';  // tu public key de EmailJS
+    var EMAILJS_SERVICE_ID  = 'REEMPLAZA_CON_TU_SERVICE_ID';  // ej: 'service_abc123'
+    var EMAILJS_TPL_HUESPED = 'REEMPLAZA_CON_TEMPLATE_HUESPED'; // template para el huésped
+    var EMAILJS_TPL_ADMIN   = 'REEMPLAZA_CON_TEMPLATE_ADMIN';   // template para el lodge
+
+    var MAX_RETRIES = 5;
+    var RETRY_DELAY = 3000;
+    var retries = 0;
+    var emailsSent = false;
+
+    function getReservaId() {
+      var params = new URLSearchParams(window.location.search);
+      return params.get('id') || '';
+    }
+
+    function fmtCLP(n) { return '$' + Number(n).toLocaleString('es-CL'); }
+    function fmtFecha(s) {
+      var d = new Date(s + 'T12:00:00');
+      var m = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+      return d.getDate() + ' ' + m[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
+    function setState(name) {
+      ['stateVerifying','stateOk','stateError'].forEach(function(id) {
+        document.getElementById(id).hidden = (id !== name);
+      });
+    }
+
+    function renderResumen(data) {
+      var el = document.getElementById('resumenDetalles');
+      el.innerHTML = [
+        '<div class="resumen-row"><span>Cabaña</span><strong>' + data.cabana + '</strong></div>',
+        '<div class="resumen-row"><span>Llegada</span><strong>' + fmtFecha(data.check_in) + '</strong></div>',
+        '<div class="resumen-row"><span>Salida</span><strong>' + fmtFecha(data.check_out) + '</strong></div>',
+        '<div class="resumen-row"><span>Noches</span><strong>' + data.noches + '</strong></div>',
+        '<div class="resumen-row"><span>Total estadía</span><strong>' + fmtCLP(data.total) + '</strong></div>',
+        '<div class="resumen-row abono-row"><span>Abono pagado</span><strong>' + fmtCLP(data.abono) + '</strong></div>',
+        '<div class="resumen-row"><span>Saldo al llegar</span><span>' + fmtCLP(data.saldo) + '</span></div>'
+      ].join('');
+    }
+
+    function sendEmails(data) {
+      if (emailsSent) return;
+      if (EMAILJS_PUBLIC_KEY === 'REEMPLAZA_CON_TU_PUBLIC_KEY') return; // no configurado aún
+
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+      var params = {
+        nombre:       data.nombre,
+        cabana:       data.cabana,
+        check_in:     fmtFecha(data.check_in),
+        check_out:    fmtFecha(data.check_out),
+        noches:       data.noches,
+        total:        fmtCLP(data.total),
+        abono:        fmtCLP(data.abono),
+        saldo:        fmtCLP(data.saldo),
+        reserva_id:   data.id
+      };
+
+      // Email al huésped (necesita el campo "to_email" en el template de EmailJS)
+      params.to_email = ''; // EmailJS toma el email del campo del template
+
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TPL_HUESPED, Object.assign({}, params, { to_email: data.email || '' }));
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TPL_ADMIN,   Object.assign({}, params, { to_email: 'reservas@vichuquenlodge.cl' }));
+      emailsSent = true;
+    }
+
+    function checkReserva() {
+      var id = getReservaId();
+      if (!id) { setState('stateError'); return; }
+
+      fetch('/api/reserva?id=' + encodeURIComponent(id))
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.estado === 'confirmada') {
+            renderResumen(data);
+            setState('stateOk');
+            sendEmails(data);
+          } else if (retries < MAX_RETRIES) {
+            retries++;
+            setTimeout(checkReserva, RETRY_DELAY);
+          } else {
+            setState('stateError');
+          }
+        })
+        .catch(function() {
+          if (retries < MAX_RETRIES) {
+            retries++;
+            setTimeout(checkReserva, RETRY_DELAY);
+          } else {
+            setState('stateError');
+          }
+        });
+    }
+
+    checkReserva();
+  </script>
+</body>
+</html>

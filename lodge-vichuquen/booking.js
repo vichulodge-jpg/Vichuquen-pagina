@@ -1,0 +1,355 @@
+(function () {
+  'use strict';
+
+  // ── DATOS DE CABAÑAS ─────────────────────────────────────────
+  var CABANAS = [
+    { id: 'c1-tagua',              nombre: 'Tagua',              capacidad: 4, alta: 119000, baja: 99000 },
+    { id: 'c2-cisne-coscoroba',    nombre: 'Cisne Coscoroba',    capacidad: 4, alta: 119000, baja: 99000 },
+    { id: 'c3-siete-colores',      nombre: 'Siete Colores',      capacidad: 6, alta: 139000, baja: 119000 },
+    { id: 'c4-cisne-cuello-negro', nombre: 'Cisne Cuello Negro', capacidad: 4, alta: 129000, baja: 109000 },
+    { id: 'c5-huala',              nombre: 'Huala',              capacidad: 4, alta: 119000, baja: 99000 },
+    { id: 'c6-run-run',            nombre: 'Run Run',            capacidad: 4, alta: 119000, baja: 99000 },
+    { id: 'c7-pitio',              nombre: 'Pitío',              capacidad: 4, alta: 119000, baja: 99000 }
+  ];
+
+  // ── TEMPORADAS ALTA (sincronizar con supabase/setup.sql) ──────
+  var TEMPORADAS = [
+    { from: '2025-12-01', to: '2026-02-28' },
+    { from: '2026-04-02', to: '2026-04-06' },
+    { from: '2026-09-15', to: '2026-09-22' },
+    { from: '2026-12-01', to: '2027-02-28' },
+    { from: '2027-03-25', to: '2027-03-29' },
+    { from: '2027-09-15', to: '2027-09-22' }
+  ];
+
+  function esTemporadaAlta(dateStr) {
+    for (var i = 0; i < TEMPORADAS.length; i++) {
+      if (dateStr >= TEMPORADAS[i].from && dateStr <= TEMPORADAS[i].to) return true;
+    }
+    return false;
+  }
+
+  function diffDays(a, b) {
+    return Math.round((new Date(b + 'T12:00:00') - new Date(a + 'T12:00:00')) / 86400000);
+  }
+
+  function fmtCLP(n) {
+    return '$' + n.toLocaleString('es-CL');
+  }
+
+  function fmtFecha(str) {
+    var d = new Date(str + 'T12:00:00');
+    var meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+    return d.getDate() + ' ' + meses[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function toISODate(d) { return d.toISOString().split('T')[0]; }
+
+  // ── ESTADO ────────────────────────────────────────────────────
+  var st = {
+    cabana:    null,
+    checkIn:   null,
+    checkOut:  null,
+    noches:    0,
+    precio:    0,
+    total:     0,
+    abono:     0,
+    blocked:   [],
+    loading:   false
+  };
+
+  var fp = null;   // flatpickr instance
+
+  // ── HELPERS DOM ───────────────────────────────────────────────
+  function qs(id) { return document.getElementById(id); }
+  function show(id) { var el = qs(id); if (el) el.hidden = false; }
+  function hide(id) { var el = qs(id); if (el) el.hidden = true; }
+  function txt(id, v) { var el = qs(id); if (el) el.textContent = v; }
+
+  // ── INIT ─────────────────────────────────────────────────────
+  function initBooking() {
+    if (!qs('bookingWidget') || typeof flatpickr === 'undefined') return;
+
+    initFlatpickr();
+
+    var selCab = qs('bwCabana');
+    if (selCab) selCab.addEventListener('change', onCabanaChange);
+
+    var btnCont = qs('bwContinuar');
+    if (btnCont) btnCont.addEventListener('click', onContinuar);
+
+    var btnVolver = qs('bwVolver');
+    if (btnVolver) btnVolver.addEventListener('click', onVolver);
+
+    var btnPagar = qs('bwPagar');
+    if (btnPagar) btnPagar.addEventListener('click', onPagar);
+  }
+
+  // ── FLATPICKR ─────────────────────────────────────────────────
+  function initFlatpickr() {
+    var input = qs('bwDateInput');
+    if (!input) return;
+
+    fp = flatpickr(input, {
+      mode:      'range',
+      inline:    true,
+      minDate:   'today',
+      dateFormat:'Y-m-d',
+      showMonths: 1,
+      locale: {
+        firstDayOfWeek: 1,
+        weekdays: {
+          shorthand: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+          longhand:  ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado']
+        },
+        months: {
+          shorthand: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+          longhand:  ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto',
+                      'Septiembre','Octubre','Noviembre','Diciembre']
+        },
+        rangeSeparator: ' → '
+      },
+      disable: [],
+      onReady: function(_, __, fpInst) {
+        var cal = fpInst.calendarContainer;
+        var container = qs('bwCalContainer');
+        if (cal && container) container.appendChild(cal);
+      },
+      onChange: onDatesChange,
+      onDayCreate: function(_, __, ___, dayElem) {
+        // Colorear días de temporada alta
+        if (dayElem.dateObj) {
+          var ds = toISODate(dayElem.dateObj);
+          if (esTemporadaAlta(ds)) dayElem.classList.add('bw-alta');
+        }
+      }
+    });
+  }
+
+  function onDatesChange(dates) {
+    if (dates.length !== 2) {
+      st.checkIn = null; st.checkOut = null;
+      hide('bwResumen');
+      updateContinuarBtn();
+      return;
+    }
+
+    var ci = toISODate(dates[0]);
+    var co = toISODate(dates[1]);
+
+    // Verificar que ningún día bloqueado quede dentro del rango
+    var d = new Date(dates[0]);
+    d.setDate(d.getDate() + 1);
+    var blocked = false;
+    while (d < dates[1]) {
+      if (st.blocked.indexOf(toISODate(d)) !== -1) { blocked = true; break; }
+      d.setDate(d.getDate() + 1);
+    }
+
+    if (blocked) {
+      fp.clear();
+      showError('bwCalError', 'El rango seleccionado incluye fechas no disponibles.');
+      return;
+    }
+
+    st.checkIn  = ci;
+    st.checkOut = co;
+    calcPrecio();
+  }
+
+  // ── SELECCIÓN DE CABAÑA ───────────────────────────────────────
+  function onCabanaChange() {
+    var sel   = qs('bwCabana');
+    var cabId = sel ? sel.value : '';
+
+    if (!cabId) {
+      st.cabana = null;
+      hide('bwCabanaInfo');
+      hide('bwResumen');
+      hide('bwCalWrapper');
+      updateContinuarBtn();
+      return;
+    }
+
+    st.cabana = CABANAS.filter(function(c) { return c.id === cabId; })[0] || null;
+    if (!st.cabana) return;
+
+    // Reset fechas
+    if (fp) fp.clear();
+    st.checkIn = null; st.checkOut = null;
+    hide('bwResumen');
+
+    // Actualizar info de cabaña
+    txt('bwCapacidad', 'Hasta ' + st.cabana.capacidad + ' persona' + (st.cabana.capacidad > 1 ? 's' : ''));
+    actualizarPrecioDisplay();
+    show('bwCabanaInfo');
+    show('bwCalWrapper');
+
+    // Actualizar max personas en el step 2
+    var persEl = qs('bwPersonas');
+    if (persEl) persEl.max = st.cabana.capacidad;
+
+    // Cargar disponibilidad
+    loadAvailability(cabId);
+    updateContinuarBtn();
+  }
+
+  function loadAvailability(cabanaId) {
+    st.blocked = [];
+    fetch('/api/availability?cabana_id=' + encodeURIComponent(cabanaId))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        st.blocked = data.blocked || [];
+        if (fp) fp.set('disable', st.blocked);
+      })
+      .catch(function() { /* fail silently — backend valida de todas formas */ });
+  }
+
+  function actualizarPrecioDisplay() {
+    if (!st.cabana) return;
+    var hoy = toISODate(new Date());
+    var esAlta = esTemporadaAlta(hoy);
+    var precio = esAlta ? st.cabana.alta : st.cabana.baja;
+    txt('bwPrecioBase', 'Desde ' + fmtCLP(st.cabana.baja) + ' / noche');
+    var badge = qs('bwTemporadaBadge');
+    if (badge) {
+      badge.textContent = esAlta ? '🌞 Temporada alta' : '🍂 Temporada baja';
+      badge.className = 'bw-badge ' + (esAlta ? 'alta' : 'baja');
+    }
+  }
+
+  // ── CÁLCULO DE PRECIO ─────────────────────────────────────────
+  function calcPrecio() {
+    if (!st.cabana || !st.checkIn || !st.checkOut) return;
+    var noches = diffDays(st.checkIn, st.checkOut);
+    if (noches < 1) { hide('bwResumen'); return; }
+
+    var esAlta     = esTemporadaAlta(st.checkIn);
+    var precio     = esAlta ? st.cabana.alta : st.cabana.baja;
+    var total      = noches * precio;
+    var abono      = Math.ceil(total * 0.5 / 1000) * 1000;
+
+    st.noches = noches; st.precio = precio;
+    st.total  = total;  st.abono  = abono;
+
+    txt('bwCalcDesc',  noches + ' noche' + (noches > 1 ? 's' : '') + ' × ' + fmtCLP(precio));
+    txt('bwCalcTotal', fmtCLP(total));
+    txt('bwCalcAbono', fmtCLP(abono));
+    txt('bwCalcSaldo', fmtCLP(total - abono));
+
+    var badge = qs('bwTemporadaBadge');
+    if (badge) {
+      badge.textContent = esAlta ? '🌞 Temporada alta' : '🍂 Temporada baja';
+      badge.className = 'bw-badge ' + (esAlta ? 'alta' : 'baja');
+    }
+    txt('bwPrecioBase', fmtCLP(precio) + ' / noche');
+
+    show('bwResumen');
+    updateContinuarBtn();
+  }
+
+  function updateContinuarBtn() {
+    var btn = qs('bwContinuar');
+    if (!btn) return;
+    btn.disabled = !(st.cabana && st.checkIn && st.checkOut && st.noches >= 1);
+  }
+
+  // ── NAVEGACIÓN ENTRE STEPS ────────────────────────────────────
+  function onContinuar() {
+    if (!st.cabana || !st.checkIn || !st.checkOut) return;
+
+    // Rellenar resumen mini en step 2
+    txt('bwMiniCabana', st.cabana.nombre);
+    txt('bwMiniFechas', fmtFecha(st.checkIn) + ' → ' + fmtFecha(st.checkOut) +
+        ' (' + st.noches + ' noche' + (st.noches > 1 ? 's' : '') + ')');
+    txt('bwMiniAbono',  'Abono: ' + fmtCLP(st.abono) + '  ·  Total: ' + fmtCLP(st.total));
+
+    hide('bwPanel1'); show('bwPanel2');
+    stepDot(2);
+
+    var top = qs('bookingWidget');
+    if (top) top.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function onVolver() {
+    hide('bwPanel2'); show('bwPanel1');
+    stepDot(1);
+  }
+
+  function stepDot(n) {
+    [1, 2].forEach(function(i) {
+      var dot = qs('bwDot' + i);
+      if (!dot) return;
+      dot.classList.toggle('active', i === n);
+      dot.classList.toggle('done',   i < n);
+    });
+  }
+
+  // ── PAGO ─────────────────────────────────────────────────────
+  function onPagar(e) {
+    e.preventDefault();
+    hide('bwPanelError');
+
+    var nombre   = ((qs('bwNombre')  || {}).value || '').trim();
+    var email    = ((qs('bwEmail')   || {}).value || '').trim();
+    var telefono = ((qs('bwTelefono')|| {}).value || '').trim();
+    var personas = parseInt(((qs('bwPersonas')|| {}).value || ''), 10);
+    var mensaje  = ((qs('bwMensaje') || {}).value || '').trim();
+
+    if (!nombre)                       { return showError('bwPanelError', 'Por favor ingresa tu nombre.'); }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                                         return showError('bwPanelError', 'Por favor ingresa un correo válido.'); }
+    if (!personas || personas < 1)     { return showError('bwPanelError', 'Indica el número de personas.'); }
+    if (st.cabana && personas > st.cabana.capacidad) {
+      return showError('bwPanelError',
+        'La cabaña ' + st.cabana.nombre + ' tiene capacidad para ' + st.cabana.capacidad + ' personas.');
+    }
+
+    var btn = qs('bwPagar');
+    if (btn) { btn.disabled = true; btn.classList.add('is-sending'); }
+
+    fetch('/api/create-preference', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        cabana_id: st.cabana.id,
+        check_in:  st.checkIn,
+        check_out: st.checkOut,
+        nombre:    nombre,
+        email:     email,
+        telefono:  telefono || null,
+        personas:  personas,
+        mensaje:   mensaje || null
+      })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.init_point) {
+        window.location.href = data.init_point;
+      } else {
+        showError('bwPanelError', data.error || 'Error al procesar la reserva. Intenta de nuevo.');
+        if (btn) { btn.disabled = false; btn.classList.remove('is-sending'); }
+      }
+    })
+    .catch(function() {
+      showError('bwPanelError', 'Error de conexión. Por favor intenta de nuevo.');
+      if (btn) { btn.disabled = false; btn.classList.remove('is-sending'); }
+    });
+  }
+
+  function showError(id, msg) {
+    var el = qs(id);
+    if (!el) return;
+    el.textContent = msg;
+    el.hidden = false;
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // ── ARRANCAR ─────────────────────────────────────────────────
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBooking);
+  } else {
+    initBooking();
+  }
+
+})();

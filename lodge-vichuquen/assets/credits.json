@@ -1,0 +1,90 @@
+{
+  "cabin-lake": {
+    "src": "assets/img/cabin-lake.jpg",
+    "title": "DSC01195 - Château Montebello",
+    "creator": "archer10 (Dennis)",
+    "creator_url": "https://www.flickr.com/photos/22490717@N02",
+    "license": "by-sa",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/22490717@N02/44518790002",
+    "source": "flickr"
+  },
+  "kayak": {
+    "src": "assets/img/kayak.jpg",
+    "title": "Into The Day",
+    "creator": "ghecko13",
+    "creator_url": "https://www.flickr.com/photos/48412906@N00",
+    "license": "by-nc-nd",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc-nd/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/48412906@N00/14957281029",
+    "source": "flickr"
+  },
+  "sunset": {
+    "src": "assets/img/sunset.jpg",
+    "title": "Telluride, Colorado",
+    "creator": "Kurayba",
+    "creator_url": "https://www.flickr.com/photos/48503330@N08",
+    "license": "by-sa",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/48503330@N08/16431820438",
+    "source": "flickr"
+  },
+  "interior": {
+    "src": "assets/img/interior.jpg",
+    "title": "18th Century Cabin",
+    "creator": "TranceMist",
+    "creator_url": "https://www.flickr.com/photos/69675357@N00",
+    "license": "by",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/69675357@N00/5486025864",
+    "source": "flickr"
+  },
+  "fishing": {
+    "src": "assets/img/fishing.jpg",
+    "title": "Chopaka Lake",
+    "creator": "BLM Oregon & Washington",
+    "creator_url": "https://www.flickr.com/photos/50169152@N06",
+    "license": "by",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/50169152@N06/27713504085",
+    "source": "flickr"
+  },
+  "aerial": {
+    "src": "assets/img/aerial.jpg",
+    "title": "Aerial",
+    "creator": "AndreyFilippov.com",
+    "creator_url": "https://www.flickr.com/photos/147731466@N03",
+    "license": "by",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/147731466@N03/24767917178",
+    "source": "flickr"
+  },
+  "hero": {
+    "src": "assets/img/hero.jpg",
+    "title": "Chile - Torres del Paine",
+    "creator": "melenama",
+    "creator_url": "https://www.flickr.com/photos/21856521@N07",
+    "license": "by",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/21856521@N07/4827160452",
+    "source": "flickr"
+  },
+  "deck": {
+    "src": "assets/img/deck.jpg",
+    "title": "Jaipur IND - Jal Mahal Palace amidst Man Sagar Lake 02",
+    "creator": "Daniel Mennerich",
+    "creator_url": "https://www.flickr.com/photos/29858421@N04",
+    "license": "by-nc-sa",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc-sa/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/29858421@N04/50202489177",
+    "source": "flickr"
+  }
+}

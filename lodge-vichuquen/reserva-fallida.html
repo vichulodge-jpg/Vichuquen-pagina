@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pago no completado — Vichuquén Lodge y Marina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy:#263852; --cream:#fff8ef; --sand:#e8d6b6; --tan:#cdac87; --gray:#717170; --ink:#272526; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink); min-height:100vh; display:flex; flex-direction:column; }
+    .logo-wrap { padding:1.5rem 2rem; }
+    .logo-wrap img { height:40px; }
+    .page { flex:1; display:flex; align-items:center; justify-content:center; padding:2rem; }
+    .card { background:#fff; border-radius:20px; padding:3rem 2.5rem; max-width:480px; width:100%; text-align:center; box-shadow:0 8px 40px rgba(38,56,82,.1); }
+    .icon { font-size:3rem; margin-bottom:1.5rem; }
+    h1 { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:600; color:#b91c1c; margin-bottom:.75rem; }
+    p { color:var(--gray); font-size:.95rem; line-height:1.7; margin-bottom:1.5rem; }
+    .tip { background:#fef9f0; border-left:3px solid var(--tan); border-radius:8px; padding:.9rem 1.1rem; text-align:left; font-size:.85rem; color:var(--ink); margin-bottom:1.5rem; }
+    .tip strong { display:block; margin-bottom:.3rem; color:var(--navy); }
+    .btn { display:inline-block; padding:.9rem 2.5rem; background:var(--navy); color:#fff; border-radius:10px; font-size:.92rem; font-weight:600; text-decoration:none; }
+    .btn-ghost { background:none; border:2px solid var(--navy); color:var(--navy); margin-top:.75rem; display:inline-block; padding:.75rem 2rem; border-radius:10px; font-size:.88rem; text-decoration:none; }
+    .actions { display:flex; flex-direction:column; align-items:center; gap:.5rem; }
+    .footer-note { font-size:.78rem; color:var(--gray); margin-top:1.5rem; }
+  </style>
+</head>
+<body>
+  <div class="logo-wrap">
+    <a href="/"><img src="assets/img/logo.jpg" alt="Vichuquén Lodge y Marina" /></a>
+  </div>
+  <div class="page">
+    <div class="card">
+      <div class="icon">😕</div>
+      <h1>Pago no completado</h1>
+      <p>El pago no pudo procesarse. No se realizó ningún cargo y las fechas siguen disponibles.</p>
+      <div class="tip">
+        <strong>¿Qué puedes hacer?</strong>
+        Verifica que los datos de tu tarjeta sean correctos, que tengas saldo suficiente
+        y que el banco no haya bloqueado la transacción. Luego inténtalo de nuevo.
+      </div>
+      <div class="actions">
+        <a href="/#reservas" class="btn">Intentar de nuevo</a>
+        <a href="/#contacto" class="btn-ghost">Contactar al lodge</a>
+      </div>
+      <p class="footer-note">¿Prefieres pagar por transferencia? Escríbenos a <strong>reservas@vichuquenlodge.cl</strong></p>
+    </div>
+  </div>
+</body>
+</html>

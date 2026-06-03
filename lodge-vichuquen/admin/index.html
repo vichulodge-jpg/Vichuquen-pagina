@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Vichuquén Lodge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <img src="../assets/img/logo.jpg" alt="Logo" class="login-logo" />
+      <h1>Panel de administración</h1>
+      <p class="login-sub">Vichuquén Lodge y Marina</p>
+      <div class="form-group">
+        <label for="secretInput">Clave de acceso</label>
+        <input type="password" id="secretInput" placeholder="••••••••••••" autocomplete="current-password" />
+      </div>
+      <p class="login-error" id="loginError" hidden>Clave incorrecta.</p>
+      <button class="btn-primary" id="btnLogin">Ingresar</button>
+    </div>
+  </div>
+
+  <!-- PANEL -->
+  <div id="adminPanel" hidden>
+
+    <header class="admin-header">
+      <div class="header-brand">
+        <img src="../assets/img/logo.jpg" alt="Logo" class="header-logo" />
+        <span>Admin</span>
+      </div>
+      <button class="btn-ghost" id="btnLogout">Cerrar sesión</button>
+    </header>
+
+    <main class="admin-main">
+
+      <!-- TABS -->
+      <div class="tabs">
+        <button class="tab active" data-tab="reservas">Reservas</button>
+        <button class="tab" data-tab="bloqueos">Bloqueos</button>
+      </div>
+
+      <!-- TAB: RESERVAS -->
+      <section id="tabReservas" class="tab-panel">
+        <div class="panel-toolbar">
+          <div class="filters">
+            <select id="filtroEstado">
+              <option value="">Todos los estados</option>
+              <option value="pendiente">Pendiente</option>
+              <option value="confirmada">Confirmada</option>
+              <option value="cancelada">Cancelada</option>
+            </select>
+            <select id="filtroCabana">
+              <option value="">Todas las cabañas</option>
+              <option value="c1-tagua">C1 — Tagua</option>
+              <option value="c2-cisne-coscoroba">C2 — Cisne Coscoroba</option>
+              <option value="c3-siete-colores">C3 — Siete Colores</option>
+              <option value="c4-cisne-cuello-negro">C4 — Cisne Cuello Negro</option>
+              <option value="c5-huala">C5 — Huala</option>
+              <option value="c6-run-run">C6 — Run Run</option>
+              <option value="c7-pitio">C7 — Pitío</option>
+            </select>
+            <button class="btn-secondary" id="btnRefreshReservas">↻ Actualizar</button>
+          </div>
+          <span class="count" id="reservasCount"></span>
+        </div>
+        <div class="table-wrap">
+          <table id="reservasTable">
+            <thead>
+              <tr>
+                <th>Cabaña</th>
+                <th>Huésped</th>
+                <th>Check-in</th>
+                <th>Check-out</th>
+                <th>Pers.</th>
+                <th>Total</th>
+                <th>Abono</th>
+                <th>Estado</th>
+                <th>Creada</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="reservasTbody">
+              <tr><td colspan="10" class="loading">Cargando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB: BLOQUEOS -->
+      <section id="tabBloqueos" class="tab-panel" hidden>
+        <div class="panel-toolbar">
+          <button class="btn-secondary" id="btnRefreshBloqueos">↻ Actualizar</button>
+        </div>
+
+        <!-- Formulario nuevo bloqueo -->
+        <div class="bloqueo-form-wrap">
+          <h3>Agregar bloqueo manual</h3>
+          <p class="hint">Usa esto para marcar fechas reservadas por Airbnb, Booking o mantención.</p>
+          <div class="bloqueo-form">
+            <div class="form-group">
+              <label>Cabaña</label>
+              <select id="blCabana">
+                <option value="">Selecciona cabaña…</option>
+                <option value="c1-tagua">C1 — Tagua</option>
+                <option value="c2-cisne-coscoroba">C2 — Cisne Coscoroba</option>
+                <option value="c3-siete-colores">C3 — Siete Colores</option>
+                <option value="c4-cisne-cuello-negro">C4 — Cisne Cuello Negro</option>
+                <option value="c5-huala">C5 — Huala</option>
+                <option value="c6-run-run">C6 — Run Run</option>
+                <option value="c7-pitio">C7 — Pitío</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Desde</label>
+              <input type="date" id="blDesde" />
+            </div>
+            <div class="form-group">
+              <label>Hasta</label>
+              <input type="date" id="blHasta" />
+            </div>
+            <div class="form-group">
+              <label>Motivo</label>
+              <select id="blMotivo">
+                <option value="airbnb">Airbnb</option>
+                <option value="booking">Booking.com</option>
+                <option value="mantencion">Mantención</option>
+                <option value="manual">Manual</option>
+              </select>
+            </div>
+            <button class="btn-primary" id="btnAgregarBloqueo">Agregar bloqueo</button>
+          </div>
+          <p class="form-error" id="blError" hidden></p>
+          <p class="form-ok"    id="blOk"    hidden></p>
+        </div>
+
+        <!-- Tabla de bloqueos activos -->
+        <h3 style="margin-bottom:.75rem">Bloqueos activos</h3>
+        <div class="table-wrap">
+          <table id="bloqueosTable">
+            <thead>
+              <tr>
+                <th>Cabaña</th>
+                <th>Desde</th>
+                <th>Hasta</th>
+                <th>Motivo</th>
+                <th>Creado</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="bloqueosTbody">
+              <tr><td colspan="6" class="loading">Cargando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
