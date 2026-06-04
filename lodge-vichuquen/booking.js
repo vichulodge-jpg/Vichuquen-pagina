@@ -10,7 +10,6 @@
     { id: 'c5-huala',              nombre: 'Huala',              capacidad: 5, alta: 119000, baja: 99000 },
     { id: 'c6-run-run',            nombre: 'Run Run',            capacidad: 5, alta: 119000, baja: 99000 },
     { id: 'c7-pitio',              nombre: 'Pitío',              capacidad: 5, alta: 119000, baja: 99000 },
-    { id: 'c8-garza-cuca',         nombre: 'Garza Cuca',         capacidad: 5, alta: 119000, baja: 99000 }
   ];
 
   // ── TEMPORADAS ALTA (sincronizar con supabase/setup.sql) ──────

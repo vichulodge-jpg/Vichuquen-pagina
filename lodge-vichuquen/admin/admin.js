@@ -251,7 +251,7 @@
   var CABANA_NAMES = {
     'c1-tagua': 'Tagua', 'c2-cisne-coscoroba': 'Cisne Coscoroba',
     'c3-siete-colores': 'Siete Colores', 'c4-cisne-cuello-negro': 'Cisne Cuello Negro',
-    'c5-huala': 'Huala', 'c6-run-run': 'Run Run', 'c7-pitio': 'Pitío', 'c8-garza-cuca': 'Garza Cuca'
+    'c5-huala': 'Huala', 'c6-run-run': 'Run Run', 'c7-pitio': 'Pitío'
   };
   function cabanaShort(id) { return CABANA_NAMES[id] || id; }
 
