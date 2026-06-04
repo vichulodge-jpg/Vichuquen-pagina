@@ -4,7 +4,7 @@
    ============================================================= */
 :root {
   /* Paleta Lake Lodge Premium */
-  --navy:      #324965;   /* azul marino vibrante */
+  --navy:      #273852;   /* azul marino */
   --navy-deep: #0D2230;   /* profundidad máxima */
   --cream:     #F4F1EB;   /* lino natural cálido */
   --sand:      #E2D5C2;   /* arena suave */
@@ -86,7 +86,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .section-header .section-title { margin-inline: auto; }
 .section-header .section-sub   { margin-inline: auto; }
 .section-header-light .section-kicker { color: var(--sand); }
-.section-header-light .section-title  { color: #fff; }
+.section-header-light .section-title  { color: #fff; max-width: none; }
 .section-header-light .section-sub    { color: rgba(255,255,255,0.6); }
 
 /* ── Logo image styles ── */
@@ -144,7 +144,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .footer-logo-img {
-  height: 90px;
+  height: 160px;
   width: auto;
   object-fit: contain;
   flex-shrink: 0;
@@ -862,8 +862,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: rgba(182,201,218,.25);
 }
 .exp-icon {
-  width: 22px; height: 22px;
-  color: rgba(255,255,255,.32);
+  width: 34px; height: 34px;
+  color: rgba(255,255,255,.38);
   flex-shrink: 0;
 }
 .exp-card h3 {
@@ -1297,8 +1297,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .contacto-items { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
 .contacto-item { display: flex; gap: 1rem; align-items: flex-start; }
 .contacto-item svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; color: var(--blue); opacity: .8; }
-.contacto-item strong { display: block; font-size: 0.82rem; font-weight: 600; color: rgba(255,248,239,.85); margin-bottom: .2rem; }
-.contacto-item p { font-size: 0.88rem; color: rgba(255,248,239,.5); }
+.contacto-item strong { display: block; font-size: 0.88rem; font-weight: 600; color: rgba(255,248,239,.85); margin-bottom: .3rem; }
+.contacto-item p { font-size: 1.05rem; color: rgba(255,248,239,.7); line-height: 1.4; }
 .contacto-foto {
   border-radius: 18px; overflow: hidden; height: 400px;
   box-shadow: 0 20px 50px rgba(0,0,0,.3);
@@ -1324,8 +1324,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding-bottom: 3rem;
   border-bottom: 1px solid rgba(255,255,255,.07);
 }
-.footer-logo { display: flex; align-items: flex-start; gap: 1rem; }
-.footer-logo svg { width: 44px; flex-shrink: 0; margin-top: 4px; }
+.footer-logo {
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center; gap: 1rem;
+}
 .footer-brand-name {
   font-family: "Cormorant Garamond", serif;
   font-size: 1rem; font-weight: 500; letter-spacing: 0.06em;
@@ -1347,10 +1349,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transition: color 0.2s;
 }
 @media (hover:hover) { .footer-links-grid a:hover { color: var(--cream); } }
+.footer-cta-col {
+  display: flex; flex-direction: column;
+  justify-content: flex-start; align-items: flex-start; gap: 0.75rem;
+}
 .footer-cta-col p {
   font-family: "Cormorant Garamond", serif;
   font-size: 1.1rem; font-style: italic; color: var(--cream);
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 .footer-bottom {
   display: flex; align-items: center; justify-content: center;
