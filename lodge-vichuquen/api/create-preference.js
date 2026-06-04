@@ -73,7 +73,7 @@ module.exports = async function handler(req, res) {
   const precioNoche = Math.round(total / noches);
 
   // ── Verificar disponibilidad (anti-race-condition) ────────────
-  const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString();
+  const twoHoursAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
   const { data: conflicto } = await supabase
     .from('reservas')
     .select('id')

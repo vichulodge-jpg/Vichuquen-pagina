@@ -13,7 +13,7 @@ module.exports = async function handler(req, res) {
   if (!cabana_id) return res.status(400).json({ error: 'cabana_id requerido' });
 
   const today = new Date().toISOString().split('T')[0];
-  const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString();
+  const twoHoursAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
 
   const [confirmadasRes, pendientesRes, bloqueosRes] = await Promise.all([
     supabase
