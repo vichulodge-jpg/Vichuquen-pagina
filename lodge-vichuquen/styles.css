@@ -868,36 +868,39 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ── Experiencias mobile: tabla 3×3, sin scroll ── */
 @media (max-width: 540px) {
   .experiencias {
-    padding: 1.25rem 0 !important;
+    padding: 2rem 0 !important;
   }
   .experiencias-inner .container {
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
   }
   .experiencias .section-header {
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
   }
   .experiencias .section-kicker {
-    font-size: 0.6rem;
-    margin-bottom: 0.2rem;
+    font-size: 0.65rem;
+    margin-bottom: 0.25rem;
   }
   .experiencias .section-title {
-    font-size: 1.05rem !important;
-    line-height: 1.2;
+    font-size: 1.1rem !important;
+    line-height: 1.25;
+    max-width: 100% !important;   /* evita que "en Vichuquén..." pase a 3ª línea */
   }
   .exp-grid {
     grid-template-columns: repeat(3, 1fr) !important;
   }
   .exp-card {
-    padding: 0.65rem 0.5rem;
+    padding: 1rem 0.65rem;
+    text-align: left;
   }
   .exp-num {
-    font-size: 0.75rem;
-    margin-bottom: 0.25rem;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
   }
   .exp-card h3 {
-    font-size: 0.66rem;
-    line-height: 1.25;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.35;
     margin-bottom: 0;
     letter-spacing: 0;
   }
