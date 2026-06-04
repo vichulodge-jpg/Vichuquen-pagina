@@ -373,6 +373,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     padding-top: clamp(3rem, 8vw, 5rem);
     padding-bottom: clamp(3rem, 8vw, 5rem);
   }
+  /* parallax no funciona bien en iOS/Android */
+  .cabanas { background-attachment: scroll; }
 
   /* Subtítulo hero más legible */
   .hero-sub { font-size: 1rem; line-height: 1.6; }
@@ -578,7 +580,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    CABAÑAS
    ================================================================ */
 .cabanas {
-  background: var(--sand);
+  background-color: var(--sand);
+  background-image:
+    linear-gradient(rgba(232, 214, 182, 0.72), rgba(232, 214, 182, 0.72)),
+    url('assets/img/cabanas-bg.JPEG');
+  background-size: cover;
+  background-position: center 38%;
+  background-attachment: fixed;
   padding: clamp(4rem, 8vw, 7rem) 0;
 }
 .cabanas .section-title { color: var(--navy-deep); }
