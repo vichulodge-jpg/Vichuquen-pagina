@@ -1,20 +1,20 @@
 /* =============================================================
    Vichuquén Lodge y Marina
-   Palette from brand kit: navy · cream · sand · lake-blue
+   Paleta premium lago-naturaleza: teal profundo · lino · ámbar
    ============================================================= */
 :root {
-  /* Brand palette */
-  --navy:      #263852;
-  --navy-deep: #1a2738;
-  --cream:     #fff8ef;
-  --sand:      #e8d6b6;
-  --tan:       #cdac87;
-  --blue:      #b6c9da;   /* lago / cisne */
-  --sky:       #c0d9f0;
-  --gray:      #717170;
-  --brown:     #452a1f;
-  --taupe:     #ae9380;
-  --ink:       #272526;
+  /* Paleta Lake Lodge Premium */
+  --navy:      #1B3D4C;   /* azul-teal profundo del lago */
+  --navy-deep: #0D2230;   /* profundidad máxima */
+  --cream:     #F4F1EB;   /* lino natural cálido */
+  --sand:      #E2D5C2;   /* arena suave */
+  --tan:       #A87840;   /* madera/ámbar rico */
+  --blue:      #5AABB8;   /* reflejo del lago teal */
+  --sky:       #9DCCD8;   /* cielo sobre el agua */
+  --gray:      #5A6B78;   /* pizarra gris-azul */
+  --brown:     #3A1E0C;   /* madera oscura */
+  --taupe:     #9A8068;   /* tierra natural */
+  --ink:       #18262E;   /* texto rico profundo */
 
   /* Semantic */
   --bg:        var(--cream);
@@ -22,7 +22,7 @@
   --accent:    var(--navy);
   --accent-lt: var(--blue);
   --warm:      var(--tan);
-  --line:      rgba(38, 56, 82, 0.12);
+  --line:      rgba(27, 61, 76, 0.12);
   --radius:    14px;
   --ease:      cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -456,7 +456,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .about-grid {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-  gap: 5rem; align-items: center;
+  gap: 5rem; align-items: stretch;
 }
 
 /* ── Ratings (Booking + Airbnb) ── */
@@ -604,6 +604,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   box-shadow: 0 20px 60px rgba(38,56,82,.15);
 }
 .about-img { border-radius: 20px; }
+.about-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
 .about-text .section-title { max-width: 100%; }
 .about-text p {
   margin-top: 1.1rem;
