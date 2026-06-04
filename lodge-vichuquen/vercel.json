@@ -8,22 +8,28 @@
   ],
   "headers": [
     {
-      "source": "/(.*\\.html)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, must-revalidate" }
-      ]
+      "source": "/:path*.html",
+      "headers": [{ "key": "Cache-Control", "value": "no-cache, must-revalidate" }]
     },
     {
-      "source": "/(.*\\.(css|js|json))",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, must-revalidate" }
-      ]
+      "source": "/:path*.css",
+      "headers": [{ "key": "Cache-Control", "value": "no-cache, must-revalidate" }]
     },
     {
-      "source": "/(.*\\.(webp|jpg|jpeg|png|svg|avif|ico|woff|woff2))",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=2592000, immutable" }
-      ]
+      "source": "/:path*.js",
+      "headers": [{ "key": "Cache-Control", "value": "no-cache, must-revalidate" }]
+    },
+    {
+      "source": "/:path*.jpg",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000, immutable" }]
+    },
+    {
+      "source": "/:path*.png",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000, immutable" }]
+    },
+    {
+      "source": "/:path*.woff2",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000, immutable" }]
     }
   ]
 }
