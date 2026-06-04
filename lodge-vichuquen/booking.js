@@ -56,12 +56,13 @@
     noches:    0,
     precio:    0,
     total:     0,
-    baseTotal: 0,   // total antes de aplicar descuento
-    abono:     0,
-    pagoHoy:   0,   // monto que se cobra hoy según opción elegida
-    pagoTipo:  'abono', // 'abono' | 'total'
-    blocked:   [],
-    loading:   false
+    baseTotal:  0,   // total antes de aplicar descuento
+    abono:      0,
+    pagoHoy:    0,   // monto que se cobra hoy según opción elegida
+    pagoTipo:   'abono',        // 'abono' | 'total'
+    metodoPago: 'mp',           // 'mp' | 'transferencia'
+    blocked:    [],
+    loading:    false
   };
 
   var fp = null;   // flatpickr instance
@@ -83,6 +84,13 @@
 
     var persEl = qs('bwPersonas');
     if (persEl) persEl.addEventListener('input', aplicarDescuento);
+
+    var btnTransfPagar = qs('bwPagarTransferencia');
+    if (btnTransfPagar) btnTransfPagar.addEventListener('click', onPagarTransferencia);
+
+    document.querySelectorAll('input[name="metodoPago"]').forEach(function(radio) {
+      radio.addEventListener('change', onMetodoPagoChange);
+    });
 
     var btnCont = qs('bwContinuar');
     if (btnCont) btnCont.addEventListener('click', onContinuar);
@@ -289,7 +297,8 @@
     actualizarPagoOpciones();
 
     show('bwResumen');
-    show('bwPagoOpciones');
+    if (st.metodoPago === 'mp') show('bwPagoOpciones');
+    show('bwMetodoPago');
     updateContinuarBtn();
   }
 
@@ -321,19 +330,33 @@
     if (!st.cabana || !st.checkIn || !st.checkOut) return;
 
     // Mini resumen en step 2
-    txt('bwMiniCabana', st.cabana.nombre);
+    txt('bwMiniCabana', 'CABAÑA ' + st.cabana.nombre.toUpperCase());
     txt('bwMiniFechas', fmtFecha(st.checkIn) + ' → ' + fmtFecha(st.checkOut) +
         ' (' + st.noches + ' noche' + (st.noches > 1 ? 's' : '') + ')');
 
-    var esPagoTotal = st.pagoTipo === 'total';
-    txt('bwMiniAbono', esPagoTotal
-      ? 'Pago total: ' + fmtCLP(st.total)
-      : 'Abono hoy: ' + fmtCLP(st.abono) + '  ·  Total: ' + fmtCLP(st.total));
+    var esTrans = st.metodoPago === 'transferencia';
 
-    // Botón de pago dinámico
-    var btnTxt = qs('bwBtnPagarTxt');
-    if (btnTxt) btnTxt.textContent = (esPagoTotal ? 'Pagar total ' : 'Pagar abono ') +
-      fmtCLP(esPagoTotal ? st.total : st.abono) + ' →';
+    if (esTrans) {
+      txt('bwMiniAbono', 'Total: ' + fmtCLP(st.total) + '  ·  Pago por transferencia');
+    } else {
+      var esPagoTotal = st.pagoTipo === 'total';
+      txt('bwMiniAbono', esPagoTotal
+        ? 'Pago total: ' + fmtCLP(st.total)
+        : 'Abono hoy: ' + fmtCLP(st.abono) + '  ·  Total: ' + fmtCLP(st.total));
+
+      // Botón de pago dinámico
+      var btnTxt = qs('bwBtnPagarTxt');
+      if (btnTxt) btnTxt.textContent = (esPagoTotal ? 'Pagar total ' : 'Pagar abono ') +
+        fmtCLP(esPagoTotal ? st.total : st.abono) + ' →';
+    }
+
+    // Mostrar el botón correcto según método
+    var btnPagar = qs('bwPagar');
+    var btnTrans = qs('bwPagarTransferencia');
+    var disclaimer = document.querySelector('.form-disclaimer');
+    if (btnPagar)    btnPagar.hidden    = esTrans;
+    if (btnTrans)    btnTrans.hidden    = !esTrans;
+    if (disclaimer)  disclaimer.hidden  = esTrans;
 
     hide('bwPanel1'); show('bwPanel2');
     stepDot(2);
@@ -344,7 +367,93 @@
 
   function onVolver() {
     hide('bwPanel2'); show('bwPanel1');
+    hide('bwPanelError');   // limpiar error al volver
     stepDot(1);
+  }
+
+  // ── MÉTODO DE PAGO ─────────────────────────────────────────────
+  function onMetodoPagoChange() {
+    var el = document.querySelector('input[name="metodoPago"]:checked');
+    st.metodoPago = el ? el.value : 'mp';
+    var esTrans   = st.metodoPago === 'transferencia';
+    var aviso     = qs('bwTransAviso');
+    var pagoOpts  = qs('bwPagoOpciones');
+    if (aviso)    aviso.hidden    = !esTrans;
+    if (pagoOpts) pagoOpts.hidden = esTrans;
+  }
+
+  // ── PAGO POR TRANSFERENCIA BANCARIA ──────────────────────────
+  function onPagarTransferencia(e) {
+    e.preventDefault();
+    hide('bwPanelError');
+
+    var nombre    = ((qs('bwNombre')   || {}).value || '').trim();
+    var email     = ((qs('bwEmail')    || {}).value || '').trim();
+    var telefono  = ((qs('bwTelefono') || {}).value || '').trim();
+    var personas  = parseInt(((qs('bwPersonas') || {}).value || ''), 10);
+    var mensaje   = ((qs('bwMensaje')  || {}).value || '').trim();
+    var aceptaTyC = (qs('bwAceptaTyC') || {}).checked;
+
+    if (!nombre)   { return showError('bwPanelError', 'Por favor ingresa tu nombre.'); }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return showError('bwPanelError', 'Por favor ingresa un correo válido.'); }
+    if (!telefono) { return showError('bwPanelError', 'Por favor ingresa tu número de teléfono.'); }
+    if (!personas || personas < 1) { return showError('bwPanelError', 'Indica el número de personas.'); }
+    if (st.cabana && personas > st.cabana.capacidad) {
+      return showError('bwPanelError', 'La cabaña ' + st.cabana.nombre + ' tiene capacidad para ' + st.cabana.capacidad + ' personas.'); }
+    if (!aceptaTyC) {
+      return showError('bwPanelError', 'Debes aceptar los términos y condiciones para continuar.'); }
+
+    var btn = qs('bwPagarTransferencia');
+    if (btn) { btn.disabled = true; btn.classList.add('is-sending'); }
+
+    fetch('/api/reserva-transferencia', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        cabana_id: st.cabana.id,
+        check_in:  st.checkIn,
+        check_out: st.checkOut,
+        nombre: nombre,
+        email: email,
+        telefono: telefono || null,
+        personas: personas,
+        mensaje: mensaje || null
+      })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.reserva_id) {
+        var meses = ['enero','febrero','marzo','abril','mayo','junio',
+                     'julio','agosto','septiembre','octubre','noviembre','diciembre'];
+        function fechaLong(s) {
+          var d = new Date(s + 'T12:00:00');
+          return d.getDate() + ' de ' + meses[d.getMonth()] + ' de ' + d.getFullYear();
+        }
+        var msg =
+          '¡Hola Vichuquén Lodge! 🏡\n\n' +
+          'Quiero reservar con transferencia bancaria:\n\n' +
+          '🏡 Cabaña: ' + data.cabana + '\n' +
+          '📅 Llegada: ' + fechaLong(data.check_in) + '\n' +
+          '📅 Salida: ' + fechaLong(data.check_out) + '\n' +
+          '🌙 Noches: ' + data.noches + '\n' +
+          '👥 Personas: ' + data.personas + '\n' +
+          '💰 Total: ' + fmtCLP(data.total) + '\n' +
+          '👤 Nombre: ' + data.nombre + '\n' +
+          '📱 Teléfono: ' + data.telefono + '\n' +
+          '📧 Email: ' + data.email + '\n\n' +
+          'Por favor envíame los datos de transferencia.\n' +
+          '(ID reserva: ' + data.reserva_id + ')';
+        window.location.href = 'https://wa.me/56954177688?text=' + encodeURIComponent(msg);
+      } else {
+        showError('bwPanelError', data.error || 'Error al procesar la solicitud.');
+        if (btn) { btn.disabled = false; btn.classList.remove('is-sending'); }
+      }
+    })
+    .catch(function() {
+      showError('bwPanelError', 'Error de conexión. Por favor intenta de nuevo.');
+      if (btn) { btn.disabled = false; btn.classList.remove('is-sending'); }
+    });
   }
 
   // ── DESCUENTO 20% PARA ≤3 PERSONAS ───────────────────────────

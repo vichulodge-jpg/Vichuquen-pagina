@@ -1,20 +1,20 @@
 /* =============================================================
    Vichuquén Lodge y Marina
-   Paleta premium lago-naturaleza: teal profundo · lino · ámbar
+   Palette from brand kit: navy · cream · sand · lake-blue
    ============================================================= */
 :root {
-  /* Paleta Lake Lodge Premium */
-  --navy:      #1B3D4C;   /* azul-teal profundo del lago */
-  --navy-deep: #0D2230;   /* profundidad máxima */
-  --cream:     #F4F1EB;   /* lino natural cálido */
-  --sand:      #E2D5C2;   /* arena suave */
-  --tan:       #A87840;   /* madera/ámbar rico */
-  --blue:      #5AABB8;   /* reflejo del lago teal */
-  --sky:       #9DCCD8;   /* cielo sobre el agua */
-  --gray:      #5A6B78;   /* pizarra gris-azul */
-  --brown:     #3A1E0C;   /* madera oscura */
-  --taupe:     #9A8068;   /* tierra natural */
-  --ink:       #18262E;   /* texto rico profundo */
+  /* Brand palette */
+  --navy:      #263852;
+  --navy-deep: #1a2738;
+  --cream:     #fff8ef;
+  --sand:      #e8d6b6;
+  --tan:       #cdac87;
+  --blue:      #b6c9da;   /* lago / cisne */
+  --sky:       #c0d9f0;
+  --gray:      #717170;
+  --brown:     #452a1f;
+  --taupe:     #ae9380;
+  --ink:       #272526;
 
   /* Semantic */
   --bg:        var(--cream);
@@ -22,7 +22,7 @@
   --accent:    var(--navy);
   --accent-lt: var(--blue);
   --warm:      var(--tan);
-  --line:      rgba(27, 61, 76, 0.12);
+  --line:      rgba(38, 56, 82, 0.12);
   --radius:    14px;
   --ease:      cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -971,8 +971,24 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    RESERVAS
    ================================================================ */
 .reservas {
-  background: var(--sand);
+  background-color: var(--sand);
+  position: relative;
   padding: clamp(4rem, 8vw, 7rem) 0;
+}
+.reservas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('assets/img/reservas-bg.jpg');
+  background-size: cover;
+  background-position: center 40%;
+  background-attachment: fixed;
+  opacity: 0.4;
+  z-index: 0;
+}
+.reservas > .container {
+  position: relative;
+  z-index: 1;
 }
 .reservas .section-title { color: var(--navy-deep); }
 .reservas-grid {
@@ -1152,11 +1168,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .bw-cal-hint {
   font-size: 0.74rem; color: var(--gray); margin-top: 0.35rem;
 }
+#bwCalContainer {
+  display: flex;
+  justify-content: center;
+}
 #bwCalContainer .flatpickr-calendar {
   position: static !important; display: block !important;
   box-shadow: none !important; border: 1.5px solid var(--line) !important;
   border-radius: 12px !important; margin-top: 0.6rem;
-  background: #fff; width: 100% !important; max-width: 100% !important;
+  background: #fff; width: 100% !important; max-width: 340px !important;
 }
 #bwCalContainer .flatpickr-calendar.open { display: block !important; }
 #bwCalContainer .flatpickr-months { padding: 0.5rem 0; }
@@ -1219,14 +1239,20 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 0.6rem 0.9rem; margin-top: 0.5rem;
 }
 
-/* Volver button */
+/* Volver / Modificar reserva button */
 .bw-back {
-  display: block; margin: 0.8rem auto 0;
-  background: none; border: none;
-  font-size: 0.82rem; color: var(--gray);
-  cursor: pointer; text-decoration: underline;
+  display: block; margin: 1.2rem auto 0;
+  background: none;
+  border: 2px solid var(--navy);
+  border-radius: 100px;
+  padding: 0.75rem 2rem;
+  font-size: 0.88rem; font-weight: 600;
+  color: var(--navy); cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, color 0.2s;
+  width: 100%;
 }
-.bw-back:hover { color: var(--navy); }
+.bw-back:hover { background: var(--navy); color: #fff; }
 
 /* Responsive */
 @media (max-width: 540px) {
@@ -1535,8 +1561,44 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 /* ================================================================
-   NUEVOS ESTILOS — cabana desde, C8, hero mobile, pill note
+   NUEVOS ESTILOS — cabana desde, C8, hero mobile, pill note,
+                    mini-resumen label, transferencia, reservas bg
    ================================================================ */
+
+/* ── Reservas mobile (no fixed) ── */
+@media (max-width: 768px) {
+  .reservas::before { background-attachment: scroll; }
+}
+
+/* ── Mini-resumen etiqueta ESTÁS RESERVANDO ── */
+.bw-mini-label {
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--tan); margin-bottom: 0.15rem;
+}
+.bw-mini-resumen strong {
+  font-size: 1rem; color: var(--navy-deep);
+  letter-spacing: 0.04em;
+}
+
+/* ── Método de pago: transferencia aviso ── */
+.bw-trans-aviso {
+  font-size: 0.78rem; line-height: 1.55;
+  color: #7a5800;
+  background: #fef8e7;
+  border: 1px solid #f0d050;
+  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+  margin-top: 0.6rem;
+}
+
+/* ── Botón Transferencia ── */
+.btn-transferencia {
+  background: #1a6b3a !important;
+}
+.btn-transferencia:hover:not(:disabled) {
+  background: #155530 !important;
+}
 
 /* ── Precio "Desde" en tarjeta cabaña ── */
 .cabana-header-right {

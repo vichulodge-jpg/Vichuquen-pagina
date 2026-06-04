@@ -43,8 +43,14 @@ module.exports = async function handler(req, res) {
     .single();
 
   if (cabErr || !cabana) return res.status(404).json({ error: 'Cabaña no encontrada' });
-  if (numPersonas > cabana.capacidad) {
-    return res.status(400).json({ error: `La cabaña ${cabana.nombre} tiene capacidad para ${cabana.capacidad} personas` });
+  // Capacidades reales (override base de datos si tiene valores incorrectos)
+  const CAPACIDADES_REALES = {
+    'c1-tagua': 5, 'c2-cisne-coscoroba': 5, 'c3-siete-colores': 7,
+    'c4-cisne-cuello-negro': 6, 'c5-huala': 5, 'c6-run-run': 5, 'c7-pitio': 5
+  };
+  const capReal = CAPACIDADES_REALES[cabana_id] || cabana.capacidad;
+  if (numPersonas > capReal) {
+    return res.status(400).json({ error: `La cabaña ${cabana.nombre} tiene capacidad para ${capReal} personas` });
   }
 
   // ── Determinar precio día a día (maneja temporadas mixtas) ───

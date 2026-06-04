@@ -773,7 +773,7 @@
               <div class="paso-num">03</div>
               <div class="paso-text">
                 <strong>¡Confirmación inmediata!</strong>
-                <p>Recibes el comprobante por email. El saldo restante se paga al llegar.</p>
+                <p>Recibes el comprobante por email.</p>
               </div>
             </div>
           </div>
@@ -781,7 +781,7 @@
             <p class="pago-title">Métodos de pago</p>
             <div class="pago-metodos">
               <span>MercadoPago</span>
-              <span>WebPay</span>
+              <span>Transferencia Bancaria</span>
               <span>Tarjeta crédito / débito</span>
             </div>
             <p class="pago-nota">Cancelación gratuita hasta 15 días antes del arribo.</p>
@@ -869,6 +869,32 @@
               </label>
             </div>
 
+            <!-- Selector método de pago -->
+            <div id="bwMetodoPago" hidden>
+              <p class="bw-pago-titulo" style="margin-top:0.75rem">Método de pago</p>
+              <label class="bw-pago-opt">
+                <input type="radio" name="metodoPago" value="mp" checked />
+                <span class="bw-pago-opt-inner">
+                  <span class="bw-pago-opt-label">
+                    <strong>MercadoPago</strong>
+                    <small>Tarjeta crédito / débito · Confirmación inmediata</small>
+                  </span>
+                </span>
+              </label>
+              <label class="bw-pago-opt">
+                <input type="radio" name="metodoPago" value="transferencia" />
+                <span class="bw-pago-opt-inner">
+                  <span class="bw-pago-opt-label">
+                    <strong>Transferencia Bancaria</strong>
+                    <small>Te enviamos los datos por WhatsApp</small>
+                  </span>
+                </span>
+              </label>
+              <p class="bw-trans-aviso" id="bwTransAviso" hidden>
+                ⚠️ Las fechas quedan bloqueadas por <strong>5 minutos</strong> desde que inicias la solicitud. Si no se concreta la transferencia, se liberan automáticamente.
+              </p>
+            </div>
+
             <button class="btn-submit" id="bwContinuar" disabled>
               <span class="btn-text">Continuar →</span>
             </button>
@@ -878,6 +904,7 @@
           <div class="bw-panel" id="bwPanel2" hidden>
 
             <div class="bw-mini-resumen">
+              <span class="bw-mini-label">Estás reservando</span>
               <strong id="bwMiniCabana">—</strong>
               <span id="bwMiniFechas">—</span>
               <span id="bwMiniAbono">—</span>
@@ -924,9 +951,13 @@
               <span class="btn-text" id="bwBtnPagarTxt">Pagar con MercadoPago →</span>
               <span class="btn-sending" aria-hidden="true">Preparando reserva…</span>
             </button>
+            <button class="btn-submit btn-transferencia" id="bwPagarTransferencia" hidden>
+              <span class="btn-text">Reservar con Transferencia →</span>
+              <span class="btn-sending" aria-hidden="true">Preparando reserva…</span>
+            </button>
             <p class="form-disclaimer">Pago 100% seguro a través de MercadoPago Chile.</p>
 
-            <button type="button" class="bw-back" id="bwVolver">← Cambiar fechas</button>
+            <button type="button" class="bw-back" id="bwVolver">← Modificar reserva</button>
           </div>
 
         </div>
