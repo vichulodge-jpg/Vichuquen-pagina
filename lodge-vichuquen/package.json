@@ -2,6 +2,7 @@
   "name": "vichuquen-lodge",
   "version": "1.0.0",
   "private": true,
+  "engines": { "node": "18.x" },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
     "mercadopago": "^2.0.0"
