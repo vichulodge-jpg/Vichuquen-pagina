@@ -24,6 +24,7 @@
     safe(initReveals,         "reveals");
     safe(initCounters,        "counters");
     safe(initTyC,             "tyc");
+    safe(initCabanaLinks,     "cabanaLinks");
   }
 
   /* ── SPLASH ─────────────────────────────────────────────── */
@@ -310,6 +311,31 @@
 
     goTo(0);
     startAuto();
+  }
+
+  /* ── PRESELECCIÓN DE CABAÑA DESDE TARJETA ───────────────── */
+  function initCabanaLinks() {
+    var cabMap = {
+      c1: 'c1-tagua',
+      c2: 'c2-cisne-coscoroba',
+      c3: 'c3-siete-colores',
+      c4: 'c4-cisne-cuello-negro',
+      c5: 'c5-huala',
+      c6: 'c6-run-run',
+      c7: 'c7-pitio'
+    };
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.btn-cabana');
+      if (!btn) return;
+      var article = btn.closest('article[id]');
+      if (!article) return;
+      var cabId = cabMap[article.id];
+      if (!cabId) return;
+      var sel = document.getElementById('bwCabana');
+      if (!sel) return;
+      sel.value = cabId;
+      sel.dispatchEvent(new Event('change'));
+    });
   }
 
   /* ── MODAL TÉRMINOS Y CONDICIONES ────────────────────────── */

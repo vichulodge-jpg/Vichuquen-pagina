@@ -651,7 +651,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: relative;
   z-index: 1;
 }
-.cabanas .section-title { color: var(--navy-deep); }
+.cabanas .section-title { color: var(--navy-deep); max-width: none; }
 .cabanas-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
