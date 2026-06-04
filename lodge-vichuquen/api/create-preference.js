@@ -68,6 +68,12 @@ module.exports = async function handler(req, res) {
     cursor.setDate(cursor.getDate() + 1);
   }
 
+  // Descuento 20% para ≤3 personas en cabañas elegibles
+  const DESCUENTO_CABANAS = ['c1-tagua','c2-cisne-coscoroba','c5-huala','c6-run-run','c7-pitio'];
+  if (DESCUENTO_CABANAS.includes(cabana_id) && numPersonas <= 3) {
+    total = Math.round(total * 0.8);
+  }
+
   const esPagoTotal = pago_tipo === 'total';
   const abono = esPagoTotal ? total : Math.ceil(total * 0.5 / 1000) * 1000;
   const precioNoche = Math.round(total / noches);

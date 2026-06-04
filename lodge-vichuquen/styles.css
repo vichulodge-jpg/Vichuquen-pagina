@@ -1,20 +1,20 @@
 /* =============================================================
    Vichuquén Lodge y Marina
-   Palette from brand kit: navy · cream · sand · lake-blue
+   Paleta premium lago-naturaleza: teal profundo · lino · ámbar
    ============================================================= */
 :root {
-  /* Brand palette */
-  --navy:      #263852;
-  --navy-deep: #1a2738;
-  --cream:     #fff8ef;
-  --sand:      #e8d6b6;
-  --tan:       #cdac87;
-  --blue:      #b6c9da;   /* lago / cisne */
-  --sky:       #c0d9f0;
-  --gray:      #717170;
-  --brown:     #452a1f;
-  --taupe:     #ae9380;
-  --ink:       #272526;
+  /* Paleta Lake Lodge Premium */
+  --navy:      #1B3D4C;   /* azul-teal profundo del lago */
+  --navy-deep: #0D2230;   /* profundidad máxima */
+  --cream:     #F4F1EB;   /* lino natural cálido */
+  --sand:      #E2D5C2;   /* arena suave */
+  --tan:       #A87840;   /* madera/ámbar rico */
+  --blue:      #5AABB8;   /* reflejo del lago teal */
+  --sky:       #9DCCD8;   /* cielo sobre el agua */
+  --gray:      #5A6B78;   /* pizarra gris-azul */
+  --brown:     #3A1E0C;   /* madera oscura */
+  --taupe:     #9A8068;   /* tierra natural */
+  --ink:       #18262E;   /* texto rico profundo */
 
   /* Semantic */
   --bg:        var(--cream);
@@ -22,7 +22,7 @@
   --accent:    var(--navy);
   --accent-lt: var(--blue);
   --warm:      var(--tan);
-  --line:      rgba(38, 56, 82, 0.12);
+  --line:      rgba(27, 61, 76, 0.12);
   --radius:    14px;
   --ease:      cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1532,5 +1532,68 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: var(--navy); font-size: inherit;
   font-weight: 600; text-decoration: underline;
   cursor: pointer; font-family: inherit;
+}
+
+/* ================================================================
+   NUEVOS ESTILOS — cabana desde, C8, hero mobile, pill note
+   ================================================================ */
+
+/* ── Precio "Desde" en tarjeta cabaña ── */
+.cabana-header-right {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.2rem;
+}
+.cabana-desde {
+  font-size: 0.78rem; font-weight: 700;
+  color: var(--navy); letter-spacing: 0.01em;
+}
+.cabana-desde-consultar { color: var(--tan); }
+
+/* ── C8 no disponible ── */
+.cabana-no-disponible .cabana-carousel { opacity: 0.92; }
+.cabana-badge-complejo {
+  background: linear-gradient(135deg, var(--tan), #8a6030) !important;
+  color: #fff !important;
+  font-size: 0.6rem !important;
+}
+.btn-cabana-consultar {
+  border-color: var(--tan) !important;
+  color: var(--tan) !important;
+}
+@media (hover:hover) {
+  .btn-cabana-consultar:hover {
+    background: var(--tan) !important; color: #fff !important;
+  }
+}
+
+/* ── Pill precio — nota descuento ── */
+.pill-content { display: flex; flex-direction: column; align-items: flex-start; gap: 0.1rem; }
+.pill-note {
+  font-size: 0.68rem; font-weight: 400;
+  opacity: 0.82; letter-spacing: 0;
+}
+
+/* ── Botón Reservar mobile en hero ── */
+.hero-mobile-reserva { display: none; }
+@media (max-width: 768px) {
+  .hero-scroll-hint {
+    flex-direction: row;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .hero-scroll-hint .scroll-line { display: none; }
+  .hero-mobile-reserva {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.4rem;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--navy);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    text-decoration: none;
+    backdrop-filter: blur(4px);
+  }
 }
 .bw-tyc-link:hover { color: var(--tan); }

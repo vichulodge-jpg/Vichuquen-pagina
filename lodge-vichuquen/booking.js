@@ -2,6 +2,9 @@
   'use strict';
 
   // ── DATOS DE CABAÑAS ─────────────────────────────────────────
+  // Cabañas con 20% descuento para ≤3 personas en temporada baja
+  var DESCUENTO_CABANAS = ['c1-tagua','c2-cisne-coscoroba','c5-huala','c6-run-run','c7-pitio'];
+
   var CABANAS = [
     { id: 'c1-tagua',              nombre: 'Tagua',              capacidad: 5, alta: 119000, baja: 99000 },
     { id: 'c2-cisne-coscoroba',    nombre: 'Cisne Coscoroba',    capacidad: 5, alta: 119000, baja: 99000 },
@@ -53,6 +56,7 @@
     noches:    0,
     precio:    0,
     total:     0,
+    baseTotal: 0,   // total antes de aplicar descuento
     abono:     0,
     pagoHoy:   0,   // monto que se cobra hoy según opción elegida
     pagoTipo:  'abono', // 'abono' | 'total'
@@ -76,6 +80,9 @@
 
     var selCab = qs('bwCabana');
     if (selCab) selCab.addEventListener('change', onCabanaChange);
+
+    var persEl = qs('bwPersonas');
+    if (persEl) persEl.addEventListener('input', aplicarDescuento);
 
     var btnCont = qs('bwContinuar');
     if (btnCont) btnCont.addEventListener('click', onContinuar);
@@ -248,10 +255,11 @@
 
     var abono = Math.ceil(total * 0.5 / 1000) * 1000;
 
-    st.noches = noches;
-    st.precio = Math.round(total / noches);
-    st.total  = total;
-    st.abono  = abono;
+    st.noches     = noches;
+    st.precio     = Math.round(total / noches);
+    st.total      = total;
+    st.baseTotal  = total;  // guardar antes de posible descuento
+    st.abono      = abono;
 
     // Descripción: precio mixto o uniforme
     var desc;
@@ -337,6 +345,30 @@
   function onVolver() {
     hide('bwPanel2'); show('bwPanel1');
     stepDot(1);
+  }
+
+  // ── DESCUENTO 20% PARA ≤3 PERSONAS ───────────────────────────
+  function aplicarDescuento() {
+    if (!st.cabana || !st.baseTotal) return;
+    var persEl = qs('bwPersonas');
+    if (!persEl) return;
+    var personas = parseInt(persEl.value, 10);
+    var elegible = DESCUENTO_CABANAS.indexOf(st.cabana.id) !== -1;
+    var conDesc   = elegible && !isNaN(personas) && personas >= 1 && personas <= 3;
+
+    st.total  = conDesc ? Math.round(st.baseTotal * 0.8) : st.baseTotal;
+    st.abono  = Math.ceil(st.total * 0.5 / 1000) * 1000;
+    var esPagoTotal = st.pagoTipo === 'total';
+    st.pagoHoy = esPagoTotal ? st.total : st.abono;
+
+    var descTag = conDesc ? ' · 🏷️ -20% (≤3 pax)' : '';
+    txt('bwMiniAbono', esPagoTotal
+      ? 'Total: ' + fmtCLP(st.total) + descTag
+      : 'Abono hoy: ' + fmtCLP(st.abono) + '  ·  Total: ' + fmtCLP(st.total) + descTag);
+
+    var btnTxt = qs('bwBtnPagarTxt');
+    if (btnTxt) btnTxt.textContent =
+      (esPagoTotal ? 'Pagar total ' : 'Pagar abono ') + fmtCLP(st.pagoHoy) + ' →';
   }
 
   function stepDot(n) {
