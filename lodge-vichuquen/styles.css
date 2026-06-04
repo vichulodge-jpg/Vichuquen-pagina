@@ -864,7 +864,47 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .exp-card p { font-size: 0.85rem; color: rgba(255,255,255,.55); line-height: 1.65; }
 
 @media (max-width: 1100px) { .exp-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 540px) { .exp-grid { grid-template-columns: 1fr; } }
+
+/* ── Experiencias mobile: tabla 3×3, sin scroll ── */
+@media (max-width: 540px) {
+  .experiencias {
+    padding: 1.25rem 0 !important;
+  }
+  .experiencias-inner .container {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  .experiencias .section-header {
+    margin-bottom: 0.75rem;
+  }
+  .experiencias .section-kicker {
+    font-size: 0.6rem;
+    margin-bottom: 0.2rem;
+  }
+  .experiencias .section-title {
+    font-size: 1.05rem !important;
+    line-height: 1.2;
+  }
+  .exp-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .exp-card {
+    padding: 0.65rem 0.5rem;
+  }
+  .exp-num {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+  .exp-card h3 {
+    font-size: 0.66rem;
+    line-height: 1.25;
+    margin-bottom: 0;
+    letter-spacing: 0;
+  }
+  .exp-card p {
+    display: none;
+  }
+}
 
 /* ================================================================
    GALERÍA — CARRUSEL
