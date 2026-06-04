@@ -3,13 +3,14 @@
 
   // ── DATOS DE CABAÑAS ─────────────────────────────────────────
   var CABANAS = [
-    { id: 'c1-tagua',              nombre: 'Tagua',              capacidad: 4, alta: 119000, baja: 99000 },
-    { id: 'c2-cisne-coscoroba',    nombre: 'Cisne Coscoroba',    capacidad: 4, alta: 119000, baja: 99000 },
-    { id: 'c3-siete-colores',      nombre: 'Siete Colores',      capacidad: 6, alta: 139000, baja: 119000 },
-    { id: 'c4-cisne-cuello-negro', nombre: 'Cisne Cuello Negro', capacidad: 4, alta: 129000, baja: 109000 },
-    { id: 'c5-huala',              nombre: 'Huala',              capacidad: 4, alta: 119000, baja: 99000 },
-    { id: 'c6-run-run',            nombre: 'Run Run',            capacidad: 4, alta: 119000, baja: 99000 },
-    { id: 'c7-pitio',              nombre: 'Pitío',              capacidad: 4, alta: 119000, baja: 99000 }
+    { id: 'c1-tagua',              nombre: 'Tagua',              capacidad: 5, alta: 119000, baja: 99000 },
+    { id: 'c2-cisne-coscoroba',    nombre: 'Cisne Coscoroba',    capacidad: 5, alta: 119000, baja: 99000 },
+    { id: 'c3-siete-colores',      nombre: 'Siete Colores',      capacidad: 7, alta: 139000, baja: 119000 },
+    { id: 'c4-cisne-cuello-negro', nombre: 'Cisne Cuello Negro', capacidad: 6, alta: 129000, baja: 109000 },
+    { id: 'c5-huala',              nombre: 'Huala',              capacidad: 5, alta: 119000, baja: 99000 },
+    { id: 'c6-run-run',            nombre: 'Run Run',            capacidad: 5, alta: 119000, baja: 99000 },
+    { id: 'c7-pitio',              nombre: 'Pitío',              capacidad: 5, alta: 119000, baja: 99000 },
+    { id: 'c8-garza-cuca',         nombre: 'Garza Cuca',         capacidad: 5, alta: 119000, baja: 99000 }
   ];
 
   // ── TEMPORADAS ALTA (sincronizar con supabase/setup.sql) ──────
