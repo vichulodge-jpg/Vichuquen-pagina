@@ -850,11 +850,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (hover:hover) {
   .exp-card:hover { background: rgba(255,255,255,.04); }
 }
+.exp-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
 .exp-num {
   font-family: "Cormorant Garamond", serif;
   font-size: 2rem; font-weight: 600; line-height: 1;
   color: rgba(182,201,218,.25);
-  margin-bottom: 1rem;
+}
+.exp-icon {
+  width: 22px; height: 22px;
+  color: rgba(255,255,255,.32);
+  flex-shrink: 0;
 }
 .exp-card h3 {
   font-family: "Cormorant Garamond", serif;
