@@ -14,14 +14,16 @@
   }
 
   function boot() {
-    safe(initSplash,     "splash");
-    safe(initNav,        "nav");
-    safe(initMobileMenu, "mobileMenu");
-    safe(initHero,       "hero");
-    safe(initCarousels,  "carousels");
-    safe(initExtras,     "extras");
-    safe(initReveals,    "reveals");
-    safe(initCounters,   "counters");
+    safe(initSplash,          "splash");
+    safe(initNav,             "nav");
+    safe(initMobileMenu,      "mobileMenu");
+    safe(initHero,            "hero");
+    safe(initCarousels,       "carousels");
+    safe(initGalleryCarousel, "galleryCarousel");
+    safe(initExtras,          "extras");
+    safe(initReveals,         "reveals");
+    safe(initCounters,        "counters");
+    safe(initTyC,             "tyc");
   }
 
   /* ── SPLASH ─────────────────────────────────────────────── */
@@ -207,7 +209,7 @@
 
     // GSAP stagger for grids
     if (window.gsap && window.ScrollTrigger) {
-      [".cabanas-grid", ".exp-grid", ".galeria-grid"].forEach(function (sel) {
+      [".cabanas-grid", ".exp-grid"].forEach(function (sel) {
         var parent = qs(sel);
         if (!parent) return;
         var children = qsa(":scope > *", parent);
@@ -250,6 +252,89 @@
       });
     }, { threshold: 0.6 });
     nums.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ── CARRUSEL GALERÍA ────────────────────────────────────── */
+  function initGalleryCarousel() {
+    var carousel = document.getElementById("galCarousel");
+    if (!carousel) return;
+
+    var track   = document.getElementById("galTrack");
+    var counter = document.getElementById("galCounter");
+    var btnPrev = document.getElementById("galPrev");
+    var btnNext = document.getElementById("galNext");
+    var thumbs  = qsa(".gal-thumb", carousel);
+    var total   = qsa(".gal-slide", carousel).length;
+    var current = 0;
+    var autoTimer = null;
+
+    function goTo(idx) {
+      idx = Math.max(0, Math.min(idx, total - 1));
+      current = idx;
+      track.style.transform = "translateX(-" + (idx * 100) + "%)";
+      if (counter) counter.textContent = (idx + 1) + " / " + total;
+      if (btnPrev) btnPrev.disabled = idx === 0;
+      if (btnNext) btnNext.disabled = idx === total - 1;
+      thumbs.forEach(function (t, i) { t.classList.toggle("is-active", i === idx); });
+      var active = thumbs[idx];
+      if (active && active.parentElement) {
+        var p = active.parentElement;
+        p.scrollTo({ left: active.offsetLeft - p.offsetWidth / 2 + active.offsetWidth / 2, behavior: "smooth" });
+      }
+    }
+
+    function startAuto() {
+      stopAuto();
+      autoTimer = setInterval(function () { goTo(current + 1 >= total ? 0 : current + 1); }, 5000);
+    }
+    function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+
+    if (btnPrev) btnPrev.addEventListener("click", function () { stopAuto(); goTo(current - 1); });
+    if (btnNext) btnNext.addEventListener("click", function () { stopAuto(); goTo(current + 1); });
+    thumbs.forEach(function (t, i) { t.addEventListener("click", function () { stopAuto(); goTo(i); }); });
+
+    // Swipe touch
+    var stage = qs(".gal-stage", carousel);
+    var tx = 0;
+    if (stage) {
+      stage.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; stopAuto(); }, { passive: true });
+      stage.addEventListener("touchend",   function (e) {
+        var diff = tx - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 45) goTo(diff > 0 ? current + 1 : current - 1);
+      }, { passive: true });
+    }
+
+    // Pausa en hover
+    carousel.addEventListener("mouseenter", stopAuto);
+    carousel.addEventListener("mouseleave", startAuto);
+
+    goTo(0);
+    startAuto();
+  }
+
+  /* ── MODAL TÉRMINOS Y CONDICIONES ────────────────────────── */
+  function initTyC() {
+    var modal    = document.getElementById("tycModal");
+    var overlay  = document.getElementById("tycOverlay");
+    var closeBtn = document.getElementById("tycCloseBtn");
+    var openBtn  = document.getElementById("bwVerTyC");
+    var aceptar  = document.getElementById("tycAceptarBtn");
+    var checkbox = document.getElementById("bwAceptaTyC");
+    if (!modal) return;
+
+    function openModal() { modal.hidden = false; document.body.style.overflow = "hidden"; }
+    function closeModal() { modal.hidden = true; document.body.style.overflow = ""; }
+
+    if (openBtn)  openBtn.addEventListener("click",  openModal);
+    if (overlay)  overlay.addEventListener("click",  closeModal);
+    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+    if (aceptar)  aceptar.addEventListener("click",  function () {
+      if (checkbox) checkbox.checked = true;
+      closeModal();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !modal.hidden) closeModal();
+    });
   }
 
 })();;

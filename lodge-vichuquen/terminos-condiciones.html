@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Términos y Condiciones — Vichuquén Lodge y Marina</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+    :root {
+      --navy: #263852; --navy-deep: #1a2738; --cream: #fff8ef;
+      --sand: #e8d6b6; --tan: #cdac87; --gray: #717170; --ink: #272526;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif; font-size: 10pt;
+      color: var(--ink); background: #fff;
+      padding: 2cm 2.5cm;
+      max-width: 900px; margin: 0 auto;
+    }
+
+    /* Encabezado */
+    .doc-header {
+      text-align: center;
+      border-bottom: 2px solid var(--navy);
+      padding-bottom: 1.5rem; margin-bottom: 2rem;
+    }
+    .doc-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22pt; font-weight: 600; color: var(--navy);
+      line-height: 1.2; margin-bottom: 0.3rem;
+    }
+    .doc-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13pt; font-weight: 400; color: var(--tan);
+      font-style: italic; margin-bottom: 1rem;
+    }
+    .doc-header .doc-intro {
+      font-size: 9.5pt; color: var(--gray); max-width: 65ch; margin: 0 auto;
+      line-height: 1.6; font-style: italic;
+    }
+    .doc-header .doc-version {
+      margin-top: 0.75rem; font-size: 8.5pt; color: var(--tan);
+      font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+
+    /* Secciones */
+    section { margin-bottom: 2rem; }
+    h3 {
+      font-size: 8.5pt; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--tan); margin-bottom: 0.7rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid var(--sand);
+    }
+    h3 .num {
+      display: inline-block; width: 1.6rem;
+      color: var(--navy);
+    }
+
+    p { font-size: 9.5pt; color: var(--gray); line-height: 1.7; margin-bottom: 0.5rem; }
+    strong { color: var(--ink); }
+
+    ul, ol {
+      padding-left: 1.4rem;
+      display: flex; flex-direction: column; gap: 0.35rem;
+      margin-bottom: 0.6rem;
+    }
+    li { font-size: 9.5pt; color: var(--gray); line-height: 1.6; }
+
+    /* Tabla políticas de cancelación */
+    .cancel-table {
+      width: 100%; border-collapse: collapse;
+      margin: 0.75rem 0 1rem; font-size: 9pt;
+    }
+    .cancel-table thead tr { background: var(--navy); }
+    .cancel-table th {
+      padding: 0.5rem 0.75rem; text-align: left;
+      color: #fff; font-weight: 600; font-size: 8.5pt;
+    }
+    .cancel-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--sand);
+      vertical-align: top; color: var(--gray);
+    }
+    .cancel-table tr:nth-child(even) td { background: #fdf8f2; }
+    .cancel-table tr:last-child td { border-bottom: none; }
+    .cancel-table .devolucion { font-weight: 600; color: var(--ink); }
+    .tag-verde { background: #dcfce7; color: #15803d; padding: 1px 6px; border-radius: 4px; font-size: 8pt; }
+    .tag-amarillo { background: #fef9c3; color: #854d0e; padding: 1px 6px; border-radius: 4px; font-size: 8pt; }
+    .tag-rojo { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 4px; font-size: 8pt; }
+
+    /* Resumen destacado */
+    .destacado {
+      background: #fdf8f2;
+      border-left: 3px solid var(--navy);
+      border-radius: 0 8px 8px 0;
+      padding: 0.75rem 1rem;
+      margin: 0.5rem 0;
+    }
+    .destacado p { margin-bottom: 0; }
+
+    /* Horarios */
+    .horarios-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+    }
+    .horario-item {
+      background: #fdf8f2; border-radius: 6px;
+      padding: 0.6rem 0.8rem;
+    }
+    .horario-item strong { display: block; font-size: 9pt; color: var(--navy); margin-bottom: 2px; }
+    .horario-item span { font-size: 9pt; color: var(--gray); }
+
+    /* Firma */
+    .firma-wrap {
+      margin-top: 3rem;
+      border-top: 1px solid var(--sand);
+      padding-top: 1.5rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+    }
+    .firma-box { text-align: center; }
+    .firma-linea {
+      border-bottom: 1px solid var(--ink);
+      margin-bottom: 0.4rem; height: 2rem;
+    }
+    .firma-label { font-size: 8pt; color: var(--gray); }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 2rem; text-align: center;
+      font-size: 8pt; color: var(--tan);
+      border-top: 1px solid var(--sand); padding-top: 0.75rem;
+    }
+
+    @media print {
+      body { padding: 1.5cm 2cm; }
+      .firma-wrap { page-break-inside: avoid; }
+      h3 { page-break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="doc-header">
+    <h1>Términos, Condiciones y Políticas de Reserva</h1>
+    <h2>Vichuquén Lodge y Marina</h2>
+    <p class="doc-intro">
+      Al realizar el pago de su reserva a través de nuestro sitio web o por cualquier otro medio,
+      usted declara haber leído, entendido y aceptado expresamente las siguientes condiciones de
+      estadía, cancelación y convivencia.
+    </p>
+    <p class="doc-version">Versión 2.0 — Junio 2026</p>
+  </div>
+
+  <!-- SECCIÓN 1: CANCELACIÓN -->
+  <section>
+    <h3><span class="num">1.</span> Políticas de Cancelación y Devolución</h3>
+
+    <table class="cancel-table">
+      <thead>
+        <tr>
+          <th>Anticipación al check-in</th>
+          <th>Porcentaje devuelto</th>
+          <th>Condiciones adicionales</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>15 días o más de anticipación</strong></td>
+          <td class="devolucion"><span class="tag-verde">100% devuelto</span></td>
+          <td>Devolución íntegra del total pagado</td>
+        </tr>
+        <tr>
+          <td><strong>Entre 14 y 6 días antes</strong></td>
+          <td class="devolucion"><span class="tag-amarillo">80% devuelto</span></td>
+          <td>Se retiene un 20% por concepto de bloqueo de inventario y gastos operacionales</td>
+        </tr>
+        <tr>
+          <td><strong>5 días o menos antes del ingreso</strong></td>
+          <td class="devolucion"><span class="tag-rojo">Sin devolución</span></td>
+          <td>El huésped conserva el derecho a reprogramar su estadía por una única vez (ver condiciones)</td>
+        </tr>
+        <tr>
+          <td><strong>No show</strong> (no presentación sin aviso)</td>
+          <td class="devolucion"><span class="tag-rojo">Sin devolución</span></td>
+          <td>Pérdida total del monto pagado, sin derecho a reprogramar</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="destacado">
+      <p><strong>Salida anticipada por fuerza mayor:</strong> Si el huésped debe retirarse antes de la fecha pactada por razones de fuerza mayor debidamente acreditadas, no habrá devolución en efectivo. Sin embargo, tendrá derecho a reprogramar los días no utilizados.</p>
+    </div>
+
+    <p style="margin-top:0.7rem"><strong>Condiciones de toda reprogramación:</strong></p>
+    <ul>
+      <li>Plazo máximo de vigencia: <strong>6 meses</strong> desde la fecha de la reserva original.</li>
+      <li>El uso de las nuevas fechas queda sujeto a disponibilidad y a reajustes tarifarios según la temporada elegida.</li>
+      <li>Solo se puede reprogramar por <strong>una única vez</strong>.</li>
+    </ul>
+  </section>
+
+  <!-- SECCIÓN 2: CAPACIDAD -->
+  <section>
+    <h3><span class="num">2.</span> Capacidad y Huéspedes Adicionales</h3>
+    <ul>
+      <li>Cada cabaña se reserva para el número de huéspedes indicado en la compra. <strong>No está permitido superar la capacidad máxima</strong> de la cabaña bajo ninguna circunstancia.</li>
+      <li><strong>Pasajero adicional:</strong> Si la cabaña lo permite, cada persona extra tiene un valor de <strong>$10.000 por noche</strong>. Es condición obligatoria que todo pasajero adicional sea informado y pagado <em>antes</em> de la fecha de llegada. No se procesarán pasajeros adicionales el día del ingreso.</li>
+      <li><strong>Visitas externas:</strong> No se permite el ingreso de visitas sin autorización previa de la administración. Las visitas <strong>no pueden pernoctar</strong> en el complejo.</li>
+      <li><strong>Tarifas con descuento por capacidad reducida:</strong> La tarifa queda congelada para el número de personas declarado. Si se presentan personas extras no coordinadas previamente, no se permitirá su acceso, sin derecho a reclamo ni devolución.</li>
+    </ul>
+  </section>
+
+  <!-- SECCIÓN 3: MASCOTAS -->
+  <section>
+    <h3><span class="num">3.</span> Política de Mascotas (Complejo Pet-Friendly)</h3>
+    <ul>
+      <li>Se permite <strong>1 mascota mediana</strong> por cabaña sin costo adicional.</li>
+      <li>Una segunda mascota está sujeta a autorización previa y tiene un costo adicional de <strong>$8.000 por noche</strong>.</li>
+      <li>Las mascotas <strong>no pueden subir a camas ni sillones</strong>. Deben estar siempre bajo supervisión y sus dueños deben recoger obligatoriamente sus desechos en todas las áreas del complejo.</li>
+    </ul>
+  </section>
+
+  <!-- SECCIÓN 4: REGLAMENTO -->
+  <section>
+    <h3><span class="num">4.</span> Reglamento de Uso y Convivencia</h3>
+
+    <p><strong>Entorno protegido:</strong> El recinto colinda con un humedal declarado Reserva Natural. Está estrictamente prohibido dañar la flora y fauna, encender fogatas fuera de zonas habilitadas, y arrojar toallitas húmedas, papeles u objetos higiénicos al interior de los sanitarios (WC).</p>
+
+    <div class="destacado" style="margin: 0.6rem 0;">
+      <p><strong>Agua potable:</strong> El agua proveniente de los grifos de las cabañas NO es apta para consumo humano (proviene de pozo subterráneo). La administración provee bidones de agua purificada dentro de la cabaña, que serán repuestos sin costo a medida que se agoten.</p>
+    </div>
+
+    <p><strong>Ropa de cama y toallas:</strong></p>
+    <ul>
+      <li>Las cabañas se entregan con camas completamente vestidas (sábanas, almohadas y plumón incluidos).</li>
+      <li>Las cabañas <strong>NO incluyen toallas de baño</strong>. El complejo provee únicamente 1 toalla de mano por baño. <strong>Cada huésped debe traer sus propias toallas</strong> de baño y para el lago.</li>
+    </ul>
+
+    <p style="margin-top:0.5rem"><strong>Prohibiciones dentro de la cabaña:</strong></p>
+    <ul>
+      <li><strong>Prohibido fumar</strong> en el interior. En terrazas, las colillas deben apagarse en ceniceros habilitados.</li>
+      <li><strong>Prohibido freír</strong> en el interior. Si necesita freír, solicite a la administración una cocinilla portátil y balón de gas para uso exclusivo en el exterior (sin costo). Infringir esta norma puede resultar en solicitud de salida o multa por higienización.</li>
+      <li>Prohibido el uso de calefactores o electrodomésticos externos de alta potencia.</li>
+    </ul>
+
+    <p style="margin-top:0.5rem"><strong>Horarios de silencio:</strong> Se exige mantener niveles de ruido moderados y música apagada entre las <strong>23:00 y las 10:00 hrs</strong>. No se permiten fiestas.</p>
+
+    <p><strong>Daños e inventario:</strong> El huésped es responsable por la pérdida, rotura o daño de objetos del inventario de la cabaña. Los valores de restitución se detallan en el inventario impreso dentro de la carpeta de la cabaña. La pérdida de llaves implica una multa equivalente al costo de instalación de una nueva cerradura.</p>
+
+    <p><strong>Suministros:</strong> El complejo no se hace responsable por interrupciones en electricidad, agua o internet causadas por factores externos o climáticos.</p>
+  </section>
+
+  <!-- SECCIÓN 5: HORARIOS -->
+  <section>
+    <h3><span class="num">5.</span> Horarios de Entrada, Salida y Servicios Extendidos</h3>
+
+    <div class="horarios-grid">
+      <div class="horario-item">
+        <strong>Check-in regular</strong>
+        <span>Desde las <strong>15:00 hrs</strong><br>Recepción presencial hasta las 22:00 hrs</span>
+      </div>
+      <div class="horario-item">
+        <strong>Check-out regular</strong>
+        <span>Hasta las <strong>12:00 hrs</strong><br>Con revisión de inventario antes de la salida</span>
+      </div>
+      <div class="horario-item">
+        <strong>Check-in autónomo (después 22:00)</strong>
+        <span>Requiere coordinación previa obligatoria con al menos <strong>24 hrs de anticipación</strong></span>
+      </div>
+      <div class="horario-item">
+        <strong>Early check-in / Late check-out</strong>
+        <span><strong>$35.000 c/u</strong><br>Sujeto a disponibilidad. Desde 10:00 / Hasta 17:00</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIRMA -->
+  <div class="firma-wrap">
+    <div class="firma-box">
+      <div class="firma-linea"></div>
+      <p class="firma-label">Firma del Huésped</p>
+      <p class="firma-label" style="margin-top:0.2rem">Nombre: ___________________________</p>
+      <p class="firma-label">RUT: ___________________________</p>
+      <p class="firma-label">Fecha: ___________________________</p>
+    </div>
+    <div class="firma-box">
+      <div class="firma-linea"></div>
+      <p class="firma-label">Vichuquén Lodge y Marina</p>
+      <p class="firma-label" style="margin-top:0.2rem">Representante: ___________________________</p>
+      <p class="firma-label">Fecha: ___________________________</p>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    Vichuquén Lodge y Marina — Lago Vichuquén, Licantén, Región del Maule, Chile<br>
+    reservas@vichuquenlodgeymarina.cl — www.vichuquenlodgeymarina.cl
+  </div>
+
+</body>
+</html>

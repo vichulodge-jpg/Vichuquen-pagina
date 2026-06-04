@@ -13,7 +13,7 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { cabana_id, check_in, check_out, nombre, email, telefono, personas, mensaje } = req.body || {};
+  const { cabana_id, check_in, check_out, nombre, email, telefono, personas, mensaje, pago_tipo } = req.body || {};
 
   // ── Validación básica ────────────────────────────────────────
   if (!cabana_id || !check_in || !check_out || !nombre || !email || !personas) {
@@ -47,17 +47,30 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: `La cabaña ${cabana.nombre} tiene capacidad para ${cabana.capacidad} personas` });
   }
 
-  // ── Determinar precio según temporada ────────────────────────
+  // ── Determinar precio día a día (maneja temporadas mixtas) ───
   const { data: temporadas } = await supabase
     .from('temporadas_alta')
     .select('fecha_inicio, fecha_fin')
-    .lte('fecha_inicio', check_in)
+    .lte('fecha_inicio', check_out)
     .gte('fecha_fin', check_in);
 
-  const esAlta = (temporadas || []).length > 0;
-  const precioNoche = esAlta ? cabana.precio_alta : cabana.precio_baja;
-  const total = noches * precioNoche;
-  const abono = Math.ceil(total * 0.5 / 1000) * 1000;
+  const tempArr = temporadas || [];
+  function diaEsAlta(dateStr) {
+    return tempArr.some(t => dateStr >= t.fecha_inicio && dateStr <= t.fecha_fin);
+  }
+
+  let total = 0;
+  const cursor = new Date(check_in + 'T12:00:00');
+  const endDate = new Date(check_out + 'T12:00:00');
+  while (cursor < endDate) {
+    const ds = cursor.toISOString().split('T')[0];
+    total += diaEsAlta(ds) ? cabana.precio_alta : cabana.precio_baja;
+    cursor.setDate(cursor.getDate() + 1);
+  }
+
+  const esPagoTotal = pago_tipo === 'total';
+  const abono = esPagoTotal ? total : Math.ceil(total * 0.5 / 1000) * 1000;
+  const precioNoche = Math.round(total / noches);
 
   // ── Verificar disponibilidad (anti-race-condition) ────────────
   const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString();
@@ -107,7 +120,7 @@ module.exports = async function handler(req, res) {
       body: {
         items: [{
           id:         reserva.id,
-          title:      `Cabaña ${cabana.nombre} — ${noches} noche${noches > 1 ? 's' : ''}`,
+          title:      `${esPagoTotal ? 'Pago total' : 'Abono 50%'} — Cabaña ${cabana.nombre} — ${noches} noche${noches > 1 ? 's' : ''}`,
           description:`${check_in} → ${check_out} · ${numPersonas} persona${numPersonas > 1 ? 's' : ''}`,
           quantity:   1,
           unit_price: abono,

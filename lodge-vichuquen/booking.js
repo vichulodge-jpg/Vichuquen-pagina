@@ -54,6 +54,8 @@
     precio:    0,
     total:     0,
     abono:     0,
+    pagoHoy:   0,   // monto que se cobra hoy según opción elegida
+    pagoTipo:  'abono', // 'abono' | 'total'
     blocked:   [],
     loading:   false
   };
@@ -83,6 +85,14 @@
 
     var btnPagar = qs('bwPagar');
     if (btnPagar) btnPagar.addEventListener('click', onPagar);
+
+    // Opciones de pago (abono / total)
+    document.querySelectorAll('input[name="pagoTipo"]').forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        st.pagoTipo = radio.value;
+        actualizarPagoOpciones();
+      });
+    });
   }
 
   // ── FLATPICKR ─────────────────────────────────────────────────
@@ -166,6 +176,7 @@
       st.cabana = null;
       hide('bwCabanaInfo');
       hide('bwResumen');
+      hide('bwPagoOpciones');
       hide('bwCalWrapper');
       updateContinuarBtn();
       return;
@@ -218,34 +229,77 @@
     }
   }
 
-  // ── CÁLCULO DE PRECIO ─────────────────────────────────────────
+  // ── CÁLCULO DE PRECIO (día a día, soporta temporadas mixtas) ──
   function calcPrecio() {
     if (!st.cabana || !st.checkIn || !st.checkOut) return;
     var noches = diffDays(st.checkIn, st.checkOut);
-    if (noches < 1) { hide('bwResumen'); return; }
+    if (noches < 1) { hide('bwResumen'); hide('bwPagoOpciones'); return; }
 
-    var esAlta     = esTemporadaAlta(st.checkIn);
-    var precio     = esAlta ? st.cabana.alta : st.cabana.baja;
-    var total      = noches * precio;
-    var abono      = Math.ceil(total * 0.5 / 1000) * 1000;
+    // Iterar cada noche para sumar el precio correcto según temporada
+    var total = 0;
+    var diasAlta = 0;
+    var d = new Date(st.checkIn + 'T12:00:00');
+    var endD = new Date(st.checkOut + 'T12:00:00');
+    while (d < endD) {
+      if (esTemporadaAlta(toISODate(d))) { total += st.cabana.alta; diasAlta++; }
+      else                               { total += st.cabana.baja; }
+      d.setDate(d.getDate() + 1);
+    }
 
-    st.noches = noches; st.precio = precio;
-    st.total  = total;  st.abono  = abono;
+    var abono = Math.ceil(total * 0.5 / 1000) * 1000;
 
-    txt('bwCalcDesc',  noches + ' noche' + (noches > 1 ? 's' : '') + ' × ' + fmtCLP(precio));
+    st.noches = noches;
+    st.precio = Math.round(total / noches);
+    st.total  = total;
+    st.abono  = abono;
+
+    // Descripción: precio mixto o uniforme
+    var desc;
+    if (diasAlta > 0 && diasAlta < noches) {
+      desc = diasAlta + ' noche' + (diasAlta > 1 ? 's' : '') + ' T.Alta + ' +
+             (noches - diasAlta) + ' T.Baja';
+      var badge = qs('bwTemporadaBadge');
+      if (badge) { badge.textContent = '🌗 Temporada mixta'; badge.className = 'bw-badge alta'; }
+      txt('bwPrecioBase', 'Desde ' + fmtCLP(st.cabana.baja) + ' / noche');
+    } else {
+      var esAlta = diasAlta === noches;
+      var precioUnit = esAlta ? st.cabana.alta : st.cabana.baja;
+      desc = noches + ' noche' + (noches > 1 ? 's' : '') + ' × ' + fmtCLP(precioUnit);
+      var badge = qs('bwTemporadaBadge');
+      if (badge) {
+        badge.textContent = esAlta ? '🌞 Temporada alta' : '🍂 Temporada baja';
+        badge.className = 'bw-badge ' + (esAlta ? 'alta' : 'baja');
+      }
+      txt('bwPrecioBase', fmtCLP(precioUnit) + ' / noche');
+    }
+
+    txt('bwCalcDesc',  desc);
     txt('bwCalcTotal', fmtCLP(total));
     txt('bwCalcAbono', fmtCLP(abono));
     txt('bwCalcSaldo', fmtCLP(total - abono));
 
-    var badge = qs('bwTemporadaBadge');
-    if (badge) {
-      badge.textContent = esAlta ? '🌞 Temporada alta' : '🍂 Temporada baja';
-      badge.className = 'bw-badge ' + (esAlta ? 'alta' : 'baja');
-    }
-    txt('bwPrecioBase', fmtCLP(precio) + ' / noche');
+    actualizarPagoOpciones();
 
     show('bwResumen');
+    show('bwPagoOpciones');
     updateContinuarBtn();
+  }
+
+  function actualizarPagoOpciones() {
+    if (!st.total) return;
+    txt('bwOptAbonoAmt', fmtCLP(st.abono));
+    txt('bwOptTotalAmt', fmtCLP(st.total));
+
+    var esTotalSelected = st.pagoTipo === 'total';
+    st.pagoHoy = esTotalSelected ? st.total : st.abono;
+
+    // Actualizar label y fila saldo en resumen
+    var labelAbono = qs('bwLabelAbono');
+    if (labelAbono) labelAbono.textContent = esTotalSelected ? 'Pago total hoy' : 'Abono hoy (50%)';
+    txt('bwCalcAbono', fmtCLP(st.pagoHoy));
+
+    var filaSaldo = qs('bwFilaSaldo');
+    if (filaSaldo) filaSaldo.hidden = esTotalSelected;
   }
 
   function updateContinuarBtn() {
@@ -258,11 +312,20 @@
   function onContinuar() {
     if (!st.cabana || !st.checkIn || !st.checkOut) return;
 
-    // Rellenar resumen mini en step 2
+    // Mini resumen en step 2
     txt('bwMiniCabana', st.cabana.nombre);
     txt('bwMiniFechas', fmtFecha(st.checkIn) + ' → ' + fmtFecha(st.checkOut) +
         ' (' + st.noches + ' noche' + (st.noches > 1 ? 's' : '') + ')');
-    txt('bwMiniAbono',  'Abono: ' + fmtCLP(st.abono) + '  ·  Total: ' + fmtCLP(st.total));
+
+    var esPagoTotal = st.pagoTipo === 'total';
+    txt('bwMiniAbono', esPagoTotal
+      ? 'Pago total: ' + fmtCLP(st.total)
+      : 'Abono hoy: ' + fmtCLP(st.abono) + '  ·  Total: ' + fmtCLP(st.total));
+
+    // Botón de pago dinámico
+    var btnTxt = qs('bwBtnPagarTxt');
+    if (btnTxt) btnTxt.textContent = (esPagoTotal ? 'Pagar total ' : 'Pagar abono ') +
+      fmtCLP(esPagoTotal ? st.total : st.abono) + ' →';
 
     hide('bwPanel1'); show('bwPanel2');
     stepDot(2);
@@ -295,14 +358,19 @@
     var telefono = ((qs('bwTelefono')|| {}).value || '').trim();
     var personas = parseInt(((qs('bwPersonas')|| {}).value || ''), 10);
     var mensaje  = ((qs('bwMensaje') || {}).value || '').trim();
+    var aceptaTyC = (qs('bwAceptaTyC') || {}).checked;
 
-    if (!nombre)                       { return showError('bwPanelError', 'Por favor ingresa tu nombre.'); }
+    if (!nombre)   { return showError('bwPanelError', 'Por favor ingresa tu nombre.'); }
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                                         return showError('bwPanelError', 'Por favor ingresa un correo válido.'); }
-    if (!personas || personas < 1)     { return showError('bwPanelError', 'Indica el número de personas.'); }
+                     return showError('bwPanelError', 'Por favor ingresa un correo válido.'); }
+    if (!telefono) { return showError('bwPanelError', 'Por favor ingresa tu número de teléfono.'); }
+    if (!personas || personas < 1) { return showError('bwPanelError', 'Indica el número de personas.'); }
     if (st.cabana && personas > st.cabana.capacidad) {
       return showError('bwPanelError',
         'La cabaña ' + st.cabana.nombre + ' tiene capacidad para ' + st.cabana.capacidad + ' personas.');
+    }
+    if (!aceptaTyC) {
+      return showError('bwPanelError', 'Debes aceptar los términos y condiciones para continuar.');
     }
 
     var btn = qs('bwPagar');
@@ -312,14 +380,15 @@
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        cabana_id: st.cabana.id,
-        check_in:  st.checkIn,
-        check_out: st.checkOut,
-        nombre:    nombre,
-        email:     email,
-        telefono:  telefono || null,
-        personas:  personas,
-        mensaje:   mensaje || null
+        cabana_id:  st.cabana.id,
+        check_in:   st.checkIn,
+        check_out:  st.checkOut,
+        nombre:     nombre,
+        email:      email,
+        telefono:   telefono || null,
+        personas:   personas,
+        mensaje:    mensaje || null,
+        pago_tipo:  st.pagoTipo
       })
     })
     .then(function(r) { return r.json(); })

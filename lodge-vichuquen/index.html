@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=20260603" />
-  <link rel="stylesheet" href="lib/flatpickr.min.css?v=20260603" />
+  <link rel="stylesheet" href="styles.css?v=20260604" />
+  <link rel="stylesheet" href="lib/flatpickr.min.css?v=20260604" />
 </head>
 <body>
 
@@ -31,6 +31,7 @@
       <li><a href="#cabanas">Cabañas</a></li>
       <li><a href="#experiencias">Experiencias</a></li>
       <li><a href="#galeria">Galería</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
       <li><a href="#reservas" class="nav-cta">Reservar</a></li>
     </ul>
     <button class="nav-burger" aria-label="Menú" aria-expanded="false">
@@ -44,6 +45,7 @@
       <li><a href="#cabanas">Cabañas</a></li>
       <li><a href="#experiencias">Experiencias</a></li>
       <li><a href="#galeria">Galería</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
       <li><a href="#reservas">Reservas</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
@@ -515,24 +517,104 @@
         <p class="section-kicker">El lugar</p>
         <h2 class="section-title">Vichuquén<br><em>en imágenes</em>.</h2>
       </div>
-      <div class="galeria-grid">
-        <!-- Entorno y lago -->
-        <div class="galeria-item galeria-wide reveal"><img src="assets/img/entorno-31.jpg" alt="Cabañas desde el lago con muelle" loading="lazy" /></div>
-        <div class="galeria-item galeria-tall reveal"><img src="assets/img/entorno-341.jpg" alt="Reposeras y parasol frente al lago" loading="lazy" /></div>
-        <div class="galeria-item reveal"><img src="assets/img/entorno-333.jpg" alt="Muelle con kayak rojo y montañas" loading="lazy" /></div>
-        <div class="galeria-item reveal"><img src="assets/img/entorno-340.jpg" alt="Kayak rojo en la orilla del lago" loading="lazy" /></div>
-        <div class="galeria-item galeria-wide reveal"><img src="assets/img/entorno-37.jpg" alt="Muelle de madera al atardecer" loading="lazy" /></div>
-        <div class="galeria-item reveal"><img src="assets/img/entorno-5.jpg" alt="Lago Vichuquén con niebla matutina" loading="lazy" /></div>
-        <div class="galeria-item reveal"><img src="assets/img/entorno-4.jpg" alt="Kayaks en la orilla al amanecer" loading="lazy" /></div>
-        <!-- Cabañas interiores -->
-        <div class="galeria-item galeria-tall reveal"><img src="assets/img/c1-tagua-1.jpg" alt="Vista al lago desde Cabaña Tagua" loading="lazy" /></div>
-        <div class="galeria-item reveal"><img src="assets/img/c3-siete-colores-1.jpg" alt="Dormitorio Cabaña Siete Colores" loading="lazy" /></div>
-        <div class="galeria-item reveal"><img src="assets/img/c4-cisne-cuello-negro-1.jpg" alt="Sala de estar Cisne Cuello Negro" loading="lazy" /></div>
-        <div class="galeria-item galeria-wide reveal"><img src="assets/img/gal-1.jpg" alt="Terraza exterior con vista al lago" loading="lazy" /></div>
-        <div class="galeria-item reveal"><img src="assets/img/c6-run-run-1.jpg" alt="Dormitorio Cabaña Run Run" loading="lazy" /></div>
-        <div class="galeria-item reveal"><img src="assets/img/c7-pitio-1.jpg" alt="Interior Cabaña Pitío" loading="lazy" /></div>
-        <div class="galeria-item reveal"><img src="assets/img/entorno-336.jpg" alt="Área exterior del lodge" loading="lazy" /></div>
-        <div class="galeria-item galeria-wide reveal"><img src="assets/img/entorno-334.jpg" alt="Muelle con kayak rojo, tarde de sol" loading="lazy" /></div>
+
+      <div class="gal-carousel" id="galCarousel">
+        <!-- Imagen principal -->
+        <div class="gal-stage">
+          <div class="gal-track" id="galTrack">
+            <div class="gal-slide"><img src="assets/img/entorno-31.jpg"              alt="Cabañas desde el lago con muelle" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-341.jpg"             alt="Reposeras y parasol frente al lago" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-333.jpg"             alt="Muelle con kayak rojo y montañas" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-37.jpg"              alt="Muelle de madera al atardecer" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-340.jpg"             alt="Kayak rojo en la orilla del lago" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-5.jpg"               alt="Lago Vichuquén con niebla matutina" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-4.jpg"               alt="Kayaks en la orilla al amanecer" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-334.jpg"             alt="Muelle con kayak rojo, tarde de sol" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-336.jpg"             alt="Área exterior del lodge" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/gal-1.jpg"                   alt="Terraza exterior con vista al lago" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/c1-tagua-1.jpg"              alt="Vista al lago desde Cabaña Tagua" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/c3-siete-colores-1.jpg"      alt="Dormitorio Cabaña Siete Colores" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/c4-cisne-cuello-negro-1.jpg" alt="Sala de estar Cisne Cuello Negro" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/c6-run-run-1.jpg"            alt="Dormitorio Cabaña Run Run" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/c7-pitio-1.jpg"              alt="Interior Cabaña Pitío" loading="lazy" /></div>
+          </div>
+          <button class="gal-btn gal-prev" id="galPrev" aria-label="Foto anterior">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="gal-btn gal-next" id="galNext" aria-label="Foto siguiente">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="gal-counter" id="galCounter">1 / 15</div>
+        </div>
+        <!-- Miniaturas -->
+        <div class="gal-thumbs" id="galThumbs">
+          <button class="gal-thumb is-active" data-idx="0" aria-label="Foto 1"><img src="assets/img/entorno-31.jpg"              alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="1" aria-label="Foto 2"><img src="assets/img/entorno-341.jpg"             alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="2" aria-label="Foto 3"><img src="assets/img/entorno-333.jpg"             alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="3" aria-label="Foto 4"><img src="assets/img/entorno-37.jpg"              alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="4" aria-label="Foto 5"><img src="assets/img/entorno-340.jpg"             alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="5" aria-label="Foto 6"><img src="assets/img/entorno-5.jpg"               alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="6" aria-label="Foto 7"><img src="assets/img/entorno-4.jpg"               alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="7" aria-label="Foto 8"><img src="assets/img/entorno-334.jpg"             alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="8" aria-label="Foto 9"><img src="assets/img/entorno-336.jpg"             alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="9" aria-label="Foto 10"><img src="assets/img/gal-1.jpg"                  alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="10" aria-label="Foto 11"><img src="assets/img/c1-tagua-1.jpg"            alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="11" aria-label="Foto 12"><img src="assets/img/c3-siete-colores-1.jpg"    alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="12" aria-label="Foto 13"><img src="assets/img/c4-cisne-cuello-negro-1.jpg" alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="13" aria-label="Foto 14"><img src="assets/img/c6-run-run-1.jpg"          alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="14" aria-label="Foto 15"><img src="assets/img/c7-pitio-1.jpg"            alt="" loading="lazy" /></button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- UBICACIÓN -->
+  <section class="ubicacion" id="ubicacion">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-kicker">Cómo llegar</p>
+        <h2 class="section-title">Encuéntranos<br><em>en el lago</em>.</h2>
+      </div>
+      <div class="ubicacion-grid">
+
+        <div class="ubicacion-info">
+          <div class="ubicacion-dato">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z"/></svg>
+            <div>
+              <strong>Dirección</strong>
+              <p>Lago Vichuquén, Licantén<br>Región del Maule, Chile</p>
+            </div>
+          </div>
+          <div class="ubicacion-dato">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" opacity=".3"/><path d="M18.5 9c0 4.15-5.09 10.3-6.5 11.97C10.59 19.3 5.5 13.15 5.5 9a6.5 6.5 0 0113 0zM12 6a3 3 0 100 6 3 3 0 000-6z"/></svg>
+            <div>
+              <strong>Distancia desde Santiago</strong>
+              <p>Aproximadamente 4 horas por Ruta 5 Sur</p>
+            </div>
+          </div>
+
+          <div class="ubicacion-ruta">
+            <h4>Cómo llegar</h4>
+            <ol>
+              <li>Tomar Ruta 5 Sur desde Santiago hacia el sur</li>
+              <li>En Curicó, seguir señalización hacia Licantén (aprox. 80 km)</li>
+              <li>Desde Licantén, continuar hacia Lago Vichuquén (7 km)</li>
+              <li>Las instrucciones exactas de acceso se envían al confirmar la reserva</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="ubicacion-mapa">
+          <iframe
+            src="https://maps.google.com/maps?q=Lago+Vichuqu%C3%A9n%2C+Licant%C3%A9n%2C+Chile&t=k&z=13&ie=UTF8&iwloc=B&output=embed"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Mapa — Lago Vichuquén">
+          </iframe>
+        </div>
+
       </div>
     </div>
   </section>
@@ -558,8 +640,8 @@
             <div class="paso">
               <div class="paso-num">02</div>
               <div class="paso-text">
-                <strong>Paga el abono del 50%</strong>
-                <p>Pago seguro con MercadoPago. Acepta tarjetas, WebPay, débito y más.</p>
+                <strong>Elige tu forma de pago</strong>
+                <p>Paga el abono del 50% ahora y el resto al llegar, o bien el pago total para dejar todo confirmado.</p>
               </div>
             </div>
             <div class="paso">
@@ -628,13 +710,38 @@
                 <span id="bwCalcTotal">—</span>
               </div>
               <div class="bw-resumen-row bw-resumen-abono">
-                <span>Abono hoy (50%)</span>
+                <span id="bwLabelAbono">Abono hoy (50%)</span>
                 <strong id="bwCalcAbono">—</strong>
               </div>
-              <div class="bw-resumen-row bw-resumen-saldo">
+              <div class="bw-resumen-row bw-resumen-saldo" id="bwFilaSaldo">
                 <span>Saldo al llegar</span>
                 <span id="bwCalcSaldo">—</span>
               </div>
+            </div>
+
+            <!-- Opciones de pago -->
+            <div class="bw-pago-opciones" id="bwPagoOpciones" hidden>
+              <p class="bw-pago-titulo">¿Cómo deseas pagar hoy?</p>
+              <label class="bw-pago-opt">
+                <input type="radio" name="pagoTipo" value="abono" checked />
+                <span class="bw-pago-opt-inner">
+                  <span class="bw-pago-opt-label">
+                    <strong>Abono 50%</strong>
+                    <small>El saldo lo pagas al llegar al lodge</small>
+                  </span>
+                  <span class="bw-pago-monto" id="bwOptAbonoAmt">—</span>
+                </span>
+              </label>
+              <label class="bw-pago-opt">
+                <input type="radio" name="pagoTipo" value="total" />
+                <span class="bw-pago-opt-inner">
+                  <span class="bw-pago-opt-label">
+                    <strong>Pago total</strong>
+                    <small>Todo reservado y pagado desde ahora</small>
+                  </span>
+                  <span class="bw-pago-monto" id="bwOptTotalAmt">—</span>
+                </span>
+              </label>
             </div>
 
             <button class="btn-submit" id="bwContinuar" disabled>
@@ -663,8 +770,8 @@
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label for="bwTelefono">Teléfono <span class="optional">(opcional)</span></label>
-                <input type="tel" id="bwTelefono" placeholder="+56 9 1234 5678" autocomplete="tel" />
+                <label for="bwTelefono">Teléfono</label>
+                <input type="tel" id="bwTelefono" required placeholder="+56 9 1234 5678" autocomplete="tel" />
               </div>
               <div class="form-group">
                 <label for="bwPersonas">N° de personas</label>
@@ -676,10 +783,20 @@
               <textarea id="bwMensaje" rows="2" placeholder="Celebración especial, necesidades particulares…"></textarea>
             </div>
 
+            <!-- Checkbox términos y condiciones -->
+            <div class="bw-tyc-wrap">
+              <label class="bw-tyc-label">
+                <input type="checkbox" id="bwAceptaTyC" />
+                <span>He leído y acepto los
+                  <button type="button" class="bw-tyc-link" id="bwVerTyC">términos y condiciones</button>
+                  de la reserva, incluyendo las políticas de cancelación y el reglamento de convivencia.</span>
+              </label>
+            </div>
+
             <p class="bw-error" id="bwPanelError" hidden></p>
 
             <button class="btn-submit" id="bwPagar">
-              <span class="btn-text">Pagar con MercadoPago →</span>
+              <span class="btn-text" id="bwBtnPagarTxt">Pagar con MercadoPago →</span>
               <span class="btn-sending" aria-hidden="true">Preparando reserva…</span>
             </button>
             <p class="form-disclaimer">Pago 100% seguro a través de MercadoPago Chile.</p>
@@ -753,6 +870,7 @@
             <ul>
               <li><a href="#experiencias">Experiencias</a></li>
               <li><a href="#galeria">Galería</a></li>
+              <li><a href="#ubicacion">Ubicación</a></li>
               <li><a href="#reservas">Reservas</a></li>
               <li><a href="#contacto">Contacto</a></li>
             </ul>
@@ -769,10 +887,77 @@
     </div>
   </footer>
 
-  <script defer src="lib/gsap.min.js?v=20260603"></script>
-  <script defer src="lib/ScrollTrigger.min.js?v=20260603"></script>
-  <script defer src="lib/flatpickr.min.js?v=20260603"></script>
-  <script defer src="main.js?v=20260603"></script>
-  <script defer src="booking.js?v=20260603"></script>
+  <!-- MODAL TÉRMINOS Y CONDICIONES -->
+  <div class="tyc-modal" id="tycModal" hidden>
+    <div class="tyc-overlay" id="tycOverlay"></div>
+    <div class="tyc-box">
+      <div class="tyc-header">
+        <h2>Términos y Condiciones</h2>
+        <button class="tyc-close-btn" id="tycCloseBtn" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="tyc-content">
+        <p>Al realizar el pago de su reserva acepta expresamente las siguientes políticas de Vichuquén Lodge y Marina:</p>
+
+        <h3>1. Políticas de Cancelación y Devolución</h3>
+        <table class="tyc-table">
+          <thead><tr><th>Anticipación al check-in</th><th>Devolución</th></tr></thead>
+          <tbody>
+            <tr><td><strong>15 días o más</strong></td><td>100% del total pagado</td></tr>
+            <tr><td><strong>Entre 14 y 6 días</strong></td><td>80% del total pagado (se retiene 20% por gestión)</td></tr>
+            <tr><td><strong>5 días o menos</strong></td><td>Sin devolución. Derecho a reprogramar por única vez</td></tr>
+            <tr><td><strong>No show</strong></td><td>Sin devolución ni reprogramación</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Salida anticipada por fuerza mayor:</strong> No hay devolución en efectivo, pero se otorga derecho a reprogramar los días no utilizados.</p>
+        <p><strong>Reprogramación:</strong> Vigencia máxima de 6 meses desde la reserva original, sujeta a disponibilidad y tarifas vigentes.</p>
+
+        <h3>2. Capacidad y Huéspedes Adicionales</h3>
+        <ul>
+          <li>No se puede superar la capacidad máxima de la cabaña indicada al reservar.</li>
+          <li><strong>Pasajero adicional:</strong> $10.000 por noche, debe ser informado y pagado <em>antes</em> del check-in. No se aceptan el día de llegada.</li>
+          <li><strong>Visitas externas:</strong> Requieren autorización de la administración. Está prohibido que pernocten en el complejo.</li>
+          <li>Las tarifas con descuento por capacidad reducida son exclusivas para el aforo declarado. Personas extras no coordinadas previamente no podrán acceder.</li>
+        </ul>
+
+        <h3>3. Política de Mascotas</h3>
+        <ul>
+          <li>Se permite <strong>1 mascota mediana</strong> por cabaña sin costo adicional.</li>
+          <li>Una segunda mascota requiere autorización previa y tiene un costo de <strong>$8.000 por noche</strong>.</li>
+          <li>Las mascotas no pueden subir a camas ni sillones, deben estar supervisadas y sus dueños deben recoger sus desechos.</li>
+        </ul>
+
+        <h3>4. Reglamento de Convivencia</h3>
+        <ul>
+          <li><strong>Entorno protegido:</strong> El recinto colinda con un humedal declarado Reserva Natural. Queda prohibido dañar flora/fauna y encender fogatas fuera de zonas habilitadas.</li>
+          <li><strong>Agua:</strong> El agua de los grifos NO es apta para consumo. Se proveen bidones de agua purificada sin costo.</li>
+          <li><strong>Toallas:</strong> Las cabañas NO incluyen toallas de baño. El lodge provee solo 1 toalla de mano por baño. Cada huésped debe traer sus propias toallas.</li>
+          <li><strong>Prohibido fumar</strong> dentro de la cabaña. En exteriores, solo en ceniceros habilitados.</li>
+          <li><strong>Prohibido freír</strong> en el interior. Para freír, solicitar a la administración una cocinilla exterior sin costo.</li>
+          <li><strong>Silencio:</strong> Nivel de ruido moderado entre las <strong>23:00 y las 10:00 hrs</strong>. No se permiten fiestas.</li>
+          <li><strong>Daños:</strong> El huésped es responsable por pérdidas o daños al inventario de la cabaña.</li>
+          <li><strong>Sanitarios:</strong> No arrojar toallitas húmedas, papeles ni artículos higiénicos al WC.</li>
+        </ul>
+
+        <h3>5. Horarios</h3>
+        <ul>
+          <li><strong>Check-in regular:</strong> desde las 15:00 hrs (recepción hasta las 22:00 hrs).</li>
+          <li><strong>Check-in autónomo</strong> (llegada después de las 22:00): requiere coordinación con 24 hrs de anticipación.</li>
+          <li><strong>Check-out:</strong> hasta las 12:00 hrs.</li>
+          <li><strong>Early check-in</strong> (desde las 10:00) y <strong>Late check-out</strong> (hasta las 17:00): $35.000 c/u, sujeto a disponibilidad.</li>
+        </ul>
+      </div>
+      <div class="tyc-footer">
+        <button class="btn-submit" id="tycAceptarBtn">
+          <span class="btn-text">Acepto los términos y condiciones</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="lib/gsap.min.js?v=20260604"></script>
+  <script defer src="lib/ScrollTrigger.min.js?v=20260604"></script>
+  <script defer src="lib/flatpickr.min.js?v=20260604"></script>
+  <script defer src="main.js?v=20260604"></script>
+  <script defer src="booking.js?v=20260604"></script>
 </body>
 </html>
