@@ -1,5 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#1a2738"/>
-  <path d="M7 9 L16 23 L25 9" stroke="#fff8ef" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path d="M9 27.5 Q12.5 25.5 16 27.5 Q19.5 29.5 23 27.5" stroke="#b6c9da" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 110">
+  <!-- Fondo oscuro igual al logo -->
+  <rect width="100" height="110" rx="9" fill="#272727"/>
+
+  <!--
+    El cisne se compone de dos trazos:
+    1. Gota grande: cuello+cabeza arriba-derecha, cuerpo abajo-izquierda
+    2. Gota pequeña interior: el ala, apuntando abajo-derecha
+  -->
+
+  <!-- Gota grande exterior: cuerpo abajo-izq, cuello sube, cabeza arriba-der -->
+  <path d="
+    M 62 6
+    C 68 10, 72 18, 72 30
+    C 72 40, 68 47, 65 54
+    C 70 62, 72 74, 64 87
+    C 57 97, 44 104, 31 101
+    C 16 97, 7 84, 9 70
+    C 11 57, 21 50, 33 49
+    C 43 48, 54 53, 56 63
+    C 57 53, 58 40, 60 28
+    C 61 17, 61 10, 62 6 Z
+  " fill="none" stroke="#9ecde8" stroke-width="4.2"
+     stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Gota pequeña interior: el ala -->
+  <path d="
+    M 36 53
+    C 24 54, 17 64, 21 74
+    C 25 84, 40 88, 51 81
+    C 62 74, 60 59, 48 53
+    C 44 51, 40 51, 36 53 Z
+  " fill="none" stroke="#9ecde8" stroke-width="3.8"
+     stroke-linejoin="round" stroke-linecap="round"/>
 </svg>
