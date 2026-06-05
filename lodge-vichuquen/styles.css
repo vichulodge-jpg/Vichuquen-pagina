@@ -1146,7 +1146,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    RESERVAS
    ================================================================ */
 .reservas {
-  background-color: #c8bfb0;
+  background-color: #ccdfe8;
   position: relative;
   padding: clamp(4rem, 8vw, 7rem) 0;
 }
