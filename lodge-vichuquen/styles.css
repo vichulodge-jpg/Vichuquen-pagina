@@ -1467,6 +1467,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .contacto-foto { height: 260px; }
   .contacto .section-kicker,
   .contacto .section-title { text-align: center; margin-left: auto; margin-right: auto; }
+  .contacto-item { flex-direction: column; align-items: center; text-align: center; gap: 0.4rem; }
+  .contacto-item svg { margin-top: 0; }
 }
 
 /* ================================================================
