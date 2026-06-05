@@ -1820,6 +1820,100 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   opacity: 0.82; letter-spacing: 0;
 }
 
+/* ================================================================
+   CABAÑAS — CARRUSEL HORIZONTAL MOBILE + FULLSCREEN
+   ================================================================ */
+@media (max-width: 640px) {
+
+  /* Carrusel horizontal */
+  .cabanas-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.25rem;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    margin-inline: calc(-1 * clamp(1.25rem, 4vw, 3rem));
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .cabanas-grid::-webkit-scrollbar { display: none; }
+
+  .cabana-card {
+    flex: 0 0 82vw;
+    max-width: 320px;
+    scroll-snap-align: start;
+    cursor: pointer;
+  }
+
+  /* Hint visual — ícono expandir sobre la foto */
+  .cabana-carousel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.18) 0%, transparent 50%);
+    pointer-events: none;
+    transition: opacity .3s;
+    z-index: 2;
+  }
+  .cabana-card.is-fullscreen .cabana-carousel::after { display: none; }
+
+  /* Indicador de scroll (contador) */
+  .cabanas-counter {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--gray);
+    margin-top: 0.5rem;
+    letter-spacing: .04em;
+  }
+
+  /* ── Fullscreen ── */
+  .cabana-card.is-fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    max-width: none;
+    flex: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-align: unset;
+    transform: none !important;
+    box-shadow: none;
+    cursor: default;
+  }
+  .cabana-card.is-fullscreen .cabana-carousel {
+    height: 56vw;
+    max-height: 300px;
+  }
+  .cabana-card.is-fullscreen .carousel-btn { opacity: 1; }
+
+  body.cabana-fs-open { overflow: hidden; }
+
+  /* Botón cerrar (inyectado por JS) */
+  .cabana-fs-close {
+    position: fixed;
+    top: max(1rem, env(safe-area-inset-top));
+    right: 1rem;
+    z-index: 999;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(0,0,0,.55);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 2px 12px rgba(0,0,0,.3);
+  }
+  .cabana-fs-close svg { width: 18px; height: 18px; }
+}
+
 /* ── Botón Reservar mobile en hero ── */
 .hero-mobile-reserva { display: none; }
 @media (max-width: 768px) {

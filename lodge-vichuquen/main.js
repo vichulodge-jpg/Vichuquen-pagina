@@ -14,18 +14,19 @@
   }
 
   function boot() {
-    safe(initSplash,          "splash");
-    safe(initNav,             "nav");
-    safe(initMobileMenu,      "mobileMenu");
-    safe(initHero,            "hero");
-    safe(initCarousels,       "carousels");
-    safe(initGalleryCarousel, "galleryCarousel");
-    safe(initGruposCoverflow, "gruposCoverflow");
-    safe(initExtras,          "extras");
-    safe(initReveals,         "reveals");
-    safe(initCounters,        "counters");
-    safe(initTyC,             "tyc");
-    safe(initCabanaLinks,     "cabanaLinks");
+    safe(initSplash,                "splash");
+    safe(initNav,                   "nav");
+    safe(initMobileMenu,            "mobileMenu");
+    safe(initHero,                  "hero");
+    safe(initCarousels,             "carousels");
+    safe(initGalleryCarousel,       "galleryCarousel");
+    safe(initGruposCoverflow,       "gruposCoverflow");
+    safe(initCabanasMobileCarousel, "cabanasMobileCarousel");
+    safe(initExtras,                "extras");
+    safe(initReveals,               "reveals");
+    safe(initCounters,              "counters");
+    safe(initTyC,                   "tyc");
+    safe(initCabanaLinks,           "cabanaLinks");
   }
 
   /* ── SPLASH ─────────────────────────────────────────────── */
@@ -361,6 +362,81 @@
     });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && !modal.hidden) closeModal();
+    });
+  }
+
+  /* ── CABAÑAS — CARRUSEL MOBILE + FULLSCREEN ─────────────────── */
+  function initCabanasMobileCarousel() {
+    if (window.innerWidth > 640) return;
+
+    var grid    = qs('.cabanas-grid');
+    var cards   = qsa('.cabana-card');
+    if (!grid || !cards.length) return;
+
+    // Contador "1 / 8" bajo el carrusel
+    var counter = document.createElement('p');
+    counter.className = 'cabanas-counter';
+    grid.parentNode.insertBefore(counter, grid.nextSibling);
+
+    function updateCounter() {
+      var idx = Math.round(grid.scrollLeft / grid.offsetWidth) + 1;
+      counter.textContent = idx + ' / ' + cards.length;
+    }
+    grid.addEventListener('scroll', function() { updateCounter(); }, { passive: true });
+    updateCounter();
+
+    // ── Fullscreen ──────────────────────────────────────────────
+    var currentCard = null;
+    var closeBtn    = null;
+
+    function openCard(card) {
+      currentCard = card;
+      card.classList.add('is-fullscreen');
+      document.body.classList.add('cabana-fs-open');
+      card.scrollTop = 0;
+
+      // Mostrar características automáticamente
+      var detailsEl = qs('[data-extras]', card);
+      if (detailsEl && detailsEl.hidden) {
+        detailsEl.hidden = false;
+        var toggle = qs('[data-extras-toggle]', card);
+        if (toggle) toggle.setAttribute('aria-expanded', 'true');
+      }
+
+      // Botón cerrar
+      closeBtn = document.createElement('button');
+      closeBtn.className = 'cabana-fs-close';
+      closeBtn.setAttribute('aria-label', 'Cerrar');
+      closeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      closeBtn.addEventListener('click', function(e) { e.stopPropagation(); closeCard(); });
+      document.body.appendChild(closeBtn);
+    }
+
+    function closeCard() {
+      if (currentCard) {
+        currentCard.classList.remove('is-fullscreen');
+        currentCard = null;
+      }
+      document.body.classList.remove('cabana-fs-open');
+      if (closeBtn) { closeBtn.remove(); closeBtn = null; }
+    }
+
+    cards.forEach(function(card) {
+      // Tap en foto → abrir fullscreen
+      var carouselEl = qs('.cabana-carousel', card);
+      if (carouselEl) {
+        carouselEl.addEventListener('click', function(e) {
+          if (card.classList.contains('is-fullscreen')) return;
+          // No abrir si el click fue en botón de carrusel
+          if (e.target.closest('.carousel-btn')) return;
+          openCard(card);
+        });
+      }
+    });
+
+    // Cerrar con Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && currentCard) closeCard();
     });
   }
 
