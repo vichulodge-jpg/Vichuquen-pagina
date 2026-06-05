@@ -152,17 +152,15 @@ function enviarHuespedTransferencia(p) {
   });
 }
 
-// ── Email al huésped: información pre-llegada (3 días antes del check-in) ─────
+// ── Email al huésped: información pre-llegada ─────────────────────────────────
 function enviarHuespedPreLlegada(p) {
   var subject = '¡Ya falta muy poco! Tu llegada a Vichuquén Lodge el ' + fmtFecha(p.check_in);
-
   var mapsUrl = 'https://www.google.com/maps/place/Vichuquen+Lodge+y+Marina/@-34.7857666,-72.0735737,17z';
 
   var body =
-    '<p>Hola <strong>' + p.nombre + '</strong>,</p>' +
-    '<p>Ya queda muy poco para recibirte en Vichuquén Lodge y Marina. Para que tu llegada sea cómoda y sin contratiempos, te compartimos algunos datos importantes que te recomendamos revisar antes de viajar.</p>' +
+    '<p>¡Hola, <strong>' + p.nombre + '</strong>!</p>' +
+    '<p>Ya queda muy poco para recibirte en Vichuquén Lodge y Marina. Para que disfrutes al máximo tu estadía, te compartimos algunos datos importantes antes de tu llegada.</p>' +
 
-    // Resumen de la reserva
     '<div style="margin:20px 0;">' +
     buildTabla([
       ['Cabaña',   p.cabana],
@@ -173,45 +171,68 @@ function enviarHuespedPreLlegada(p) {
     ]) +
     '</div>' +
 
-    // Sección: Antes de hacer tu maleta
     seccion('✔️ Antes de hacer tu maleta', [
       item('Toallas',
-        'Tu cabaña incluye sábanas y plumones limpios, pero <strong>no incluye toallas de baño</strong> (solo dejamos una toalla de mano por baño). Recuerda traer tus toallas personales y, si lo deseas, toallas para el lago.'),
+        'Tu cabaña incluye sábanas y plumones limpios, pero <strong>no incluye toallas de baño</strong> (solo dejamos una toalla de mano por baño). Recuerda traer tus toallas personales y para el lago o la playa.'),
       item('Agua para consumo',
-        'El agua de los grifos proviene de pozo profundo y no es apta para beber. No es necesario que traigas agua — tu cabaña contará con <strong>bidones de agua purificada</strong>, los cuales reponemos gratuitamente durante tu estadía.'),
+        'El agua de los grifos proviene de pozo profundo y no es apta para beber. No necesitas traer agua, ya que encontrarás <strong>bidones de agua purificada</strong> en tu cabaña, los cuales reponemos gratuitamente durante tu estadía.'),
       item('Cantidad de huéspedes',
-        'La cabaña y los insumos están preparados para <strong>' + p.personas + ' persona' + (p.personas > 1 ? 's' : '') + '</strong> según tu reserva. Si deseas agregar pasajeros, infórmanos antes de llegar. El valor es de <strong>$10.000 por persona adicional por noche</strong>. No es posible registrar huéspedes adicionales al hacer check-in ni recibir visitas que pernocten.'),
-      item('Cocinar frituras',
-        'Para evitar olores persistentes dentro de las cabañas, <strong>no está permitido realizar frituras en el interior</strong>. Si planeas freír alimentos, avísanos al llegar y te facilitaremos gratuitamente una cocinilla portátil con balón de gas para usar en la terraza.'),
+        'Si reservaste con tarifa de ocupación reducida, la cabaña y los insumos iniciales están preparados para la cantidad de personas indicada en tu reserva.<br><br>' +
+        'Si deseas agregar pasajeros, debes informarlo antes de tu llegada. El valor es de <strong>$10.000 por persona adicional por noche</strong>. No se permite registrar huéspedes adicionales durante el check-in ni recibir visitas que pernocten.'),
       item('Mascotas',
-        'La primera mascota mediana es <strong>gratuita</strong>. Una segunda mascota tiene un valor de <strong>$8.000 por noche</strong> y requiere autorización previa. Recuerda traer su cama y platos. Por higiene, las mascotas no pueden subir a camas ni sillones.')
+        'La primera mascota mediana es <strong>gratuita</strong>. Una segunda mascota requiere autorización previa y tiene un valor de <strong>$8.000 por noche</strong>.<br><br>' +
+        'Recuerda traer su cama y platos. Las mascotas deben permanecer bajo supervisión, no pueden subir a camas o sillones y sus desechos deben ser recogidos por sus dueños.')
     ]) +
 
-    // Sección: Horarios
-    seccion('🕒 Horarios de llegada', [
+    '<div style="margin:24px 0 8px;">' +
+    '<p style="margin:0 0 12px;font-weight:700;color:#273852;font-size:15px;">🚭 Normas importantes de convivencia</p>' +
+    '<div style="padding:14px 16px;background:#F4F1EB;border-radius:8px;border-left:3px solid #5AABB8;">' +
+    '<ul style="margin:0;padding-left:20px;font-size:13px;color:#18262E;line-height:1.9;">' +
+    '<li>Está <strong>prohibido fumar</strong> dentro de las cabañas.</li>' +
+    '<li>No está permitido realizar <strong>frituras al interior</strong> de las cabañas para evitar olores persistentes. Si tienes pensado freír alimentos, avísanos y te facilitaremos gratuitamente una cocinilla portátil para utilizar en la terraza.</li>' +
+    '<li>Por respeto a todos los huéspedes, te pedimos mantener <strong>niveles moderados de ruido</strong>, especialmente entre las 23:00 y las 10:00 hrs.</li>' +
+    '<li>No se permiten <strong>fiestas ni música a alto volumen</strong>.</li>' +
+    '<li>Ayúdanos a cuidar el humedal y la naturaleza que rodea el complejo, <strong>evitando dejar basura</strong> o intervenir la flora y fauna local.</li>' +
+    '</ul>' +
+    '</div>' +
+    '</div>' +
+
+    seccion('🕒 Horarios de ingreso y salida', [
       item('Check-in', 'Desde las <strong>15:00 hrs.</strong>'),
+      item('Check-out', 'Hasta las <strong>12:00 hrs.</strong>'),
       item('Recepción presencial',
-        'Nuestro equipo te recibirá hasta las <strong>22:00 hrs.</strong> en la Administración (Cabaña N° 9), donde te entregaremos las llaves e indicaremos tu estacionamiento.<br><br>' +
-        'Si estimas llegar <strong>después de las 22:00 hrs.</strong>, por favor avísanos con anticipación para activar tu <strong>Check-in Autónomo</strong> y enviarte las instrucciones de acceso.')
+        'Nuestro equipo realizará la recepción presencial hasta las <strong>22:00 hrs.</strong> en la Administración (Cabaña N° 9).<br><br>' +
+        'Si estimas llegar <strong>después de las 22:00 hrs.</strong>, avísanos con anticipación para activar tu <strong>Check-in Autónomo</strong> y enviarte las instrucciones de acceso.')
     ]) +
 
-    // Sección: Cómo llegar
+    '<div style="margin:24px 0 8px;">' +
+    '<p style="margin:0 0 12px;font-weight:700;color:#273852;font-size:15px;">⏰ Horarios extendidos <span style="font-weight:400;font-size:12px;color:#5A6B78;">(sujetos a disponibilidad)</span></p>' +
+    '<div style="padding:14px 16px;background:#F4F1EB;border-radius:8px;border-left:3px solid #5AABB8;">' +
+    '<p style="margin:0 0 8px;font-size:13px;color:#18262E;">Si deseas disfrutar más tiempo de tu estadía, puedes solicitar:</p>' +
+    '<ul style="margin:0 0 12px;padding-left:20px;font-size:13px;color:#18262E;line-height:1.9;">' +
+    '<li><strong>Early Check-in:</strong> ingreso desde las 10:00 hrs. — <strong>$35.000</strong></li>' +
+    '<li><strong>Late Check-out:</strong> salida hasta las 17:00 hrs. — <strong>$35.000</strong></li>' +
+    '</ul>' +
+    '<p style="margin:0;font-size:13px;color:#18262E;">Estos servicios requieren solicitud y confirmación previa por parte de la administración.</p>' +
+    '<p style="margin:10px 0 0;font-size:12px;color:#c62828;"><strong>Importante:</strong> Si la cabaña no es desocupada antes de las 12:00 hrs. sin autorización previa, se aplicará un cobro equivalente a media noche de estadía.</p>' +
+    '</div>' +
+    '</div>' +
+
     '<div style="background:#F4F1EB;border-radius:10px;padding:18px 20px;margin:20px 0;">' +
     '<p style="margin:0 0 10px;font-weight:700;color:#273852;font-size:15px;">📍 Cómo llegar</p>' +
-    '<p style="margin:0 0 12px;font-size:13px;color:#18262E;">Usa el siguiente enlace para llegar directamente con tu GPS:</p>' +
+    '<p style="margin:0 0 12px;font-size:13px;color:#18262E;">Puedes utilizar el siguiente enlace para llegar directamente con tu GPS:</p>' +
     '<a href="' + mapsUrl + '" style="display:inline-block;background:#273852;color:#fff;text-decoration:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;">📍 Abrir en Google Maps</a>' +
     '</div>' +
 
-    // Sección: Contacto
     '<div style="background:#EAF4F7;border-radius:10px;padding:18px 20px;margin:20px 0;">' +
-    '<p style="margin:0 0 8px;font-weight:700;color:#273852;font-size:15px;">📞 ¿Tienes alguna duda?</p>' +
-    '<p style="margin:0;font-size:13px;color:#18262E;">Si necesitas coordinar tu horario de llegada o tienes cualquier consulta de último minuto, puedes responder este correo o escribirnos directamente:<br><br>' +
-    '<a href="https://wa.me/56954177688" style="color:#273852;font-weight:700;">WhatsApp: +56 9 5417 7688</a></p>' +
+    '<p style="margin:0 0 8px;font-weight:700;color:#273852;font-size:15px;">📞 Contacto</p>' +
+    '<p style="margin:0;font-size:13px;color:#18262E;">Si tienes cualquier consulta o necesitas coordinar tu llegada, puedes responder este correo o escribirnos por WhatsApp al:<br><br>' +
+    '<a href="https://wa.me/56954177688" style="color:#273852;font-weight:700;font-size:15px;">+56 9 5417 7688</a></p>' +
     '</div>' +
 
-    '<p style="margin-top:24px;">Te deseamos un excelente viaje y esperamos que disfrutes una maravillosa estadía junto al lago.</p>' +
+    '<p style="margin-top:24px;">Te deseamos un excelente viaje y esperamos que disfrutes una maravillosa estadía junto al lago y al humedal.</p>' +
     '<p><strong>¡Nos vemos muy pronto!</strong><br>' +
-    '<span style="color:#5A6B78;font-size:13px;">Equipo Vichuquén Lodge y Marina</span></p>';
+    '<span style="color:#5A6B78;font-size:13px;">Saludos cordiales,<br>Equipo Vichuquén Lodge y Marina</span></p>';
 
   MailApp.sendEmail({
     to:        p.email,
