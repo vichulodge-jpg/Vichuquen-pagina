@@ -20,6 +20,7 @@
     safe(initHero,            "hero");
     safe(initCarousels,       "carousels");
     safe(initGalleryCarousel, "galleryCarousel");
+    safe(initGruposCoverflow, "gruposCoverflow");
     safe(initExtras,          "extras");
     safe(initReveals,         "reveals");
     safe(initCounters,        "counters");
@@ -361,6 +362,117 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && !modal.hidden) closeModal();
     });
+  }
+
+  /* ── GRUPOS Y EVENTOS — COVERFLOW 3D ────────────────────────── */
+  function initGruposCoverflow() {
+    var wrapper = qs('#gruposCoverflow');
+    if (!wrapper) return;
+
+    var slides   = qsa('.coverflow-slide', wrapper);
+    var dotsWrap = qs('#gruposDots');
+    var total    = slides.length;
+    if (total === 0) return;
+
+    var current = 0;
+    var autoTimer = null;
+
+    // Posiciones relativas según distancia al centro
+    var POSITIONS = [
+      { x: 0,    rotY: 0,   scale: 1,    opacity: 1,    z: 10 },
+      { x: 290,  rotY: -42, scale: 0.80, opacity: 0.85, z: 9  },
+      { x: -290, rotY:  42, scale: 0.80, opacity: 0.85, z: 9  },
+      { x: 490,  rotY: -52, scale: 0.65, opacity: 0.5,  z: 8  },
+      { x: -490, rotY:  52, scale: 0.65, opacity: 0.5,  z: 8  }
+    ];
+
+    function applyPositions() {
+      slides.forEach(function(slide, i) {
+        var offset = i - current;
+        // Ajustar para loop circular
+        if (offset > total / 2)  offset -= total;
+        if (offset < -total / 2) offset += total;
+
+        var absOff = Math.abs(offset);
+        var sign   = offset >= 0 ? 1 : -1;
+
+        var pos;
+        if (absOff === 0) {
+          pos = POSITIONS[0];
+        } else if (absOff === 1) {
+          pos = offset > 0 ? POSITIONS[1] : POSITIONS[2];
+        } else if (absOff === 2) {
+          pos = offset > 0 ? POSITIONS[3] : POSITIONS[4];
+        } else {
+          // Ocultar slides muy lejanos
+          slide.style.opacity = '0';
+          slide.style.zIndex  = '1';
+          slide.style.transform = 'translateX(calc(-50% + ' + (sign * 700) + 'px)) translateY(-50%) rotateY(' + (-sign * 55) + 'deg) scale(0.5)';
+          slide.classList.remove('is-active');
+          return;
+        }
+
+        slide.style.transform = 'translateX(calc(-50% + ' + pos.x + 'px)) translateY(-50%) rotateY(' + pos.rotY + 'deg) scale(' + pos.scale + ')';
+        slide.style.opacity   = pos.opacity;
+        slide.style.zIndex    = pos.z;
+        slide.classList.toggle('is-active', absOff === 0);
+      });
+
+      // Dots
+      qsa('.coverflow-dot', dotsWrap).forEach(function(d, i) {
+        d.classList.toggle('is-active', i === current);
+      });
+    }
+
+    function goTo(idx) {
+      current = ((idx % total) + total) % total;
+      applyPositions();
+    }
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    // Crear dots
+    slides.forEach(function(_, i) {
+      var dot = document.createElement('button');
+      dot.className = 'coverflow-dot' + (i === 0 ? ' is-active' : '');
+      dot.setAttribute('aria-label', 'Foto ' + (i + 1));
+      dot.addEventListener('click', function() { goTo(i); resetAuto(); });
+      dotsWrap.appendChild(dot);
+    });
+
+    // Botones
+    var btnPrev = qs('.coverflow-prev', wrapper);
+    var btnNext = qs('.coverflow-next', wrapper);
+    if (btnPrev) btnPrev.addEventListener('click', function() { prev(); resetAuto(); });
+    if (btnNext) btnNext.addEventListener('click', function() { next(); resetAuto(); });
+
+    // Clic en slide lateral → ir a ese slide
+    slides.forEach(function(slide, i) {
+      slide.addEventListener('click', function() {
+        if (i !== current) { goTo(i); resetAuto(); }
+      });
+    });
+
+    // Teclado
+    wrapper.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft')  { prev(); resetAuto(); }
+      if (e.key === 'ArrowRight') { next(); resetAuto(); }
+    });
+
+    // Touch / swipe
+    var touchStartX = 0;
+    wrapper.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+    wrapper.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); resetAuto(); }
+    });
+
+    // Autoplay
+    function startAuto() { autoTimer = setInterval(next, 4000); }
+    function resetAuto()  { clearInterval(autoTimer); startAuto(); }
+
+    applyPositions();
+    startAuto();
   }
 
 })();;
