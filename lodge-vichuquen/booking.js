@@ -13,7 +13,7 @@
     { id: 'c4-cisne-cuello-negro', nombre: 'Cisne Cuello Negro', capacidad: 6, alta: 129000, media: 109000, baja: 87200 },
     { id: 'c5-huala',              nombre: 'Huala',              capacidad: 5, alta: 119000, media: 99000,  baja: 79200 },
     { id: 'c6-run-run',            nombre: 'Run Run',            capacidad: 5, alta: 119000, media: 99000,  baja: 79200 },
-    { id: 'c7-pitio',              nombre: 'Pitío',              capacidad: 5, alta: 119000, media: 99000,  baja: 79200 },
+    // { id: 'c7-pitio', nombre: 'Pitío', capacidad: 5, alta: 119000, media: 99000, baja: 79200 }, // temporalmente no disponible
   ];
 
   // ── TARIFAS ──────────────────────────────────────────────────
