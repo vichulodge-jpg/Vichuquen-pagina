@@ -75,7 +75,7 @@ module.exports = async function handler(req, res) {
           .eq('id', updated.cabana_id)
           .single();
 
-        notificarEmail(updated, cabana?.nombre || updated.cabana_id);
+        await notificarEmail(updated, cabana?.nombre || updated.cabana_id);
       }
 
     } else if (['rejected', 'cancelled'].includes(payment.status)) {
