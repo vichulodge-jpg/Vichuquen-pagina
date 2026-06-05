@@ -455,8 +455,24 @@
 
   function onVolver() {
     hide('bwPanel2'); show('bwPanel1');
-    hide('bwPanelError');   // limpiar error al volver
+    hide('bwPanelError');
     stepDot(1);
+
+    // Limpiar campos del paso 2
+    ['bwNombre','bwEmail','bwTelefono','bwPersonas','bwMensaje'].forEach(function(id) {
+      var el = qs(id); if (el) el.value = '';
+    });
+    var tyc = qs('bwAceptaTyC');
+    if (tyc) tyc.checked = false;
+
+    // Restablecer botones de pago (por si quedaron en estado "enviando")
+    var btnPagar = qs('bwPagar');
+    if (btnPagar) { btnPagar.disabled = false; btnPagar.classList.remove('is-sending'); }
+    var btnTrans = qs('bwPagarTransferencia');
+    if (btnTrans) { btnTrans.disabled = false; btnTrans.classList.remove('is-sending'); }
+
+    // Eliminar cupón si estaba aplicado
+    if (st.cupon) eliminarCupon();
   }
 
   // ── MÉTODO DE PAGO ─────────────────────────────────────────────
@@ -598,7 +614,7 @@
     var input = qs('bwCuponInput');
     var msg   = qs('bwCuponMsg');
     var btn   = qs('bwCuponBtn');
-    if (input) { input.value = ''; input.disabled = false; input.focus(); }
+    if (input) { input.value = ''; input.disabled = false; }
     if (msg)   { msg.hidden = true; }
     if (btn)   { btn.textContent = 'Aplicar'; btn.classList.remove('eliminar'); }
     var fila = qs('bwFilaCupon');
