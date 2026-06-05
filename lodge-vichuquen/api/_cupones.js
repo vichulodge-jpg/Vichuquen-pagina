@@ -10,6 +10,7 @@ const CUPONES = {
   'VIC99000':   { tipo: 'fijo', valor: 99000,  descripcion: '$99.000 de descuento' },
   'VIC98999':   { tipo: 'fijo', valor: 98999,  descripcion: '$98.999 de descuento' },
   'VIC98500':   { tipo: 'fijo', valor: 98500,  descripcion: '$98.500 de descuento' },
+  'VIC98000':   { tipo: 'fijo', valor: 98000,  descripcion: '$98.000 de descuento' },
 };
 
 function validarCupon(codigo, subtotal) {
