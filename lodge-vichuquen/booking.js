@@ -143,7 +143,7 @@
     });
 
     var btnCupon = qs('bwCuponBtn');
-    if (btnCupon) btnCupon.addEventListener('click', onAplicarCupon);
+    if (btnCupon) btnCupon.addEventListener('click', onCuponBtnClick);
     var cuponInput = qs('bwCuponInput');
     if (cuponInput) cuponInput.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') onAplicarCupon();
@@ -589,6 +589,31 @@
   }
 
   // ── CUPÓN DE DESCUENTO ────────────────────────────────────────
+  function onCuponBtnClick() {
+    if (st.cupon) eliminarCupon(); else onAplicarCupon();
+  }
+
+  function eliminarCupon() {
+    st.cupon = null;
+    var input = qs('bwCuponInput');
+    var msg   = qs('bwCuponMsg');
+    var btn   = qs('bwCuponBtn');
+    if (input) { input.value = ''; input.disabled = false; input.focus(); }
+    if (msg)   { msg.hidden = true; }
+    if (btn)   { btn.textContent = 'Aplicar'; btn.classList.remove('eliminar'); }
+    var fila = qs('bwFilaCupon');
+    if (fila) fila.hidden = true;
+
+    // Restaurar total sin cupón (la tabla base sigue guardada en st.base*)
+    var subtotalElegible = st.baseAlta + st.baseMedia;
+    st.total = subtotalElegible + st.baseBaja;
+    st.abono = Math.ceil(st.total * 0.5 / 1000) * 1000;
+    txt('bwCalcTotal', fmtCLP(st.total));
+    txt('bwCalcAbono', fmtCLP(st.abono));
+    txt('bwCalcSaldo', fmtCLP(st.total - st.abono));
+    actualizarPagoOpciones();
+  }
+
   function onAplicarCupon() {
     var input = qs('bwCuponInput');
     var msg   = qs('bwCuponMsg');
@@ -623,7 +648,7 @@
         msg.textContent = '✓ ' + data.descripcion + ' aplicado.';
         msg.className = 'bw-cupon-msg ok'; msg.hidden = false;
         if (input) input.disabled = true;
-        if (btn)   btn.textContent = 'Aplicado';
+        if (btn)   { btn.textContent = 'Eliminar'; btn.classList.add('eliminar'); }
       } else {
         st.cupon = null;
         msg.textContent = 'Código no válido o vencido.';

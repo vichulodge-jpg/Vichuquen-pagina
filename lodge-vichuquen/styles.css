@@ -1597,8 +1597,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   cursor: pointer; white-space: nowrap;
   transition: background 0.2s;
 }
-.bw-cupon-btn:hover   { background: var(--navy-deep); }
-.bw-cupon-btn:disabled{ opacity: 0.6; cursor: not-allowed; }
+.bw-cupon-btn:hover            { background: var(--navy-deep); }
+.bw-cupon-btn:disabled         { opacity: 0.6; cursor: not-allowed; }
+.bw-cupon-btn.eliminar         { background: transparent; color: #c62828; border: 1.5px solid #c62828; }
+.bw-cupon-btn.eliminar:hover   { background: rgba(198,40,40,.08); }
 .bw-cupon-msg {
   margin-top: 0.4rem; font-size: 0.78rem; line-height: 1.5;
 }
