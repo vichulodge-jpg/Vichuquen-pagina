@@ -2,36 +2,52 @@
 
 const supabase = require('./_db');
 
-async function notificarEmail(reserva, cabana) {
+async function llamarGAS(payload) {
   const gasUrl = process.env.GAS_URL;
   if (!gasUrl) return;
-
-  const saldo = reserva.total - reserva.abono;
   try {
     await fetch(gasUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        secret:     process.env.GAS_SECRET || '',
-        tipo:       'confirmacion_mp',
-        reserva_id: reserva.id,
-        nombre:     reserva.nombre,
-        email:      reserva.email,
-        telefono:   reserva.telefono || '',
-        cabana:     cabana,
-        check_in:   reserva.check_in,
-        check_out:  reserva.check_out,
-        noches:     reserva.noches,
-        personas:   reserva.personas,
-        total:      reserva.total,
-        abono:      reserva.abono,
-        saldo:      saldo,
-        mensaje:    reserva.mensaje || ''
-      })
+      body: JSON.stringify({ secret: process.env.GAS_SECRET || '', ...payload })
     });
   } catch (e) {
-    console.error('GAS email error:', e.message);
+    console.error('GAS error:', e.message);
   }
+}
+
+async function notificarEmail(reserva, cabana) {
+  await llamarGAS({
+    tipo:       'confirmacion_mp',
+    reserva_id: reserva.id,
+    nombre:     reserva.nombre,
+    email:      reserva.email,
+    telefono:   reserva.telefono || '',
+    cabana,
+    check_in:   reserva.check_in,
+    check_out:  reserva.check_out,
+    noches:     reserva.noches,
+    personas:   reserva.personas,
+    total:      reserva.total,
+    abono:      reserva.abono,
+    saldo:      reserva.total - reserva.abono,
+    mensaje:    reserva.mensaje || ''
+  });
+}
+
+async function notificarPreLlegada(reserva, cabana) {
+  await llamarGAS({
+    tipo:       'pre_llegada',
+    reserva_id: reserva.id,
+    nombre:     reserva.nombre,
+    email:      reserva.email,
+    cabana,
+    check_in:   reserva.check_in,
+    check_out:  reserva.check_out,
+    noches:     reserva.noches,
+    personas:   reserva.personas,
+    total:      reserva.total
+  });
 }
 
 module.exports = async function handler(req, res) {
@@ -75,7 +91,18 @@ module.exports = async function handler(req, res) {
           .eq('id', updated.cabana_id)
           .single();
 
-        await notificarEmail(updated, cabana?.nombre || updated.cabana_id);
+        const nombreCabana = cabana?.nombre || updated.cabana_id;
+        await notificarEmail(updated, nombreCabana);
+
+        // Si el check-in es en menos de 3 días, enviar pre-llegada de inmediato
+        // (el cron solo cubre check-in en exactamente 3 días)
+        const hoy = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Santiago' }));
+        hoy.setHours(0, 0, 0, 0);
+        const checkIn = new Date(updated.check_in + 'T12:00:00');
+        const diasHastaCheckIn = Math.round((checkIn - hoy) / 86400000);
+        if (diasHastaCheckIn >= 0 && diasHastaCheckIn < 3) {
+          await notificarPreLlegada(updated, nombreCabana);
+        }
       }
 
     } else if (['rejected', 'cancelled'].includes(payment.status)) {
