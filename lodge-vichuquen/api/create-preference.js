@@ -96,11 +96,11 @@ module.exports = async function handler(req, res) {
     totalMediaDesc = Math.round(totalMediaDesc * 0.8);
   }
 
-  let total = totalAlta + totalMediaDesc + totalMediaFixed + totalBaja;
-
-  // Cupón de descuento (opcional)
-  const cupon = validarCupon(cupon_codigo, total);
-  if (cupon) total = total - cupon.descuento;
+  // Cupón aplica solo sobre alta + media (tarifa baja excluida)
+  const subtotalElegible = totalAlta + totalMediaDesc + totalMediaFixed;
+  const cupon = validarCupon(cupon_codigo, subtotalElegible);
+  const cuponDesc = cupon ? cupon.descuento : 0;
+  let total = (subtotalElegible - cuponDesc) + totalBaja;
 
   const esPagoTotal = pago_tipo === 'total';
   const abono = esPagoTotal ? total : Math.ceil(total * 0.5 / 1000) * 1000;

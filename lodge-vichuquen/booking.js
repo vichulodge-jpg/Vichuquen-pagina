@@ -100,7 +100,8 @@
     baseMedia:      0,  // subtotal de noches en tarifa media
     baseMediaDesc:  0,  // media con descuento vigente (< 16-nov-2026)
     baseMediaFixed: 0,  // media sin descuento (>= 16-nov-2026)
-    baseAltaBaja:   0,  // subtotal de noches en alta + baja
+    baseAlta:       0,  // subtotal de noches en tarifa alta
+    baseBaja:       0,  // subtotal de noches en tarifa baja
     cupon:          null,  // { tipo, valor, descripcion } si hay cupón aplicado
     abono:      0,
     pagoHoy:    0,   // monto que se cobra hoy según opción elegida
@@ -325,17 +326,21 @@
     }
 
     var totalMedia = totalMediaDesc + totalMediaFixed;
-    var total = totalAlta + totalMedia + totalBaja;
+    // Cupón solo sobre alta + media
+    var subtotalElegible = totalAlta + totalMedia;
+    var cuponDesc = calcCuponDescuento(subtotalElegible);
+    var total = (subtotalElegible - cuponDesc) + totalBaja;
     var abono = Math.ceil(total * 0.5 / 1000) * 1000;
 
     st.noches         = noches;
     st.precio         = Math.round(total / noches);
     st.total          = total;
-    st.baseTotal      = total;
+    st.baseTotal      = subtotalElegible + totalBaja;
     st.baseMedia      = totalMedia;
     st.baseMediaDesc  = totalMediaDesc;
     st.baseMediaFixed = totalMediaFixed;
-    st.baseAltaBaja   = totalAlta + totalBaja;
+    st.baseAlta       = totalAlta;
+    st.baseBaja       = totalBaja;
     st.abono     = abono;
 
     // Badge
@@ -548,11 +553,12 @@
     var elegible = DESCUENTO_CABANAS.indexOf(st.cabana.id) !== -1;
     var conDesc  = elegible && !isNaN(personas) && personas >= 1 && personas <= 3 && st.baseMediaDesc > 0;
 
-    var mediaDescFinal = conDesc ? Math.round(st.baseMediaDesc * 0.8) : st.baseMediaDesc;
-    var mediaFinal     = mediaDescFinal + st.baseMediaFixed;
-    var subtotal = st.baseAltaBaja + mediaFinal;
-    var cuponDesc = calcCuponDescuento(subtotal);
-    st.total  = subtotal - cuponDesc;
+    var mediaDescFinal   = conDesc ? Math.round(st.baseMediaDesc * 0.8) : st.baseMediaDesc;
+    var mediaFinal       = mediaDescFinal + st.baseMediaFixed;
+    // Cupón solo sobre alta + media (después del descuento del 20%)
+    var subtotalElegible = st.baseAlta + mediaFinal;
+    var cuponDesc        = calcCuponDescuento(subtotalElegible);
+    st.total  = (subtotalElegible - cuponDesc) + st.baseBaja;
     st.abono  = Math.ceil(st.total * 0.5 / 1000) * 1000;
     var esPagoTotal = st.pagoTipo === 'total';
     st.pagoHoy = esPagoTotal ? st.total : st.abono;
@@ -591,8 +597,8 @@
     var codigo = input.value.trim().toUpperCase();
     if (!codigo) { msg.textContent = 'Ingresa un código.'; msg.className = 'bw-cupon-msg err'; msg.hidden = false; return; }
 
-    // Validar contra el subtotal antes del cupón
-    var subtotalBase = st.baseAltaBaja + st.baseMediaDesc + st.baseMediaFixed;
+    // Cupón aplica solo sobre alta + media (sin tarifa baja)
+    var subtotalBase = st.baseAlta + st.baseMedia;
     if (btn) btn.disabled = true;
 
     fetch('/api/validar-cupon', {
@@ -607,7 +613,7 @@
         st.cupon = { tipo: data.tipo, valor: data.valor, descripcion: data.descripcion, codigo: codigo };
         // Recalcular total con cupón
         var cuponDesc = calcCuponDescuento(subtotalBase);
-        st.total = subtotalBase - cuponDesc;
+        st.total = (subtotalBase - cuponDesc) + st.baseBaja;
         st.abono = Math.ceil(st.total * 0.5 / 1000) * 1000;
         actualizarFilaCupon(cuponDesc);
         txt('bwCalcAbono', fmtCLP(st.abono));
