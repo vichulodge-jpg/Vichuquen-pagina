@@ -8,6 +8,7 @@ const CUPONES = {
   'LODGE20000': { tipo: 'fijo', valor: 20000,  descripcion: '$20.000 de descuento' },
   'VIC79200':   { tipo: 'fijo', valor: 79200,  descripcion: '$79.200 de descuento' },
   'VIC99000':   { tipo: 'fijo', valor: 99000,  descripcion: '$99.000 de descuento' },
+  'VIC98999':   { tipo: 'fijo', valor: 98999,  descripcion: '$98.999 de descuento' },
 };
 
 function validarCupon(codigo, subtotal) {
