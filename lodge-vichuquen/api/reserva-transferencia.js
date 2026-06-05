@@ -1,7 +1,7 @@
 'use strict';
 
 const supabase = require('./_db');
-const { validarCupon } = require('./_cupones');
+const { validarCupon, esCuponValido } = require('./_cupones');
 
 const TEMPORADAS_ALTA = [
   { from: '2026-06-26', to: '2026-06-28' }, { from: '2026-07-15', to: '2026-07-18' },
@@ -84,7 +84,8 @@ module.exports = async function handler(req, res) {
   }
 
   // Descuento 20% en noches media vigentes (< 16-nov-2026) para ≤3 personas
-  if (DESCUENTO_CABANAS.includes(cabana_id) && numPersonas <= 3 && totalMediaDesc > 0) {
+  // No aplica si se usa un cupón de descuento (son excluyentes)
+  if (!esCuponValido(cupon_codigo) && DESCUENTO_CABANAS.includes(cabana_id) && numPersonas <= 3 && totalMediaDesc > 0) {
     totalMediaDesc = Math.round(totalMediaDesc * 0.8);
   }
 

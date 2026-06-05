@@ -551,7 +551,7 @@
     if (!persEl) return;
     var personas = parseInt(persEl.value, 10);
     var elegible = DESCUENTO_CABANAS.indexOf(st.cabana.id) !== -1;
-    var conDesc  = elegible && !isNaN(personas) && personas >= 1 && personas <= 3 && st.baseMediaDesc > 0;
+    var conDesc  = !st.cupon && elegible && !isNaN(personas) && personas >= 1 && personas <= 3 && st.baseMediaDesc > 0;
 
     var mediaDescFinal   = conDesc ? Math.round(st.baseMediaDesc * 0.8) : st.baseMediaDesc;
     var mediaFinal       = mediaDescFinal + st.baseMediaFixed;

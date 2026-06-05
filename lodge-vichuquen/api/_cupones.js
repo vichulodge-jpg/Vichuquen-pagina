@@ -20,4 +20,9 @@ function validarCupon(codigo, subtotal) {
   return { tipo: cupon.tipo, valor: cupon.valor, descuento, descripcion: cupon.descripcion };
 }
 
-module.exports = { validarCupon };
+function esCuponValido(codigo) {
+  if (!codigo) return false;
+  return !!CUPONES[String(codigo).trim().toUpperCase()];
+}
+
+module.exports = { validarCupon, esCuponValido };
