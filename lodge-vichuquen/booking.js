@@ -52,6 +52,7 @@
     var year = d.getFullYear();
     var mmdd = dateStr.slice(5);
     if ((year === 2026 || year === 2027) && mmdd >= '06-15' && mmdd <= '07-20') return true;
+    if ((year === 2026 || year === 2027) && mmdd >= '11-15' && mmdd <= '12-17') return true;
     return false;
   }
 
