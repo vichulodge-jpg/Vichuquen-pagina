@@ -107,7 +107,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: auto;
   object-fit: contain;
   flex-shrink: 0;
-  mix-blend-mode: multiply;   /* fondo blanco del PNG desaparece sobre crema */
+  border-radius: 6px;
 }
 
 /* ── Logo derecho en hero ── */
