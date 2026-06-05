@@ -1154,7 +1154,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('assets/img/reservas-bg.jpg');
+  background-image: url('assets/img/reservas-bg.jpeg');
   background-size: cover;
   background-position: center 40%;
   background-attachment: fixed;
