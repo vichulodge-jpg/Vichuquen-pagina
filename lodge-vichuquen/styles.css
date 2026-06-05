@@ -369,7 +369,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .hero-title em { white-space: normal; }
 
   /* Más aire entre secciones */
-  .about, .cabanas, .experiencias, .galeria, .reservas, .contacto {
+  .about, .cabanas, .galeria, .reservas, .contacto {
     padding-top: clamp(3rem, 8vw, 5rem);
     padding-bottom: clamp(3rem, 8vw, 5rem);
   }
@@ -824,7 +824,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    EXPERIENCIAS
    ================================================================ */
 .experiencias {
-  padding: clamp(4rem, 8vw, 7rem) 0;
+  padding: 0;
 }
 .experiencias-inner {
   background: var(--navy);
