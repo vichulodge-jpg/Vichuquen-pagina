@@ -562,4 +562,16 @@
     initBooking();
   }
 
+  // ── BFCache: rehabilitar botones al volver con "atrás" ───────
+  // Cuando el browser restaura la página desde caché (back/forward),
+  // el DOM queda congelado con los botones deshabilitados.
+  // pageshow con persisted=true es el momento exacto para resetearlos.
+  window.addEventListener('pageshow', function(e) {
+    if (!e.persisted) return;
+    var btnMP = qs('bwPagar');
+    if (btnMP) { btnMP.disabled = false; btnMP.classList.remove('is-sending'); }
+    var btnTrans = qs('bwPagarTransferencia');
+    if (btnTrans) { btnTrans.disabled = false; btnTrans.classList.remove('is-sending'); }
+  });
+
 })();
