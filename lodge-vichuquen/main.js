@@ -429,13 +429,31 @@
       return lb;
     }
 
+    var lbScrollY = 0;
+
+    function lockBodyScroll() {
+      lbScrollY = window.scrollY;
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + lbScrollY + 'px';
+      document.body.style.width = '100%';
+    }
+
+    function unlockBodyScroll() {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, lbScrollY);
+    }
+
     function openLightbox(card, startIdx) {
       var imgs = qsa('.cabana-slide img', card);
       lbImgs = Array.prototype.map.call(imgs, function(img) { return img.src; });
       lbIdx = startIdx || 0;
       getLightbox();
       lightbox.classList.add('is-open');
-      document.body.classList.add('cabana-fs-open');
+      lockBodyScroll();
       renderLightbox();
     }
 
@@ -451,7 +469,7 @@
 
     function closeLightbox() {
       if (lightbox) lightbox.classList.remove('is-open');
-      document.body.classList.remove('cabana-fs-open');
+      unlockBodyScroll();
     }
 
     cards.forEach(function(card) {
