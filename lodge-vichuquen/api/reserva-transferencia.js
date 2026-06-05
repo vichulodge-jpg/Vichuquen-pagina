@@ -100,6 +100,33 @@ module.exports = async function handler(req, res) {
 
   if (resErr || !reserva) return res.status(500).json({ error: 'Error al crear la reserva' });
 
+  // Notificar al huésped por email (sin await — no bloquea la respuesta)
+  const gasUrl = process.env.GAS_URL;
+  if (gasUrl) {
+    const saldo = total - Math.ceil(total * 0.5 / 1000) * 1000;
+    fetch(gasUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret:     process.env.GAS_SECRET || '',
+        tipo:       'solicitud_transferencia',
+        reserva_id: reserva.id,
+        nombre:     nombre.trim(),
+        email:      email.trim(),
+        telefono:   (telefono || '').trim(),
+        cabana:     cabana.nombre,
+        check_in,
+        check_out,
+        noches,
+        personas:   numPersonas,
+        total,
+        abono:      Math.ceil(total * 0.5 / 1000) * 1000,
+        saldo:      total - Math.ceil(total * 0.5 / 1000) * 1000,
+        mensaje:    (mensaje || '').trim()
+      })
+    }).catch(e => console.error('GAS email error:', e.message));
+  }
+
   return res.status(200).json({
     reserva_id: reserva.id,
     cabana:     cabana.nombre,

@@ -103,7 +103,7 @@
           <!-- Llenado por JS -->
         </div>
         <a href="/" class="btn">Volver al inicio</a>
-        <p class="footer-note">¿Preguntas? Escríbenos a <strong>reservas@vichuquenlodge.cl</strong></p>
+        <p class="footer-note">¿Preguntas? Escríbenos a <strong>vichulodge@gmail.com</strong></p>
       </div>
 
       <!-- Estado: error -->
@@ -115,30 +115,16 @@
           recibirás la confirmación por email en los próximos minutos.
         </p>
         <a href="/#reservas" class="btn">Intentar de nuevo</a>
-        <p class="footer-note">¿Necesitas ayuda? Escríbenos a <strong>reservas@vichuquenlodge.cl</strong></p>
+        <p class="footer-note">¿Necesitas ayuda? Escríbenos a <strong>vichulodge@gmail.com</strong></p>
       </div>
 
     </div>
   </div>
 
-  <!--
-    EmailJS — configura tus credenciales en https://www.emailjs.com
-    1. Crea una cuenta gratuita
-    2. Agrega un servicio de email (Gmail, Outlook, etc.)
-    3. Crea 2 templates: uno para huésped y uno para el lodge
-    4. Reemplaza los valores EMAILJS_* abajo
-  -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
-    var EMAILJS_PUBLIC_KEY  = '85kflIz21eUj-IsaH';  // tu public key de EmailJS
-    var EMAILJS_SERVICE_ID  = 'service_2ad4jwf';  // ej: 'service_abc123'
-    var EMAILJS_TPL_HUESPED = 'template_v0oiwrd'; // template para el huésped
-    var EMAILJS_TPL_ADMIN   = 'template_em5ziwr';   // template para el lodge
-
     var MAX_RETRIES = 5;
     var RETRY_DELAY = 3000;
     var retries = 0;
-    var emailsSent = false;
 
     function getReservaId() {
       var params = new URLSearchParams(window.location.search);
@@ -171,31 +157,6 @@
       ].join('');
     }
 
-    function sendEmails(data) {
-      if (emailsSent) return;
-      if (EMAILJS_PUBLIC_KEY === 'REEMPLAZA_CON_TU_PUBLIC_KEY') return; // no configurado aún
-
-      emailjs.init(EMAILJS_PUBLIC_KEY);
-      var params = {
-        nombre:       data.nombre,
-        cabana:       data.cabana,
-        check_in:     fmtFecha(data.check_in),
-        check_out:    fmtFecha(data.check_out),
-        noches:       data.noches,
-        total:        fmtCLP(data.total),
-        abono:        fmtCLP(data.abono),
-        saldo:        fmtCLP(data.saldo),
-        reserva_id:   data.id
-      };
-
-      // Email al huésped (necesita el campo "to_email" en el template de EmailJS)
-      params.to_email = ''; // EmailJS toma el email del campo del template
-
-      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TPL_HUESPED, Object.assign({}, params, { to_email: data.email || '' }));
-      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TPL_ADMIN,   Object.assign({}, params, { to_email: 'reservas@vichuquenlodge.cl' }));
-      emailsSent = true;
-    }
-
     function checkReserva() {
       var id = getReservaId();
       if (!id) { setState('stateError'); return; }
@@ -206,7 +167,6 @@
           if (data.estado === 'confirmada') {
             renderResumen(data);
             setState('stateOk');
-            sendEmails(data);
           } else if (retries < MAX_RETRIES) {
             retries++;
             setTimeout(checkReserva, RETRY_DELAY);
