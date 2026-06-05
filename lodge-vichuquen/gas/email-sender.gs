@@ -34,7 +34,9 @@ function doPost(e) {
       enviarLodgeNotificacion(payload);
     } else if (tipo === 'solicitud_transferencia') {
       enviarHuespedTransferencia(payload);
-      enviarLodgeSolicitudTransferencia(payload); // lodge siempre notificado, independiente del WhatsApp
+      enviarLodgeSolicitudTransferencia(payload);
+    } else if (tipo === 'pre_llegada') {
+      enviarHuespedPreLlegada(payload);
     }
 
     return jsonOut({ ok: true });
@@ -149,6 +151,90 @@ function enviarHuespedTransferencia(p) {
   });
 }
 
+// ── Email al huésped: información pre-llegada (3 días antes del check-in) ─────
+function enviarHuespedPreLlegada(p) {
+  var subject = '¡Ya falta muy poco! Tu llegada a Vichuquén Lodge el ' + fmtFecha(p.check_in);
+
+  var mapsUrl = 'https://www.google.com/maps/place/Vichuquen+Lodge+y+Marina/@-34.7857666,-72.0735737,17z';
+
+  var body =
+    '<p>Hola <strong>' + p.nombre + '</strong>,</p>' +
+    '<p>Ya queda muy poco para recibirte en Vichuquén Lodge y Marina. Para que tu llegada sea cómoda y sin contratiempos, te compartimos algunos datos importantes que te recomendamos revisar antes de viajar.</p>' +
+
+    // Resumen de la reserva
+    '<div style="margin:20px 0;">' +
+    buildTabla([
+      ['Cabaña',   p.cabana],
+      ['Llegada',  fmtFecha(p.check_in)],
+      ['Salida',   fmtFecha(p.check_out)],
+      ['Noches',   String(p.noches)],
+      ['Personas', String(p.personas)]
+    ]) +
+    '</div>' +
+
+    // Sección: Antes de hacer tu maleta
+    seccion('✔️ Antes de hacer tu maleta', [
+      item('Toallas',
+        'Tu cabaña incluye sábanas y plumones limpios, pero <strong>no incluye toallas de baño</strong> (solo dejamos una toalla de mano por baño). Recuerda traer tus toallas personales y, si lo deseas, toallas para el lago.'),
+      item('Agua para consumo',
+        'El agua de los grifos proviene de pozo profundo y no es apta para beber. No es necesario que traigas agua — tu cabaña contará con <strong>bidones de agua purificada</strong>, los cuales reponemos gratuitamente durante tu estadía.'),
+      item('Cantidad de huéspedes',
+        'La cabaña y los insumos están preparados para <strong>' + p.personas + ' persona' + (p.personas > 1 ? 's' : '') + '</strong> según tu reserva. Si deseas agregar pasajeros, infórmanos antes de llegar. El valor es de <strong>$10.000 por persona adicional por noche</strong>. No es posible registrar huéspedes adicionales al hacer check-in ni recibir visitas que pernocten.'),
+      item('Cocinar frituras',
+        'Para evitar olores persistentes dentro de las cabañas, <strong>no está permitido realizar frituras en el interior</strong>. Si planeas freír alimentos, avísanos al llegar y te facilitaremos gratuitamente una cocinilla portátil con balón de gas para usar en la terraza.'),
+      item('Mascotas',
+        'La primera mascota mediana es <strong>gratuita</strong>. Una segunda mascota tiene un valor de <strong>$8.000 por noche</strong> y requiere autorización previa. Recuerda traer su cama y platos. Por higiene, las mascotas no pueden subir a camas ni sillones.')
+    ]) +
+
+    // Sección: Horarios
+    seccion('🕒 Horarios de llegada', [
+      item('Check-in', 'Desde las <strong>15:00 hrs.</strong>'),
+      item('Recepción presencial',
+        'Nuestro equipo te recibirá hasta las <strong>22:00 hrs.</strong> en la Administración (Cabaña N° 9), donde te entregaremos las llaves e indicaremos tu estacionamiento.<br><br>' +
+        'Si estimas llegar <strong>después de las 22:00 hrs.</strong>, por favor avísanos con anticipación para activar tu <strong>Check-in Autónomo</strong> y enviarte las instrucciones de acceso.')
+    ]) +
+
+    // Sección: Cómo llegar
+    '<div style="background:#F4F1EB;border-radius:10px;padding:18px 20px;margin:20px 0;">' +
+    '<p style="margin:0 0 10px;font-weight:700;color:#273852;font-size:15px;">📍 Cómo llegar</p>' +
+    '<p style="margin:0 0 12px;font-size:13px;color:#18262E;">Usa el siguiente enlace para llegar directamente con tu GPS:</p>' +
+    '<a href="' + mapsUrl + '" style="display:inline-block;background:#273852;color:#fff;text-decoration:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;">📍 Abrir en Google Maps</a>' +
+    '</div>' +
+
+    // Sección: Contacto
+    '<div style="background:#EAF4F7;border-radius:10px;padding:18px 20px;margin:20px 0;">' +
+    '<p style="margin:0 0 8px;font-weight:700;color:#273852;font-size:15px;">📞 ¿Tienes alguna duda?</p>' +
+    '<p style="margin:0;font-size:13px;color:#18262E;">Si necesitas coordinar tu horario de llegada o tienes cualquier consulta de último minuto, puedes responder este correo o escribirnos directamente:<br><br>' +
+    '<a href="https://wa.me/56954177688" style="color:#273852;font-weight:700;">WhatsApp: +56 9 5417 7688</a></p>' +
+    '</div>' +
+
+    '<p style="margin-top:24px;">Te deseamos un excelente viaje y esperamos que disfrutes una maravillosa estadía junto al lago.</p>' +
+    '<p><strong>¡Nos vemos muy pronto!</strong><br>' +
+    '<span style="color:#5A6B78;font-size:13px;">Equipo Vichuquén Lodge y Marina</span></p>';
+
+  MailApp.sendEmail({
+    to:        p.email,
+    subject:   subject,
+    htmlBody:  buildEmailBase('¡Ya falta muy poco!', body, '', ''),
+    name:      LODGE_NOMBRE,
+    replyTo:   LODGE_EMAIL
+  });
+}
+
+// Helpers para email pre-llegada
+function seccion(titulo, items) {
+  return '<div style="margin:24px 0 8px;">' +
+    '<p style="margin:0 0 12px;font-weight:700;color:#273852;font-size:15px;">' + titulo + '</p>' +
+    items.join('') +
+    '</div>';
+}
+function item(titulo, texto) {
+  return '<div style="margin-bottom:14px;padding:14px 16px;background:#F4F1EB;border-radius:8px;border-left:3px solid #5AABB8;">' +
+    '<p style="margin:0 0 4px;font-weight:700;font-size:13px;color:#273852;">' + titulo + '</p>' +
+    '<p style="margin:0;font-size:13px;color:#18262E;line-height:1.6;">' + texto + '</p>' +
+    '</div>';
+}
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function buildTablaResumen(p, incluirAbono) {
   var filas = [
@@ -242,12 +328,16 @@ function testTransferencia() {
 function testLodgeTransferencia() {
   enviarLodgeSolicitudTransferencia(DATOS_TEST);
 }
+function testPreLlegada() {
+  enviarHuespedPreLlegada(DATOS_TEST);
+}
 function testTodo() {
-  // Prueba los 4 emails de una vez
+  // Prueba los 5 emails de una vez
   enviarHuespedConfirmacion(DATOS_TEST);
   enviarLodgeNotificacion(DATOS_TEST);
   enviarHuespedTransferencia(DATOS_TEST);
   enviarLodgeSolicitudTransferencia(DATOS_TEST);
+  enviarHuespedPreLlegada(DATOS_TEST);
 }
 
 var DATOS_TEST = {
