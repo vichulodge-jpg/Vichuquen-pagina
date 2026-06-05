@@ -1407,6 +1407,36 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .bw-mini-resumen strong { font-size: 0.95rem; color: var(--navy); }
 .bw-mini-resumen span   { font-size: 0.82rem; color: var(--gray); }
 
+/* Aviso confirmación por email */
+.bw-aviso-confirmacion {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  background: #EAF4F7;
+  border: 1px solid #9DCCD8;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.75rem;
+}
+.bw-aviso-confirmacion svg {
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #273852;
+  opacity: 0.7;
+}
+.bw-aviso-confirmacion p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #18262E;
+  margin: 0;
+}
+.bw-aviso-confirmacion a {
+  color: #273852;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
 /* Error messages */
 .bw-error {
   color: #b91c1c; font-size: 0.82rem;
