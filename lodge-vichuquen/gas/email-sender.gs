@@ -34,7 +34,7 @@ function doPost(e) {
       enviarLodgeNotificacion(payload);
     } else if (tipo === 'solicitud_transferencia') {
       enviarHuespedTransferencia(payload);
-      // El lodge ya recibe notificación por WhatsApp en este flujo
+      enviarLodgeSolicitudTransferencia(payload); // lodge siempre notificado, independiente del WhatsApp
     }
 
     return jsonOut({ ok: true });
@@ -89,6 +89,39 @@ function enviarLodgeNotificacion(p) {
     to:       LODGE_EMAIL,
     subject:  subject,
     htmlBody: buildEmailBase('Nueva reserva confirmada', intro, tabla, ''),
+    name:     'Sistema de Reservas'
+  });
+}
+
+// ── Email al lodge: nueva solicitud de transferencia ─────────────────────────
+function enviarLodgeSolicitudTransferencia(p) {
+  var subject = '💸 Nueva solicitud de transferencia — ' + p.nombre + ' · ' + p.cabana;
+  var intro =
+    '<p>Nueva solicitud de reserva por transferencia bancaria.<br>' +
+    '<strong>El huésped aún no ha confirmado el pago.</strong> Contáctalo para coordinar la transferencia.</p>';
+  var tabla = buildTabla([
+    ['ID Reserva', p.reserva_id],
+    ['Huésped',    p.nombre],
+    ['Email',      p.email],
+    ['Teléfono',   p.telefono || '—'],
+    ['Cabaña',     p.cabana],
+    ['Llegada',    fmtFecha(p.check_in)],
+    ['Salida',     fmtFecha(p.check_out)],
+    ['Noches',     String(p.noches)],
+    ['Personas',   String(p.personas)],
+    ['Total',      fmtClp(p.total)],
+    ['Abono (50%)', fmtClp(p.abono)],
+    ['Mensaje',    p.mensaje || '—']
+  ]);
+  var footer =
+    '<p style="font-size:13px;color:#5A6B78;margin-top:20px;">' +
+    'Las fechas están bloqueadas por 5 minutos. Si no se confirma la transferencia, ' +
+    'quedarán disponibles nuevamente.</p>';
+
+  MailApp.sendEmail({
+    to:       LODGE_EMAIL,
+    subject:  subject,
+    htmlBody: buildEmailBase('Nueva solicitud de transferencia', intro, tabla, footer),
     name:     'Sistema de Reservas'
   });
 }
@@ -195,3 +228,40 @@ function jsonOut(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
 }
+
+// ── Funciones de test (ejecutar desde el editor de GAS) ───────────────────────
+function testEmailConfirmacion() {
+  enviarHuespedConfirmacion(DATOS_TEST);
+}
+function testLodgeMP() {
+  enviarLodgeNotificacion(DATOS_TEST);
+}
+function testTransferencia() {
+  enviarHuespedTransferencia(DATOS_TEST);
+}
+function testLodgeTransferencia() {
+  enviarLodgeSolicitudTransferencia(DATOS_TEST);
+}
+function testTodo() {
+  // Prueba los 4 emails de una vez
+  enviarHuespedConfirmacion(DATOS_TEST);
+  enviarLodgeNotificacion(DATOS_TEST);
+  enviarHuespedTransferencia(DATOS_TEST);
+  enviarLodgeSolicitudTransferencia(DATOS_TEST);
+}
+
+var DATOS_TEST = {
+  reserva_id: 'test-001',
+  nombre:     'Juan Pérez',
+  email:      'vichulodge@gmail.com', // ← cambia por tu email de prueba
+  telefono:   '+56912345678',
+  cabana:     'Tagua',
+  check_in:   '2026-07-15',
+  check_out:  '2026-07-18',
+  noches:     3,
+  personas:   2,
+  total:      297000,
+  abono:      149000,
+  saldo:      148000,
+  mensaje:    'Llegamos tarde, sobre las 20:00'
+};
