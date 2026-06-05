@@ -61,6 +61,12 @@
     return 'baja';
   }
 
+  function calcCuponDescuento(subtotal) {
+    if (!st.cupon) return 0;
+    if (st.cupon.tipo === 'porcentaje') return Math.round(subtotal * st.cupon.valor / 100);
+    return Math.min(st.cupon.valor, subtotal);
+  }
+
   function getPrecio(cabana, dateStr) {
     var t = getTarifa(dateStr);
     return t === 'alta' ? cabana.alta : (t === 'media' ? cabana.media : cabana.baja);
@@ -95,6 +101,7 @@
     baseMediaDesc:  0,  // media con descuento vigente (< 16-nov-2026)
     baseMediaFixed: 0,  // media sin descuento (>= 16-nov-2026)
     baseAltaBaja:   0,  // subtotal de noches en alta + baja
+    cupon:          null,  // { tipo, valor, descripcion } si hay cupón aplicado
     abono:      0,
     pagoHoy:    0,   // monto que se cobra hoy según opción elegida
     pagoTipo:   'abono',        // 'abono' | 'total'
@@ -131,6 +138,13 @@
 
     document.querySelectorAll('input[name="metodoPago"]').forEach(function(radio) {
       radio.addEventListener('change', onMetodoPagoChange);
+    });
+
+    var btnCupon = qs('bwCuponBtn');
+    if (btnCupon) btnCupon.addEventListener('click', onAplicarCupon);
+    var cuponInput = qs('bwCuponInput');
+    if (cuponInput) cuponInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') onAplicarCupon();
     });
 
     var btnCont = qs('bwContinuar');
@@ -348,14 +362,23 @@
       var pu = diasAlta === noches ? st.cabana.alta : (diasMedia === noches ? st.cabana.media : st.cabana.baja);
       partes = [noches + ' noche' + (noches > 1 ? 's' : '') + ' × ' + fmtCLP(pu)];
     }
+    // Aplicar cupón si hay uno guardado
+    var cuponDesc = calcCuponDescuento(total);
+    var totalFinal = total - cuponDesc;
+    var abonoFinal = Math.ceil(totalFinal * 0.5 / 1000) * 1000;
+    st.total = totalFinal;
+    st.abono = abonoFinal;
+
     txt('bwPrecioBase', 'Desde ' + fmtCLP(st.cabana.baja) + ' / noche');
     txt('bwCalcDesc',  partes.join(' + '));
     txt('bwCalcTotal', fmtCLP(total));
-    txt('bwCalcAbono', fmtCLP(abono));
-    txt('bwCalcSaldo', fmtCLP(total - abono));
+    actualizarFilaCupon(cuponDesc);
+    txt('bwCalcAbono', fmtCLP(abonoFinal));
+    txt('bwCalcSaldo', fmtCLP(totalFinal - abonoFinal));
 
     actualizarPagoOpciones();
     show('bwResumen');
+    show('bwCuponWrap');
     if (st.metodoPago === 'mp') show('bwPagoOpciones');
     show('bwMetodoPago');
     updateContinuarBtn();
@@ -470,14 +493,15 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        cabana_id: st.cabana.id,
-        check_in:  st.checkIn,
-        check_out: st.checkOut,
-        nombre: nombre,
-        email: email,
-        telefono: telefono || null,
-        personas: personas,
-        mensaje: mensaje || null
+        cabana_id:    st.cabana.id,
+        check_in:     st.checkIn,
+        check_out:    st.checkOut,
+        nombre:       nombre,
+        email:        email,
+        telefono:     telefono || null,
+        personas:     personas,
+        mensaje:      mensaje || null,
+        cupon_codigo: st.cupon ? st.cupon.codigo : null
       })
     })
     .then(function(r) { return r.json(); })
@@ -526,7 +550,9 @@
 
     var mediaDescFinal = conDesc ? Math.round(st.baseMediaDesc * 0.8) : st.baseMediaDesc;
     var mediaFinal     = mediaDescFinal + st.baseMediaFixed;
-    st.total  = st.baseAltaBaja + mediaFinal;
+    var subtotal = st.baseAltaBaja + mediaFinal;
+    var cuponDesc = calcCuponDescuento(subtotal);
+    st.total  = subtotal - cuponDesc;
     st.abono  = Math.ceil(st.total * 0.5 / 1000) * 1000;
     var esPagoTotal = st.pagoTipo === 'total';
     st.pagoHoy = esPagoTotal ? st.total : st.abono;
@@ -539,6 +565,69 @@
     var btnTxt = qs('bwBtnPagarTxt');
     if (btnTxt) btnTxt.textContent =
       (esPagoTotal ? 'Pagar total ' : 'Pagar abono ') + fmtCLP(st.pagoHoy) + ' →';
+  }
+
+  function actualizarFilaCupon(descuento) {
+    var fila  = qs('bwFilaCupon');
+    var label = qs('bwCuponLabel');
+    var valor = qs('bwCalcCupon');
+    if (!fila) return;
+    if (descuento > 0 && st.cupon) {
+      if (label) label.textContent = 'Cupón ' + (st.cupon.codigo || '');
+      if (valor) valor.textContent = '−' + fmtCLP(descuento);
+      fila.hidden = false;
+    } else {
+      fila.hidden = true;
+    }
+  }
+
+  // ── CUPÓN DE DESCUENTO ────────────────────────────────────────
+  function onAplicarCupon() {
+    var input = qs('bwCuponInput');
+    var msg   = qs('bwCuponMsg');
+    var btn   = qs('bwCuponBtn');
+    if (!input || !msg) return;
+
+    var codigo = input.value.trim().toUpperCase();
+    if (!codigo) { msg.textContent = 'Ingresa un código.'; msg.className = 'bw-cupon-msg err'; msg.hidden = false; return; }
+
+    // Validar contra el subtotal antes del cupón
+    var subtotalBase = st.baseAltaBaja + st.baseMediaDesc + st.baseMediaFixed;
+    if (btn) btn.disabled = true;
+
+    fetch('/api/validar-cupon', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ codigo: codigo, subtotal: subtotalBase })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (btn) btn.disabled = false;
+      if (data.valido) {
+        st.cupon = { tipo: data.tipo, valor: data.valor, descripcion: data.descripcion, codigo: codigo };
+        // Recalcular total con cupón
+        var cuponDesc = calcCuponDescuento(subtotalBase);
+        st.total = subtotalBase - cuponDesc;
+        st.abono = Math.ceil(st.total * 0.5 / 1000) * 1000;
+        actualizarFilaCupon(cuponDesc);
+        txt('bwCalcAbono', fmtCLP(st.abono));
+        txt('bwCalcSaldo', fmtCLP(st.total - st.abono));
+        actualizarPagoOpciones();
+        msg.textContent = '✓ ' + data.descripcion + ' aplicado.';
+        msg.className = 'bw-cupon-msg ok'; msg.hidden = false;
+        if (input) input.disabled = true;
+        if (btn)   btn.textContent = 'Aplicado';
+      } else {
+        st.cupon = null;
+        msg.textContent = 'Código no válido o vencido.';
+        msg.className = 'bw-cupon-msg err'; msg.hidden = false;
+      }
+    })
+    .catch(function() {
+      if (btn) btn.disabled = false;
+      msg.textContent = 'Error al validar. Intenta de nuevo.';
+      msg.className = 'bw-cupon-msg err'; msg.hidden = false;
+    });
   }
 
   function stepDot(n) {
@@ -582,15 +671,16 @@
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        cabana_id:  st.cabana.id,
-        check_in:   st.checkIn,
-        check_out:  st.checkOut,
-        nombre:     nombre,
-        email:      email,
-        telefono:   telefono || null,
-        personas:   personas,
-        mensaje:    mensaje || null,
-        pago_tipo:  st.pagoTipo
+        cabana_id:    st.cabana.id,
+        check_in:     st.checkIn,
+        check_out:    st.checkOut,
+        nombre:       nombre,
+        email:        email,
+        telefono:     telefono || null,
+        personas:     personas,
+        mensaje:      mensaje || null,
+        pago_tipo:    st.pagoTipo,
+        cupon_codigo: st.cupon ? st.cupon.codigo : null
       })
     })
     .then(function(r) { return r.json(); })

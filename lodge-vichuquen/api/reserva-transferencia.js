@@ -1,6 +1,7 @@
 'use strict';
 
 const supabase = require('./_db');
+const { validarCupon } = require('./_cupones');
 
 const TEMPORADAS_ALTA = [
   { from: '2026-06-26', to: '2026-06-28' }, { from: '2026-07-15', to: '2026-07-18' },
@@ -33,7 +34,7 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST')   return res.status(405).json({ error: 'Method not allowed' });
 
-  const { cabana_id, check_in, check_out, nombre, email, telefono, personas, mensaje } = req.body || {};
+  const { cabana_id, check_in, check_out, nombre, email, telefono, personas, mensaje, cupon_codigo } = req.body || {};
 
   if (!cabana_id || !check_in || !check_out || !nombre || !email || !personas) {
     return res.status(400).json({ error: 'Faltan campos requeridos' });
@@ -88,6 +89,10 @@ module.exports = async function handler(req, res) {
   }
 
   let total = totalAlta + totalMediaDesc + totalMediaFixed + totalBaja;
+
+  // Cupón de descuento (opcional)
+  const cupon = validarCupon(cupon_codigo, total);
+  if (cupon) total = total - cupon.descuento;
 
   const precioNoche = Math.round(total / noches);
   const abono       = Math.ceil(total * 0.5 / 1000) * 1000;

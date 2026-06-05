@@ -1,6 +1,7 @@
 'use strict';
 
 const supabase = require('./_db');
+const { validarCupon } = require('./_cupones');
 const { MercadoPagoConfig, Preference } = require('mercadopago');
 
 const mp = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
@@ -13,7 +14,7 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { cabana_id, check_in, check_out, nombre, email, telefono, personas, mensaje, pago_tipo } = req.body || {};
+  const { cabana_id, check_in, check_out, nombre, email, telefono, personas, mensaje, pago_tipo, cupon_codigo } = req.body || {};
 
   // ── Validación básica ────────────────────────────────────────
   if (!cabana_id || !check_in || !check_out || !nombre || !email || !personas) {
@@ -96,6 +97,10 @@ module.exports = async function handler(req, res) {
   }
 
   let total = totalAlta + totalMediaDesc + totalMediaFixed + totalBaja;
+
+  // Cupón de descuento (opcional)
+  const cupon = validarCupon(cupon_codigo, total);
+  if (cupon) total = total - cupon.descuento;
 
   const esPagoTotal = pago_tipo === 'total';
   const abono = esPagoTotal ? total : Math.ceil(total * 0.5 / 1000) * 1000;
