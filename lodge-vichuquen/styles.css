@@ -1465,6 +1465,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width: 768px) {
   .contacto-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .contacto-foto { height: 260px; }
+  .contacto .section-kicker,
+  .contacto .section-title { text-align: center; margin-left: auto; margin-right: auto; }
 }
 
 /* ================================================================
