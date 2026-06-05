@@ -5,7 +5,8 @@
 // tipo: 'fijo'       → valor = CLP fijos de descuento
 // Agrega o modifica los cupones aquí.
 const CUPONES = {
-  'LODGE20000': { tipo: 'fijo', valor: 20000, descripcion: '$20.000 de descuento' },
+  'LODGE20000': { tipo: 'fijo', valor: 20000,  descripcion: '$20.000 de descuento' },
+  'VIC79200':   { tipo: 'fijo', valor: 79200,  descripcion: '$79.200 de descuento' },
 };
 
 function validarCupon(codigo, subtotal) {
