@@ -50,13 +50,14 @@ function enviarHuespedConfirmacion(p) {
   var subject = '¡Tu reserva está confirmada! — Vichuquén Lodge y Marina';
   var intro =
     '<p>Hola <strong>' + p.nombre + '</strong>,</p>' +
-    '<p>Tu pago fue recibido correctamente. ¡Tu reserva está confirmada y te esperamos en el lago!</p>';
+    '<p>¡Gracias por elegirnos!</p>' +
+    '<p>Tu pago fue recibido correctamente.</p>' +
+    '<p><strong> Detalles de tu reserva:</strong></p>';
   var footer =
     '<p style="font-size:13px;color:#5A6B78;margin-top:20px;">' +
-    'El saldo restante de <strong>' + fmtClp(p.saldo) + '</strong> se paga al llegar al lodge.<br>' +
-    '¿Necesitas ayuda? Escríbenos por ' +
-    '<a href="https://wa.me/56954177688" style="color:#273852;">WhatsApp</a> ' +
-    'o responde este correo.</p>';
+    'Importante: Si elegiste la opción de pago con abono, recuerda que debes completar el saldo pendiente de <strong>' + fmtClp(p.saldo) + '</strong> a más tardar 5 días antes de tu fecha de llegada.<br>' +
+    '<p>Si tienes dudas o necesitas asistencia, contáctanos por <a href="https://wa.me/56954177688" style="color:#273852;">WhatsApp</a> ' +
+    'o responde este correo.<br></p>';
 
   MailApp.sendEmail({
     to:        p.email,
