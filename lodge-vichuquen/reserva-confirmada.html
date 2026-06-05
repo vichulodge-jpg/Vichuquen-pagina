@@ -96,8 +96,7 @@
         </div>
         <h1>¡Reserva confirmada!</h1>
         <p class="subtitle">
-          Hemos recibido tu abono. Te enviamos los detalles por correo electrónico.<br>
-          El saldo restante se paga al llegar al lodge.
+          Hemos recibido tu pago. Te enviamos los detalles por correo electrónico.
         </p>
         <div class="resumen" id="resumenDetalles">
           <!-- Llenado por JS -->
@@ -152,7 +151,7 @@
         '<div class="resumen-row"><span>Salida</span><strong>' + fmtFecha(data.check_out) + '</strong></div>',
         '<div class="resumen-row"><span>Noches</span><strong>' + data.noches + '</strong></div>',
         '<div class="resumen-row"><span>Total estadía</span><strong>' + fmtCLP(data.total) + '</strong></div>',
-        '<div class="resumen-row abono-row"><span>Abono pagado</span><strong>' + fmtCLP(data.abono) + '</strong></div>',
+        '<div class="resumen-row abono-row"><span>Pagado</span><strong>' + fmtCLP(data.abono) + '</strong></div>',
         '<div class="resumen-row"><span>Saldo al llegar</span><span>' + fmtCLP(data.saldo) + '</span></div>'
       ].join('');
     }
