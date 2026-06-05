@@ -106,7 +106,7 @@
     cupon:          null,  // { tipo, valor, descripcion } si hay cupón aplicado
     abono:      0,
     pagoHoy:    0,   // monto que se cobra hoy según opción elegida
-    pagoTipo:   'abono',        // 'abono' | 'total'
+    pagoTipo:   'total',         // 'abono' | 'total'
     metodoPago: 'mp',           // 'mp' | 'transferencia'
     blocked:    [],
     loading:    false
