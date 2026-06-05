@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /reserva-confirmada.html
+Disallow: /reserva-fallida.html
+Disallow: /reserva-pendiente.html
+
+Sitemap: https://www.vichuquenlodgeymarina.cl/sitemap.xml
