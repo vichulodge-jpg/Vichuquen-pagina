@@ -1146,7 +1146,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    RESERVAS
    ================================================================ */
 .reservas {
-  background-color: var(--sand);
+  background-color: #c8bfb0;
   position: relative;
   padding: clamp(4rem, 8vw, 7rem) 0;
 }
@@ -1158,7 +1158,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background-size: cover;
   background-position: center 40%;
   background-attachment: fixed;
-  opacity: 0.4;
+  opacity: 0.22;
   z-index: 0;
 }
 .reservas > .container {
@@ -1166,6 +1166,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   z-index: 1;
 }
 .reservas .section-title { color: var(--navy-deep); }
+.reservas .section-kicker { color: var(--navy); }
+.reservas .paso strong { color: var(--navy-deep); }
+.reservas .paso p { color: var(--ink); }
 .reservas-grid {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
