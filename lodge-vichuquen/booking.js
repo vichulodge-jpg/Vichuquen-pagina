@@ -2,8 +2,9 @@
   'use strict';
 
   // ── DATOS DE CABAÑAS ─────────────────────────────────────────
-  // 20% descuento en tarifa MEDIA para ≤3 personas
+  // 20% descuento en tarifa MEDIA para ≤3 personas (vigente antes del 16-nov-2026)
   var DESCUENTO_CABANAS = ['c1-tagua','c2-cisne-coscoroba','c5-huala','c6-run-run','c7-pitio'];
+  var DESCUENTO_HASTA   = '2026-11-15'; // último día con descuento (inclusive)
 
   var CABANAS = [
     { id: 'c1-tagua',              nombre: 'Tagua',              capacidad: 5, alta: 119000, media: 99000,  baja: 79200 },
@@ -90,8 +91,10 @@
     precio:    0,
     total:     0,
     baseTotal:    0,  // total sin descuento
-    baseMedia:    0,  // subtotal de noches en tarifa media
-    baseAltaBaja: 0,  // subtotal de noches en alta + baja
+    baseMedia:      0,  // subtotal de noches en tarifa media
+    baseMediaDesc:  0,  // media con descuento vigente (< 16-nov-2026)
+    baseMediaFixed: 0,  // media sin descuento (>= 16-nov-2026)
+    baseAltaBaja:   0,  // subtotal de noches en alta + baja
     abono:      0,
     pagoHoy:    0,   // monto que se cobra hoy según opción elegida
     pagoTipo:   'abono',        // 'abono' | 'total'
@@ -290,7 +293,7 @@
     var noches = diffDays(st.checkIn, st.checkOut);
     if (noches < 1) { hide('bwResumen'); hide('bwPagoOpciones'); return; }
 
-    var totalAlta = 0, totalMedia = 0, totalBaja = 0;
+    var totalAlta = 0, totalMediaDesc = 0, totalMediaFixed = 0, totalBaja = 0;
     var diasAlta = 0, diasMedia = 0, diasBaja = 0;
     var d    = new Date(st.checkIn  + 'T12:00:00');
     var endD = new Date(st.checkOut + 'T12:00:00');
@@ -298,20 +301,27 @@
       var ds = toISODate(d);
       var t  = getTarifa(ds);
       if      (t === 'alta')  { totalAlta  += st.cabana.alta;  diasAlta++;  }
-      else if (t === 'media') { totalMedia += st.cabana.media; diasMedia++; }
+      else if (t === 'media') {
+        diasMedia++;
+        if (ds <= DESCUENTO_HASTA) totalMediaDesc  += st.cabana.media;
+        else                       totalMediaFixed += st.cabana.media;
+      }
       else                    { totalBaja  += st.cabana.baja;  diasBaja++;  }
       d.setDate(d.getDate() + 1);
     }
 
+    var totalMedia = totalMediaDesc + totalMediaFixed;
     var total = totalAlta + totalMedia + totalBaja;
     var abono = Math.ceil(total * 0.5 / 1000) * 1000;
 
-    st.noches        = noches;
-    st.precio        = Math.round(total / noches);
-    st.total         = total;
-    st.baseTotal     = total;
-    st.baseMedia     = totalMedia;
-    st.baseAltaBaja  = totalAlta + totalBaja;
+    st.noches         = noches;
+    st.precio         = Math.round(total / noches);
+    st.total          = total;
+    st.baseTotal      = total;
+    st.baseMedia      = totalMedia;
+    st.baseMediaDesc  = totalMediaDesc;
+    st.baseMediaFixed = totalMediaFixed;
+    st.baseAltaBaja   = totalAlta + totalBaja;
     st.abono     = abono;
 
     // Badge
@@ -512,9 +522,10 @@
     if (!persEl) return;
     var personas = parseInt(persEl.value, 10);
     var elegible = DESCUENTO_CABANAS.indexOf(st.cabana.id) !== -1;
-    var conDesc  = elegible && !isNaN(personas) && personas >= 1 && personas <= 3 && st.baseMedia > 0;
+    var conDesc  = elegible && !isNaN(personas) && personas >= 1 && personas <= 3 && st.baseMediaDesc > 0;
 
-    var mediaFinal = conDesc ? Math.round(st.baseMedia * 0.8) : st.baseMedia;
+    var mediaDescFinal = conDesc ? Math.round(st.baseMediaDesc * 0.8) : st.baseMediaDesc;
+    var mediaFinal     = mediaDescFinal + st.baseMediaFixed;
     st.total  = st.baseAltaBaja + mediaFinal;
     st.abono  = Math.ceil(st.total * 0.5 / 1000) * 1000;
     var esPagoTotal = st.pagoTipo === 'total';

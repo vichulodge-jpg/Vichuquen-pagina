@@ -68,24 +68,26 @@ module.exports = async function handler(req, res) {
   }
 
   // Calcular precio día a día (Alta / Media / Baja)
-  let totalAlta = 0, totalMedia = 0, totalBaja = 0;
+  const DESCUENTO_CABANAS = ['c1-tagua','c2-cisne-coscoroba','c5-huala','c6-run-run','c7-pitio'];
+  const DESCUENTO_HASTA   = '2026-11-15';
+
+  let totalAlta = 0, totalMediaDesc = 0, totalMediaFixed = 0, totalBaja = 0;
   const cursor  = new Date(check_in  + 'T12:00:00');
   const endDate = new Date(check_out + 'T12:00:00');
   while (cursor < endDate) {
     const ds = cursor.toISOString().split('T')[0];
-    if      (diaEsAlta(ds))   totalAlta  += cabana.precio_alta;
-    else if (diaEsMedia(ds))  totalMedia += cabana.precio_media;
-    else                       totalBaja  += cabana.precio_baja;
+    if      (diaEsAlta(ds))   totalAlta += cabana.precio_alta;
+    else if (diaEsMedia(ds))  { ds <= DESCUENTO_HASTA ? totalMediaDesc += cabana.precio_media : totalMediaFixed += cabana.precio_media; }
+    else                       totalBaja += cabana.precio_baja;
     cursor.setDate(cursor.getDate() + 1);
   }
 
-  // Descuento 20% en tarifa media para ≤3 personas en cabañas elegibles
-  const DESCUENTO_CABANAS = ['c1-tagua','c2-cisne-coscoroba','c5-huala','c6-run-run','c7-pitio'];
-  if (DESCUENTO_CABANAS.includes(cabana_id) && numPersonas <= 3 && totalMedia > 0) {
-    totalMedia = Math.round(totalMedia * 0.8);
+  // Descuento 20% en noches media vigentes (< 16-nov-2026) para ≤3 personas
+  if (DESCUENTO_CABANAS.includes(cabana_id) && numPersonas <= 3 && totalMediaDesc > 0) {
+    totalMediaDesc = Math.round(totalMediaDesc * 0.8);
   }
 
-  let total = totalAlta + totalMedia + totalBaja;
+  let total = totalAlta + totalMediaDesc + totalMediaFixed + totalBaja;
 
   const precioNoche = Math.round(total / noches);
   const abono       = Math.ceil(total * 0.5 / 1000) * 1000;
