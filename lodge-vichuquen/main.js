@@ -385,58 +385,90 @@
     grid.addEventListener('scroll', function() { updateCounter(); }, { passive: true });
     updateCounter();
 
-    // ── Fullscreen ──────────────────────────────────────────────
-    var currentCard = null;
-    var closeBtn    = null;
+    // ── Lightbox (solo imagen) ──────────────────────────────────
+    var lightbox = null;
+    var lbImgs   = [];
+    var lbIdx    = 0;
 
-    function openCard(card) {
-      currentCard = card;
-      card.classList.add('is-fullscreen');
-      document.body.classList.add('cabana-fs-open');
-      card.scrollTop = 0;
+    function getLightbox() {
+      if (lightbox) return lightbox;
+      var lb = document.createElement('div');
+      lb.className = 'cabana-lightbox';
+      lb.innerHTML =
+        '<button class="cabana-lb-close" aria-label="Cerrar">' +
+          '<svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+        '</button>' +
+        '<button class="cabana-lb-prev" aria-label="Foto anterior">' +
+          '<svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+        '</button>' +
+        '<img class="cabana-lb-img" />' +
+        '<button class="cabana-lb-next" aria-label="Foto siguiente">' +
+          '<svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+        '</button>' +
+        '<div class="cabana-lb-counter"></div>';
 
-      // Mostrar características automáticamente
-      var detailsEl = qs('[data-extras]', card);
-      if (detailsEl && detailsEl.hidden) {
-        detailsEl.hidden = false;
-        var toggle = qs('[data-extras-toggle]', card);
-        if (toggle) toggle.setAttribute('aria-expanded', 'true');
-      }
+      lb.querySelector('.cabana-lb-close').addEventListener('click', closeLightbox);
+      lb.querySelector('.cabana-lb-prev').addEventListener('click', function(e) {
+        e.stopPropagation(); goLightbox(lbIdx - 1);
+      });
+      lb.querySelector('.cabana-lb-next').addEventListener('click', function(e) {
+        e.stopPropagation(); goLightbox(lbIdx + 1);
+      });
+      lb.addEventListener('click', function(e) { if (e.target === lb) closeLightbox(); });
 
-      // Botón cerrar
-      closeBtn = document.createElement('button');
-      closeBtn.className = 'cabana-fs-close';
-      closeBtn.setAttribute('aria-label', 'Cerrar');
-      closeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      closeBtn.addEventListener('click', function(e) { e.stopPropagation(); closeCard(); });
-      document.body.appendChild(closeBtn);
+      // Swipe táctil
+      var tsX = 0;
+      lb.addEventListener('touchstart', function(e) { tsX = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend', function(e) {
+        var dx = e.changedTouches[0].clientX - tsX;
+        if (Math.abs(dx) > 50) goLightbox(dx > 0 ? lbIdx - 1 : lbIdx + 1);
+      }, { passive: true });
+
+      document.body.appendChild(lb);
+      lightbox = lb;
+      return lb;
     }
 
-    function closeCard() {
-      if (currentCard) {
-        currentCard.classList.remove('is-fullscreen');
-        currentCard = null;
-      }
+    function openLightbox(card, startIdx) {
+      var imgs = qsa('.cabana-slide img', card);
+      lbImgs = Array.prototype.map.call(imgs, function(img) { return img.src; });
+      lbIdx = startIdx || 0;
+      getLightbox();
+      lightbox.classList.add('is-open');
+      document.body.classList.add('cabana-fs-open');
+      renderLightbox();
+    }
+
+    function renderLightbox() {
+      lightbox.querySelector('.cabana-lb-img').src = lbImgs[lbIdx];
+      lightbox.querySelector('.cabana-lb-counter').textContent = (lbIdx + 1) + ' / ' + lbImgs.length;
+    }
+
+    function goLightbox(idx) {
+      lbIdx = ((idx % lbImgs.length) + lbImgs.length) % lbImgs.length;
+      renderLightbox();
+    }
+
+    function closeLightbox() {
+      if (lightbox) lightbox.classList.remove('is-open');
       document.body.classList.remove('cabana-fs-open');
-      if (closeBtn) { closeBtn.remove(); closeBtn = null; }
     }
 
     cards.forEach(function(card) {
-      // Tap en foto → abrir fullscreen
       var carouselEl = qs('.cabana-carousel', card);
       if (carouselEl) {
         carouselEl.addEventListener('click', function(e) {
-          if (card.classList.contains('is-fullscreen')) return;
-          // No abrir si el click fue en botón de carrusel
           if (e.target.closest('.carousel-btn')) return;
-          openCard(card);
+          var slidesEl = qs('.cabana-slides', card);
+          var slideIdx = slidesEl ? Math.round(slidesEl.scrollLeft / slidesEl.offsetWidth) : 0;
+          openLightbox(card, slideIdx);
         });
       }
     });
 
     // Cerrar con Escape
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && currentCard) closeCard();
+      if (e.key === 'Escape' && lightbox && lightbox.classList.contains('is-open')) closeLightbox();
     });
   }
 

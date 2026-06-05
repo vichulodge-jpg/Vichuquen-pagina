@@ -384,7 +384,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
   /* parallax no funciona bien en iOS/Android */
   .cabanas::before { background-attachment: scroll; }
-  .cabanas-attrs { flex-wrap: wrap; gap: 1.5rem; }
+  .cabanas-attrs { flex-wrap: wrap; gap: 1.5rem 2rem; row-gap: 2rem; }
   .attr-sep { display: none; }
 
   /* Subtítulo hero más legible */
@@ -396,9 +396,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   /* Reservas grid apilado */
   .reservas-grid { gap: 2rem; }
 
-  /* Ratings en columna */
-  .ratings-wrap { flex-direction: column; gap: 1.25rem; }
-  .rating-divider { width: 40px; height: 1px; }
+  /* Ratings en fila (mantener horizontal) */
+  .ratings-wrap { flex-direction: row; gap: 1.25rem; align-items: flex-start; }
+  .rating-divider { width: 1px; height: auto; align-self: stretch; }
 }
 .hero-sub {
   font-family: "Cormorant Garamond", Georgia, serif;
@@ -1561,8 +1561,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
   .footer-links-grid { grid-template-columns: 1fr 1fr; }
 }
+@media (max-width: 640px) {
+  .footer-logo { display: none; }
+  .ubicacion-ruta { display: none; }
+}
 @media (max-width: 480px) {
-  .footer-links-grid { grid-template-columns: 1fr; }
+  .footer-links-grid { grid-template-columns: 1fr 1fr; }
+  .footer-cta-col { grid-column: 1 / -1; }
 }
 
 /* ================================================================
@@ -1898,50 +1903,56 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     letter-spacing: .04em;
   }
 
-  /* ── Fullscreen ── */
-  .cabana-card.is-fullscreen {
-    position: fixed;
-    inset: 0;
-    z-index: 998;
-    max-width: none;
-    flex: none;
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-align: unset;
-    transform: none !important;
-    box-shadow: none;
-    cursor: default;
-  }
-  .cabana-card.is-fullscreen .cabana-carousel {
-    height: 56vw;
-    max-height: 300px;
-  }
-  .cabana-card.is-fullscreen .carousel-btn { opacity: 1; }
-
   body.cabana-fs-open { overflow: hidden; }
+}
 
-  /* Botón cerrar (inyectado por JS) */
-  .cabana-fs-close {
-    position: fixed;
-    top: max(1rem, env(safe-area-inset-top));
-    right: 1rem;
-    z-index: 999;
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: rgba(0,0,0,.55);
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 2px 12px rgba(0,0,0,.3);
-  }
-  .cabana-fs-close svg { width: 18px; height: 18px; }
+/* ── Lightbox de imágenes mobile ── */
+.cabana-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0,0,0,.96);
+  align-items: center;
+  justify-content: center;
+}
+.cabana-lightbox.is-open { display: flex; }
+.cabana-lb-img {
+  max-width: 100vw;
+  max-height: 82vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 4px;
+}
+.cabana-lb-close {
+  position: absolute;
+  top: max(1rem, env(safe-area-inset-top));
+  right: 1rem;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.18);
+  border: none; color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.cabana-lb-close svg { width: 20px; height: 20px; }
+.cabana-lb-prev, .cabana-lb-next {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.18);
+  border: none; color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.cabana-lb-prev { left: 0.75rem; }
+.cabana-lb-next { right: 0.75rem; }
+.cabana-lb-prev svg, .cabana-lb-next svg { width: 20px; height: 20px; }
+.cabana-lb-counter {
+  position: absolute;
+  bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,.65);
+  font-size: 0.82rem; letter-spacing: 0.05em;
+  font-family: "Inter", sans-serif;
 }
 
 /* ── Botón Reservar mobile en hero ── */
