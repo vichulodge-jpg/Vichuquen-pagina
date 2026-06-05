@@ -363,7 +363,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: #fff; text-wrap: balance;
   margin-bottom: 1.25rem;
 }
-.hero-title em    { font-style: italic; font-weight: 700; color: var(--blue); white-space: nowrap; }
+.hero-title em    { font-style: italic; font-weight: 700; color: #E8C97A; white-space: nowrap; }
 /* Desktop: "Vive el encanto" fuerza salto de línea */
 .hero-line1 { display: block; }
 /* Móvil: flujo natural, todo inline + espaciado generoso */
