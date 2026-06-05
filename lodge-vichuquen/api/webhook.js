@@ -94,13 +94,13 @@ module.exports = async function handler(req, res) {
         const nombreCabana = cabana?.nombre || updated.cabana_id;
         await notificarEmail(updated, nombreCabana);
 
-        // Si el check-in es en menos de 3 días, enviar pre-llegada de inmediato
-        // (el cron solo cubre check-in en exactamente 3 días)
-        const hoy = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Santiago' }));
-        hoy.setHours(0, 0, 0, 0);
-        const checkIn = new Date(updated.check_in + 'T12:00:00');
-        const diasHastaCheckIn = Math.round((checkIn - hoy) / 86400000);
-        if (diasHastaCheckIn >= 0 && diasHastaCheckIn < 3) {
+        // Si el check-in es en 0, 1 o 2 días, enviar pre-llegada de inmediato
+        // (el cron cubre check-in en exactamente 3 días)
+        const hoyStr   = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Santiago' }); // 'YYYY-MM-DD'
+        const hoyDate  = new Date(hoyStr + 'T00:00:00Z');
+        const checkIn  = new Date(updated.check_in + 'T00:00:00Z');
+        const diasHastaCheckIn = Math.floor((checkIn - hoyDate) / 86400000);
+        if (diasHastaCheckIn >= 0 && diasHastaCheckIn <= 2) {
           await notificarPreLlegada(updated, nombreCabana);
         }
       }
