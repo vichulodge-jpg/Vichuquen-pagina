@@ -2,6 +2,9 @@
   'use strict';
 
   // ── DATOS DE CABAÑAS ─────────────────────────────────────────
+  // 20% descuento en tarifa MEDIA para ≤3 personas
+  var DESCUENTO_CABANAS = ['c1-tagua','c2-cisne-coscoroba','c5-huala','c6-run-run','c7-pitio'];
+
   var CABANAS = [
     { id: 'c1-tagua',              nombre: 'Tagua',              capacidad: 5, alta: 119000, media: 99000,  baja: 79200 },
     { id: 'c2-cisne-coscoroba',    nombre: 'Cisne Coscoroba',    capacidad: 5, alta: 119000, media: 99000,  baja: 79200 },
@@ -86,7 +89,9 @@
     noches:    0,
     precio:    0,
     total:     0,
-    baseTotal:  0,   // total antes de aplicar descuento
+    baseTotal:    0,  // total sin descuento
+    baseMedia:    0,  // subtotal de noches en tarifa media
+    baseAltaBaja: 0,  // subtotal de noches en alta + baja
     abono:      0,
     pagoHoy:    0,   // monto que se cobra hoy según opción elegida
     pagoTipo:   'abono',        // 'abono' | 'total'
@@ -113,7 +118,10 @@
     if (selCab) selCab.addEventListener('change', onCabanaChange);
 
     var persEl = qs('bwPersonas');
-    if (persEl) persEl.max = '7'; // máx global
+    if (persEl) {
+      persEl.max = '7';
+      persEl.addEventListener('input', aplicarDescuento);
+    }
 
     var btnTransfPagar = qs('bwPagarTransferencia');
     if (btnTransfPagar) btnTransfPagar.addEventListener('click', onPagarTransferencia);
@@ -282,24 +290,28 @@
     var noches = diffDays(st.checkIn, st.checkOut);
     if (noches < 1) { hide('bwResumen'); hide('bwPagoOpciones'); return; }
 
-    var total = 0, diasAlta = 0, diasMedia = 0, diasBaja = 0;
+    var totalAlta = 0, totalMedia = 0, totalBaja = 0;
+    var diasAlta = 0, diasMedia = 0, diasBaja = 0;
     var d    = new Date(st.checkIn  + 'T12:00:00');
     var endD = new Date(st.checkOut + 'T12:00:00');
     while (d < endD) {
       var ds = toISODate(d);
       var t  = getTarifa(ds);
-      if      (t === 'alta')  { total += st.cabana.alta;  diasAlta++;  }
-      else if (t === 'media') { total += st.cabana.media; diasMedia++; }
-      else                    { total += st.cabana.baja;  diasBaja++;  }
+      if      (t === 'alta')  { totalAlta  += st.cabana.alta;  diasAlta++;  }
+      else if (t === 'media') { totalMedia += st.cabana.media; diasMedia++; }
+      else                    { totalBaja  += st.cabana.baja;  diasBaja++;  }
       d.setDate(d.getDate() + 1);
     }
 
+    var total = totalAlta + totalMedia + totalBaja;
     var abono = Math.ceil(total * 0.5 / 1000) * 1000;
 
-    st.noches    = noches;
-    st.precio    = Math.round(total / noches);
-    st.total     = total;
-    st.baseTotal = total;
+    st.noches        = noches;
+    st.precio        = Math.round(total / noches);
+    st.total         = total;
+    st.baseTotal     = total;
+    st.baseMedia     = totalMedia;
+    st.baseAltaBaja  = totalAlta + totalBaja;
     st.abono     = abono;
 
     // Badge
@@ -491,6 +503,31 @@
       showError('bwPanelError', 'Error de conexión. Por favor intenta de nuevo.');
       if (btn) { btn.disabled = false; btn.classList.remove('is-sending'); }
     });
+  }
+
+  // ── DESCUENTO 20% EN TARIFA MEDIA PARA ≤3 PERSONAS ──────────
+  function aplicarDescuento() {
+    if (!st.cabana || !st.baseTotal) return;
+    var persEl  = qs('bwPersonas');
+    if (!persEl) return;
+    var personas = parseInt(persEl.value, 10);
+    var elegible = DESCUENTO_CABANAS.indexOf(st.cabana.id) !== -1;
+    var conDesc  = elegible && !isNaN(personas) && personas >= 1 && personas <= 3 && st.baseMedia > 0;
+
+    var mediaFinal = conDesc ? Math.round(st.baseMedia * 0.8) : st.baseMedia;
+    st.total  = st.baseAltaBaja + mediaFinal;
+    st.abono  = Math.ceil(st.total * 0.5 / 1000) * 1000;
+    var esPagoTotal = st.pagoTipo === 'total';
+    st.pagoHoy = esPagoTotal ? st.total : st.abono;
+
+    var descTag = conDesc ? ' · 🏷️ -20% noches media' : '';
+    txt('bwMiniAbono', esPagoTotal
+      ? 'Pago total: ' + fmtCLP(st.total) + descTag
+      : 'Abono hoy: ' + fmtCLP(st.abono) + '  ·  Total: ' + fmtCLP(st.total) + descTag);
+
+    var btnTxt = qs('bwBtnPagarTxt');
+    if (btnTxt) btnTxt.textContent =
+      (esPagoTotal ? 'Pagar total ' : 'Pagar abono ') + fmtCLP(st.pagoHoy) + ' →';
   }
 
   function stepDot(n) {

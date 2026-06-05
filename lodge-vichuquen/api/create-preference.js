@@ -76,16 +76,24 @@ module.exports = async function handler(req, res) {
     return false;
   }
 
-  let total = 0;
+  let totalAlta = 0, totalMedia = 0, totalBaja = 0;
   const cursor = new Date(check_in + 'T12:00:00');
   const endDate = new Date(check_out + 'T12:00:00');
   while (cursor < endDate) {
     const ds = cursor.toISOString().split('T')[0];
-    if      (diaEsAlta(ds))   total += cabana.precio_alta;
-    else if (diaEsMedia(ds))  total += cabana.precio_media;
-    else                       total += cabana.precio_baja;
+    if      (diaEsAlta(ds))   totalAlta  += cabana.precio_alta;
+    else if (diaEsMedia(ds))  totalMedia += cabana.precio_media;
+    else                       totalBaja  += cabana.precio_baja;
     cursor.setDate(cursor.getDate() + 1);
   }
+
+  // Descuento 20% en tarifa media para ≤3 personas en cabañas elegibles
+  const DESCUENTO_CABANAS = ['c1-tagua','c2-cisne-coscoroba','c5-huala','c6-run-run','c7-pitio'];
+  if (DESCUENTO_CABANAS.includes(cabana_id) && numPersonas <= 3 && totalMedia > 0) {
+    totalMedia = Math.round(totalMedia * 0.8);
+  }
+
+  let total = totalAlta + totalMedia + totalBaja;
 
   const esPagoTotal = pago_tipo === 'total';
   const abono = esPagoTotal ? total : Math.ceil(total * 0.5 / 1000) * 1000;
