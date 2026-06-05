@@ -348,6 +348,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 0 clamp(1.5rem, 7vw, 7rem);
   max-width: 720px;
 }
+@media (min-width: 541px) and (max-width: 900px) {
+  .hero-content { padding-right: 180px; }
+}
 .hero-kicker {
   font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--blue);
@@ -364,7 +367,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* Desktop: "Vive el encanto" fuerza salto de línea */
 .hero-line1 { display: block; }
 /* Móvil: flujo natural, todo inline + espaciado generoso */
-@media (max-width: 768px) {
+@media (max-width: 540px) {
   .hero-line1    { display: inline; }
   .hero-title em { white-space: normal; }
 
