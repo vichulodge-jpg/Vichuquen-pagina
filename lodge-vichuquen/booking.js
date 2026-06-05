@@ -2,34 +2,64 @@
   'use strict';
 
   // ── DATOS DE CABAÑAS ─────────────────────────────────────────
-  // Cabañas con 20% descuento para ≤3 personas en temporada baja
-  var DESCUENTO_CABANAS = ['c1-tagua','c2-cisne-coscoroba','c5-huala','c6-run-run','c7-pitio'];
-
   var CABANAS = [
-    { id: 'c1-tagua',              nombre: 'Tagua',              capacidad: 5, alta: 119000, baja: 99000 },
-    { id: 'c2-cisne-coscoroba',    nombre: 'Cisne Coscoroba',    capacidad: 5, alta: 119000, baja: 99000 },
-    { id: 'c3-siete-colores',      nombre: 'Siete Colores',      capacidad: 7, alta: 139000, baja: 119000 },
-    { id: 'c4-cisne-cuello-negro', nombre: 'Cisne Cuello Negro', capacidad: 6, alta: 129000, baja: 109000 },
-    { id: 'c5-huala',              nombre: 'Huala',              capacidad: 5, alta: 119000, baja: 99000 },
-    { id: 'c6-run-run',            nombre: 'Run Run',            capacidad: 5, alta: 119000, baja: 99000 },
-    { id: 'c7-pitio',              nombre: 'Pitío',              capacidad: 5, alta: 119000, baja: 99000 },
+    { id: 'c1-tagua',              nombre: 'Tagua',              capacidad: 5, alta: 119000, media: 99000,  baja: 79200 },
+    { id: 'c2-cisne-coscoroba',    nombre: 'Cisne Coscoroba',    capacidad: 5, alta: 119000, media: 99000,  baja: 79200 },
+    { id: 'c3-siete-colores',      nombre: 'Siete Colores',      capacidad: 7, alta: 139000, media: 119000, baja: 95200 },
+    { id: 'c4-cisne-cuello-negro', nombre: 'Cisne Cuello Negro', capacidad: 6, alta: 129000, media: 109000, baja: 87200 },
+    { id: 'c5-huala',              nombre: 'Huala',              capacidad: 5, alta: 119000, media: 99000,  baja: 79200 },
+    { id: 'c6-run-run',            nombre: 'Run Run',            capacidad: 5, alta: 119000, media: 99000,  baja: 79200 },
+    { id: 'c7-pitio',              nombre: 'Pitío',              capacidad: 5, alta: 119000, media: 99000,  baja: 79200 },
   ];
 
-  // ── TEMPORADAS ALTA (sincronizar con supabase/setup.sql) ──────
-  var TEMPORADAS = [
-    { from: '2025-12-01', to: '2026-02-28' },
-    { from: '2026-04-02', to: '2026-04-06' },
-    { from: '2026-09-15', to: '2026-09-22' },
-    { from: '2026-12-01', to: '2027-02-28' },
-    { from: '2027-03-25', to: '2027-03-29' },
-    { from: '2027-09-15', to: '2027-09-22' }
+  // ── TARIFAS ──────────────────────────────────────────────────
+  // Alta: fechas específicas (calendario cierra el 2028-03-15)
+  var TEMPORADAS_ALTA = [
+    { from: '2026-06-26', to: '2026-06-28' },
+    { from: '2026-07-15', to: '2026-07-18' },
+    { from: '2026-09-11', to: '2026-09-19' },
+    { from: '2026-10-09', to: '2026-10-11' },
+    { from: '2026-12-04', to: '2026-12-07' },
+    { from: '2026-12-18', to: '2026-12-31' },
+    { from: '2027-01-01', to: '2027-03-15' },
+    { from: '2027-03-25', to: '2027-03-27' },
+    { from: '2027-05-20', to: '2027-05-22' },
+    { from: '2027-06-18', to: '2027-06-20' },
+    { from: '2027-06-25', to: '2027-06-27' },
+    { from: '2027-09-10', to: '2027-09-18' },
+    { from: '2027-10-08', to: '2027-10-10' },
+    { from: '2027-10-29', to: '2027-10-31' },
+    { from: '2028-01-01', to: '2028-03-15' }
   ];
 
-  function esTemporadaAlta(dateStr) {
-    for (var i = 0; i < TEMPORADAS.length; i++) {
-      if (dateStr >= TEMPORADAS[i].from && dateStr <= TEMPORADAS[i].to) return true;
+  // Media: Viernes-Sábado + Jun 15-Jul 20 de 2026 y 2027 (excluye alta)
+  function esAlta(dateStr) {
+    for (var i = 0; i < TEMPORADAS_ALTA.length; i++) {
+      if (dateStr >= TEMPORADAS_ALTA[i].from && dateStr <= TEMPORADAS_ALTA[i].to) return true;
     }
     return false;
+  }
+
+  function esMedia(dateStr) {
+    if (esAlta(dateStr)) return false;
+    var d   = new Date(dateStr + 'T12:00:00');
+    var dow = d.getDay(); // 0=Dom … 5=Vie, 6=Sáb
+    if (dow === 5 || dow === 6) return true;
+    var year = d.getFullYear();
+    var mmdd = dateStr.slice(5);
+    if ((year === 2026 || year === 2027) && mmdd >= '06-15' && mmdd <= '07-20') return true;
+    return false;
+  }
+
+  function getTarifa(dateStr) {
+    if (esAlta(dateStr))  return 'alta';
+    if (esMedia(dateStr)) return 'media';
+    return 'baja';
+  }
+
+  function getPrecio(cabana, dateStr) {
+    var t = getTarifa(dateStr);
+    return t === 'alta' ? cabana.alta : (t === 'media' ? cabana.media : cabana.baja);
   }
 
   function diffDays(a, b) {
@@ -83,7 +113,7 @@
     if (selCab) selCab.addEventListener('change', onCabanaChange);
 
     var persEl = qs('bwPersonas');
-    if (persEl) persEl.addEventListener('input', aplicarDescuento);
+    if (persEl) persEl.max = '7'; // máx global
 
     var btnTransfPagar = qs('bwPagarTransferencia');
     if (btnTransfPagar) btnTransfPagar.addEventListener('click', onPagarTransferencia);
@@ -119,6 +149,7 @@
       mode:      'range',
       inline:    true,
       minDate:   'today',
+      maxDate:   '2028-03-15',
       dateFormat:'Y-m-d',
       showMonths: 1,
       locale: {
@@ -142,10 +173,11 @@
       },
       onChange: onDatesChange,
       onDayCreate: function(_, __, ___, dayElem) {
-        // Colorear días de temporada alta
         if (dayElem.dateObj) {
           var ds = toISODate(dayElem.dateObj);
-          if (esTemporadaAlta(ds)) dayElem.classList.add('bw-alta');
+          var t  = getTarifa(ds);
+          if (t === 'alta')  dayElem.classList.add('bw-alta');
+          if (t === 'media') dayElem.classList.add('bw-media');
         }
       }
     });
@@ -233,69 +265,74 @@
 
   function actualizarPrecioDisplay() {
     if (!st.cabana) return;
-    var hoy = toISODate(new Date());
-    var esAlta = esTemporadaAlta(hoy);
-    var precio = esAlta ? st.cabana.alta : st.cabana.baja;
     txt('bwPrecioBase', 'Desde ' + fmtCLP(st.cabana.baja) + ' / noche');
+    var hoy = toISODate(new Date());
+    var t   = getTarifa(hoy);
     var badge = qs('bwTemporadaBadge');
     if (badge) {
-      badge.textContent = esAlta ? '🌞 Temporada alta' : '🍂 Temporada baja';
-      badge.className = 'bw-badge ' + (esAlta ? 'alta' : 'baja');
+      var labels = { alta: '🌞 Temporada alta', media: '🌤 Temporada media', baja: '🍂 Temporada baja' };
+      badge.textContent = labels[t];
+      badge.className   = 'bw-badge ' + t;
     }
   }
 
-  // ── CÁLCULO DE PRECIO (día a día, soporta temporadas mixtas) ──
+  // ── CÁLCULO DE PRECIO (día a día, 3 tarifas) ─────────────────
   function calcPrecio() {
     if (!st.cabana || !st.checkIn || !st.checkOut) return;
     var noches = diffDays(st.checkIn, st.checkOut);
     if (noches < 1) { hide('bwResumen'); hide('bwPagoOpciones'); return; }
 
-    // Iterar cada noche para sumar el precio correcto según temporada
-    var total = 0;
-    var diasAlta = 0;
-    var d = new Date(st.checkIn + 'T12:00:00');
+    var total = 0, diasAlta = 0, diasMedia = 0, diasBaja = 0;
+    var d    = new Date(st.checkIn  + 'T12:00:00');
     var endD = new Date(st.checkOut + 'T12:00:00');
     while (d < endD) {
-      if (esTemporadaAlta(toISODate(d))) { total += st.cabana.alta; diasAlta++; }
-      else                               { total += st.cabana.baja; }
+      var ds = toISODate(d);
+      var t  = getTarifa(ds);
+      if      (t === 'alta')  { total += st.cabana.alta;  diasAlta++;  }
+      else if (t === 'media') { total += st.cabana.media; diasMedia++; }
+      else                    { total += st.cabana.baja;  diasBaja++;  }
       d.setDate(d.getDate() + 1);
     }
 
     var abono = Math.ceil(total * 0.5 / 1000) * 1000;
 
-    st.noches     = noches;
-    st.precio     = Math.round(total / noches);
-    st.total      = total;
-    st.baseTotal  = total;  // guardar antes de posible descuento
-    st.abono      = abono;
+    st.noches    = noches;
+    st.precio    = Math.round(total / noches);
+    st.total     = total;
+    st.baseTotal = total;
+    st.abono     = abono;
 
-    // Descripción: precio mixto o uniforme
-    var desc;
-    if (diasAlta > 0 && diasAlta < noches) {
-      desc = diasAlta + ' noche' + (diasAlta > 1 ? 's' : '') + ' T.Alta + ' +
-             (noches - diasAlta) + ' T.Baja';
-      var badge = qs('bwTemporadaBadge');
-      if (badge) { badge.textContent = '🌗 Temporada mixta'; badge.className = 'bw-badge alta'; }
-      txt('bwPrecioBase', 'Desde ' + fmtCLP(st.cabana.baja) + ' / noche');
-    } else {
-      var esAlta = diasAlta === noches;
-      var precioUnit = esAlta ? st.cabana.alta : st.cabana.baja;
-      desc = noches + ' noche' + (noches > 1 ? 's' : '') + ' × ' + fmtCLP(precioUnit);
-      var badge = qs('bwTemporadaBadge');
-      if (badge) {
-        badge.textContent = esAlta ? '🌞 Temporada alta' : '🍂 Temporada baja';
-        badge.className = 'bw-badge ' + (esAlta ? 'alta' : 'baja');
+    // Badge
+    var badge = qs('bwTemporadaBadge');
+    if (badge) {
+      var tipos = (diasAlta > 0 ? 1 : 0) + (diasMedia > 0 ? 1 : 0) + (diasBaja > 0 ? 1 : 0);
+      if (tipos > 1) {
+        badge.textContent = '🌗 Temporada mixta'; badge.className = 'bw-badge alta';
+      } else if (diasAlta === noches) {
+        badge.textContent = '🌞 Temporada alta';  badge.className = 'bw-badge alta';
+      } else if (diasMedia === noches) {
+        badge.textContent = '🌤 Temporada media'; badge.className = 'bw-badge media';
+      } else {
+        badge.textContent = '🍂 Temporada baja';  badge.className = 'bw-badge baja';
       }
-      txt('bwPrecioBase', fmtCLP(precioUnit) + ' / noche');
     }
 
-    txt('bwCalcDesc',  desc);
+    // Descripción del precio
+    var partes = [];
+    if (diasAlta  > 0) partes.push(diasAlta  + ' n. × ' + fmtCLP(st.cabana.alta)  + ' (Alta)');
+    if (diasMedia > 0) partes.push(diasMedia + ' n. × ' + fmtCLP(st.cabana.media) + ' (Media)');
+    if (diasBaja  > 0) partes.push(diasBaja  + ' n. × ' + fmtCLP(st.cabana.baja)  + ' (Baja)');
+    if (partes.length === 1) {
+      var pu = diasAlta === noches ? st.cabana.alta : (diasMedia === noches ? st.cabana.media : st.cabana.baja);
+      partes = [noches + ' noche' + (noches > 1 ? 's' : '') + ' × ' + fmtCLP(pu)];
+    }
+    txt('bwPrecioBase', 'Desde ' + fmtCLP(st.cabana.baja) + ' / noche');
+    txt('bwCalcDesc',  partes.join(' + '));
     txt('bwCalcTotal', fmtCLP(total));
     txt('bwCalcAbono', fmtCLP(abono));
     txt('bwCalcSaldo', fmtCLP(total - abono));
 
     actualizarPagoOpciones();
-
     show('bwResumen');
     if (st.metodoPago === 'mp') show('bwPagoOpciones');
     show('bwMetodoPago');
@@ -454,30 +491,6 @@
       showError('bwPanelError', 'Error de conexión. Por favor intenta de nuevo.');
       if (btn) { btn.disabled = false; btn.classList.remove('is-sending'); }
     });
-  }
-
-  // ── DESCUENTO 20% PARA ≤3 PERSONAS ───────────────────────────
-  function aplicarDescuento() {
-    if (!st.cabana || !st.baseTotal) return;
-    var persEl = qs('bwPersonas');
-    if (!persEl) return;
-    var personas = parseInt(persEl.value, 10);
-    var elegible = DESCUENTO_CABANAS.indexOf(st.cabana.id) !== -1;
-    var conDesc   = elegible && !isNaN(personas) && personas >= 1 && personas <= 3;
-
-    st.total  = conDesc ? Math.round(st.baseTotal * 0.8) : st.baseTotal;
-    st.abono  = Math.ceil(st.total * 0.5 / 1000) * 1000;
-    var esPagoTotal = st.pagoTipo === 'total';
-    st.pagoHoy = esPagoTotal ? st.total : st.abono;
-
-    var descTag = conDesc ? ' · 🏷️ -20% (≤3 pax)' : '';
-    txt('bwMiniAbono', esPagoTotal
-      ? 'Total: ' + fmtCLP(st.total) + descTag
-      : 'Abono hoy: ' + fmtCLP(st.abono) + '  ·  Total: ' + fmtCLP(st.total) + descTag);
-
-    var btnTxt = qs('bwBtnPagarTxt');
-    if (btnTxt) btnTxt.textContent =
-      (esPagoTotal ? 'Pagar total ' : 'Pagar abono ') + fmtCLP(st.pagoHoy) + ' →';
   }
 
   function stepDot(n) {
