@@ -550,6 +550,14 @@
           '📧 Email: ' + data.email + '\n\n' +
           'Por favor envíame los datos de transferencia.\n' +
           '(ID reserva: ' + data.reserva_id + ')';
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            'send_to': 'AW-18250975723/SaWbCJ-xw8EcEOuT3_5D',
+            'value': data.total,
+            'currency': 'CLP',
+            'transaction_id': String(data.reserva_id)
+          });
+        }
         window.location.href = 'https://wa.me/56954177688?text=' + encodeURIComponent(msg);
       } else {
         showError('bwPanelError', data.error || 'Error al procesar la solicitud.');
