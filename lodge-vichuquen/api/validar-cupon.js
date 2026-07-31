@@ -13,7 +13,7 @@ module.exports = async function handler(req, res) {
   const { codigo, subtotal } = req.body || {};
   if (!codigo || !subtotal) return res.status(400).json({ error: 'Faltan campos' });
 
-  const result = validarCupon(codigo, Number(subtotal));
+  const result = await validarCupon(codigo, Number(subtotal));
   if (!result) return res.status(200).json({ valido: false });
 
   return res.status(200).json({ valido: true, ...result });

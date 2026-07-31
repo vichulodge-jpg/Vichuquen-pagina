@@ -87,13 +87,14 @@ module.exports = async function handler(req, res) {
 
   // Descuento 20% en noches media vigentes (< 16-nov-2026) para ≤3 personas
   // No aplica si se usa un cupón de descuento (son excluyentes)
-  if (!esCuponValido(cupon_codigo) && DESCUENTO_CABANAS.includes(cabana_id) && numPersonas <= 3 && totalMediaDesc > 0) {
+  const cuponActivo = await esCuponValido(cupon_codigo);
+  if (!cuponActivo && DESCUENTO_CABANAS.includes(cabana_id) && numPersonas <= 3 && totalMediaDesc > 0) {
     totalMediaDesc = Math.round(totalMediaDesc * 0.8);
   }
 
   // Cupón aplica solo sobre alta + media (tarifa baja excluida)
   const subtotalElegible = totalAlta + totalMediaDesc + totalMediaFixed;
-  const cupon = validarCupon(cupon_codigo, subtotalElegible);
+  const cupon = cuponActivo ? await validarCupon(cupon_codigo, subtotalElegible) : null;
   const cuponDesc = cupon ? cupon.descuento : 0;
   let total = (subtotalElegible - cuponDesc) + totalBaja;
 
@@ -125,7 +126,8 @@ module.exports = async function handler(req, res) {
       telefono: (telefono || '').trim().slice(0, 30) || null,
       personas: numPersonas,
       mensaje:  (mensaje || '').trim().slice(0, 500) || null,
-      estado:   'pendiente'
+      estado:   'pendiente',
+      cupon_codigo: cupon ? String(cupon_codigo).trim().toUpperCase() : null
     })
     .select('id')
     .single();

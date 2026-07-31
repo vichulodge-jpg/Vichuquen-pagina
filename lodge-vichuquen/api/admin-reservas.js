@@ -26,7 +26,7 @@ module.exports = async function handler(req, res) {
       .select(`
         id, cabana_id, check_in, check_out, noches,
         precio_noche, total, abono, nombre, email,
-        telefono, personas, mensaje, estado,
+        telefono, personas, mensaje, estado, cupon_codigo,
         mp_preference_id, mp_payment_id, created_at
       `)
       .order('created_at', { ascending: false })
