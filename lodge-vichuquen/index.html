@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <!-- Google tag (gtag.js) -->
@@ -13,18 +13,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vichuquén Lodge y Marina — Cabañas a Orillas del Lago</title>
   <meta name="description" content="8 cabañas de madera a orillas del Lago Vichuquén, Región del Maule. Marina, muelle y experiencias únicas. Reserva directa online." />
+  <meta name="keywords" content="cabañas lago vichuquén, lodge vichuquén, cabañas licantén, cabañas maule, arriendo cabañas lago, vichuquén lodge, marina vichuquén" />
   <link rel="canonical" href="https://www.vichuquenlodgeymarina.cl/" />
 
   <!-- Open Graph (WhatsApp, redes sociales) -->
   <meta property="og:type"        content="website" />
-  <meta property="og:site_name"   content="Vichuquén Lodge y Marina" />
   <meta property="og:url"         content="https://www.vichuquenlodgeymarina.cl/" />
   <meta property="og:title"       content="Vichuquén Lodge y Marina — Cabañas a Orillas del Lago" />
-  <meta property="og:description" content="8 cabañas de madera a orillas del Lago Vichuquén, Región del Maule. Marina, muelle y experiencias únicas. Reserva directa online." />
+  <meta property="og:description" content="8 cabañas de madera a orillas del Lago Vichuquén. Marina, muelle y experiencias únicas. Reserva directa online." />
   <meta property="og:image"       content="https://www.vichuquenlodgeymarina.cl/assets/img/hero.jpg" />
   <meta property="og:locale"      content="es_CL" />
-  <meta name="twitter:card"       content="summary_large_image" />
 
+  <!-- Schema.org: datos estructurados para Google -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -46,7 +46,6 @@
       "longitude": -72.0735737
     },
     "image": "https://www.vichuquenlodgeymarina.cl/assets/img/hero.jpg",
-    "petsAllowed": true,
     "sameAs": [
       "https://www.instagram.com/vichuquen_lodgeymarina/",
       "https://www.facebook.com/vichuquen_lodgeymarina/"
@@ -58,95 +57,81 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/jpeg" sizes="32x32" href="/assets/img/logo.jpg" />
-  <link rel="apple-touch-icon" href="/assets/img/logo.jpg" />
-  <link rel="stylesheet" href="/styles.css?v=20260810b" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/jpeg" sizes="32x32" href="assets/img/logo.jpg" />
+  <link rel="apple-touch-icon" href="assets/img/logo.jpg" />
+  <link rel="stylesheet" href="styles.css?v=20260604" />
+  <link rel="stylesheet" href="lib/flatpickr.min.css?v=20260604" />
 </head>
 <body>
 
   <!-- SPLASH -->
   <div class="splash" data-splash>
     <div class="splash-inner">
-      <img src="/assets/img/logo.jpg" alt="Vichuquén Lodge y Marina" class="splash-logo" />
+      <img src="assets/img/logo.jpg" alt="Vichuquén Lodge y Marina" class="splash-logo" />
     </div>
   </div>
 
   <!-- NAV -->
   <nav class="nav" id="nav">
-    <a href="/" class="nav-logo" aria-label="Vichuquén Lodge y Marina — Inicio">
-      <img src="/assets/img/logo-negro.jpg" alt="Vichuquén Lodge y Marina" class="nav-logo-img nav-logo-light" />
+    <a href="#inicio" class="nav-logo">
+      <img src="assets/img/logo-negro.jpg" alt="Vichuquén Lodge y Marina" class="nav-logo-img nav-logo-light" />
     </a>
     <ul class="nav-links">
-      <li><a href="/cabanas">Cabañas</a></li>
-      <li><a href="/experiencias">Experiencias</a></li>
-      <li><a href="/grupos">Grupos</a></li>
-      <li><a href="/galeria">Galería</a></li>
-      <li><a href="/ubicacion">Ubicación</a></li>
-      <li><a href="/reservas" class="nav-cta">Reservar</a></li>
+      <li><a href="#cabanas">Cabañas</a></li>
+      <li><a href="#experiencias">Experiencias</a></li>
+      <li><a href="#grupos">Grupos</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
+      <li><a href="#reservas" class="nav-cta">Reservar</a></li>
     </ul>
     <button class="nav-burger" aria-label="Menú" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
-  <!-- MENÚ MÓVIL -->
+  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <ul>
-      <li><a href="/" class="is-active">Inicio</a></li>
-      <li><a href="/cabanas">Cabañas</a></li>
-      <li><a href="/experiencias">Experiencias</a></li>
-      <li><a href="/grupos">Grupos</a></li>
-      <li><a href="/galeria">Galería</a></li>
-      <li><a href="/ubicacion">Ubicación</a></li>
-      <li><a href="/reservas">Reservas</a></li>
-      <li><a href="/contacto">Contacto</a></li>
+      <li><a href="#cabanas">Cabañas</a></li>
+      <li><a href="#experiencias">Experiencias</a></li>
+      <li><a href="#grupos">Grupos</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
+      <li><a href="#reservas">Reservas</a></li>
+      <li><a href="#contacto">Contacto</a></li>
     </ul>
   </div>
-
-  <script>
-    /* Compatibilidad con enlaces antiguos de la landing de una sola página. */
-    (function () {
-      var map = {
-        '#cabanas': '/cabanas', '#experiencias': '/experiencias', '#grupos': '/grupos',
-        '#galeria': '/galeria', '#ubicacion': '/ubicacion', '#reservas': '/reservas',
-        '#contacto': '/contacto'
-      };
-      var dest = map[window.location.hash];
-      if (dest) window.location.replace(dest);
-    })();
-  </script>
 
   <!-- HERO -->
   <section class="hero" id="inicio">
     <div class="hero-img-wrap">
-      <img src="/assets/img/hero.jpg" alt="Cabañas Vichuquén Lodge y Marina a orillas del lago" class="hero-img" loading="eager" />
+      <img src="assets/img/hero.jpg" alt="Cabañas Vichuquén Lodge y Marina a orillas del lago" class="hero-img" loading="eager" />
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-content">
       <h1 class="hero-title"><span class="hero-line1">Vive el encanto </span><em>del Lago Vichuquén</em>.</h1>
       <p class="hero-sub">Cabañas, marina y experiencias para desconectar todo el año.</p>
-      <div class="hero-actions">
-        <a href="/reservas" class="btn-primary">Reservar ahora</a>
-        <a href="/cabanas" class="btn-ghost">Ver las cabañas</a>
-      </div>
     </div>
+    <!-- 4. Logo derecho en hero con filtro oscuro -->
     <div class="hero-logo-right">
       <div class="hero-logo-backdrop"></div>
-      <img src="/assets/img/logo.png" alt="Vichuquén Lodge y Marina" class="hero-logo-img" />
+      <img src="assets/img/logo.png" alt="Vichuquén Lodge y Marina" class="hero-logo-img" />
     </div>
     <div class="hero-scroll-hint">
       <span>Descubrir</span>
       <div class="scroll-line"></div>
-      <a href="/reservas" class="hero-mobile-reserva">Reservar</a>
+      <a href="#reservas" class="hero-mobile-reserva">Reservar</a>
     </div>
   </section>
 
+
+  <!-- ABOUT -->
   <section class="about" id="sobre-nosotros">
     <div class="container">
       <div class="about-grid">
         <div class="about-img-wrap">
-          <img src="/assets/img/about-lugar.jpg" alt="Vichuquén Lodge y Marina a orillas del lago" class="about-img reveal" loading="lazy" />
+          <img src="assets/img/about-lugar.jpg" alt="Vichuquén Lodge y Marina a orillas del lago" class="about-img reveal" loading="lazy" />
         </div>
         <div class="about-text">
           <p class="section-kicker">El lugar</p>
@@ -179,7 +164,7 @@
     </div>
   </section>
 
-  <!-- CABAÑAS (resumen) -->
+  <!-- CABAÑAS -->
   <section class="cabanas" id="cabanas">
     <div class="container">
       <div class="section-header">
@@ -242,7 +227,7 @@
           </div>
         </div>
 
-        <a href="/reservas" class="btn-precio-pill">
+        <a href="#reservas" class="btn-precio-pill">
           <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/>
             <line x1="7" y1="7" x2="7.01" y2="7"/>
@@ -255,19 +240,20 @@
       </div>
       <div class="cabanas-grid">
 
-<article class="cabana-card" id="c1">
+        <!-- C1 TAGUA -->
+        <article class="cabana-card" id="c1">
           <div class="cabana-carousel" data-carousel>
             <div class="cabana-slides">
-              <div class="cabana-slide"><img src="/assets/img/c1-tagua-1.jpg"  alt="Cabaña Tagua 1" loading="eager" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c1-tagua-2.jpg"  alt="Cabaña Tagua 2" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c1-tagua-3.jpg"  alt="Cabaña Tagua 3" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c1-tagua-4.jpg"  alt="Cabaña Tagua 4" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c1-tagua-5.jpg"  alt="Cabaña Tagua 5" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c1-tagua-6.jpg"  alt="Cabaña Tagua 6" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c1-tagua-7.jpg"  alt="Cabaña Tagua 7" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c1-tagua-8.jpg"  alt="Cabaña Tagua 8" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c1-tagua-9.jpg"  alt="Cabaña Tagua 9" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c1-tagua-10.jpg" alt="Cabaña Tagua 10" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c1-tagua-1.jpg"  alt="Cabaña Tagua 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="assets/img/c1-tagua-2.jpg"  alt="Cabaña Tagua 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c1-tagua-3.jpg"  alt="Cabaña Tagua 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c1-tagua-4.jpg"  alt="Cabaña Tagua 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c1-tagua-5.jpg"  alt="Cabaña Tagua 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c1-tagua-6.jpg"  alt="Cabaña Tagua 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c1-tagua-7.jpg"  alt="Cabaña Tagua 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c1-tagua-8.jpg"  alt="Cabaña Tagua 8" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c1-tagua-9.jpg"  alt="Cabaña Tagua 9" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c1-tagua-10.jpg" alt="Cabaña Tagua 10" loading="lazy" /></div>
             </div>
             <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -297,23 +283,71 @@
               <span class="btn-extras-show">+ Ver características</span>
               <span class="btn-extras-hide">− Ocultar características</span>
             </button>
-            <a href="/reservas?cabana=c1-tagua" class="btn-cabana">Ver disponibilidad</a>
+            <a href="#reservas" class="btn-cabana">Ver disponibilidad</a>
           </div>
         </article>
 
-<article class="cabana-card" id="c3">
+        <!-- C2 CISNE COSCOROBA -->
+        <article class="cabana-card" id="c2">
           <div class="cabana-carousel" data-carousel>
             <div class="cabana-slides">
-              <div class="cabana-slide"><img src="/assets/img/c3-siete-colores-1.jpg"  alt="Cabaña Siete Colores 1" loading="eager" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c3-siete-colores-2.jpg"  alt="Cabaña Siete Colores 2" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c3-siete-colores-3.jpg"  alt="Cabaña Siete Colores 3" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c3-siete-colores-4.jpg"  alt="Cabaña Siete Colores 4" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c3-siete-colores-5.jpg"  alt="Cabaña Siete Colores 5" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c3-siete-colores-6.jpg"  alt="Cabaña Siete Colores 6" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c3-siete-colores-7.jpg"  alt="Cabaña Siete Colores 7" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c3-siete-colores-8.jpg"  alt="Cabaña Siete Colores 8" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c3-siete-colores-9.jpg"  alt="Cabaña Siete Colores 9" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c3-siete-colores-10.jpg" alt="Cabaña Siete Colores 10" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c2-cisne-coscoroba-1.jpg"  alt="Cabaña Cisne Coscoroba 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="assets/img/c2-cisne-coscoroba-2.jpg"  alt="Cabaña Cisne Coscoroba 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c2-cisne-coscoroba-3.jpg"  alt="Cabaña Cisne Coscoroba 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c2-cisne-coscoroba-4.jpg"  alt="Cabaña Cisne Coscoroba 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c2-cisne-coscoroba-5.jpg"  alt="Cabaña Cisne Coscoroba 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c2-cisne-coscoroba-6.jpg"  alt="Cabaña Cisne Coscoroba 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c2-cisne-coscoroba-7.jpg"  alt="Cabaña Cisne Coscoroba 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c2-cisne-coscoroba-8.jpg"  alt="Cabaña Cisne Coscoroba 8" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c2-cisne-coscoroba-9.jpg"  alt="Cabaña Cisne Coscoroba 9" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c2-cisne-coscoroba-10.jpg" alt="Cabaña Cisne Coscoroba 10" loading="lazy" /></div>
+            </div>
+            <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="cabana-body">
+            <div class="cabana-header"><div><p class="cabana-num">C2</p><h3>Cisne Coscoroba</h3></div><div class="cabana-header-right"><span class="cabana-cap">Hasta 5 personas</span><span class="cabana-desde">Desde $79.200</span></div></div>
+            <div class="cabana-detalles" data-extras hidden><ul class="cabana-features">
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a4 4 0 100 8A4 4 0 008 1zM2 10a6 6 0 1112 0v1H2v-1z"/></svg>Hasta 5 personas</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 5h14v8H1V5zm1-3h12v2H2V2z"/></svg>2 dormitorios · matrimonial + camarote</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 12h12v2H2v-2zm1-9h10v7H3V3z"/></svg>Terraza privada · Zona de asado</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 3h10v3H3V3zm0 5h10v5H3V8z"/></svg>Cocina · Comedor · Living · Baño</li>
+            </ul>
+            <div class="cabana-extras">
+              <ul class="extras-list">
+                <li>Dormitorio 1: cama matrimonial</li>
+                <li>Dormitorio 2: camarote doble (2 plazas) + 1 cama individual</li>
+                <li>Cocina equipada: refrigerador, cocina a gas, horno, microondas, utensilios</li>
+                <li>Comedor + Living/sala de estar</li>
+                <li>Baño privado con ducha caliente</li>
+                <li>Ropa de cama incluida · Calefacción · Estacionamiento</li>
+                <li>Terraza privada · Zona de asado · Acceso al embarcadero</li>
+                <li>Pet Friendly 🐾</li>
+              </ul>
+            </div></div>
+            <button class="btn-extras" data-extras-toggle aria-expanded="false">
+              <span class="btn-extras-show">+ Ver características</span>
+              <span class="btn-extras-hide">− Ocultar características</span>
+            </button>
+            <a href="#reservas" class="btn-cabana">Ver disponibilidad</a>
+          </div>
+        </article>
+
+        <!-- C3 SIETE COLORES -->
+        <article class="cabana-card" id="c3">
+          <div class="cabana-carousel" data-carousel>
+            <div class="cabana-slides">
+              <div class="cabana-slide"><img src="assets/img/c3-siete-colores-1.jpg"  alt="Cabaña Siete Colores 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="assets/img/c3-siete-colores-2.jpg"  alt="Cabaña Siete Colores 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c3-siete-colores-3.jpg"  alt="Cabaña Siete Colores 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c3-siete-colores-4.jpg"  alt="Cabaña Siete Colores 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c3-siete-colores-5.jpg"  alt="Cabaña Siete Colores 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c3-siete-colores-6.jpg"  alt="Cabaña Siete Colores 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c3-siete-colores-7.jpg"  alt="Cabaña Siete Colores 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c3-siete-colores-8.jpg"  alt="Cabaña Siete Colores 8" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c3-siete-colores-9.jpg"  alt="Cabaña Siete Colores 9" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c3-siete-colores-10.jpg" alt="Cabaña Siete Colores 10" loading="lazy" /></div>
             </div>
             <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -344,23 +378,24 @@
               <span class="btn-extras-show">+ Ver características</span>
               <span class="btn-extras-hide">− Ocultar características</span>
             </button>
-            <a href="/reservas?cabana=c3-siete-colores" class="btn-cabana">Ver disponibilidad</a>
+            <a href="#reservas" class="btn-cabana">Ver disponibilidad</a>
           </div>
         </article>
 
-<article class="cabana-card" id="c4">
+        <!-- C4 CISNE CUELLO NEGRO -->
+        <article class="cabana-card" id="c4">
           <div class="cabana-carousel" data-carousel>
             <div class="cabana-slides">
-              <div class="cabana-slide"><img src="/assets/img/c4-cisne-cuello-negro-1.jpg"  alt="Cabaña Cisne Cuello Negro 1" loading="eager" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c4-cisne-cuello-negro-2.jpg"  alt="Cabaña Cisne Cuello Negro 2" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c4-cisne-cuello-negro-3.jpg"  alt="Cabaña Cisne Cuello Negro 3" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c4-cisne-cuello-negro-4.jpg"  alt="Cabaña Cisne Cuello Negro 4" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c4-cisne-cuello-negro-5.jpg"  alt="Cabaña Cisne Cuello Negro 5" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c4-cisne-cuello-negro-6.jpg"  alt="Cabaña Cisne Cuello Negro 6" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c4-cisne-cuello-negro-7.jpg"  alt="Cabaña Cisne Cuello Negro 7" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c4-cisne-cuello-negro-8.jpg"  alt="Cabaña Cisne Cuello Negro 8" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c4-cisne-cuello-negro-9.jpg"  alt="Cabaña Cisne Cuello Negro 9" loading="lazy" /></div>
-              <div class="cabana-slide"><img src="/assets/img/c4-cisne-cuello-negro-10.jpg" alt="Cabaña Cisne Cuello Negro 10" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c4-cisne-cuello-negro-1.jpg"  alt="Cabaña Cisne Cuello Negro 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="assets/img/c4-cisne-cuello-negro-2.jpg"  alt="Cabaña Cisne Cuello Negro 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c4-cisne-cuello-negro-3.jpg"  alt="Cabaña Cisne Cuello Negro 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c4-cisne-cuello-negro-4.jpg"  alt="Cabaña Cisne Cuello Negro 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c4-cisne-cuello-negro-5.jpg"  alt="Cabaña Cisne Cuello Negro 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c4-cisne-cuello-negro-6.jpg"  alt="Cabaña Cisne Cuello Negro 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c4-cisne-cuello-negro-7.jpg"  alt="Cabaña Cisne Cuello Negro 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c4-cisne-cuello-negro-8.jpg"  alt="Cabaña Cisne Cuello Negro 8" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c4-cisne-cuello-negro-9.jpg"  alt="Cabaña Cisne Cuello Negro 9" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c4-cisne-cuello-negro-10.jpg" alt="Cabaña Cisne Cuello Negro 10" loading="lazy" /></div>
             </div>
             <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -390,17 +425,198 @@
               <span class="btn-extras-show">+ Ver características</span>
               <span class="btn-extras-hide">− Ocultar características</span>
             </button>
-            <a href="/reservas?cabana=c4-cisne-cuello-negro" class="btn-cabana">Ver disponibilidad</a>
+            <a href="#reservas" class="btn-cabana">Ver disponibilidad</a>
+          </div>
+        </article>
+
+        <!-- C5 HUALA -->
+        <article class="cabana-card" id="c5">
+          <div class="cabana-carousel" data-carousel>
+            <div class="cabana-slides">
+              <div class="cabana-slide"><img src="assets/img/c5-huala-1.jpg" alt="Cabaña Huala 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="assets/img/c5-huala-2.jpg" alt="Cabaña Huala 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c5-huala-3.jpg" alt="Cabaña Huala 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c5-huala-4.jpg" alt="Cabaña Huala 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c5-huala-5.jpg" alt="Cabaña Huala 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c5-huala-6.jpg" alt="Cabaña Huala 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c5-huala-7.jpg" alt="Cabaña Huala 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c5-huala-8.jpg" alt="Cabaña Huala 8" loading="lazy" /></div>
+            </div>
+            <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="cabana-body">
+            <div class="cabana-header"><div><p class="cabana-num">C5</p><h3>Huala</h3></div><div class="cabana-header-right"><span class="cabana-cap">Hasta 5 personas</span><span class="cabana-desde">Desde $79.200</span></div></div>
+            <div class="cabana-detalles" data-extras hidden><ul class="cabana-features">
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a4 4 0 100 8A4 4 0 008 1zM2 10a6 6 0 1112 0v1H2v-1z"/></svg>Hasta 5 personas</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 5h14v8H1V5zm1-3h12v2H2V2z"/></svg>2 dormitorios · matrimonial + camarote</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 12h12v2H2v-2zm1-9h10v7H3V3z"/></svg>Terraza privada · Zona de asado</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 3h10v3H3V3zm0 5h10v5H3V8z"/></svg>Cocina · Comedor · Living · Baño</li>
+            </ul>
+            <div class="cabana-extras">
+              <ul class="extras-list">
+                <li>Dormitorio 1: cama matrimonial</li>
+                <li>Dormitorio 2: camarote doble (2 plazas) + 1 cama individual</li>
+                <li>Cocina equipada: refrigerador, cocina a gas, horno, microondas, utensilios</li>
+                <li>Comedor + Living/sala de estar</li>
+                <li>Baño privado con ducha caliente</li>
+                <li>Ropa de cama incluida · Calefacción · Estacionamiento</li>
+                <li>Terraza privada · Zona de asado · Acceso al embarcadero</li>
+                <li>Pet Friendly 🐾</li>
+              </ul>
+            </div></div>
+            <button class="btn-extras" data-extras-toggle aria-expanded="false">
+              <span class="btn-extras-show">+ Ver características</span>
+              <span class="btn-extras-hide">− Ocultar características</span>
+            </button>
+            <a href="#reservas" class="btn-cabana">Ver disponibilidad</a>
+          </div>
+        </article>
+
+        <!-- C6 RUN RUN -->
+        <article class="cabana-card" id="c6">
+          <div class="cabana-carousel" data-carousel>
+            <div class="cabana-slides">
+              <div class="cabana-slide"><img src="assets/img/c6-run-run-1.jpg" alt="Cabaña Run Run 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="assets/img/c6-run-run-2.jpg" alt="Cabaña Run Run 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c6-run-run-3.jpg" alt="Cabaña Run Run 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c6-run-run-4.jpg" alt="Cabaña Run Run 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c6-run-run-5.jpg" alt="Cabaña Run Run 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c6-run-run-6.jpg" alt="Cabaña Run Run 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c6-run-run-7.jpg" alt="Cabaña Run Run 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c6-run-run-8.jpg" alt="Cabaña Run Run 8" loading="lazy" /></div>
+            </div>
+            <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="cabana-body">
+            <div class="cabana-header"><div><p class="cabana-num">C6</p><h3>Run Run</h3></div><div class="cabana-header-right"><span class="cabana-cap">Hasta 5 personas</span><span class="cabana-desde">Desde $79.200</span></div></div>
+            <div class="cabana-detalles" data-extras hidden><ul class="cabana-features">
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a4 4 0 100 8A4 4 0 008 1zM2 10a6 6 0 1112 0v1H2v-1z"/></svg>Hasta 5 personas</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 5h14v8H1V5zm1-3h12v2H2V2z"/></svg>2 dormitorios · matrimonial + camarote</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 12h12v2H2v-2zm1-9h10v7H3V3z"/></svg>Terraza privada · Zona de asado</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 3h10v3H3V3zm0 5h10v5H3V8z"/></svg>Cocina · Comedor · Living · Baño</li>
+            </ul>
+            <div class="cabana-extras">
+              <ul class="extras-list">
+                <li>Dormitorio 1: cama matrimonial</li>
+                <li>Dormitorio 2: camarote doble (2 plazas) + 1 cama individual</li>
+                <li>Cocina equipada: refrigerador, cocina a gas, horno, microondas, utensilios</li>
+                <li>Comedor + Living/sala de estar</li>
+                <li>Baño privado con ducha caliente</li>
+                <li>Ropa de cama incluida · Calefacción · Estacionamiento</li>
+                <li>Terraza privada · Zona de asado · Acceso al embarcadero</li>
+                <li>Pet Friendly 🐾</li>
+              </ul>
+            </div></div>
+            <button class="btn-extras" data-extras-toggle aria-expanded="false">
+              <span class="btn-extras-show">+ Ver características</span>
+              <span class="btn-extras-hide">− Ocultar características</span>
+            </button>
+            <a href="#reservas" class="btn-cabana">Ver disponibilidad</a>
+          </div>
+        </article>
+
+        <!-- C7 PITÍO — temporalmente no disponible -->
+        <article class="cabana-card cabana-no-disponible" id="c7">
+          <div class="cabana-carousel" data-carousel>
+            <div class="cabana-slides">
+              <div class="cabana-slide"><img src="assets/img/c7-pitio-1.jpg"  alt="Cabaña Pitío 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="assets/img/c7-pitio-2.jpg"  alt="Cabaña Pitío 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c7-pitio-3.jpg"  alt="Cabaña Pitío 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c7-pitio-4.jpg"  alt="Cabaña Pitío 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c7-pitio-5.jpg"  alt="Cabaña Pitío 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c7-pitio-6.jpg"  alt="Cabaña Pitío 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c7-pitio-7.jpg"  alt="Cabaña Pitío 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c7-pitio-8.jpg"  alt="Cabaña Pitío 8" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c7-pitio-9.jpg"  alt="Cabaña Pitío 9" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c7-pitio-10.jpg" alt="Cabaña Pitío 10" loading="lazy" /></div>
+            </div>
+            <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="cabana-body">
+            <div class="cabana-header"><div><p class="cabana-num">C7</p><h3>Pitío</h3></div><div class="cabana-header-right"><span class="cabana-cap">Hasta 5 personas</span><span class="cabana-desde">Desde $79.200</span></div></div>
+            <div class="cabana-detalles" data-extras hidden><ul class="cabana-features">
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a4 4 0 100 8A4 4 0 008 1zM2 10a6 6 0 1112 0v1H2v-1z"/></svg>Hasta 5 personas</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 5h14v8H1V5zm1-3h12v2H2V2z"/></svg>2 dormitorios · matrimonial + camarote</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 12h12v2H2v-2zm1-9h10v7H3V3z"/></svg>Terraza privada · Zona de asado</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 3h10v3H3V3zm0 5h10v5H3V8z"/></svg>Cocina · Comedor · Living · Baño</li>
+            </ul>
+            <div class="cabana-extras">
+              <ul class="extras-list">
+                <li>Dormitorio 1: cama matrimonial</li>
+                <li>Dormitorio 2: camarote doble (2 plazas) + 1 cama individual</li>
+                <li>Cocina equipada: refrigerador, cocina a gas, horno, microondas, utensilios</li>
+                <li>Comedor + Living/sala de estar</li>
+                <li>Baño privado con ducha caliente</li>
+                <li>Ropa de cama incluida · Calefacción · Estacionamiento</li>
+                <li>Terraza privada · Zona de asado · Acceso al embarcadero</li>
+                <li>Pet Friendly 🐾</li>
+              </ul>
+            </div></div>
+            <button class="btn-extras" data-extras-toggle aria-expanded="false">
+              <span class="btn-extras-show">+ Ver características</span>
+              <span class="btn-extras-hide">− Ocultar características</span>
+            </button>
+            <a href="#contacto" class="btn-cabana btn-cabana-consultar">No disponible temporalmente</a>
+          </div>
+        </article>
+
+        <!-- C8 GARZA CUCA — Solo Complejo Completo -->
+        <article class="cabana-card cabana-no-disponible" id="c8">
+          <div class="cabana-carousel" data-carousel>
+            <div class="cabana-slides">
+              <div class="cabana-slide"><img src="assets/img/c8-garza-cuca-1.jpg"  alt="Cabaña Garza Cuca 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="assets/img/c8-garza-cuca-2.jpg"  alt="Cabaña Garza Cuca 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c8-garza-cuca-3.jpg"  alt="Cabaña Garza Cuca 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c8-garza-cuca-4.jpg"  alt="Cabaña Garza Cuca 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c8-garza-cuca-5.jpg"  alt="Cabaña Garza Cuca 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c8-garza-cuca-6.jpg"  alt="Cabaña Garza Cuca 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c8-garza-cuca-7.jpg"  alt="Cabaña Garza Cuca 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c8-garza-cuca-8.jpg"  alt="Cabaña Garza Cuca 8" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c8-garza-cuca-9.jpg"  alt="Cabaña Garza Cuca 9" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="assets/img/c8-garza-cuca-10.jpg" alt="Cabaña Garza Cuca 10" loading="lazy" /></div>
+            </div>
+            <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="cabana-body">
+            <div class="cabana-header"><div><p class="cabana-num">C8</p><h3>Garza Cuca</h3></div><div class="cabana-header-right"><span class="cabana-cap">Hasta 6 personas</span><span class="cabana-desde cabana-desde-consultar">Consultar</span></div></div>
+            <div class="cabana-detalles" data-extras hidden><ul class="cabana-features">
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a4 4 0 100 8A4 4 0 008 1zM2 10a6 6 0 1112 0v1H2v-1z"/></svg>Hasta 6 personas</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 5h14v8H1V5zm1-3h12v2H2V2z"/></svg>2 dormitorios · matrimonial + camarote</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 12h12v2H2v-2zm1-9h10v7H3V3z"/></svg>Terraza privada · Zona de asado</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 3h10v3H3V3zm0 5h10v5H3V8z"/></svg>Cocina · Comedor · Living · Baño</li>
+            </ul>
+            <div class="cabana-extras">
+              <ul class="extras-list">
+                <li>Cabaña disponible únicamente como parte del <strong>Complejo Completo</strong></li>
+                <li>Ideal para grupos grandes, retiros o eventos privados</li>
+                <li>Cocina equipada, ropa de cama incluida, estacionamiento</li>
+                <li>Terraza privada · Zona de asado · Acceso al embarcadero</li>
+                <li>Pet Friendly 🐾</li>
+              </ul>
+            </div></div>
+            <button class="btn-extras" data-extras-toggle aria-expanded="false">
+              <span class="btn-extras-show">+ Ver características</span>
+              <span class="btn-extras-hide">− Ocultar características</span>
+            </button>
+            <a href="#contacto" class="btn-cabana btn-cabana-consultar">Consultar disponibilidad</a>
           </div>
         </article>
 
       </div>
-      <p class="section-cta"><a href="/cabanas" class="link-arrow">Ver las 8 cabañas <span aria-hidden="true">→</span></a></p>
+
     </div>
   </section>
 
-  <!-- EXPERIENCIAS (resumen) -->
-  <section class="experiencias">
+  <!-- EXPERIENCIAS -->
+  <section class="experiencias" id="experiencias">
     <div class="experiencias-inner">
       <div class="container">
         <div class="section-header section-header-light">
@@ -408,7 +624,7 @@
           <h2 class="section-title">Lo que puedes hacer<br><em>en Vichuquén Lodge y Marina</em>.</h2>
         </div>
         <div class="exp-grid">
-<div class="exp-card reveal">
+          <div class="exp-card reveal">
             <div class="exp-card-top">
               <div class="exp-num">01</div>
               <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -422,7 +638,7 @@
             <h3>Deportes Náuticos</h3>
             <p>Vive el Lago a través de experiencias como kayak, SUP, esquí acuático y otras actividades recreativas.</p>
           </div>
-<div class="exp-card reveal">
+          <div class="exp-card reveal">
             <div class="exp-card-top">
               <div class="exp-num">02</div>
               <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -432,9 +648,31 @@
             <h3>Pesca deportiva</h3>
             <p>Disfruta de jornadas de pesca en uno de los lagos más reconocidos de la zona central.</p>
           </div>
-<div class="exp-card reveal">
+          <div class="exp-card reveal">
             <div class="exp-card-top">
               <div class="exp-num">03</div>
+              <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 4 L12 17"/><path d="M12 4 L20 17 H4Z"/><line x1="3" y1="20" x2="21" y2="20"/><path d="M8 20 Q8 22 12 22 Q16 22 16 20"/>
+              </svg>
+            </div>
+            <h3>Navegación</h3>
+            <p>Recorre el Lago Vichuquén en embarcación propia o mediante servicios locales.</p>
+          </div>
+          <div class="exp-card reveal">
+            <div class="exp-card-top">
+              <div class="exp-num">04</div>
+              <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2 C8 2 5 6 5 10 C5 14.5 8 18 12 18 C16 18 19 14.5 19 10 C19 6 16 2 12 2Z"/>
+                <line x1="12" y1="18" x2="12" y2="22"/>
+                <line x1="9" y1="22" x2="15" y2="22"/>
+              </svg>
+            </div>
+            <h3>Parques y Reservas Naturales</h3>
+            <p>Accede fácilmente a áreas de conservación, senderos y ecosistemas únicos a pocos minutos del lodge.</p>
+          </div>
+          <div class="exp-card reveal">
+            <div class="exp-card-top">
+              <div class="exp-num">05</div>
               <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/><path d="M18 4 L18.5 5.5 L20 6 L18.5 6.5 L18 8 L17.5 6.5 L16 6 L17.5 5.5Z"/>
               </svg>
@@ -442,9 +680,9 @@
             <h3>Cielo nocturno</h3>
             <p>Sin contaminación lumínica. La Vía Láctea visible a simple vista. Uno de los mejores cielos del centro-sur de Chile.</p>
           </div>
-<div class="exp-card reveal">
+          <div class="exp-card reveal">
             <div class="exp-card-top">
-              <div class="exp-num">04</div>
+              <div class="exp-num">06</div>
               <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 18 C11 14 11 10 12 8 C13 10 13 14 12 18Z"/>
                 <path d="M12 11 C10 9 7 8 6 5 C9 4 12 8 12 11Z"/>
@@ -456,74 +694,445 @@
             <h3>Spa del Lago Vichuquén</h3>
             <p>Servicio de spa con masajes disponible para huéspedes. Desconéctate por completo en nuestro relajante Spa del Lago.</p>
           </div>
+          <div class="exp-card reveal">
+            <div class="exp-card-top">
+              <div class="exp-num">07</div>
+              <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 14 Q9 19 12.5 19 Q16 19 16 14 Q16 10.5 12.5 10.5 Q9 10.5 9 14Z"/>
+                <ellipse cx="7" cy="9" rx="1.7" ry="2.2"/>
+                <ellipse cx="11" cy="7.2" rx="1.7" ry="2.2"/>
+                <ellipse cx="15" cy="7.5" rx="1.7" ry="2.2"/>
+                <ellipse cx="18.5" cy="9.5" rx="1.7" ry="2.2"/>
+              </svg>
+            </div>
+            <h3>Pet friendly</h3>
+            <p>Tus mascotas son bienvenidas. El lago, los senderos y el entorno natural son el paraíso para ellas también.</p>
+          </div>
+          <div class="exp-card reveal">
+            <div class="exp-card-top">
+              <div class="exp-num">08</div>
+              <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2 C8.1 2 5 5.1 5 9 C5 14.25 12 22 12 22 C12 22 19 14.25 19 9 C19 5.1 15.9 2 12 2Z"/><circle cx="12" cy="9" r="3"/>
+              </svg>
+            </div>
+            <h3>Excelente Conectividad</h3>
+            <p>A solo 4 horas de Santiago y cerca de playas, viñedos, reservas naturales y otros atractivos de la Región del Maule.</p>
+          </div>
+          <div class="exp-card reveal">
+            <div class="exp-card-top">
+              <div class="exp-num">09</div>
+              <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 19 Q5 15 9 13 Q13 11 16 8 Q19 5 21 7 Q22 10 19 12 Q15 15 10 17 Q7 19 5 19Z"/>
+                <path d="M9 13 Q7 9 9 6 Q11 3 14 4 Q15 6 13 8"/>
+                <circle cx="13.5" cy="4.5" r="0.7" fill="currentColor" stroke="none"/>
+                <path d="M7 17 Q11 14 15 14"/>
+                <path d="M2 22 Q7 20 12 22 Q17 24 22 22"/>
+              </svg>
+            </div>
+            <h3>Avistamiento de Aves</h3>
+            <p>Conoce las especies nativas que habitan los humedales y bosques del entorno.</p>
+          </div>
         </div>
-        <p class="section-cta section-cta-light"><a href="/experiencias" class="link-arrow">Ver las 9 experiencias <span aria-hidden="true">→</span></a></p>
       </div>
     </div>
   </section>
 
-  <!-- GRUPOS (resumen) -->
-  <section class="teaser-band">
-    <div class="container teaser-band-grid">
-      <div class="teaser-band-media">
-        <img src="/assets/img/grupos/g3.jpg" alt="Grupo de estudiantes en la playa del lodge" loading="lazy" />
+  <!-- GRUPOS Y EVENTOS -->
+  <section class="grupos-eventos" id="grupos">
+    <div class="grupos-inner">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-kicker">Experiencias colectivas</p>
+          <h2 class="section-title">Grupos<br><em>y Eventos</em>.</h2>
+        </div>
+        <div class="grupos-texto">
+          <p>Contamos con 8 cabañas y capacidad para recibir grupos de más de 40 personas, ofreciendo un entorno privilegiado a orillas del Lago Vichuquén para reuniones, viajes educativos, actividades corporativas, encuentros familiares y celebraciones especiales, adaptando cada estadía a sus necesidades.</p>
+          <p>Nuestro equipo te acompañará en la planificación de todos los detalles para que tu grupo disfrute de una experiencia cómoda, memorable y perfectamente organizada.</p>
+          <a href="#contacto" class="grupos-cta-btn">Consultar disponibilidad</a>
+        </div>
       </div>
-      <div class="teaser-band-body">
-        <p class="section-kicker">Experiencias colectivas</p>
-        <h2 class="section-title">Grupos<br><em>y Eventos</em>.</h2>
-        <p>Capacidad para más de 40 personas entre las 8 cabañas: viajes educativos, actividades corporativas, encuentros familiares y celebraciones a orillas del lago.</p>
-        <a href="/grupos" class="link-arrow">Conocer más <span aria-hidden="true">→</span></a>
+
+      <!-- COVERFLOW -->
+      <div class="coverflow-wrapper" id="gruposCoverflow" aria-label="Fotos grupos y eventos">
+        <div class="coverflow-track">
+          <div class="coverflow-slide" tabindex="0"><img src="assets/img/grupos/g1.jpg" alt="Grupos en Vichuquén Lodge" loading="lazy"></div>
+          <div class="coverflow-slide" tabindex="0"><img src="assets/img/grupos/g2.jpg" alt="Eventos en Vichuquén Lodge" loading="lazy"></div>
+          <div class="coverflow-slide" tabindex="0"><img src="assets/img/grupos/g3.jpg" alt="Actividades grupales" loading="lazy"></div>
+          <div class="coverflow-slide" tabindex="0"><img src="assets/img/grupos/g4.jpg" alt="Reuniones junto al lago" loading="lazy"></div>
+          <div class="coverflow-slide" tabindex="0"><img src="assets/img/grupos/g5.jpg" alt="Celebraciones especiales" loading="lazy"></div>
+          <div class="coverflow-slide" tabindex="0"><img src="assets/img/grupos/g6.jpg" alt="Estadía grupal" loading="lazy"></div>
+          <div class="coverflow-slide" tabindex="0"><img src="assets/img/grupos/g7.jpg" alt="Actividades en grupo" loading="lazy"></div>
+          <div class="coverflow-slide" tabindex="0"><img src="assets/img/grupos/g8.jpg" alt="Experiencias colectivas" loading="lazy"></div>
+          <div class="coverflow-slide" tabindex="0"><img src="assets/img/grupos/g9.jpg" alt="Grupos en el lago" loading="lazy"></div>
+          <div class="coverflow-slide" tabindex="0"><img src="assets/img/grupos/g10.jpg" alt="Eventos especiales" loading="lazy"></div>
+        </div>
+        <button class="coverflow-btn coverflow-prev" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="coverflow-btn coverflow-next" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="coverflow-dots" id="gruposDots"></div>
       </div>
     </div>
   </section>
 
-  <!-- GALERÍA (resumen) -->
-  <section class="galeria-teaser">
+  <!-- GALERÍA -->
+  <section class="galeria" id="galeria">
     <div class="container">
       <div class="section-header">
         <p class="section-kicker">El lugar</p>
         <h2 class="section-title">Vichuquén<br><em>en imágenes</em>.</h2>
       </div>
-      <a href="/galeria" class="gal-strip" aria-label="Ver la galería completa">
-        <img src="/assets/img/entorno-31.jpg"  alt="Cabañas vistas desde el lago" loading="lazy" />
-        <img src="/assets/img/entorno-37.jpg"  alt="Muelle de madera sobre el lago" loading="lazy" />
-        <img src="/assets/img/entorno-333.jpg" alt="Kayak rojo en la orilla" loading="lazy" />
-        <img src="/assets/img/entorno-5.jpg"   alt="Lago Vichuquén con niebla matutina" loading="lazy" />
-        <img src="/assets/img/entorno-341.jpg" alt="Reposeras y parasol frente al lago" loading="lazy" />
-        <img src="/assets/img/gal-1.jpg"       alt="Terraza exterior con vista al lago" loading="lazy" />
-      </a>
-      <p class="section-cta"><a href="/galeria" class="link-arrow">Ver la galería completa <span aria-hidden="true">→</span></a></p>
+
+      <div class="gal-carousel" id="galCarousel">
+        <!-- Imagen principal -->
+        <div class="gal-stage">
+          <div class="gal-track" id="galTrack">
+            <div class="gal-slide"><img src="assets/img/entorno-31.jpg"              alt="Cabañas desde el lago con muelle" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-341.jpg"             alt="Reposeras y parasol frente al lago" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-333.jpg"             alt="Muelle con kayak rojo y montañas" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-37.jpg"              alt="Muelle de madera al atardecer" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-340.jpg"             alt="Kayak rojo en la orilla del lago" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-5.jpg"               alt="Lago Vichuquén con niebla matutina" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-4.jpg"               alt="Kayaks en la orilla al amanecer" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-334.jpg"             alt="Muelle con kayak rojo, tarde de sol" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/entorno-336.jpg"             alt="Área exterior del lodge" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/gal-1.jpg"                   alt="Terraza exterior con vista al lago" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/c1-tagua-1.jpg"              alt="Vista al lago desde Cabaña Tagua" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/c3-siete-colores-1.jpg"      alt="Dormitorio Cabaña Siete Colores" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/c4-cisne-cuello-negro-1.jpg" alt="Sala de estar Cisne Cuello Negro" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/c6-run-run-1.jpg"            alt="Dormitorio Cabaña Run Run" loading="lazy" /></div>
+            <div class="gal-slide"><img src="assets/img/c7-pitio-1.jpg"              alt="Interior Cabaña Pitío" loading="lazy" /></div>
+          </div>
+          <button class="gal-btn gal-prev" id="galPrev" aria-label="Foto anterior">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="gal-btn gal-next" id="galNext" aria-label="Foto siguiente">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="gal-counter" id="galCounter">1 / 15</div>
+        </div>
+        <!-- Miniaturas -->
+        <div class="gal-thumbs" id="galThumbs">
+          <button class="gal-thumb is-active" data-idx="0" aria-label="Foto 1"><img src="assets/img/entorno-31.jpg"              alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="1" aria-label="Foto 2"><img src="assets/img/entorno-341.jpg"             alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="2" aria-label="Foto 3"><img src="assets/img/entorno-333.jpg"             alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="3" aria-label="Foto 4"><img src="assets/img/entorno-37.jpg"              alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="4" aria-label="Foto 5"><img src="assets/img/entorno-340.jpg"             alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="5" aria-label="Foto 6"><img src="assets/img/entorno-5.jpg"               alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="6" aria-label="Foto 7"><img src="assets/img/entorno-4.jpg"               alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="7" aria-label="Foto 8"><img src="assets/img/entorno-334.jpg"             alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="8" aria-label="Foto 9"><img src="assets/img/entorno-336.jpg"             alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="9" aria-label="Foto 10"><img src="assets/img/gal-1.jpg"                  alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="10" aria-label="Foto 11"><img src="assets/img/c1-tagua-1.jpg"            alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="11" aria-label="Foto 12"><img src="assets/img/c3-siete-colores-1.jpg"    alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="12" aria-label="Foto 13"><img src="assets/img/c4-cisne-cuello-negro-1.jpg" alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="13" aria-label="Foto 14"><img src="assets/img/c6-run-run-1.jpg"          alt="" loading="lazy" /></button>
+          <button class="gal-thumb"            data-idx="14" aria-label="Foto 15"><img src="assets/img/c7-pitio-1.jpg"            alt="" loading="lazy" /></button>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- UBICACIÓN (resumen) -->
-  <section class="teaser-band">
-    <div class="container teaser-band-grid">
-      <div class="teaser-band-body">
+  <!-- UBICACIÓN -->
+  <section class="ubicacion" id="ubicacion">
+    <div class="container">
+      <div class="section-header">
         <p class="section-kicker">Cómo llegar</p>
         <h2 class="section-title">Encuéntranos<br><em>en el lago</em>.</h2>
-        <p><strong>Lago Vichuquén, Licantén</strong> — Región del Maule, Chile.<br>A unas 4 horas de Santiago por la Ruta 5 Sur.</p>
-        <a href="/ubicacion" class="link-arrow">Ver mapa y ruta <span aria-hidden="true">→</span></a>
       </div>
-      <div class="teaser-band-media">
-        <img src="/assets/img/entorno-336.jpg" alt="Vista general del lodge junto al lago" loading="lazy" />
+      <div class="ubicacion-grid">
+
+        <div class="ubicacion-info">
+          <div class="ubicacion-dato">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z"/></svg>
+            <div>
+              <strong>Dirección</strong>
+              <p>Lago Vichuquén, Licantén<br>Región del Maule, Chile</p>
+            </div>
+          </div>
+          <div class="ubicacion-dato">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" opacity=".3"/><path d="M18.5 9c0 4.15-5.09 10.3-6.5 11.97C10.59 19.3 5.5 13.15 5.5 9a6.5 6.5 0 0113 0zM12 6a3 3 0 100 6 3 3 0 000-6z"/></svg>
+            <div>
+              <strong>Distancia desde Santiago</strong>
+              <p>Aproximadamente 4 horas por Ruta 5 Sur</p>
+            </div>
+          </div>
+
+          <div class="ubicacion-ruta">
+            <h4>Cómo llegar</h4>
+            <ol>
+              <li>Tomar Ruta 5 Sur desde Santiago hacia el sur</li>
+              <li>En Curicó, seguir señalización hacia Licantén (aprox. 80 km)</li>
+              <li>Desde Licantén, continuar hacia Lago Vichuquén (7 km)</li>
+              <li>Las instrucciones exactas de acceso se envían al confirmar la reserva</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="ubicacion-mapa">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2530.1346621635125!2d-72.0735737252528!3d-34.78576656713369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9666a5da9ff6a2c7%3A0xf1f785585efa8426!2sVichuquen%20Lodge%20y%20Marina!5e1!3m2!1ses!2scl!4v1780555432812!5m2!1ses!2scl"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Mapa — Vichuquén Lodge y Marina">
+          </iframe>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta-band">
-    <div class="cta-band-img-wrap">
-      <img src="/assets/img/reservas-bg.jpeg" alt="" class="cta-band-img" loading="lazy" aria-hidden="true" />
-      <div class="cta-band-overlay"></div>
-    </div>
-    <div class="container cta-band-content">
-      <h2 class="cta-band-title">Reserva online, confirmación inmediata.</h2>
-      <p class="cta-band-text">Elige cabaña y fechas, paga el 50% o el total, y recibe tu comprobante por correo.</p>
-      <a href="/reservas" class="btn-primary">Reservar ahora</a>
+  <!-- RESERVAS -->
+  <section class="reservas" id="reservas">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-kicker">Reservas</p>
+        <h2 class="section-title">Reserva online.<br><em>Confirmación inmediata.</em></h2>
+      </div>
+      <div class="reservas-grid">
+
+        <div class="proceso">
+          <div class="proceso-steps">
+            <div class="paso">
+              <div class="paso-num">01</div>
+              <div class="paso-text">
+                <strong>Elige tu cabaña y fechas</strong>
+                <p>Selecciona la cabaña, las fechas de llegada y salida. El precio se calcula al instante.</p>
+              </div>
+            </div>
+            <div class="paso">
+              <div class="paso-num">02</div>
+              <div class="paso-text">
+                <strong>Elige tu forma de pago</strong>
+                <p>Paga el abono del 50% ahora y el resto al llegar, o bien el pago total para dejar todo confirmado.</p>
+              </div>
+            </div>
+            <div class="paso">
+              <div class="paso-num">03</div>
+              <div class="paso-text">
+                <strong>¡Confirmación inmediata!</strong>
+                <p>Recibes el comprobante por email.</p>
+              </div>
+            </div>
+          </div>
+          <div class="pago-info">
+            <p class="pago-title">Métodos de pago</p>
+            <div class="pago-metodos">
+              <span>MercadoPago</span>
+              <span>Transferencia Bancaria</span>
+              <span>Tarjeta crédito / débito</span>
+            </div>
+            <p class="pago-nota">Cancelación gratuita hasta 15 días antes del arribo.</p>
+          </div>
+        </div>
+
+        <!-- BOOKING WIDGET -->
+        <div class="booking-widget" id="bookingWidget">
+
+          <div class="bw-steps">
+            <span class="bw-step-dot active" id="bwDot1"><span>1</span></span>
+            <span class="bw-step-line"></span>
+            <span class="bw-step-dot" id="bwDot2"><span>2</span></span>
+          </div>
+
+          <!-- PANEL 1: Cabaña + Fechas -->
+          <div class="bw-panel" id="bwPanel1">
+            <h3>Reserva tu estadía</h3>
+
+            <div class="form-group">
+              <label for="bwCabana">Cabaña</label>
+              <select id="bwCabana">
+                <option value="">Selecciona una cabaña…</option>
+                <option value="c1-tagua">C1 — Tagua (hasta 5 personas)</option>
+                <option value="c2-cisne-coscoroba">C2 — Cisne Coscoroba (hasta 5 personas)</option>
+                <option value="c3-siete-colores">C3 — Siete Colores (hasta 7 personas)</option>
+                <option value="c4-cisne-cuello-negro">C4 — Cisne Cuello Negro (hasta 6 personas)</option>
+                <option value="c5-huala">C5 — Huala (hasta 5 personas)</option>
+                <option value="c6-run-run">C6 — Run Run (hasta 5 personas)</option>
+                <!-- C7 — Pitío temporalmente no disponible -->
+                <!-- <option value="c7-pitio">C7 — Pitío (hasta 5 personas)</option> -->
+              </select>
+            </div>
+
+            <div class="bw-cabana-info" id="bwCabanaInfo" hidden>
+              <span class="bw-precio" id="bwPrecioBase">$99.000 / noche</span>
+              <span class="bw-badge baja" id="bwTemporadaBadge">Temporada baja</span>
+              <span class="bw-cap" id="bwCapacidad">Hasta 4 personas</span>
+            </div>
+
+            <div class="form-group bw-cal-group" id="bwCalWrapper" hidden>
+              <label>Fechas de llegada y salida</label>
+              <input type="text" id="bwDateInput" placeholder="Elige las fechas…" readonly class="bw-date-input" />
+              <div id="bwCalContainer"></div>
+              <div class="bw-leyenda">
+                <span class="bw-ley-item"><span class="bw-ley-dot bw-ley-alta"></span>Tarifa alta</span>
+                <span class="bw-ley-item"><span class="bw-ley-dot bw-ley-media"></span>Tarifa media</span>
+                <span class="bw-ley-item"><span class="bw-ley-dot bw-ley-baja"></span>Tarifa baja</span>
+              </div>
+              <p class="bw-error" id="bwCalError" hidden></p>
+            </div>
+
+            <div class="bw-resumen" id="bwResumen" hidden>
+              <div class="bw-resumen-row">
+                <span id="bwCalcDesc">—</span>
+                <span id="bwCalcTotal">—</span>
+              </div>
+              <div class="bw-resumen-row bw-resumen-cupon" id="bwFilaCupon" hidden>
+                <span id="bwCuponLabel">Cupón</span>
+                <span id="bwCalcCupon" class="bw-cupon-value">—</span>
+              </div>
+              <div class="bw-resumen-row bw-resumen-abono">
+                <span id="bwLabelAbono">Abono hoy (50%)</span>
+                <strong id="bwCalcAbono">—</strong>
+              </div>
+              <div class="bw-resumen-row bw-resumen-saldo" id="bwFilaSaldo">
+                <span>Saldo al llegar</span>
+                <span id="bwCalcSaldo">—</span>
+              </div>
+            </div>
+
+            <!-- Cupón de descuento -->
+            <div class="bw-cupon-wrap" id="bwCuponWrap" hidden>
+              <div class="bw-cupon-inner">
+                <input type="text" id="bwCuponInput" placeholder="Código de descuento" class="bw-cupon-input" autocomplete="off" autocapitalize="characters" spellcheck="false" />
+                <button type="button" id="bwCuponBtn" class="bw-cupon-btn">Aplicar</button>
+              </div>
+              <p class="bw-cupon-msg" id="bwCuponMsg" hidden></p>
+            </div>
+
+            <!-- Opciones de pago -->
+            <div class="bw-pago-opciones" id="bwPagoOpciones" hidden>
+              <p class="bw-pago-titulo">¿Cómo deseas pagar hoy?</p>
+              <label class="bw-pago-opt">
+                <input type="radio" name="pagoTipo" value="abono" />
+                <span class="bw-pago-opt-inner">
+                  <span class="bw-pago-opt-label">
+                    <strong>Abono 50%</strong>
+                    <small>El saldo lo pagas al llegar al lodge</small>
+                  </span>
+                  <span class="bw-pago-monto" id="bwOptAbonoAmt">—</span>
+                </span>
+              </label>
+              <label class="bw-pago-opt">
+                <input type="radio" name="pagoTipo" value="total" checked />
+                <span class="bw-pago-opt-inner">
+                  <span class="bw-pago-opt-label">
+                    <strong>Pago total</strong>
+                    <small>Todo reservado y pagado desde ahora</small>
+                  </span>
+                  <span class="bw-pago-monto" id="bwOptTotalAmt">—</span>
+                </span>
+              </label>
+            </div>
+
+            <!-- Selector método de pago -->
+            <div id="bwMetodoPago" hidden>
+              <p class="bw-pago-titulo" style="margin-top:0.75rem">Método de pago</p>
+              <label class="bw-pago-opt">
+                <input type="radio" name="metodoPago" value="mp" checked />
+                <span class="bw-pago-opt-inner">
+                  <span class="bw-pago-opt-label">
+                    <strong>MercadoPago</strong>
+                    <small>Tarjeta crédito / débito · Confirmación inmediata</small>
+                  </span>
+                </span>
+              </label>
+              <label class="bw-pago-opt">
+                <input type="radio" name="metodoPago" value="transferencia" />
+                <span class="bw-pago-opt-inner">
+                  <span class="bw-pago-opt-label">
+                    <strong>Transferencia Bancaria</strong>
+                    <small>Te enviamos los datos por WhatsApp</small>
+                  </span>
+                </span>
+              </label>
+              <p class="bw-trans-aviso" id="bwTransAviso" hidden>
+                ⚠️ Las fechas quedan bloqueadas por <strong>5 minutos</strong> desde que inicias la solicitud. Si no se concreta la transferencia, se liberan automáticamente.
+              </p>
+            </div>
+
+            <button class="btn-submit" id="bwContinuar" disabled>
+              <span class="btn-text">Continuar →</span>
+            </button>
+          </div>
+
+          <!-- PANEL 2: Datos del huésped -->
+          <div class="bw-panel" id="bwPanel2" hidden>
+
+            <div class="bw-mini-resumen">
+              <span class="bw-mini-label">Estás reservando</span>
+              <strong id="bwMiniCabana">—</strong>
+              <span id="bwMiniFechas">—</span>
+              <span id="bwMiniAbono">—</span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="bwNombre">Nombre completo</label>
+                <input type="text" id="bwNombre" required placeholder="Juan Pérez" autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label for="bwEmail">Correo electrónico</label>
+                <input type="email" id="bwEmail" required placeholder="juan@email.com" autocomplete="email" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="bwTelefono">Teléfono</label>
+                <input type="tel" id="bwTelefono" required placeholder="+56 9 1234 5678" autocomplete="tel" />
+              </div>
+              <div class="form-group">
+                <label for="bwPersonas">N° de personas</label>
+                <input type="number" id="bwPersonas" required min="1" max="7" placeholder="2" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="bwMensaje">Mensaje <span class="optional">(opcional)</span></label>
+              <textarea id="bwMensaje" rows="2" placeholder="Celebración especial, necesidades particulares…"></textarea>
+            </div>
+
+            <!-- Checkbox términos y condiciones -->
+            <div class="bw-tyc-wrap">
+              <label class="bw-tyc-label">
+                <input type="checkbox" id="bwAceptaTyC" />
+                <span>He leído y acepto los
+                  <button type="button" class="bw-tyc-link" id="bwVerTyC">términos y condiciones</button>
+                  de la reserva, incluyendo las políticas de cancelación y el reglamento de convivencia.</span>
+              </label>
+            </div>
+
+            <div class="bw-aviso-confirmacion">
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M18 10A8 8 0 11 2 10a8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+              <p>Si después de pagar <strong>no recibes un correo de confirmación</strong>, contáctanos de inmediato a <a href="https://wa.me/56954177688" target="_blank" rel="noopener">WhatsApp +56 9 5417 7688</a> o a <a href="mailto:vichulodge@gmail.com">vichulodge@gmail.com</a> para asegurar tu reserva y bloquear las fechas.</p>
+            </div>
+
+            <p class="bw-error" id="bwPanelError" hidden></p>
+
+            <button class="btn-submit" id="bwPagar">
+              <span class="btn-text" id="bwBtnPagarTxt">Pagar con MercadoPago →</span>
+              <span class="btn-sending" aria-hidden="true">Preparando reserva…</span>
+            </button>
+            <button class="btn-submit btn-transferencia" id="bwPagarTransferencia" hidden>
+              <span class="btn-text">Reservar con Transferencia →</span>
+              <span class="btn-sending" aria-hidden="true">Preparando reserva…</span>
+            </button>
+            <p class="form-disclaimer">Pago 100% seguro a través de MercadoPago Chile.</p>
+
+            <button type="button" class="bw-back" id="bwVolver">← Modificar reserva</button>
+          </div>
+
+        </div>
+        <!-- /BOOKING WIDGET -->
+
+      </div>
     </div>
   </section>
 
+  <!-- CONTACTO -->
   <section class="contacto" id="contacto">
     <div class="container">
       <div class="contacto-grid">
@@ -546,7 +1155,7 @@
           </div>
         </div>
         <div class="contacto-foto">
-          <img src="/assets/img/gal-7.jpg" alt="Interior cabaña Cisne Coscoroba con cocina equipada" loading="lazy" />
+          <img src="assets/img/gal-7.jpg" alt="Interior cabaña Cisne Coscoroba con cocina equipada" loading="lazy" />
         </div>
       </div>
     </div>
@@ -556,12 +1165,13 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-top">
+        <!-- Logo + redes sociales -->
         <div class="footer-logo">
           <div class="footer-brand-text">
             <p class="footer-brand-name">Vichuquén Lodge y Marina</p>
             <p class="footer-tagline">Lago Vichuquén · Región del Maule · Chile</p>
           </div>
-          <img src="/assets/img/logo.png" alt="Vichuquén Lodge y Marina" class="footer-logo-img" />
+          <img src="assets/img/logo.png" alt="Vichuquén Lodge y Marina" class="footer-logo-img" />
           <div class="footer-social">
             <a href="https://www.instagram.com/vichuquen_lodgeymarina/" target="_blank" rel="noopener" aria-label="Instagram" class="footer-social-link">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
@@ -575,31 +1185,30 @@
           <div>
             <p class="footer-col-title">Cabañas</p>
             <ul>
-              <li><a href="/cabanas#c1">Tagua</a></li>
-              <li><a href="/cabanas#c2">Cisne Coscoroba</a></li>
-              <li><a href="/cabanas#c3">Siete Colores</a></li>
-              <li><a href="/cabanas#c4">Cisne Cuello Negro</a></li>
-              <li><a href="/cabanas#c5">Huala</a></li>
-              <li><a href="/cabanas#c6">Run Run</a></li>
-              <li><a href="/cabanas#c7">Pitío</a></li>
-              <li><a href="/cabanas#c8">Garza Cuca</a></li>
+              <li><a href="#c1">Tagua</a></li>
+              <li><a href="#c2">Cisne Coscoroba</a></li>
+              <li><a href="#c3">Siete Colores</a></li>
+              <li><a href="#c4">Cisne Cuello Negro</a></li>
+              <li><a href="#c5">Huala</a></li>
+              <li><a href="#c6">Run Run</a></li>
+              <li><a href="#c7">Pitío</a></li>
+              <li><a href="#c8">Garza Cuca</a></li>
             </ul>
           </div>
           <div>
             <p class="footer-col-title">Lodge</p>
             <ul>
-              <li><a href="/experiencias">Experiencias</a></li>
-              <li><a href="/grupos">Grupos y Eventos</a></li>
-              <li><a href="/galeria">Galería</a></li>
-              <li><a href="/ubicacion">Ubicación</a></li>
-              <li><a href="/reservas">Reservas</a></li>
-              <li><a href="/contacto">Contacto</a></li>
-              <li><a href="/terminos-condiciones">Términos y condiciones</a></li>
+              <li><a href="#experiencias">Experiencias</a></li>
+              <li><a href="#grupos">Grupos</a></li>
+      <li><a href="#galeria">Galería</a></li>
+              <li><a href="#ubicacion">Ubicación</a></li>
+              <li><a href="#reservas">Reservas</a></li>
+              <li><a href="#contacto">Contacto</a></li>
             </ul>
           </div>
           <div class="footer-cta-col">
             <p>¿Listo para el lago?</p>
-            <a href="/reservas" class="btn-primary">Reservar ahora</a>
+            <a href="#reservas" class="btn-primary">Reservar ahora</a>
           </div>
         </div>
       </div>
@@ -609,8 +1218,77 @@
     </div>
   </footer>
 
-  <script defer src="/lib/gsap.min.js?v=20260810b"></script>
-  <script defer src="/lib/ScrollTrigger.min.js?v=20260810b"></script>
-  <script defer src="/main.js?v=20260810b"></script>
+  <!-- MODAL TÉRMINOS Y CONDICIONES -->
+  <div class="tyc-modal" id="tycModal" hidden>
+    <div class="tyc-overlay" id="tycOverlay"></div>
+    <div class="tyc-box">
+      <div class="tyc-header">
+        <h2>Términos y Condiciones</h2>
+        <button class="tyc-close-btn" id="tycCloseBtn" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="tyc-content">
+        <p>Al realizar el pago de su reserva acepta expresamente las siguientes políticas de Vichuquén Lodge y Marina:</p>
+
+        <h3>1. Políticas de Cancelación y Devolución</h3>
+        <table class="tyc-table">
+          <thead><tr><th>Anticipación al check-in</th><th>Devolución</th></tr></thead>
+          <tbody>
+            <tr><td><strong>15 días o más</strong></td><td>100% del total pagado</td></tr>
+            <tr><td><strong>Entre 14 y 6 días</strong></td><td>80% del total pagado (se retiene 20% por gestión)</td></tr>
+            <tr><td><strong>5 días o menos</strong></td><td>Sin devolución. Derecho a reprogramar por única vez</td></tr>
+            <tr><td><strong>No show</strong></td><td>Sin devolución ni reprogramación</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Salida anticipada por fuerza mayor:</strong> No hay devolución en efectivo, pero se otorga derecho a reprogramar los días no utilizados.</p>
+        <p><strong>Reprogramación:</strong> Vigencia máxima de 6 meses desde la reserva original, sujeta a disponibilidad y tarifas vigentes.</p>
+
+        <h3>2. Capacidad y Huéspedes Adicionales</h3>
+        <ul>
+          <li>No se puede superar la capacidad máxima de la cabaña indicada al reservar.</li>
+          <li><strong>Pasajero adicional:</strong> $10.000 por noche, debe ser informado y pagado <em>antes</em> del check-in. No se aceptan el día de llegada.</li>
+          <li><strong>Visitas externas:</strong> Requieren autorización de la administración. Está prohibido que pernocten en el complejo.</li>
+          <li>Las tarifas con descuento por capacidad reducida son exclusivas para el aforo declarado. Personas extras no coordinadas previamente no podrán acceder.</li>
+        </ul>
+
+        <h3>3. Política de Mascotas</h3>
+        <ul>
+          <li>Se permite <strong>1 mascota mediana</strong> por cabaña sin costo adicional.</li>
+          <li>Una segunda mascota requiere autorización previa y tiene un costo de <strong>$8.000 por noche</strong>.</li>
+          <li>Las mascotas no pueden subir a camas ni sillones, deben estar supervisadas y sus dueños deben recoger sus desechos.</li>
+        </ul>
+
+        <h3>4. Reglamento de Convivencia</h3>
+        <ul>
+          <li><strong>Entorno protegido:</strong> El recinto colinda con un humedal declarado Reserva Natural. Queda prohibido dañar flora/fauna y encender fogatas fuera de zonas habilitadas.</li>
+          <li><strong>Agua:</strong> El agua de los grifos NO es apta para consumo. Se proveen bidones de agua purificada sin costo.</li>
+          <li><strong>Toallas:</strong> Las cabañas NO incluyen toallas de baño. El lodge provee solo 1 toalla de mano por baño. Cada huésped debe traer sus propias toallas.</li>
+          <li><strong>Prohibido fumar</strong> dentro de la cabaña. En exteriores, solo en ceniceros habilitados.</li>
+          <li><strong>Prohibido freír</strong> en el interior. Para freír, solicitar a la administración una cocinilla exterior sin costo.</li>
+          <li><strong>Silencio:</strong> Nivel de ruido moderado entre las <strong>23:00 y las 10:00 hrs</strong>. No se permiten fiestas.</li>
+          <li><strong>Daños:</strong> El huésped es responsable por pérdidas o daños al inventario de la cabaña.</li>
+          <li><strong>Sanitarios:</strong> No arrojar toallitas húmedas, papeles ni artículos higiénicos al WC.</li>
+        </ul>
+
+        <h3>5. Horarios</h3>
+        <ul>
+          <li><strong>Check-in regular:</strong> desde las 15:00 hrs (recepción hasta las 22:00 hrs).</li>
+          <li><strong>Check-in autónomo</strong> (llegada después de las 22:00): requiere coordinación con 24 hrs de anticipación.</li>
+          <li><strong>Check-out:</strong> hasta las 12:00 hrs.</li>
+          <li><strong>Early check-in</strong> (desde las 10:00) y <strong>Late check-out</strong> (hasta las 17:00): $35.000 c/u, sujeto a disponibilidad.</li>
+        </ul>
+      </div>
+      <div class="tyc-footer">
+        <button class="btn-submit" id="tycAceptarBtn">
+          <span class="btn-text">Acepto los términos y condiciones</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="lib/gsap.min.js?v=20260604"></script>
+  <script defer src="lib/ScrollTrigger.min.js?v=20260604"></script>
+  <script defer src="lib/flatpickr.min.js?v=20260604"></script>
+  <script defer src="main.js?v=20260604"></script>
+  <script defer src="booking.js?v=20260604"></script>
 </body>
 </html>

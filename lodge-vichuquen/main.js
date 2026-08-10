@@ -26,6 +26,7 @@
     safe(initReveals,               "reveals");
     safe(initCounters,              "counters");
     safe(initTyC,                   "tyc");
+    safe(initCabanaLinks,           "cabanaLinks");
   }
 
   /* ── SPLASH ─────────────────────────────────────────────── */
@@ -46,48 +47,25 @@
     function onScroll() { nav.classList.toggle("is-scrolled", window.scrollY > 60); }
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-    // Al aterrizar en /pagina#ancla el navegador salta al destino después de
-    // cargar las imágenes. Si no reevaluamos, el nav se queda transparente
-    // (texto blanco) sobre el contenido claro de la sección.
-    window.addEventListener("pageshow", onScroll);
-    window.addEventListener("load", function () {
-      onScroll();
-      requestAnimationFrame(onScroll);
-      setTimeout(onScroll, 250);
-    }, { once: true });
 
     document.addEventListener("click", function (e) {
-      var a = e.target.closest("a[href]");
+      var a = e.target.closest('a[href^="#"]');
       if (!a) return;
-
-      // Ancla dentro de la misma página: scroll suave con offset del nav.
       var id = a.getAttribute("href");
-      if (id && id.charAt(0) === "#" && id !== "#") {
-        var target = qs(id);
-        if (target) {
-          e.preventDefault();
-          scrollToEl(target);
-        }
-      }
-
-      closeMobileMenu();
+      if (!id || id === "#") return;
+      var target = qs(id);
+      if (!target) return;
+      e.preventDefault();
+      var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({
+        top: target.getBoundingClientRect().top + window.scrollY - 80,
+        behavior: reduced ? "auto" : "smooth"
+      });
+      var mm = qs(".mobile-menu");
+      var burger = qs(".nav-burger");
+      if (mm) { mm.classList.remove("is-open"); }
+      if (burger) { burger.classList.remove("is-open"); burger.setAttribute("aria-expanded","false"); }
     });
-  }
-
-  function scrollToEl(target) {
-    var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({
-      // El offset del nav fijo lo pone scroll-margin-top en el CSS.
-      top: target.getBoundingClientRect().top + window.scrollY,
-      behavior: reduced ? "auto" : "smooth"
-    });
-  }
-
-  function closeMobileMenu() {
-    var mm = qs(".mobile-menu");
-    var burger = qs(".nav-burger");
-    if (mm) mm.classList.remove("is-open");
-    if (burger) { burger.classList.remove("is-open"); burger.setAttribute("aria-expanded", "false"); }
   }
 
   /* ── MOBILE MENU ─────────────────────────────────────────── */
@@ -335,6 +313,31 @@
 
     goTo(0);
     startAuto();
+  }
+
+  /* ── PRESELECCIÓN DE CABAÑA DESDE TARJETA ───────────────── */
+  function initCabanaLinks() {
+    var cabMap = {
+      c1: 'c1-tagua',
+      c2: 'c2-cisne-coscoroba',
+      c3: 'c3-siete-colores',
+      c4: 'c4-cisne-cuello-negro',
+      c5: 'c5-huala',
+      c6: 'c6-run-run',
+      c7: 'c7-pitio'
+    };
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.btn-cabana');
+      if (!btn) return;
+      var article = btn.closest('article[id]');
+      if (!article) return;
+      var cabId = cabMap[article.id];
+      if (!cabId) return;
+      var sel = document.getElementById('bwCabana');
+      if (!sel) return;
+      sel.value = cabId;
+      sel.dispatchEvent(new Event('change'));
+    });
   }
 
   /* ── MODAL TÉRMINOS Y CONDICIONES ────────────────────────── */
