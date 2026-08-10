@@ -1,4 +1,6 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "crons": [
     {
       "path": "/api/cron-pre-llegada",
@@ -8,6 +10,14 @@
   "rewrites": [
     { "source": "/admin",  "destination": "/admin/index.html" },
     { "source": "/admin/", "destination": "/admin/index.html" }
+  ],
+  "redirects": [
+    { "source": "/cabañas", "destination": "/cabanas", "permanent": true },
+    { "source": "/experiencia", "destination": "/experiencias", "permanent": true },
+    { "source": "/reserva", "destination": "/reservas", "permanent": true },
+    { "source": "/reservar", "destination": "/reservas", "permanent": true },
+    { "source": "/grupos-y-eventos", "destination": "/grupos", "permanent": true },
+    { "source": "/como-llegar", "destination": "/ubicacion", "permanent": true }
   ],
   "headers": [
     {

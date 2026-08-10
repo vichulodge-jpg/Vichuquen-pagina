@@ -1,6 +1,11 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /admin
+Disallow: /tools/
+Disallow: /reserva-confirmada
+Disallow: /reserva-fallida
+Disallow: /reserva-pendiente
 Disallow: /reserva-confirmada.html
 Disallow: /reserva-fallida.html
 Disallow: /reserva-pendiente.html

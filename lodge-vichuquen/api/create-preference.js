@@ -170,9 +170,9 @@ module.exports = async function handler(req, res) {
           email: email.trim()
         },
         back_urls: {
-          success: `${siteUrl}/reserva-confirmada.html?id=${reserva.id}`,
-          failure: `${siteUrl}/reserva-fallida.html?id=${reserva.id}`,
-          pending: `${siteUrl}/reserva-pendiente.html?id=${reserva.id}`
+          success: `${siteUrl}/reserva-confirmada?id=${reserva.id}`,
+          failure: `${siteUrl}/reserva-fallida?id=${reserva.id}`,
+          pending: `${siteUrl}/reserva-pendiente?id=${reserva.id}`
         },
         auto_return:          'approved',
         external_reference:   reserva.id,

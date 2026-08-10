@@ -166,6 +166,27 @@
         actualizarPagoOpciones();
       });
     });
+
+    preseleccionarDesdeURL();
+  }
+
+  // ── PRESELECCIÓN DESDE LA URL ────────────────────────────────
+  // Las tarjetas de /cabanas enlazan a /reservas?cabana=c1-tagua
+  function preseleccionarDesdeURL() {
+    var pedida = new URLSearchParams(window.location.search).get('cabana');
+    if (!pedida) return;
+
+    var existe = CABANAS.some(function (c) { return c.id === pedida; });
+    var selCab = qs('bwCabana');
+    if (!existe || !selCab) return;
+
+    selCab.value = pedida;
+    onCabanaChange();
+
+    var widget = qs('bookingWidget');
+    if (!widget) return;
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    widget.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
   }
 
   // ── FLATPICKR ─────────────────────────────────────────────────

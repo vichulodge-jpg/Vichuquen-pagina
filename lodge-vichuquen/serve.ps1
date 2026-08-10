@@ -32,6 +32,15 @@ while ($listener.IsListening) {
   if ($urlPath -eq "/") { $urlPath = "/index.html" }
   $filePath = Join-Path $root ($urlPath.TrimStart("/").Replace("/", "\"))
 
+  # URLs limpias, igual que "cleanUrls" en Vercel: /cabanas -> cabanas.html
+  if (-not (Test-Path $filePath -PathType Leaf)) {
+    if (Test-Path "$filePath.html" -PathType Leaf) {
+      $filePath = "$filePath.html"
+    } elseif (Test-Path (Join-Path $filePath "index.html") -PathType Leaf) {
+      $filePath = Join-Path $filePath "index.html"
+    }
+  }
+
   if (Test-Path $filePath -PathType Leaf) {
     $ext  = [System.IO.Path]::GetExtension($filePath).ToLower()
     $mime = if ($mimeTypes[$ext]) { $mimeTypes[$ext] } else { "application/octet-stream" }

@@ -11,45 +11,27 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vichuquén Lodge y Marina — Cabañas a Orillas del Lago</title>
-  <meta name="description" content="8 cabañas de madera a orillas del Lago Vichuquén, Región del Maule. Marina, muelle y experiencias únicas. Reserva directa online." />
-  <link rel="canonical" href="https://www.vichuquenlodgeymarina.cl/" />
+  <title>Cabañas — Vichuquén Lodge y Marina</title>
+  <meta name="description" content="8 cabañas de madera equipadas para 5 a 7 personas frente al Lago Vichuquén. Terraza privada, zona de asado, pet friendly. Desde $79.200 la noche." />
+  <link rel="canonical" href="https://www.vichuquenlodgeymarina.cl/cabanas" />
 
   <!-- Open Graph (WhatsApp, redes sociales) -->
   <meta property="og:type"        content="website" />
   <meta property="og:site_name"   content="Vichuquén Lodge y Marina" />
-  <meta property="og:url"         content="https://www.vichuquenlodgeymarina.cl/" />
-  <meta property="og:title"       content="Vichuquén Lodge y Marina — Cabañas a Orillas del Lago" />
-  <meta property="og:description" content="8 cabañas de madera a orillas del Lago Vichuquén, Región del Maule. Marina, muelle y experiencias únicas. Reserva directa online." />
-  <meta property="og:image"       content="https://www.vichuquenlodgeymarina.cl/assets/img/hero.jpg" />
+  <meta property="og:url"         content="https://www.vichuquenlodgeymarina.cl/cabanas" />
+  <meta property="og:title"       content="Cabañas — Vichuquén Lodge y Marina" />
+  <meta property="og:description" content="8 cabañas de madera equipadas para 5 a 7 personas frente al Lago Vichuquén. Terraza privada, zona de asado, pet friendly. Desde $79.200 la noche." />
+  <meta property="og:image"       content="https://www.vichuquenlodgeymarina.cl/assets/img/entorno-31.jpg" />
   <meta property="og:locale"      content="es_CL" />
   <meta name="twitter:card"       content="summary_large_image" />
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LodgingBusiness",
-    "name": "Vichuquén Lodge y Marina",
-    "description": "8 cabañas de madera a orillas del Lago Vichuquén. Marina, muelle y experiencias únicas en la Región del Maule.",
-    "url": "https://www.vichuquenlodgeymarina.cl",
-    "telephone": "+56954177688",
-    "email": "vichulodge@gmail.com",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Lago Vichuquén",
-      "addressRegion": "Región del Maule",
-      "addressCountry": "CL"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": -34.7857666,
-      "longitude": -72.0735737
-    },
-    "image": "https://www.vichuquenlodgeymarina.cl/assets/img/hero.jpg",
-    "petsAllowed": true,
-    "sameAs": [
-      "https://www.instagram.com/vichuquen_lodgeymarina/",
-      "https://www.facebook.com/vichuquen_lodgeymarina/"
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.vichuquenlodgeymarina.cl/" },
+      { "@type": "ListItem", "position": 2, "name": "Cabañas", "item": "https://www.vichuquenlodgeymarina.cl/cabanas" }
     ]
   }
   </script>
@@ -65,20 +47,13 @@
 </head>
 <body>
 
-  <!-- SPLASH -->
-  <div class="splash" data-splash>
-    <div class="splash-inner">
-      <img src="/assets/img/logo.jpg" alt="Vichuquén Lodge y Marina" class="splash-logo" />
-    </div>
-  </div>
-
   <!-- NAV -->
   <nav class="nav" id="nav">
     <a href="/" class="nav-logo" aria-label="Vichuquén Lodge y Marina — Inicio">
       <img src="/assets/img/logo-negro.jpg" alt="Vichuquén Lodge y Marina" class="nav-logo-img nav-logo-light" />
     </a>
     <ul class="nav-links">
-      <li><a href="/cabanas">Cabañas</a></li>
+      <li><a href="/cabanas" class="is-active">Cabañas</a></li>
       <li><a href="/experiencias">Experiencias</a></li>
       <li><a href="/grupos">Grupos</a></li>
       <li><a href="/galeria">Galería</a></li>
@@ -93,8 +68,8 @@
   <!-- MENÚ MÓVIL -->
   <div class="mobile-menu" id="mobileMenu">
     <ul>
-      <li><a href="/" class="is-active">Inicio</a></li>
-      <li><a href="/cabanas">Cabañas</a></li>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/cabanas" class="is-active">Cabañas</a></li>
       <li><a href="/experiencias">Experiencias</a></li>
       <li><a href="/grupos">Grupos</a></li>
       <li><a href="/galeria">Galería</a></li>
@@ -104,89 +79,25 @@
     </ul>
   </div>
 
-  <script>
-    /* Compatibilidad con enlaces antiguos de la landing de una sola página. */
-    (function () {
-      var map = {
-        '#cabanas': '/cabanas', '#experiencias': '/experiencias', '#grupos': '/grupos',
-        '#galeria': '/galeria', '#ubicacion': '/ubicacion', '#reservas': '/reservas',
-        '#contacto': '/contacto'
-      };
-      var dest = map[window.location.hash];
-      if (dest) window.location.replace(dest);
-    })();
-  </script>
+  <!-- CABECERA DE PÁGINA -->
+  <header class="page-hero">
+    <div class="page-hero-img-wrap">
+      <img src="/assets/img/entorno-31.jpg" alt="Las cabañas de Vichuquén Lodge vistas desde el lago" class="page-hero-img" loading="eager" />
+      <div class="page-hero-overlay"></div>
+    </div>
+    <div class="container page-hero-content">
+      <nav class="breadcrumb" aria-label="Ruta de navegación">
+        <a href="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Cabañas</span>
+      </nav>
+      <p class="page-hero-kicker">Las cabañas</p>
+      <h1 class="page-hero-title">Ocho refugios<br>frente al <em>lago</em>.</h1>
+      <p class="page-hero-sub">Cada cabaña lleva el nombre de un ave de la reserva natural vecina. Todas equipadas, con terraza privada, zona de asado y acceso al embarcadero.</p>
+    </div>
+  </header>
 
-  <!-- HERO -->
-  <section class="hero" id="inicio">
-    <div class="hero-img-wrap">
-      <img src="/assets/img/hero.jpg" alt="Cabañas Vichuquén Lodge y Marina a orillas del lago" class="hero-img" loading="eager" />
-      <div class="hero-overlay"></div>
-    </div>
-    <div class="hero-content">
-      <h1 class="hero-title"><span class="hero-line1">Vive el encanto </span><em>del Lago Vichuquén</em>.</h1>
-      <p class="hero-sub">Cabañas, marina y experiencias para desconectar todo el año.</p>
-      <div class="hero-actions">
-        <a href="/reservas" class="btn-primary">Reservar ahora</a>
-        <a href="/cabanas" class="btn-ghost">Ver las cabañas</a>
-      </div>
-    </div>
-    <div class="hero-logo-right">
-      <div class="hero-logo-backdrop"></div>
-      <img src="/assets/img/logo.png" alt="Vichuquén Lodge y Marina" class="hero-logo-img" />
-    </div>
-    <div class="hero-scroll-hint">
-      <span>Descubrir</span>
-      <div class="scroll-line"></div>
-      <a href="/reservas" class="hero-mobile-reserva">Reservar</a>
-    </div>
-  </section>
-
-  <section class="about" id="sobre-nosotros">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-img-wrap">
-          <img src="/assets/img/about-lugar.jpg" alt="Vichuquén Lodge y Marina a orillas del lago" class="about-img reveal" loading="lazy" />
-        </div>
-        <div class="about-text">
-          <p class="section-kicker">El lugar</p>
-          <h2 class="section-title">Un refugio único<br>en el <em>lago Vichuquén</em>.</h2>
-          <p>Disfruta de un refugio de naturaleza, tranquilidad y confort. Nuestras 8 cabañas completamente equipadas se encuentran junto a una reserva natural, rodeada de áreas verdes, flora y aves nativas, inspirando el nombre de cada una de ellas.</p>
-          <p>Con acceso directo al lago, muelle, atracadero, quincho techado y amplios espacios al aire libre, somos el lugar ideal para parejas, familias, grupos y sus mascotas.</p>
-          <p>Un entorno único para descansar, desconectarse y disfrutar la belleza del Lago Vichuquén.</p>
-          <div class="ratings-wrap">
-            <div class="rating-card">
-              <div class="rating-platform booking-logo">
-                <span class="booking-icon" aria-hidden="true">B</span>Booking.com
-              </div>
-              <div class="rating-score">9.2</div>
-              <div class="rating-stars">★★★★★</div>
-              <div class="rating-label">Puntuación excepcional</div>
-            </div>
-            <div class="rating-divider"></div>
-            <div class="rating-card">
-              <div class="rating-platform airbnb-logo">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.18 18.6c-.78-.93-1.56-1.89-2.22-2.82-.33-.48-.63-.96-.84-1.44-.21-.48-.33-.96-.33-1.44 0-.99.39-1.89 1.02-2.55.63-.66 1.5-1.05 2.55-1.05s1.92.39 2.55 1.05c.63.66 1.02 1.56 1.02 2.55 0 .48-.12.96-.33 1.44-.21.48-.51.96-.84 1.44-.66.93-1.44 1.89-2.22 2.82h-.36zm5.22-5.7c0 .66-.15 1.32-.42 1.95-.27.63-.66 1.23-1.11 1.83-.9 1.17-1.95 2.31-2.91 3.33-.18.18-.36.27-.6.27s-.42-.09-.6-.27c-.96-1.02-2.01-2.16-2.91-3.33-.45-.6-.84-1.2-1.11-1.83-.27-.63-.42-1.29-.42-1.95 0-1.38.54-2.64 1.41-3.54.87-.9 2.07-1.47 3.42-1.47s2.55.57 3.42 1.47c.87.9 1.41 2.16 1.41 3.54h.42z"/></svg>
-                Airbnb
-              </div>
-              <div class="rating-score">4.8 <span class="rating-max">/ 5</span></div>
-              <div class="rating-stars">★★★★★</div>
-              <div class="rating-label">Huéspedes satisfechos</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CABAÑAS (resumen) -->
-  <section class="cabanas" id="cabanas">
+  <section class="cabanas cabanas-page">
     <div class="container">
       <div class="section-header">
-        <p class="section-kicker">Las cabañas</p>
-        <h2 class="section-title">Conoce nuestras cabañas<br>y reserva tu <em>escapada perfecta</em>.</h2>
-        <p class="section-sub">Inspiradas en las aves que habitan la reserva natural, cada cabaña ofrece una experiencia única de descanso frente al Lago Vichuquén.</p>
-
         <div class="cabanas-attrs">
           <div class="attr-item">
             <svg class="attr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -255,7 +166,10 @@
       </div>
       <div class="cabanas-grid">
 
-<article class="cabana-card" id="c1">
+      <div class="cabanas-grid">
+
+        <!-- C1 TAGUA -->
+        <article class="cabana-card" id="c1">
           <div class="cabana-carousel" data-carousel>
             <div class="cabana-slides">
               <div class="cabana-slide"><img src="/assets/img/c1-tagua-1.jpg"  alt="Cabaña Tagua 1" loading="eager" /></div>
@@ -301,7 +215,55 @@
           </div>
         </article>
 
-<article class="cabana-card" id="c3">
+        <!-- C2 CISNE COSCOROBA -->
+        <article class="cabana-card" id="c2">
+          <div class="cabana-carousel" data-carousel>
+            <div class="cabana-slides">
+              <div class="cabana-slide"><img src="/assets/img/c2-cisne-coscoroba-1.jpg"  alt="Cabaña Cisne Coscoroba 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c2-cisne-coscoroba-2.jpg"  alt="Cabaña Cisne Coscoroba 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c2-cisne-coscoroba-3.jpg"  alt="Cabaña Cisne Coscoroba 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c2-cisne-coscoroba-4.jpg"  alt="Cabaña Cisne Coscoroba 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c2-cisne-coscoroba-5.jpg"  alt="Cabaña Cisne Coscoroba 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c2-cisne-coscoroba-6.jpg"  alt="Cabaña Cisne Coscoroba 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c2-cisne-coscoroba-7.jpg"  alt="Cabaña Cisne Coscoroba 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c2-cisne-coscoroba-8.jpg"  alt="Cabaña Cisne Coscoroba 8" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c2-cisne-coscoroba-9.jpg"  alt="Cabaña Cisne Coscoroba 9" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c2-cisne-coscoroba-10.jpg" alt="Cabaña Cisne Coscoroba 10" loading="lazy" /></div>
+            </div>
+            <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="cabana-body">
+            <div class="cabana-header"><div><p class="cabana-num">C2</p><h3>Cisne Coscoroba</h3></div><div class="cabana-header-right"><span class="cabana-cap">Hasta 5 personas</span><span class="cabana-desde">Desde $79.200</span></div></div>
+            <div class="cabana-detalles" data-extras hidden><ul class="cabana-features">
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a4 4 0 100 8A4 4 0 008 1zM2 10a6 6 0 1112 0v1H2v-1z"/></svg>Hasta 5 personas</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 5h14v8H1V5zm1-3h12v2H2V2z"/></svg>2 dormitorios · matrimonial + camarote</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 12h12v2H2v-2zm1-9h10v7H3V3z"/></svg>Terraza privada · Zona de asado</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 3h10v3H3V3zm0 5h10v5H3V8z"/></svg>Cocina · Comedor · Living · Baño</li>
+            </ul>
+            <div class="cabana-extras">
+              <ul class="extras-list">
+                <li>Dormitorio 1: cama matrimonial</li>
+                <li>Dormitorio 2: camarote doble (2 plazas) + 1 cama individual</li>
+                <li>Cocina equipada: refrigerador, cocina a gas, horno, microondas, utensilios</li>
+                <li>Comedor + Living/sala de estar</li>
+                <li>Baño privado con ducha caliente</li>
+                <li>Ropa de cama incluida · Calefacción · Estacionamiento</li>
+                <li>Terraza privada · Zona de asado · Acceso al embarcadero</li>
+                <li>Pet Friendly 🐾</li>
+              </ul>
+            </div></div>
+            <button class="btn-extras" data-extras-toggle aria-expanded="false">
+              <span class="btn-extras-show">+ Ver características</span>
+              <span class="btn-extras-hide">− Ocultar características</span>
+            </button>
+            <a href="/reservas?cabana=c2-cisne-coscoroba" class="btn-cabana">Ver disponibilidad</a>
+          </div>
+        </article>
+
+        <!-- C3 SIETE COLORES -->
+        <article class="cabana-card" id="c3">
           <div class="cabana-carousel" data-carousel>
             <div class="cabana-slides">
               <div class="cabana-slide"><img src="/assets/img/c3-siete-colores-1.jpg"  alt="Cabaña Siete Colores 1" loading="eager" /></div>
@@ -348,7 +310,8 @@
           </div>
         </article>
 
-<article class="cabana-card" id="c4">
+        <!-- C4 CISNE CUELLO NEGRO -->
+        <article class="cabana-card" id="c4">
           <div class="cabana-carousel" data-carousel>
             <div class="cabana-slides">
               <div class="cabana-slide"><img src="/assets/img/c4-cisne-cuello-negro-1.jpg"  alt="Cabaña Cisne Cuello Negro 1" loading="eager" /></div>
@@ -394,119 +357,189 @@
           </div>
         </article>
 
-      </div>
-      <p class="section-cta"><a href="/cabanas" class="link-arrow">Ver las 8 cabañas <span aria-hidden="true">→</span></a></p>
-    </div>
-  </section>
-
-  <!-- EXPERIENCIAS (resumen) -->
-  <section class="experiencias">
-    <div class="experiencias-inner">
-      <div class="container">
-        <div class="section-header section-header-light">
-          <p class="section-kicker">En el lago</p>
-          <h2 class="section-title">Lo que puedes hacer<br><em>en Vichuquén Lodge y Marina</em>.</h2>
-        </div>
-        <div class="exp-grid">
-<div class="exp-card reveal">
-            <div class="exp-card-top">
-              <div class="exp-num">01</div>
-              <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M5 19 L19 5 M5 5 L19 19"/>
-                <path d="M3.5 21 Q2 18.5 3.5 16.5 Q5 15 6.5 16.5"/>
-                <path d="M20.5 3 Q22 5.5 20.5 7.5 Q19 9 17.5 7.5"/>
-                <path d="M3.5 3 Q6 2 7.5 3.5 Q9 5 7.5 6.5"/>
-                <path d="M20.5 21 Q18 22 16.5 20.5 Q15 19 16.5 17.5"/>
-              </svg>
+        <!-- C5 HUALA -->
+        <article class="cabana-card" id="c5">
+          <div class="cabana-carousel" data-carousel>
+            <div class="cabana-slides">
+              <div class="cabana-slide"><img src="/assets/img/c5-huala-1.jpg" alt="Cabaña Huala 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c5-huala-2.jpg" alt="Cabaña Huala 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c5-huala-3.jpg" alt="Cabaña Huala 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c5-huala-4.jpg" alt="Cabaña Huala 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c5-huala-5.jpg" alt="Cabaña Huala 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c5-huala-6.jpg" alt="Cabaña Huala 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c5-huala-7.jpg" alt="Cabaña Huala 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c5-huala-8.jpg" alt="Cabaña Huala 8" loading="lazy" /></div>
             </div>
-            <h3>Deportes Náuticos</h3>
-            <p>Vive el Lago a través de experiencias como kayak, SUP, esquí acuático y otras actividades recreativas.</p>
+            <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="carousel-dots"></div>
           </div>
-<div class="exp-card reveal">
-            <div class="exp-card-top">
-              <div class="exp-num">02</div>
-              <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M2 12 C5 8 8 8 10 12 C8 16 5 16 2 12Z"/><path d="M10 12 L16 9 L16 15Z"/><path d="M16 12 L21 10 M16 12 L21 14"/><circle cx="5" cy="11" r="1" fill="currentColor" stroke="none"/>
-              </svg>
-            </div>
-            <h3>Pesca deportiva</h3>
-            <p>Disfruta de jornadas de pesca en uno de los lagos más reconocidos de la zona central.</p>
+          <div class="cabana-body">
+            <div class="cabana-header"><div><p class="cabana-num">C5</p><h3>Huala</h3></div><div class="cabana-header-right"><span class="cabana-cap">Hasta 5 personas</span><span class="cabana-desde">Desde $79.200</span></div></div>
+            <div class="cabana-detalles" data-extras hidden><ul class="cabana-features">
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a4 4 0 100 8A4 4 0 008 1zM2 10a6 6 0 1112 0v1H2v-1z"/></svg>Hasta 5 personas</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 5h14v8H1V5zm1-3h12v2H2V2z"/></svg>2 dormitorios · matrimonial + camarote</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 12h12v2H2v-2zm1-9h10v7H3V3z"/></svg>Terraza privada · Zona de asado</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 3h10v3H3V3zm0 5h10v5H3V8z"/></svg>Cocina · Comedor · Living · Baño</li>
+            </ul>
+            <div class="cabana-extras">
+              <ul class="extras-list">
+                <li>Dormitorio 1: cama matrimonial</li>
+                <li>Dormitorio 2: camarote doble (2 plazas) + 1 cama individual</li>
+                <li>Cocina equipada: refrigerador, cocina a gas, horno, microondas, utensilios</li>
+                <li>Comedor + Living/sala de estar</li>
+                <li>Baño privado con ducha caliente</li>
+                <li>Ropa de cama incluida · Calefacción · Estacionamiento</li>
+                <li>Terraza privada · Zona de asado · Acceso al embarcadero</li>
+                <li>Pet Friendly 🐾</li>
+              </ul>
+            </div></div>
+            <button class="btn-extras" data-extras-toggle aria-expanded="false">
+              <span class="btn-extras-show">+ Ver características</span>
+              <span class="btn-extras-hide">− Ocultar características</span>
+            </button>
+            <a href="/reservas?cabana=c5-huala" class="btn-cabana">Ver disponibilidad</a>
           </div>
-<div class="exp-card reveal">
-            <div class="exp-card-top">
-              <div class="exp-num">03</div>
-              <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/><path d="M18 4 L18.5 5.5 L20 6 L18.5 6.5 L18 8 L17.5 6.5 L16 6 L17.5 5.5Z"/>
-              </svg>
-            </div>
-            <h3>Cielo nocturno</h3>
-            <p>Sin contaminación lumínica. La Vía Láctea visible a simple vista. Uno de los mejores cielos del centro-sur de Chile.</p>
-          </div>
-<div class="exp-card reveal">
-            <div class="exp-card-top">
-              <div class="exp-num">04</div>
-              <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 18 C11 14 11 10 12 8 C13 10 13 14 12 18Z"/>
-                <path d="M12 11 C10 9 7 8 6 5 C9 4 12 8 12 11Z"/>
-                <path d="M12 11 C14 9 17 8 18 5 C15 4 12 8 12 11Z"/>
-                <path d="M12 15 C9 14 6 15 5 18 C8 20 11 19 12 18Z"/>
-                <path d="M12 15 C15 14 18 15 19 18 C16 20 13 19 12 18Z"/>
-              </svg>
-            </div>
-            <h3>Spa del Lago Vichuquén</h3>
-            <p>Servicio de spa con masajes disponible para huéspedes. Desconéctate por completo en nuestro relajante Spa del Lago.</p>
-          </div>
-        </div>
-        <p class="section-cta section-cta-light"><a href="/experiencias" class="link-arrow">Ver las 9 experiencias <span aria-hidden="true">→</span></a></p>
-      </div>
-    </div>
-  </section>
+        </article>
 
-  <!-- GRUPOS (resumen) -->
-  <section class="teaser-band">
-    <div class="container teaser-band-grid">
-      <div class="teaser-band-media">
-        <img src="/assets/img/grupos/g3.jpg" alt="Grupo de estudiantes en la playa del lodge" loading="lazy" />
-      </div>
-      <div class="teaser-band-body">
-        <p class="section-kicker">Experiencias colectivas</p>
-        <h2 class="section-title">Grupos<br><em>y Eventos</em>.</h2>
-        <p>Capacidad para más de 40 personas entre las 8 cabañas: viajes educativos, actividades corporativas, encuentros familiares y celebraciones a orillas del lago.</p>
-        <a href="/grupos" class="link-arrow">Conocer más <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-  </section>
+        <!-- C6 RUN RUN -->
+        <article class="cabana-card" id="c6">
+          <div class="cabana-carousel" data-carousel>
+            <div class="cabana-slides">
+              <div class="cabana-slide"><img src="/assets/img/c6-run-run-1.jpg" alt="Cabaña Run Run 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c6-run-run-2.jpg" alt="Cabaña Run Run 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c6-run-run-3.jpg" alt="Cabaña Run Run 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c6-run-run-4.jpg" alt="Cabaña Run Run 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c6-run-run-5.jpg" alt="Cabaña Run Run 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c6-run-run-6.jpg" alt="Cabaña Run Run 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c6-run-run-7.jpg" alt="Cabaña Run Run 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c6-run-run-8.jpg" alt="Cabaña Run Run 8" loading="lazy" /></div>
+            </div>
+            <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="cabana-body">
+            <div class="cabana-header"><div><p class="cabana-num">C6</p><h3>Run Run</h3></div><div class="cabana-header-right"><span class="cabana-cap">Hasta 5 personas</span><span class="cabana-desde">Desde $79.200</span></div></div>
+            <div class="cabana-detalles" data-extras hidden><ul class="cabana-features">
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a4 4 0 100 8A4 4 0 008 1zM2 10a6 6 0 1112 0v1H2v-1z"/></svg>Hasta 5 personas</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 5h14v8H1V5zm1-3h12v2H2V2z"/></svg>2 dormitorios · matrimonial + camarote</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 12h12v2H2v-2zm1-9h10v7H3V3z"/></svg>Terraza privada · Zona de asado</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 3h10v3H3V3zm0 5h10v5H3V8z"/></svg>Cocina · Comedor · Living · Baño</li>
+            </ul>
+            <div class="cabana-extras">
+              <ul class="extras-list">
+                <li>Dormitorio 1: cama matrimonial</li>
+                <li>Dormitorio 2: camarote doble (2 plazas) + 1 cama individual</li>
+                <li>Cocina equipada: refrigerador, cocina a gas, horno, microondas, utensilios</li>
+                <li>Comedor + Living/sala de estar</li>
+                <li>Baño privado con ducha caliente</li>
+                <li>Ropa de cama incluida · Calefacción · Estacionamiento</li>
+                <li>Terraza privada · Zona de asado · Acceso al embarcadero</li>
+                <li>Pet Friendly 🐾</li>
+              </ul>
+            </div></div>
+            <button class="btn-extras" data-extras-toggle aria-expanded="false">
+              <span class="btn-extras-show">+ Ver características</span>
+              <span class="btn-extras-hide">− Ocultar características</span>
+            </button>
+            <a href="/reservas?cabana=c6-run-run" class="btn-cabana">Ver disponibilidad</a>
+          </div>
+        </article>
 
-  <!-- GALERÍA (resumen) -->
-  <section class="galeria-teaser">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-kicker">El lugar</p>
-        <h2 class="section-title">Vichuquén<br><em>en imágenes</em>.</h2>
-      </div>
-      <a href="/galeria" class="gal-strip" aria-label="Ver la galería completa">
-        <img src="/assets/img/entorno-31.jpg"  alt="Cabañas vistas desde el lago" loading="lazy" />
-        <img src="/assets/img/entorno-37.jpg"  alt="Muelle de madera sobre el lago" loading="lazy" />
-        <img src="/assets/img/entorno-333.jpg" alt="Kayak rojo en la orilla" loading="lazy" />
-        <img src="/assets/img/entorno-5.jpg"   alt="Lago Vichuquén con niebla matutina" loading="lazy" />
-        <img src="/assets/img/entorno-341.jpg" alt="Reposeras y parasol frente al lago" loading="lazy" />
-        <img src="/assets/img/gal-1.jpg"       alt="Terraza exterior con vista al lago" loading="lazy" />
-      </a>
-      <p class="section-cta"><a href="/galeria" class="link-arrow">Ver la galería completa <span aria-hidden="true">→</span></a></p>
-    </div>
-  </section>
+        <!-- C7 PITÍO — temporalmente no disponible -->
+        <article class="cabana-card cabana-no-disponible" id="c7">
+          <div class="cabana-carousel" data-carousel>
+            <div class="cabana-slides">
+              <div class="cabana-slide"><img src="/assets/img/c7-pitio-1.jpg"  alt="Cabaña Pitío 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c7-pitio-2.jpg"  alt="Cabaña Pitío 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c7-pitio-3.jpg"  alt="Cabaña Pitío 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c7-pitio-4.jpg"  alt="Cabaña Pitío 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c7-pitio-5.jpg"  alt="Cabaña Pitío 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c7-pitio-6.jpg"  alt="Cabaña Pitío 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c7-pitio-7.jpg"  alt="Cabaña Pitío 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c7-pitio-8.jpg"  alt="Cabaña Pitío 8" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c7-pitio-9.jpg"  alt="Cabaña Pitío 9" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c7-pitio-10.jpg" alt="Cabaña Pitío 10" loading="lazy" /></div>
+            </div>
+            <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="cabana-body">
+            <div class="cabana-header"><div><p class="cabana-num">C7</p><h3>Pitío</h3></div><div class="cabana-header-right"><span class="cabana-cap">Hasta 5 personas</span><span class="cabana-desde">Desde $79.200</span></div></div>
+            <div class="cabana-detalles" data-extras hidden><ul class="cabana-features">
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a4 4 0 100 8A4 4 0 008 1zM2 10a6 6 0 1112 0v1H2v-1z"/></svg>Hasta 5 personas</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 5h14v8H1V5zm1-3h12v2H2V2z"/></svg>2 dormitorios · matrimonial + camarote</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 12h12v2H2v-2zm1-9h10v7H3V3z"/></svg>Terraza privada · Zona de asado</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 3h10v3H3V3zm0 5h10v5H3V8z"/></svg>Cocina · Comedor · Living · Baño</li>
+            </ul>
+            <div class="cabana-extras">
+              <ul class="extras-list">
+                <li>Dormitorio 1: cama matrimonial</li>
+                <li>Dormitorio 2: camarote doble (2 plazas) + 1 cama individual</li>
+                <li>Cocina equipada: refrigerador, cocina a gas, horno, microondas, utensilios</li>
+                <li>Comedor + Living/sala de estar</li>
+                <li>Baño privado con ducha caliente</li>
+                <li>Ropa de cama incluida · Calefacción · Estacionamiento</li>
+                <li>Terraza privada · Zona de asado · Acceso al embarcadero</li>
+                <li>Pet Friendly 🐾</li>
+              </ul>
+            </div></div>
+            <button class="btn-extras" data-extras-toggle aria-expanded="false">
+              <span class="btn-extras-show">+ Ver características</span>
+              <span class="btn-extras-hide">− Ocultar características</span>
+            </button>
+            <a href="/contacto" class="btn-cabana btn-cabana-consultar">No disponible temporalmente</a>
+          </div>
+        </article>
 
-  <!-- UBICACIÓN (resumen) -->
-  <section class="teaser-band">
-    <div class="container teaser-band-grid">
-      <div class="teaser-band-body">
-        <p class="section-kicker">Cómo llegar</p>
-        <h2 class="section-title">Encuéntranos<br><em>en el lago</em>.</h2>
-        <p><strong>Lago Vichuquén, Licantén</strong> — Región del Maule, Chile.<br>A unas 4 horas de Santiago por la Ruta 5 Sur.</p>
-        <a href="/ubicacion" class="link-arrow">Ver mapa y ruta <span aria-hidden="true">→</span></a>
+        <!-- C8 GARZA CUCA — Solo Complejo Completo -->
+        <article class="cabana-card cabana-no-disponible" id="c8">
+          <div class="cabana-carousel" data-carousel>
+            <div class="cabana-slides">
+              <div class="cabana-slide"><img src="/assets/img/c8-garza-cuca-1.jpg"  alt="Cabaña Garza Cuca 1" loading="eager" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c8-garza-cuca-2.jpg"  alt="Cabaña Garza Cuca 2" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c8-garza-cuca-3.jpg"  alt="Cabaña Garza Cuca 3" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c8-garza-cuca-4.jpg"  alt="Cabaña Garza Cuca 4" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c8-garza-cuca-5.jpg"  alt="Cabaña Garza Cuca 5" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c8-garza-cuca-6.jpg"  alt="Cabaña Garza Cuca 6" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c8-garza-cuca-7.jpg"  alt="Cabaña Garza Cuca 7" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c8-garza-cuca-8.jpg"  alt="Cabaña Garza Cuca 8" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c8-garza-cuca-9.jpg"  alt="Cabaña Garza Cuca 9" loading="lazy" /></div>
+              <div class="cabana-slide"><img src="/assets/img/c8-garza-cuca-10.jpg" alt="Cabaña Garza Cuca 10" loading="lazy" /></div>
+            </div>
+            <button class="carousel-btn carousel-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="carousel-btn carousel-next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="cabana-body">
+            <div class="cabana-header"><div><p class="cabana-num">C8</p><h3>Garza Cuca</h3></div><div class="cabana-header-right"><span class="cabana-cap">Hasta 6 personas</span><span class="cabana-desde cabana-desde-consultar">Consultar</span></div></div>
+            <div class="cabana-detalles" data-extras hidden><ul class="cabana-features">
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a4 4 0 100 8A4 4 0 008 1zM2 10a6 6 0 1112 0v1H2v-1z"/></svg>Hasta 6 personas</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 5h14v8H1V5zm1-3h12v2H2V2z"/></svg>2 dormitorios · matrimonial + camarote</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 12h12v2H2v-2zm1-9h10v7H3V3z"/></svg>Terraza privada · Zona de asado</li>
+              <li><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 3h10v3H3V3zm0 5h10v5H3V8z"/></svg>Cocina · Comedor · Living · Baño</li>
+            </ul>
+            <div class="cabana-extras">
+              <ul class="extras-list">
+                <li>Cabaña disponible únicamente como parte del <strong>Complejo Completo</strong></li>
+                <li>Ideal para grupos grandes, retiros o eventos privados</li>
+                <li>Cocina equipada, ropa de cama incluida, estacionamiento</li>
+                <li>Terraza privada · Zona de asado · Acceso al embarcadero</li>
+                <li>Pet Friendly 🐾</li>
+              </ul>
+            </div></div>
+            <button class="btn-extras" data-extras-toggle aria-expanded="false">
+              <span class="btn-extras-show">+ Ver características</span>
+              <span class="btn-extras-hide">− Ocultar características</span>
+            </button>
+            <a href="/contacto" class="btn-cabana btn-cabana-consultar">Consultar disponibilidad</a>
+          </div>
+        </article>
+
       </div>
-      <div class="teaser-band-media">
-        <img src="/assets/img/entorno-336.jpg" alt="Vista general del lodge junto al lago" loading="lazy" />
+
       </div>
     </div>
   </section>
@@ -518,37 +551,9 @@
       <div class="cta-band-overlay"></div>
     </div>
     <div class="container cta-band-content">
-      <h2 class="cta-band-title">Reserva online, confirmación inmediata.</h2>
-      <p class="cta-band-text">Elige cabaña y fechas, paga el 50% o el total, y recibe tu comprobante por correo.</p>
-      <a href="/reservas" class="btn-primary">Reservar ahora</a>
-    </div>
-  </section>
-
-  <section class="contacto" id="contacto">
-    <div class="container">
-      <div class="contacto-grid">
-        <div>
-          <p class="section-kicker">Contacto</p>
-          <h2 class="section-title">¿Tienes<br><em>preguntas?</em></h2>
-          <div class="contacto-items">
-            <div class="contacto-item">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z" fill="currentColor"/></svg>
-              <div><strong>Ubicación</strong><p>Lago Vichuquén, Región del Maule, Chile</p></div>
-            </div>
-            <div class="contacto-item">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z" fill="currentColor"/></svg>
-              <div><strong>WhatsApp</strong><p><a href="https://wa.me/56954177688" target="_blank" rel="noopener" style="color:inherit">+56 9 5417 7688</a></p></div>
-            </div>
-            <div class="contacto-item">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/></svg>
-              <div><strong>Email</strong><p><a href="mailto:vichulodge@gmail.com" style="color:inherit">vichulodge@gmail.com</a></p></div>
-            </div>
-          </div>
-        </div>
-        <div class="contacto-foto">
-          <img src="/assets/img/gal-7.jpg" alt="Interior cabaña Cisne Coscoroba con cocina equipada" loading="lazy" />
-        </div>
-      </div>
+      <h2 class="cta-band-title">¿Ya elegiste la tuya?</h2>
+      <p class="cta-band-text">Consulta disponibilidad y reserva en línea con confirmación inmediata.</p>
+      <a href="/reservas" class="btn-primary">Ir a reservas</a>
     </div>
   </section>
 
