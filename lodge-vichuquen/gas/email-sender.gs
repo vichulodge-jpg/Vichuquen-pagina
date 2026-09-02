@@ -153,304 +153,108 @@ function enviarHuespedTransferencia(p) {
 }
 
 // ── Email al huésped: información pre-llegada ─────────────────────────────────
-// Presentación basada en la plantilla gráfica del lodge (sep-2026). Los textos
-// son los mismos que ya se enviaban; cambia el diseño y se suman la tarjeta con
-// los datos de la reserva y el recordatorio de saldo pendiente.
-
-var COL_NAVY  = '#273852';
-var COL_ORO   = '#CEAC87';
-var COL_ARENA = '#E1C3A1';
-var COL_CREMA = '#FFF8EE';
-var COL_TEXTO = '#18262E';
-var COL_GRIS  = '#5A6B78';
-var COL_LINEA = '#E2D5C2';
-
-var URL_MAPS = 'https://www.google.com/maps/place/Vichuquen+Lodge+y+Marina/@-34.7857666,-72.0735737,17z';
-var URL_IG   = 'https://www.instagram.com/vichuquen_lodgeymarina/';
-var URL_FB   = 'https://www.facebook.com/vichuquen_lodgeymarina/';
-var URL_WA   = 'https://wa.me/56954177688';
-
-// Para mostrar la cabaña como "Cabaña 2 · Cisne Coscoroba"
-var NUM_CABANA = {
-  'Tagua': 1, 'Cisne Coscoroba': 2, 'Siete Colores': 3, 'Cisne Cuello Negro': 4,
-  'Huala': 5, 'Run Run': 6, 'Pitio': 7, 'Garza Cuca': 8
-};
-
 function enviarHuespedPreLlegada(p) {
   var subject = '¡Ya falta muy poco! Tu llegada a Vichuquén Lodge el ' + fmtFecha(p.check_in);
+  var mapsUrl = 'https://www.google.com/maps/place/Vichuquen+Lodge+y+Marina/@-34.7857666,-72.0735737,17z';
 
   var body =
-    '<p style="margin:0 0 18px;font-size:14px;color:' + COL_TEXTO + ';line-height:1.6;">' +
-      '¡Hola, <strong>' + p.nombre + '</strong>! Ya queda muy poco para recibirte. ' +
-      'Aquí tienes todo lo que necesitas saber antes de llegar.' +
-    '</p>' +
-    preTarjetaDatos(p) +
-    preBloqueMaleta() +
-    preBloqueNormas() +
-    preBloqueHorarios() +
-    preBloqueLlegada() +
-    preBloquePago(p) +
-    '<p style="margin:26px 0 0;font-size:14px;color:' + COL_TEXTO + ';line-height:1.6;">' +
-      'Te deseamos un excelente viaje y una maravillosa estadía junto al lago y al humedal.' +
-    '</p>' +
-    '<p style="margin:10px 0 0;font-size:14px;color:' + COL_TEXTO + ';">' +
-      '<strong>¡Nos vemos muy pronto!</strong><br>' +
-      '<span style="color:' + COL_GRIS + ';font-size:13px;">Equipo Vichuquén Lodge y Marina</span>' +
-    '</p>';
+    '<p>¡Hola, <strong>' + p.nombre + '</strong>!</p>' +
+    '<p>Ya queda muy poco para recibirte en Vichuquén Lodge y Marina. Para que disfrutes al máximo tu estadía, te compartimos algunos datos importantes antes de tu llegada.</p>' +
+
+    '<div style="margin:20px 0;">' +
+    buildTabla([
+      ['Cabaña',   p.cabana],
+      ['Llegada',  fmtFecha(p.check_in)],
+      ['Salida',   fmtFecha(p.check_out)],
+      ['Noches',   String(p.noches)],
+      ['Personas', String(p.personas)]
+    ]) +
+    '</div>' +
+
+    seccion('✔️ Antes de hacer tu maleta', [
+      item('Toallas',
+        'Tu cabaña incluye sábanas y plumones limpios, pero <strong>no incluye toallas de baño</strong> (solo dejamos una toalla de mano por baño). Recuerda traer tus toallas personales y para el lago o la playa.'),
+      item('Agua para consumo',
+        'El agua de los grifos proviene de pozo profundo y no es apta para beber. No necesitas traer agua, ya que encontrarás <strong>bidones de agua purificada</strong> en tu cabaña, los cuales reponemos gratuitamente durante tu estadía.'),
+      item('Cantidad de huéspedes',
+        'Si reservaste con tarifa de ocupación reducida, la cabaña y los insumos iniciales están preparados para la cantidad de personas indicada en tu reserva.<br><br>' +
+        'Si deseas agregar pasajeros, debes informarlo antes de tu llegada. El valor es de <strong>$10.000 por persona adicional por noche</strong>. No se permite registrar huéspedes adicionales durante el check-in ni recibir visitas que pernocten.'),
+      item('Mascotas',
+        'La primera mascota mediana es <strong>gratuita</strong>. Una segunda mascota requiere autorización previa y tiene un valor de <strong>$8.000 por noche</strong>.<br><br>' +
+        'Recuerda traer su cama y platos. Las mascotas deben permanecer bajo supervisión, no pueden subir a camas o sillones y sus desechos deben ser recogidos por sus dueños.')
+    ]) +
+
+    '<div style="margin:24px 0 8px;">' +
+    '<p style="margin:0 0 12px;font-weight:700;color:#273852;font-size:15px;">🚭 Normas importantes de convivencia</p>' +
+    '<div style="padding:14px 16px;background:#F4F1EB;border-radius:8px;border-left:3px solid #5AABB8;">' +
+    '<ul style="margin:0;padding-left:20px;font-size:13px;color:#18262E;line-height:1.9;">' +
+    '<li>Está <strong>prohibido fumar</strong> dentro de las cabañas.</li>' +
+    '<li>No está permitido realizar <strong>frituras al interior</strong> de las cabañas para evitar olores persistentes. Si tienes pensado freír alimentos, avísanos y te facilitaremos gratuitamente una cocinilla portátil para utilizar en la terraza.</li>' +
+    '<li>Por respeto a todos los huéspedes, te pedimos mantener <strong>niveles moderados de ruido</strong>, especialmente entre las 23:00 y las 10:00 hrs.</li>' +
+    '<li>No se permiten <strong>fiestas ni música a alto volumen</strong>.</li>' +
+    '<li>Ayúdanos a cuidar el humedal y la naturaleza que rodea el complejo, <strong>evitando dejar basura</strong> o intervenir la flora y fauna local.</li>' +
+    '</ul>' +
+    '</div>' +
+    '</div>' +
+
+    seccion('🕒 Horarios de ingreso y salida', [
+      item('Check-in', 'Desde las <strong>15:00 hrs.</strong>'),
+      item('Check-out', 'Hasta las <strong>12:00 hrs.</strong>'),
+      item('Recepción presencial',
+        'Nuestro equipo realizará la recepción presencial hasta las <strong>22:00 hrs.</strong> en la Administración (Cabaña N° 9).<br><br>' +
+        'Si estimas llegar <strong>después de las 22:00 hrs.</strong>, avísanos con anticipación para activar tu <strong>Check-in Autónomo</strong> y enviarte las instrucciones de acceso.')
+    ]) +
+
+    '<div style="margin:24px 0 8px;">' +
+    '<p style="margin:0 0 12px;font-weight:700;color:#273852;font-size:15px;">⏰ Horarios extendidos <span style="font-weight:400;font-size:12px;color:#5A6B78;">(sujetos a disponibilidad)</span></p>' +
+    '<div style="padding:14px 16px;background:#F4F1EB;border-radius:8px;border-left:3px solid #5AABB8;">' +
+    '<p style="margin:0 0 8px;font-size:13px;color:#18262E;">Si deseas disfrutar más tiempo de tu estadía, puedes solicitar:</p>' +
+    '<ul style="margin:0 0 12px;padding-left:20px;font-size:13px;color:#18262E;line-height:1.9;">' +
+    '<li><strong>Early Check-in:</strong> ingreso desde las 10:00 hrs. — <strong>$35.000</strong></li>' +
+    '<li><strong>Late Check-out:</strong> salida hasta las 17:00 hrs. — <strong>$35.000</strong></li>' +
+    '</ul>' +
+    '<p style="margin:0;font-size:13px;color:#18262E;">Estos servicios requieren solicitud y confirmación previa por parte de la administración.</p>' +
+    '<p style="margin:10px 0 0;font-size:12px;color:#c62828;"><strong>Importante:</strong> Si la cabaña no es desocupada antes de las 12:00 hrs. sin autorización previa, se aplicará un cobro equivalente a media noche de estadía.</p>' +
+    '</div>' +
+    '</div>' +
+
+    '<div style="background:#F4F1EB;border-radius:10px;padding:18px 20px;margin:20px 0;">' +
+    '<p style="margin:0 0 10px;font-weight:700;color:#273852;font-size:15px;">📍 Cómo llegar</p>' +
+    '<p style="margin:0 0 12px;font-size:13px;color:#18262E;">Puedes utilizar el siguiente enlace para llegar directamente con tu GPS:</p>' +
+    '<a href="' + mapsUrl + '" style="display:inline-block;background:#273852;color:#fff;text-decoration:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;">📍 Abrir en Google Maps</a>' +
+    '</div>' +
+
+    '<div style="background:#EAF4F7;border-radius:10px;padding:18px 20px;margin:20px 0;">' +
+    '<p style="margin:0 0 8px;font-weight:700;color:#273852;font-size:15px;">📞 Contacto</p>' +
+    '<p style="margin:0;font-size:13px;color:#18262E;">Si tienes cualquier consulta o necesitas coordinar tu llegada, puedes responder este correo o escribirnos por WhatsApp al:<br><br>' +
+    '<a href="https://wa.me/56954177688" style="color:#273852;font-weight:700;font-size:15px;">+56 9 5417 7688</a></p>' +
+    '</div>' +
+
+    '<p style="margin-top:24px;">Te deseamos un excelente viaje y esperamos que disfrutes una maravillosa estadía junto al lago y al humedal.</p>' +
+    '<p><strong>¡Nos vemos muy pronto!</strong><br>' +
+    '<span style="color:#5A6B78;font-size:13px;">Saludos cordiales,<br>Equipo Vichuquén Lodge y Marina</span></p>';
 
   MailApp.sendEmail({
-    to:      p.email,
-    subject: subject,
-    htmlBody: preShell(body),
-    name:    LODGE_NOMBRE,
-    replyTo: LODGE_EMAIL
+    to:        p.email,
+    subject:   subject,
+    htmlBody:  buildEmailBase('¡Ya falta muy poco!', body, '', ''),
+    name:      LODGE_NOMBRE,
+    replyTo:   LODGE_EMAIL
   });
 }
 
-// ── Estructura del correo ────────────────────────────────────────────────────
-
-function preShell(contenido) {
-  return [
-    '<!DOCTYPE html><html><head><meta charset="utf-8">',
-    '<meta name="viewport" content="width=device-width,initial-scale=1"></head>',
-    '<body style="margin:0;padding:0;background:' + COL_CREMA + ';font-family:Georgia,\'Times New Roman\',serif;">',
-    '<table width="100%" cellpadding="0" cellspacing="0" role="presentation">',
-    '<tr><td align="center" style="padding:28px 14px;">',
-    '<table width="560" cellpadding="0" cellspacing="0" role="presentation" ',
-      'style="max-width:560px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(39,56,82,.10);">',
-
-    // Cabecera
-    '<tr><td style="background:' + COL_NAVY + ';padding:30px 32px 26px;text-align:center;">',
-      '<p style="margin:0;color:' + COL_ORO + ';font-size:11px;letter-spacing:3px;text-transform:uppercase;">',
-        'Vichuquén Lodge y Marina</p>',
-      '<h1 style="margin:10px 0 0;color:#fff;font-size:30px;font-weight:400;letter-spacing:.5px;">¡Bienvenido!</h1>',
-      '<div style="width:120px;height:1px;background:' + COL_ORO + ';margin:14px auto;"></div>',
-      '<p style="margin:0;color:#DCE6F0;font-size:12px;letter-spacing:2px;text-transform:uppercase;">',
-        'Tu estadía empieza aquí</p>',
-    '</td></tr>',
-
-    '<tr><td style="padding:26px 30px 30px;">' + contenido + '</td></tr>',
-
-    // Pie
-    preFooter(),
-
-    '</table></td></tr></table></body></html>'
-  ].join('');
-}
-
-function preFooter() {
-  return '<tr><td style="background:' + COL_NAVY + ';padding:24px 30px;text-align:center;">' +
-    '<p style="margin:0 0 14px;color:' + COL_ORO + ';font-size:11px;letter-spacing:2px;text-transform:uppercase;">' +
-      'Síguenos y comparte tu estadía</p>' +
-    '<p style="margin:0 0 16px;font-size:13px;">' +
-      '<a href="' + URL_IG + '" style="color:#fff;text-decoration:none;">Instagram</a>' +
-      '<span style="color:' + COL_ORO + ';padding:0 10px;">·</span>' +
-      '<a href="' + URL_FB + '" style="color:#fff;text-decoration:none;">Facebook</a>' +
-    '</p>' +
-    '<div style="height:1px;background:rgba(206,172,135,.35);margin:0 0 16px;"></div>' +
-    '<p style="margin:0;color:#DCE6F0;font-size:13px;line-height:1.8;">' +
-      '<a href="' + URL_WA + '" style="color:#fff;text-decoration:none;">+56 9 5417 7688</a><br>' +
-      '<a href="mailto:' + LODGE_EMAIL + '" style="color:#fff;text-decoration:none;">' + LODGE_EMAIL + '</a><br>' +
-      '<a href="https://www.vichuquenlodgeymarina.cl" style="color:' + COL_ORO + ';text-decoration:none;font-size:11px;letter-spacing:1px;">' +
-        'WWW.VICHUQUENLODGEYMARINA.CL</a>' +
-    '</p></td></tr>';
-}
-
-// ── Tarjeta con los datos de la reserva ──────────────────────────────────────
-
-function preTarjetaDatos(p) {
-  var celdas = [
-    [p.nombre,                        'nombre'],
-    [cabanaCompleta(p.cabana),        'cabaña'],
-    [fmtFechaLarga(p.check_in),       'entrada'],
-    [fmtFechaLarga(p.check_out),      'salida'],
-    [p.noches + (p.noches == 1 ? ' noche' : ' noches'),        'noches'],
-    [p.personas + (p.personas == 1 ? ' huésped' : ' huéspedes'), 'huéspedes']
-  ];
-
-  var filas = '';
-  for (var i = 0; i < celdas.length; i += 2) {
-    filas += '<tr>' + preCelda(celdas[i]) + preCelda(celdas[i + 1]) + '</tr>';
-  }
-
-  return '<div style="text-align:center;margin:0 0 18px;">' +
-      '<span style="display:inline-block;background:' + COL_ORO + ';color:#fff;font-size:12px;' +
-        'letter-spacing:2px;text-transform:uppercase;padding:10px 26px;border-radius:4px;">' +
-        'Datos de tu reserva</span>' +
-    '</div>' +
-    '<table width="100%" cellpadding="0" cellspacing="0" role="presentation" ' +
-      'style="background:' + COL_CREMA + ';border-radius:10px;border:1px solid ' + COL_LINEA + ';">' +
-      filas +
-    '</table>';
-}
-
-function preCelda(c) {
-  return '<td width="50%" style="padding:16px 18px;vertical-align:top;">' +
-    '<p style="margin:0 0 6px;font-size:14px;font-weight:700;color:' + COL_NAVY + ';line-height:1.35;">' +
-      c[0] + '</p>' +
-    '<div style="height:1px;background:' + COL_LINEA + ';margin:0 0 5px;"></div>' +
-    '<p style="margin:0;font-size:11px;color:' + COL_GRIS + ';font-style:italic;">' + c[1] + '</p>' +
-    '</td>';
-}
-
-// ── Antes de hacer tu maleta ─────────────────────────────────────────────────
-
-function preBloqueMaleta() {
-  var t = [
-    ['#E0A870', 'Toallas',
-      'Tu cabaña incluye sábanas y plumones limpios, pero <strong>no incluye toallas de baño</strong> ' +
-      '(solo dejamos una toalla de mano por baño). Recuerda traer tus toallas personales y para el lago o la playa.'],
-    ['#7FB6D4', 'Agua',
-      'El agua de los grifos proviene de pozo profundo y no es apta para beber. No necesitas traer agua: ' +
-      'encontrarás <strong>bidones de agua purificada</strong> en tu cabaña, que reponemos gratuitamente durante tu estadía.'],
-    ['#C98BAA', 'Huéspedes',
-      'La cabaña y los insumos iniciales están preparados para la cantidad de personas indicada en tu reserva. ' +
-      'Si deseas agregar pasajeros, debes informarlo antes de tu llegada; el valor es de ' +
-      '<strong>$10.000 por persona adicional por noche</strong>. No se permite registrar huéspedes adicionales ' +
-      'durante el check-in ni recibir visitas que pernocten.'],
-    ['#5AABB8', 'Mascotas',
-      'La primera mascota mediana <strong>no tiene costo</strong>. Una segunda mascota requiere autorización previa ' +
-      'y tiene un valor de <strong>$8.000 por noche</strong>. Recuerda traer su cama y platos. Deben permanecer bajo ' +
-      'supervisión, no pueden subir a camas o sillones y sus desechos deben ser recogidos por sus dueños.']
-  ];
-
-  var filas = '';
-  for (var i = 0; i < t.length; i += 2) {
-    filas += '<tr>' + preTarjetaInfo(t[i]) + preTarjetaInfo(t[i + 1]) + '</tr>';
-  }
-
-  return preTitulo('Antes de hacer tu maleta', 'Lo que debes saber para tu llegada') +
-    '<table width="100%" cellpadding="0" cellspacing="0" role="presentation">' + filas + '</table>';
-}
-
-function preTarjetaInfo(c) {
-  return '<td width="50%" style="padding:0 5px 10px;vertical-align:top;">' +
-    '<div style="background:' + COL_CREMA + ';border-top:3px solid ' + c[0] + ';border-radius:8px;padding:14px 15px;">' +
-      '<p style="margin:0 0 7px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:' + COL_NAVY + ';">' +
-        c[1] + '</p>' +
-      '<p style="margin:0;font-size:12px;color:' + COL_TEXTO + ';line-height:1.65;">' + c[2] + '</p>' +
-    '</div></td>';
-}
-
-// ── Normas de convivencia ────────────────────────────────────────────────────
-
-function preBloqueNormas() {
-  var normas = [
-    'Por seguridad de todos y prevención de incendios, está <strong>prohibido fumar</strong> al interior de las cabañas. ' +
-      'Si fuma, hágalo solo en espacios exteriores, asegurándose de apagar completamente colillas y residuos.',
-    'Para resguardar la tranquilidad de nuestros huéspedes, el ingreso de personas que no formen parte de la reserva ' +
-      'debe ser <strong>informado y autorizado previamente</strong> por la administración.',
-    'No está permitido realizar <strong>frituras al interior</strong> de las cabañas para evitar olores persistentes. ' +
-      'Si tienes pensado freír alimentos, avísanos y te facilitaremos gratuitamente una cocinilla portátil para la terraza.',
-    'Este recinto se encuentra junto a un <strong>humedal protegido</strong>, declarado Reserva Natural desde 2024. ' +
-      'Ayúdanos a cuidarlo evitando dejar basura o intervenir la flora y fauna local.',
-    'Por respeto a todos, te pedimos mantener <strong>niveles moderados de ruido</strong>, especialmente entre las ' +
-      '23:00 y las 10:00 hrs. No se permiten fiestas ni música a alto volumen.',
-    'En cada cabaña encontrarás nuestro <strong>Reglamento</strong>, con las normas que nos ayudan a mantener un ' +
-      'ambiente seguro y agradable para todos. Te invitamos a leerlo al llegar.'
-  ];
-
-  return preTitulo('Información para tu estadía', '') +
-    '<div style="background:' + COL_CREMA + ';border-radius:10px;padding:16px 20px;">' +
-      '<ul style="margin:0;padding-left:18px;font-size:12px;color:' + COL_TEXTO + ';line-height:1.8;">' +
-        '<li style="margin-bottom:9px;">' + normas.join('</li><li style="margin-bottom:9px;">') + '</li>' +
-      '</ul>' +
+// Helpers para email pre-llegada
+function seccion(titulo, items) {
+  return '<div style="margin:24px 0 8px;">' +
+    '<p style="margin:0 0 12px;font-weight:700;color:#273852;font-size:15px;">' + titulo + '</p>' +
+    items.join('') +
     '</div>';
 }
-
-// ── Horarios ─────────────────────────────────────────────────────────────────
-
-function preBloqueHorarios() {
-  return preTitulo('Horarios', '') +
-    '<table width="100%" cellpadding="0" cellspacing="0" role="presentation">' +
-    '<tr>' +
-      preHorario('Check-in',  'Desde las <strong>15:00 hrs.</strong>', 'Recepción presencial hasta las 22:00 hrs. en la Administración (Cabaña N° 9).') +
-      preHorario('Check-out', 'Hasta las <strong>12:00 hrs.</strong>', 'Si llegas después de las 22:00 hrs., avísanos para activar tu Check-in Autónomo.') +
-    '</tr></table>' +
-
-    '<div style="background:' + COL_ARENA + ';border-radius:8px;padding:15px 18px;margin-top:10px;">' +
-      '<p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:' + COL_NAVY + ';">' +
-        'Opcionales <span style="font-weight:400;letter-spacing:0;text-transform:none;font-style:italic;">(sujetos a disponibilidad)</span></p>' +
-      '<table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="font-size:12px;color:' + COL_TEXTO + ';">' +
-        '<tr><td style="padding:3px 0;"><strong>Early check-in</strong> · desde 10:00 hrs.</td>' +
-            '<td align="right" style="padding:3px 0;font-weight:700;color:' + COL_NAVY + ';">$35.000</td></tr>' +
-        '<tr><td style="padding:3px 0;"><strong>Late check-out</strong> · hasta 17:00 hrs.</td>' +
-            '<td align="right" style="padding:3px 0;font-weight:700;color:' + COL_NAVY + ';">$35.000</td></tr>' +
-      '</table>' +
-      '<p style="margin:10px 0 0;font-size:11px;color:#8A3A2E;">' +
-        '<strong>Importante:</strong> si la cabaña no se desocupa antes de las 12:00 hrs. sin autorización previa, ' +
-        'se aplicará un cobro equivalente a media noche de estadía.</p>' +
+function item(titulo, texto) {
+  return '<div style="margin-bottom:14px;padding:14px 16px;background:#F4F1EB;border-radius:8px;border-left:3px solid #5AABB8;">' +
+    '<p style="margin:0 0 4px;font-weight:700;font-size:13px;color:#273852;">' + titulo + '</p>' +
+    '<p style="margin:0;font-size:13px;color:#18262E;line-height:1.6;">' + texto + '</p>' +
     '</div>';
-}
-
-function preHorario(titulo, hora, nota) {
-  return '<td width="50%" style="padding:0 5px;vertical-align:top;">' +
-    '<div style="background:' + COL_CREMA + ';border:1px solid ' + COL_LINEA + ';border-radius:8px;padding:14px 15px;text-align:center;">' +
-      '<p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:' + COL_NAVY + ';">' +
-        titulo + '</p>' +
-      '<p style="margin:0 0 8px;font-size:13px;color:' + COL_TEXTO + ';">' + hora + '</p>' +
-      '<p style="margin:0;font-size:11px;color:' + COL_GRIS + ';line-height:1.5;">' + nota + '</p>' +
-    '</div></td>';
-}
-
-// ── Cómo llegar ──────────────────────────────────────────────────────────────
-
-function preBloqueLlegada() {
-  return preTitulo('Cómo llegar', '') +
-    '<div style="background:' + COL_CREMA + ';border-radius:10px;padding:18px 20px;text-align:center;">' +
-      '<p style="margin:0 0 14px;font-size:12px;color:' + COL_TEXTO + ';line-height:1.6;">' +
-        'Encuéntranos en aplicaciones de navegación como Google Maps o Waze como ' +
-        '<strong>Vichuquén Lodge y Marina</strong>.</p>' +
-      '<a href="' + URL_MAPS + '" style="display:inline-block;background:' + COL_NAVY + ';color:#fff;' +
-        'text-decoration:none;padding:11px 24px;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:1px;">' +
-        'ABRIR EN GOOGLE MAPS</a>' +
-    '</div>';
-}
-
-// ── Recordatorio de pago (solo si queda saldo) ───────────────────────────────
-
-function preBloquePago(p) {
-  var saldo = Number(p.saldo || 0);
-  if (!(saldo > 0)) return '';
-
-  return '<div style="border:1px solid ' + COL_ORO + ';border-radius:10px;padding:16px 20px;margin-top:22px;">' +
-    '<p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:' + COL_NAVY + ';">' +
-      'Saldo pendiente</p>' +
-    '<table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="font-size:12px;color:' + COL_TEXTO + ';">' +
-      '<tr><td style="padding:3px 0;">Total de la estadía</td>' +
-          '<td align="right" style="padding:3px 0;">' + fmtClp(p.total) + '</td></tr>' +
-      '<tr><td style="padding:3px 0;">Abono pagado</td>' +
-          '<td align="right" style="padding:3px 0;">− ' + fmtClp(p.abono) + '</td></tr>' +
-      '<tr><td style="padding:8px 0 0;border-top:1px solid ' + COL_LINEA + ';font-weight:700;color:' + COL_NAVY + ';">Saldo al llegar</td>' +
-          '<td align="right" style="padding:8px 0 0;border-top:1px solid ' + COL_LINEA + ';font-weight:700;color:' + COL_NAVY + ';">' +
-          fmtClp(saldo) + '</td></tr>' +
-    '</table>' +
-    '<p style="margin:10px 0 0;font-size:11px;color:' + COL_GRIS + ';line-height:1.5;">' +
-      'Puedes pagarlo al momento del check-in. Si prefieres adelantarlo por transferencia, escríbenos por WhatsApp.</p>' +
-    '</div>';
-}
-
-// ── Helpers de presentación ──────────────────────────────────────────────────
-
-function preTitulo(titulo, bajada) {
-  return '<div style="text-align:center;margin:28px 0 16px;">' +
-    '<p style="margin:0;font-size:18px;color:' + COL_NAVY + ';letter-spacing:.5px;">' + titulo + '</p>' +
-    (bajada ? '<p style="margin:4px 0 0;font-size:12px;color:' + COL_GRIS + ';font-style:italic;">' + bajada + '</p>' : '') +
-    '<div style="width:60px;height:1px;background:' + COL_ORO + ';margin:10px auto 0;"></div>' +
-    '</div>';
-}
-
-function cabanaCompleta(nombre) {
-  var n = NUM_CABANA[nombre];
-  return n ? ('Cabaña ' + n + ' · ' + nombre) : nombre;
-}
-
-function fmtFechaLarga(s) {
-  var d = new Date(s + 'T12:00:00');
-  var dias  = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-  var meses = ['enero','febrero','marzo','abril','mayo','junio',
-               'julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  return dias[d.getDay()] + ' ' + d.getDate() + ' de ' + meses[d.getMonth()] + ', ' + d.getFullYear();
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
