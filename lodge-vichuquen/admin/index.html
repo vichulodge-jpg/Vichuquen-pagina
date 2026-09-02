@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin — Vichuquén Lodge</title>
+  <link rel="icon" href="../favicon.ico" sizes="any" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="admin.css" />
@@ -41,29 +42,24 @@
       <!-- TABS -->
       <div class="tabs">
         <button class="tab active" data-tab="reservas">Reservas</button>
+        <button class="tab" data-tab="calendario">Calendario</button>
         <button class="tab" data-tab="bloqueos">Bloqueos</button>
+        <button class="tab" data-tab="correos">Correos</button>
       </div>
 
       <!-- TAB: RESERVAS -->
       <section id="tabReservas" class="tab-panel">
         <div class="panel-toolbar">
           <div class="filters">
+            <button class="btn-nueva" id="btnNuevaReserva">+ Nueva reserva</button>
             <select id="filtroEstado">
               <option value="">Todos los estados</option>
               <option value="pendiente">Pendiente</option>
               <option value="confirmada">Confirmada</option>
               <option value="cancelada">Cancelada</option>
             </select>
-            <select id="filtroCabana">
-              <option value="">Todas las cabañas</option>
-              <option value="c1-tagua">C1 — Tagua</option>
-              <option value="c2-cisne-coscoroba">C2 — Cisne Coscoroba</option>
-              <option value="c3-siete-colores">C3 — Siete Colores</option>
-              <option value="c4-cisne-cuello-negro">C4 — Cisne Cuello Negro</option>
-              <option value="c5-huala">C5 — Huala</option>
-              <option value="c6-run-run">C6 — Run Run</option>
-              <option value="c7-pitio">C7 — Pitío</option>
-            </select>
+            <select id="filtroCabana"></select>
+            <select id="filtroCanal"></select>
             <button class="btn-secondary" id="btnRefreshReservas">↻ Actualizar</button>
           </div>
           <span class="count" id="reservasCount"></span>
@@ -74,21 +70,49 @@
               <tr>
                 <th>Cabaña</th>
                 <th>Huésped</th>
+                <th>Canal</th>
                 <th>Teléfono / WA</th>
                 <th>Check-in</th>
                 <th>Check-out</th>
                 <th>Pers.</th>
                 <th>Total</th>
                 <th>Abono</th>
+                <th>Saldo</th>
                 <th>Estado</th>
                 <th>Creada</th>
                 <th>Acción</th>
               </tr>
             </thead>
             <tbody id="reservasTbody">
-              <tr><td colspan="11" class="loading">Cargando…</td></tr>
+              <tr><td colspan="13" class="loading">Cargando…</td></tr>
             </tbody>
           </table>
+        </div>
+      </section>
+
+      <!-- TAB: CALENDARIO -->
+      <section id="tabCalendario" class="tab-panel" hidden>
+        <div class="panel-toolbar">
+          <div class="cal-nav">
+            <button class="btn-secondary" id="btnMesAnterior" aria-label="Mes anterior">‹</button>
+            <span class="cal-mes" id="calMesLabel">—</span>
+            <button class="btn-secondary" id="btnMesSiguiente" aria-label="Mes siguiente">›</button>
+            <button class="btn-secondary" id="btnMesHoy">Hoy</button>
+          </div>
+          <button class="btn-nueva" id="btnNuevaReservaCal">+ Nueva reserva</button>
+        </div>
+
+        <p class="hint">
+          Cada barra es una reserva confirmada o pendiente. El color indica el canal de origen.
+          Haz clic en una barra para ver y editar la reserva.
+        </p>
+
+        <div class="cal-leyenda" id="calLeyenda"></div>
+
+        <div class="cal-wrap">
+          <div class="cal-grid" id="calGrid">
+            <p class="loading">Cargando…</p>
+          </div>
         </div>
       </section>
 
@@ -101,31 +125,26 @@
         <!-- Formulario nuevo bloqueo -->
         <div class="bloqueo-form-wrap">
           <h3>Agregar bloqueo manual</h3>
-          <p class="hint">Usa esto para marcar fechas reservadas por Airbnb, Booking o mantención.</p>
+          <p class="hint">
+            Un bloqueo cierra fechas sin datos de huésped (mantención, uso propio).
+            Si la reserva tiene huésped, úsala desde <strong>+ Nueva reserva</strong>:
+            así además se le envían los correos.
+          </p>
           <div class="bloqueo-form">
             <div class="form-group">
-              <label>Cabaña</label>
-              <select id="blCabana">
-                <option value="">Selecciona cabaña…</option>
-                <option value="c1-tagua">C1 — Tagua</option>
-                <option value="c2-cisne-coscoroba">C2 — Cisne Coscoroba</option>
-                <option value="c3-siete-colores">C3 — Siete Colores</option>
-                <option value="c4-cisne-cuello-negro">C4 — Cisne Cuello Negro</option>
-                <option value="c5-huala">C5 — Huala</option>
-                <option value="c6-run-run">C6 — Run Run</option>
-                <option value="c7-pitio">C7 — Pitío</option>
-              </select>
+              <label for="blCabana">Cabaña</label>
+              <select id="blCabana"></select>
             </div>
             <div class="form-group">
-              <label>Desde</label>
+              <label for="blDesde">Desde</label>
               <input type="date" id="blDesde" />
             </div>
             <div class="form-group">
-              <label>Hasta</label>
+              <label for="blHasta">Hasta</label>
               <input type="date" id="blHasta" />
             </div>
             <div class="form-group">
-              <label>Motivo</label>
+              <label for="blMotivo">Motivo</label>
               <select id="blMotivo">
                 <option value="airbnb">Airbnb</option>
                 <option value="booking">Booking.com</option>
@@ -160,9 +179,139 @@
         </div>
       </section>
 
+      <!-- TAB: CORREOS -->
+      <section id="tabCorreos" class="tab-panel" hidden>
+        <div class="panel-toolbar">
+          <button class="btn-secondary" id="btnRefreshPlantillas">↻ Actualizar</button>
+        </div>
+        <p class="hint">
+          Aquí se edita el <strong>texto redactado</strong> de cada correo. La tabla con los datos
+          de la reserva, las láminas de la pre-llegada, el saldo y el pie los sigue armando el
+          sistema. Mientras una plantilla esté desactivada se usa el correo actual de siempre.
+        </p>
+        <div id="plantillasWrap">
+          <p class="loading">Cargando…</p>
+        </div>
+      </section>
+
     </main>
   </div>
 
-  <script src="admin.js"></script>
+  <!-- MODAL: NUEVA / EDITAR RESERVA -->
+  <div class="modal" id="reservaModal" hidden>
+    <div class="modal-backdrop" data-cerrar-modal></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="rvTitulo">
+      <header class="modal-head">
+        <h2 id="rvTitulo">Nueva reserva</h2>
+        <button class="modal-close" data-cerrar-modal aria-label="Cerrar">×</button>
+      </header>
+
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="rvCabana">Cabaña *</label>
+            <select id="rvCabana"></select>
+          </div>
+          <div class="form-group">
+            <label for="rvCanal">Canal de origen *</label>
+            <select id="rvCanal"></select>
+          </div>
+          <div class="form-group">
+            <label for="rvEstado">Estado *</label>
+            <select id="rvEstado">
+              <option value="confirmada">Confirmada</option>
+              <option value="cancelada">Cancelada</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="rvCheckIn">Check-in *</label>
+            <input type="date" id="rvCheckIn" />
+          </div>
+          <div class="form-group">
+            <label for="rvCheckOut">Check-out *</label>
+            <input type="date" id="rvCheckOut" />
+          </div>
+          <div class="form-group">
+            <label for="rvPersonas">N.º de huéspedes *</label>
+            <input type="number" id="rvPersonas" min="1" max="20" value="2" />
+          </div>
+
+          <div class="form-group">
+            <label for="rvNombre">Nombre *</label>
+            <input type="text" id="rvNombre" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label for="rvApellido">Apellido</label>
+            <input type="text" id="rvApellido" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label for="rvTelefono">Teléfono / WhatsApp</label>
+            <input type="tel" id="rvTelefono" placeholder="+56 9 …" autocomplete="off" />
+          </div>
+
+          <div class="form-group form-col-2">
+            <label for="rvEmail">Correo electrónico *</label>
+            <input type="email" id="rvEmail" autocomplete="off" />
+            <small class="campo-nota">A esta dirección se envían la confirmación y la pre-llegada.</small>
+          </div>
+          <div class="form-group">
+            <label for="rvFormaPago">Forma de pago</label>
+            <select id="rvFormaPago">
+              <option value="">Sin especificar</option>
+              <option value="transferencia">Transferencia</option>
+              <option value="efectivo">Efectivo</option>
+              <option value="mercadopago">MercadoPago</option>
+              <option value="tarjeta">Tarjeta</option>
+              <option value="canal_externo">Cobrado por el canal</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="rvTotal">Precio total de la estadía (CLP)</label>
+            <input type="number" id="rvTotal" min="0" step="1000" value="0" />
+          </div>
+          <div class="form-group">
+            <label for="rvAbono">Abono pagado (CLP)</label>
+            <input type="number" id="rvAbono" min="0" step="1000" value="0" />
+          </div>
+          <div class="form-group">
+            <label for="rvSaldo">Saldo por pagar</label>
+            <input type="text" id="rvSaldo" readonly class="campo-calculado" />
+            <small class="campo-nota">Se calcula solo: total − abono.</small>
+          </div>
+
+          <div class="form-group form-col-3">
+            <label for="rvObservaciones">Observaciones</label>
+            <textarea id="rvObservaciones" rows="3" placeholder="Notas internas: hora de llegada, mascotas, pedidos especiales…"></textarea>
+          </div>
+        </div>
+
+        <label class="check-linea" id="rvEnviarEmailWrap">
+          <input type="checkbox" id="rvEnviarEmail" checked />
+          <span>
+            Enviar el correo de confirmación al huésped
+            <small>La pre-llegada se programa sola para 3 días antes del check-in. Nunca se repite un correo ya enviado.</small>
+          </span>
+        </label>
+
+        <div class="reserva-meta" id="rvMeta" hidden></div>
+
+        <p class="form-error" id="rvError" hidden></p>
+        <p class="form-ok"    id="rvOk"    hidden></p>
+      </div>
+
+      <footer class="modal-foot">
+        <button class="btn-danger" id="btnCancelarReserva" hidden>Cancelar reserva</button>
+        <div class="modal-actions">
+          <button class="btn-ghost" data-cerrar-modal>Cerrar</button>
+          <button class="btn-primary" id="btnGuardarReserva">Guardar reserva</button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="admin.js?v=20260902"></script>
 </body>
 </html>

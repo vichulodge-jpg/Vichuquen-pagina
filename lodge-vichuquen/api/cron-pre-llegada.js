@@ -4,10 +4,15 @@
  * Cron job diario — envía email de pre-llegada a huéspedes con check-in en 3 días.
  * Vercel lo ejecuta automáticamente según el schedule en vercel.json.
  *
+ * Entran todas las reservas confirmadas, vengan de la web o cargadas a mano
+ * desde el panel (Booking, Airbnb, WhatsApp…). El sello
+ * email_pre_llegada_enviado_at impide reenviar la que ya salió.
+ *
  * Variable de entorno requerida: CRON_SECRET (misma que Vercel usa para autenticar la llamada)
  */
 
 const supabase = require('./_db');
+const { enviarPreLlegada } = require('./_emails');
 
 module.exports = async function handler(req, res) {
   // Vercel envía Authorization: Bearer <CRON_SECRET> al llamar el cron
@@ -21,8 +26,7 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const gasUrl = process.env.GAS_URL;
-  if (!gasUrl) {
+  if (!process.env.GAS_URL) {
     return res.status(200).json({ ok: true, msg: 'GAS_URL no configurada — sin acción' });
   }
 
@@ -31,12 +35,16 @@ module.exports = async function handler(req, res) {
   ahora.setDate(ahora.getDate() + 3);
   const fechaObjetivo = ahora.toISOString().split('T')[0]; // 'YYYY-MM-DD'
 
-  // Buscar reservas confirmadas con check-in en 3 días
+  // Reservas confirmadas con check-in en 3 días a las que aún no se les envió.
   const { data: reservas, error } = await supabase
     .from('reservas')
-    .select('id, cabana_id, check_in, check_out, noches, personas, nombre, email, total, abono')
+    .select(`
+      id, cabana_id, check_in, check_out, noches, personas,
+      nombre, apellido, email, telefono, total, abono, canal, observaciones
+    `)
     .eq('estado', 'confirmada')
-    .eq('check_in', fechaObjetivo);
+    .eq('check_in', fechaObjetivo)
+    .is('email_pre_llegada_enviado_at', null);
 
   if (error) {
     console.error('cron-pre-llegada: error Supabase', error);
@@ -47,9 +55,9 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true, enviados: 0, fecha: fechaObjetivo });
   }
 
-  // Para cada reserva, obtener nombre de cabaña y enviar email
   let enviados = 0;
-  const errores = [];
+  const omitidos = [];
+  const errores  = [];
 
   for (const r of reservas) {
     try {
@@ -59,27 +67,11 @@ module.exports = async function handler(req, res) {
         .eq('id', r.cabana_id)
         .single();
 
-      await fetch(gasUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          secret:     process.env.GAS_SECRET || '',
-          tipo:       'pre_llegada',
-          reserva_id: r.id,
-          nombre:     r.nombre,
-          email:      r.email,
-          cabana:     cabana?.nombre || r.cabana_id,
-          check_in:   r.check_in,
-          check_out:  r.check_out,
-          noches:     r.noches,
-          personas:   r.personas,
-          total:      r.total,
-          abono:      r.abono,
-          saldo:      r.total - r.abono
-        })
-      });
+      const resultado = await enviarPreLlegada(supabase, r, cabana?.nombre || r.cabana_id);
 
-      enviados++;
+      if (resultado.enviado)                     enviados++;
+      else if (resultado.motivo === 'ya_enviado') omitidos.push(r.id);
+      else                                        errores.push(r.id);
     } catch (e) {
       console.error('cron-pre-llegada: error enviando a', r.email, e.message);
       errores.push(r.id);
@@ -87,9 +79,10 @@ module.exports = async function handler(req, res) {
   }
 
   return res.status(200).json({
-    ok:      true,
-    fecha:   fechaObjetivo,
+    ok:       true,
+    fecha:    fechaObjetivo,
     enviados,
-    errores: errores.length ? errores : undefined
+    omitidos: omitidos.length ? omitidos : undefined,
+    errores:  errores.length  ? errores  : undefined
   });
 };

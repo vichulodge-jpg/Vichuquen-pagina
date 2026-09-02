@@ -127,6 +127,8 @@ module.exports = async function handler(req, res) {
       personas: numPersonas,
       mensaje:  (mensaje || '').trim().slice(0, 500) || null,
       estado:   'pendiente',
+      canal:      'web',
+      creada_por: 'web',
       cupon_codigo: cupon ? String(cupon_codigo).trim().toUpperCase() : null
     })
     .select('id')

@@ -44,6 +44,11 @@ function doPost(e) {
     if (tipo === 'confirmacion_mp') {
       enviarHuespedConfirmacion(payload);
       enviarLodgeNotificacion(payload);
+    } else if (tipo === 'confirmacion_externa') {
+      // Reserva cargada a mano en el panel (Booking, Airbnb, WhatsApp…).
+      // Es el mismo correo de confirmación que recibe quien reserva por la web;
+      // no se avisa al lodge porque fue el propio lodge quien la ingresó.
+      enviarHuespedConfirmacion(payload);
     } else if (tipo === 'solicitud_transferencia') {
       enviarHuespedTransferencia(payload);
       enviarLodgeSolicitudTransferencia(payload);
@@ -57,19 +62,32 @@ function doPost(e) {
   }
 }
 
-// ── Email al huésped: reserva confirmada (MercadoPago) ───────────────────────
+// ── Email al huésped: reserva confirmada ─────────────────────────────────────
+// Sirve tanto para el pago por MercadoPago como para las reservas que el lodge
+// carga a mano en el panel. Si el administrador activó su plantilla en el
+// panel, llegan aquí como asunto_custom / cuerpo_custom y reemplazan el texto
+// de abajo; la tabla de la reserva y el pie los sigue armando el sistema.
 function enviarHuespedConfirmacion(p) {
-  var subject = '¡Tu reserva está confirmada! — Vichuquén Lodge y Marina';
-  var intro =
-    '<p>Hola <strong>' + p.nombre + '</strong>,</p>' +
-    '<p>¡Gracias por elegirnos!</p>' +
-    '<p>Tu pago fue recibido correctamente.</p>' +
-    '<p><strong> Detalles de tu reserva:</strong></p>';
+  var subject = p.asunto_custom ||
+    '¡Tu reserva está confirmada! — Vichuquén Lodge y Marina';
+
+  var intro = p.cuerpo_custom ||
+    ('<p>Hola <strong>' + p.nombre + '</strong>,</p>' +
+     '<p>¡Gracias por elegirnos!</p>' +
+     '<p>Tu pago fue recibido correctamente.</p>' +
+     '<p><strong> Detalles de tu reserva:</strong></p>');
+
+  // El aviso del saldo solo tiene sentido si efectivamente queda saldo.
+  var avisoSaldo = Number(p.saldo || 0) > 0
+    ? 'Importante: recuerda que debes completar el saldo pendiente de <strong>' +
+      fmtClp(p.saldo) + '</strong> a más tardar 5 días antes de tu fecha de llegada.<br>'
+    : '';
+
   var footer =
-    '<p style="font-size:13px;color:#5A6B78;margin-top:20px;">' +
-    'Importante: Si elegiste la opción de pago con abono, recuerda que debes completar el saldo pendiente de <strong>' + fmtClp(p.saldo) + '</strong> a más tardar 5 días antes de tu fecha de llegada.<br>' +
-    '<p>Si tienes dudas o necesitas asistencia, contáctanos por <a href="https://wa.me/56954177688" style="color:#273852;">WhatsApp</a> ' +
-    'o responde este correo.<br></p>';
+    '<p style="font-size:13px;color:#5A6B78;margin-top:20px;">' + avisoSaldo +
+    'Si tienes dudas o necesitas asistencia, contáctanos por ' +
+    '<a href="https://wa.me/56954177688" style="color:#273852;">WhatsApp</a> ' +
+    'o responde este correo.</p>';
 
   MailApp.sendEmail({
     to:        p.email,
@@ -89,6 +107,7 @@ function enviarLodgeNotificacion(p) {
     ['Huésped',     p.nombre],
     ['Email',       p.email],
     ['Teléfono',    p.telefono || '—'],
+    ['Canal',       p.canal || 'Página web'],
     ['Cabaña',      p.cabana],
     ['Llegada',     fmtFecha(p.check_in)],
     ['Salida',      fmtFecha(p.check_out)],
@@ -182,7 +201,8 @@ var COLOR_ORO   = '#CEAC87';
 var COLOR_CREMA = '#FFF8EE';
 
 function enviarHuespedPreLlegada(p) {
-  var subject = '¡Ya falta muy poco! Tu llegada a Vichuquén Lodge el ' + fmtFecha(p.check_in);
+  var subject = p.asunto_custom ||
+    ('¡Ya falta muy poco! Tu llegada a Vichuquén Lodge el ' + fmtFecha(p.check_in));
 
   var imagenes = {};
   var laminas  = '';
@@ -272,8 +292,10 @@ function cuerpoPreLlegada(p, laminas) {
     '<table width="600" cellpadding="0" cellspacing="0" role="presentation" style="max-width:600px;">',
 
     '<tr><td style="padding:0 0 16px;font-size:14px;color:#18262E;line-height:1.6;">',
-      '¡Hola, <strong>' + p.nombre + '</strong>! Ya queda muy poco para recibirte. ',
-      'Aquí va todo lo que necesitas saber antes de tu llegada.',
+      // Texto editable desde el panel; si no hay, el de siempre.
+      (p.cuerpo_custom ||
+        ('¡Hola, <strong>' + p.nombre + '</strong>! Ya queda muy poco para recibirte. ' +
+         'Aquí va todo lo que necesitas saber antes de tu llegada.')),
     '</td></tr>',
 
     '<tr><td>' + laminas + '</td></tr>',
@@ -433,6 +455,13 @@ function testLodgeTransferencia() {
 function testPreLlegada() {
   enviarHuespedPreLlegada(DATOS_TEST);
 }
+function testConfirmacionExterna() {
+  // Igual que el de la web, pero para una reserva cargada en el panel.
+  var p = {};
+  for (var k in DATOS_TEST) p[k] = DATOS_TEST[k];
+  p.canal = 'Booking';
+  enviarHuespedConfirmacion(p);
+}
 function testTodo() {
   // Prueba los 5 emails de una vez
   enviarHuespedConfirmacion(DATOS_TEST);
@@ -448,6 +477,7 @@ var DATOS_TEST = {
   email:      'vichulodge@gmail.com', // ← cambia por tu email de prueba
   telefono:   '+56912345678',
   cabana:     'Tagua',
+  canal:      'Página web',
   check_in:   '2026-07-15',
   check_out:  '2026-07-18',
   noches:     3,

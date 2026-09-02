@@ -20,13 +20,25 @@ module.exports = async function handler(req, res) {
   if (!checkAuth(req, res)) return;
 
   // GET — listar bloqueos
+  // Por defecto solo los vigentes. Con ?desde=&hasta= devuelve los que tocan
+  // ese rango, que es lo que necesita el calendario del panel para ver meses
+  // ya pasados.
   if (req.method === 'GET') {
-    const { data, error } = await supabase
+    const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+    const { desde, hasta } = req.query;
+
+    let query = supabase
       .from('bloqueos')
       .select('id, cabana_id, fecha_inicio, fecha_fin, motivo, created_at')
-      .gte('fecha_fin', new Date().toISOString().split('T')[0])
       .order('fecha_inicio', { ascending: true });
 
+    if (desde && hasta && DATE_RE.test(desde) && DATE_RE.test(hasta)) {
+      query = query.lt('fecha_inicio', hasta).gt('fecha_fin', desde);
+    } else {
+      query = query.gte('fecha_fin', new Date().toISOString().split('T')[0]);
+    }
+
+    const { data, error } = await query;
     if (error) return res.status(500).json({ error: error.message });
     return res.status(200).json(data);
   }

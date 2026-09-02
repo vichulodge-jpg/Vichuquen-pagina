@@ -1,54 +1,14 @@
 'use strict';
 
 const supabase = require('./_db');
+const { enviarConfirmacion, enviarPreLlegada } = require('./_emails');
+const { diasHastaCheckIn } = require('./_reservas');
 
-async function llamarGAS(payload) {
-  const gasUrl = process.env.GAS_URL;
-  if (!gasUrl) return;
-  try {
-    await fetch(gasUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ secret: process.env.GAS_SECRET || '', ...payload })
-    });
-  } catch (e) {
-    console.error('GAS error:', e.message);
-  }
-}
-
-async function notificarEmail(reserva, cabana) {
-  await llamarGAS({
-    tipo:       'confirmacion_mp',
-    reserva_id: reserva.id,
-    nombre:     reserva.nombre,
-    email:      reserva.email,
-    telefono:   reserva.telefono || '',
-    cabana,
-    check_in:   reserva.check_in,
-    check_out:  reserva.check_out,
-    noches:     reserva.noches,
-    personas:   reserva.personas,
-    total:      reserva.total,
-    abono:      reserva.abono,
-    saldo:      reserva.total - reserva.abono,
-    mensaje:    reserva.mensaje || ''
-  });
-}
-
-async function notificarPreLlegada(reserva, cabana) {
-  await llamarGAS({
-    tipo:       'pre_llegada',
-    reserva_id: reserva.id,
-    nombre:     reserva.nombre,
-    email:      reserva.email,
-    cabana,
-    check_in:   reserva.check_in,
-    check_out:  reserva.check_out,
-    noches:     reserva.noches,
-    personas:   reserva.personas,
-    total:      reserva.total
-  });
-}
+const CAMPOS = `
+  id, nombre, apellido, email, telefono, cabana_id,
+  check_in, check_out, noches, personas, total, abono,
+  mensaje, observaciones, canal
+`;
 
 module.exports = async function handler(req, res) {
   // MercadoPago reintenta si no recibe 200 — siempre respondemos 200
@@ -81,7 +41,7 @@ module.exports = async function handler(req, res) {
         .update({ estado: 'confirmada', mp_payment_id: String(data.id) })
         .eq('id', reservaId)
         .eq('estado', 'pendiente')
-        .select('id, nombre, email, telefono, cabana_id, check_in, check_out, noches, personas, total, abono, mensaje')
+        .select(CAMPOS)
         .single();
 
       if (updated) {
@@ -92,23 +52,24 @@ module.exports = async function handler(req, res) {
           .single();
 
         const nombreCabana = cabana?.nombre || updated.cabana_id;
-        await notificarEmail(updated, nombreCabana);
+
+        // Confirmación al huésped + aviso al lodge.
+        // El sello de la reserva garantiza que salga una sola vez, aunque
+        // MercadoPago reintente el webhook.
+        await enviarConfirmacion(supabase, updated, nombreCabana, { avisarLodge: true });
 
         // Si el check-in es en 0, 1 o 2 días, enviar pre-llegada de inmediato
         // (el cron cubre check-in en exactamente 3 días)
-        const hoyStr   = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Santiago' }); // 'YYYY-MM-DD'
-        const hoyDate  = new Date(hoyStr + 'T00:00:00Z');
-        const checkIn  = new Date(updated.check_in + 'T00:00:00Z');
-        const diasHastaCheckIn = Math.floor((checkIn - hoyDate) / 86400000);
-        if (diasHastaCheckIn >= 0 && diasHastaCheckIn <= 2) {
-          await notificarPreLlegada(updated, nombreCabana);
+        const dias = diasHastaCheckIn(updated.check_in);
+        if (dias >= 0 && dias <= 2) {
+          await enviarPreLlegada(supabase, updated, nombreCabana);
         }
       }
 
     } else if (['rejected', 'cancelled'].includes(payment.status)) {
       await supabase
         .from('reservas')
-        .update({ estado: 'cancelada' })
+        .update({ estado: 'cancelada', cancelada_at: new Date().toISOString() })
         .eq('id', reservaId)
         .eq('estado', 'pendiente');
     }

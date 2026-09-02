@@ -153,3 +153,225 @@ tbody tr:hover { background: #fafafa; }
   .admin-main { padding: 1rem; }
   .bloqueo-form { grid-template-columns: 1fr; }
 }
+
+/* ================================================================
+   RESERVAS EXTERNAS — botón, badges y acciones
+   ================================================================ */
+.btn-nueva {
+  padding: .5rem 1.1rem; background: var(--navy); color: #fff;
+  border: 1.5px solid var(--navy); border-radius: 7px;
+  font-family: inherit; font-size: .84rem; font-weight: 600;
+  cursor: pointer; transition: background .2s;
+}
+.btn-nueva:hover { background: var(--navy-deep); }
+
+.btn-mini { padding: .28rem .6rem; font-size: .75rem; white-space: nowrap; }
+.btn-auto { width: auto; padding: .6rem 1.3rem; }
+
+.col-acciones { white-space: nowrap; }
+.col-acciones button { margin: .1rem .15rem .1rem 0; }
+
+.canal-badge {
+  display: inline-block; padding: .2rem .6rem;
+  border-radius: 100px; font-size: .7rem; font-weight: 600;
+  color: #fff; white-space: nowrap;
+}
+
+/* ================================================================
+   MODAL DE RESERVA
+   ================================================================ */
+body.modal-abierto { overflow: hidden; }
+
+.modal {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center; padding: 1rem;
+}
+.modal-backdrop { position: absolute; inset: 0; background: rgba(26,39,56,.55); }
+.modal-card {
+  position: relative; background: #fff; border-radius: 14px;
+  width: 100%; max-width: 860px; max-height: 92vh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 20px 60px rgba(26,39,56,.3);
+}
+.modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 1.5rem; border-bottom: 1.5px solid var(--line);
+}
+.modal-head h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.5rem; color: var(--navy); font-weight: 600;
+}
+.modal-close {
+  background: none; border: none; font-size: 1.6rem; line-height: 1;
+  color: var(--gray); cursor: pointer; padding: 0 .3rem;
+}
+.modal-close:hover { color: var(--navy); }
+.modal-body { padding: 1.25rem 1.5rem; overflow-y: auto; }
+.modal-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+  padding: .9rem 1.5rem; border-top: 1.5px solid var(--line); background: #fafbfc;
+  border-radius: 0 0 14px 14px; flex-wrap: wrap;
+}
+.modal-actions { display: flex; gap: .6rem; margin-left: auto; }
+.modal-actions .btn-primary { width: auto; padding: .6rem 1.4rem; }
+
+.form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem 1rem; }
+.form-col-2 { grid-column: span 2; }
+.form-col-3 { grid-column: span 3; }
+.form-group textarea {
+  padding: .65rem .9rem; border: 1.5px solid var(--line); border-radius: 8px;
+  font-family: inherit; font-size: .88rem; color: var(--ink);
+  background: #fff; outline: none; resize: vertical;
+}
+.form-group textarea:focus { border-color: var(--navy); }
+.campo-calculado { background: #f4f6f9 !important; color: var(--navy) !important; font-weight: 600; }
+.campo-nota { font-size: .72rem; color: var(--gray); line-height: 1.4; }
+
+.check-linea {
+  display: flex; align-items: flex-start; gap: .6rem;
+  margin-top: 1rem; padding: .8rem 1rem;
+  background: #f4f6f9; border-radius: 8px; cursor: pointer;
+  font-size: .82rem; color: var(--ink);
+}
+.check-linea input { margin-top: .15rem; flex-shrink: 0; }
+.check-linea small { display: block; color: var(--gray); font-size: .74rem; margin-top: .15rem; }
+
+.reserva-meta {
+  margin-top: 1rem; padding: .8rem 1rem;
+  border: 1.5px solid var(--line); border-radius: 8px; background: #fff;
+  display: grid; gap: .3rem;
+}
+.meta-fila { display: flex; justify-content: space-between; gap: 1rem; font-size: .76rem; }
+.meta-fila span   { color: var(--gray); flex-shrink: 0; }
+.meta-fila strong { color: var(--navy); font-weight: 500; text-align: right; word-break: break-word; }
+
+/* ================================================================
+   CALENDARIO
+   ================================================================ */
+.cal-nav { display: flex; align-items: center; gap: .5rem; }
+.cal-mes { font-weight: 600; color: var(--navy); min-width: 9.5rem; text-align: center; }
+
+.cal-leyenda { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-bottom: .9rem; }
+.leyenda-item { display: inline-flex; align-items: center; gap: .35rem; font-size: .74rem; color: var(--gray); }
+.leyenda-item i { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+.leyenda-bloqueo   { background: repeating-linear-gradient(45deg, #c8ccd2 0 4px, #e6e9ed 4px 8px); }
+.leyenda-pendiente { background: #fff; border: 2px dashed var(--gray); }
+
+.cal-wrap {
+  overflow-x: auto; border: 1.5px solid var(--line);
+  border-radius: var(--radius); background: #fff;
+}
+.cal-tabla { --celda: 34px; --cab-w: 152px; min-width: max-content; }
+
+.cal-head {
+  display: grid;
+  grid-template-columns: var(--cab-w) repeat(var(--dias), var(--celda));
+  border-bottom: 1.5px solid var(--line); background: #f9fafb;
+}
+.cal-corner {
+  position: sticky; left: 0; z-index: 4; background: #f9fafb;
+  padding: .5rem .75rem; font-size: .72rem; font-weight: 700;
+  letter-spacing: .05em; text-transform: uppercase; color: var(--gray);
+  border-right: 1.5px solid var(--line); display: flex; align-items: center;
+}
+.cal-dia {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: .35rem 0; border-right: 1px solid var(--line); font-size: .72rem; color: var(--ink);
+}
+.cal-dia b     { font-weight: 600; }
+.cal-dia small { color: var(--gray); font-size: .62rem; }
+.cal-dia.cal-finde { background: #f1f3f6; }
+.cal-dia.cal-hoy   { background: var(--sand); }
+
+.cal-cuerpo { display: grid; grid-template-columns: var(--cab-w) max-content; }
+.cal-cab {
+  position: sticky; left: 0; z-index: 2; background: #fff;
+  display: flex; align-items: center; gap: .4rem;
+  padding: .4rem .75rem; font-size: .78rem; color: var(--ink);
+  border-right: 1.5px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.cal-cab-num {
+  font-size: .64rem; font-weight: 700; color: var(--navy);
+  background: var(--sand); border-radius: 4px; padding: .1rem .3rem;
+}
+.cal-track { display: grid; border-bottom: 1px solid var(--line); }
+.cal-celda { border-right: 1px solid var(--line); }
+.cal-celda.cal-finde { background: #f7f8fa; }
+.cal-celda.cal-hoy   { background: #fdf6e9; }
+
+.cal-barra {
+  align-self: center; height: 21px; margin: 0 2px;
+  border-radius: 5px; color: #fff; background: var(--navy);
+  font-size: .68rem; font-weight: 600; line-height: 21px;
+  padding: 0 .4rem; overflow: hidden; white-space: nowrap;
+  cursor: pointer; z-index: 1; transition: filter .15s;
+}
+.cal-barra span { display: block; overflow: hidden; text-overflow: ellipsis; }
+.cal-barra:hover { filter: brightness(1.15); }
+.cal-barra-izq { border-top-left-radius: 0; border-bottom-left-radius: 0; margin-left: 0; }
+.cal-barra-der { border-top-right-radius: 0; border-bottom-right-radius: 0; margin-right: 0; }
+.cal-barra-pendiente { opacity: .78; outline: 2px dashed rgba(255,255,255,.85); outline-offset: -3px; }
+.cal-barra-bloqueo {
+  background: repeating-linear-gradient(45deg, #c8ccd2 0 5px, #e6e9ed 5px 10px);
+  color: #4b5563; cursor: default;
+}
+.cal-barra-bloqueo:hover { filter: none; }
+
+/* ================================================================
+   PLANTILLAS DE CORREO
+   ================================================================ */
+.plantilla-card {
+  background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius);
+  padding: 1.35rem; margin-bottom: 1.25rem;
+}
+.plantilla-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; margin-bottom: .3rem;
+}
+.plantilla-head h3 { font-size: 1rem; color: var(--navy); }
+.switch {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-size: .8rem; color: var(--navy); cursor: pointer;
+}
+
+.vars-wrap { margin: .5rem 0 1rem; }
+.vars-titulo { font-size: .74rem; color: var(--gray); }
+.vars-chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .4rem; }
+.var-chip {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .7rem; padding: .22rem .5rem;
+  background: #f4f6f9; color: var(--navy);
+  border: 1px solid var(--line); border-radius: 5px; cursor: pointer;
+}
+.var-chip:hover { background: var(--sand); border-color: var(--tan); }
+
+.plantilla-foot { display: flex; align-items: center; gap: .9rem; flex-wrap: wrap; }
+.plantilla-msg { font-size: .78rem; color: var(--gray); }
+.plantilla-msg.ok    { color: #15803d; }
+.plantilla-msg.error { color: #b91c1c; }
+
+@media (max-width: 760px) {
+  .form-grid { grid-template-columns: 1fr 1fr; }
+  .form-col-2, .form-col-3 { grid-column: span 2; }
+  .modal { padding: 0; }
+  .modal-card { max-height: 100vh; border-radius: 0; }
+  .modal-foot { border-radius: 0; }
+}
+@media (max-width: 520px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .form-col-2, .form-col-3 { grid-column: span 1; }
+  .filters { width: 100%; }
+  .btn-nueva { width: 100%; }
+}
+
+/* Aviso flotante (correo enviado, error de envío) */
+.admin-toast {
+  position: fixed; left: 50%; bottom: 1.5rem; transform: translateX(-50%);
+  z-index: 300; max-width: min(90vw, 420px);
+  padding: .75rem 1.1rem; border-radius: 9px;
+  background: var(--navy); color: #fff;
+  font-size: .82rem; line-height: 1.45; text-align: center;
+  box-shadow: 0 10px 30px rgba(26,39,56,.28);
+}
+.admin-toast.ok    { background: #15803d; }
+.admin-toast.error { background: #b91c1c; }
