@@ -34,7 +34,7 @@ module.exports = async function handler(req, res) {
   // Buscar reservas confirmadas con check-in en 3 días
   const { data: reservas, error } = await supabase
     .from('reservas')
-    .select('id, cabana_id, check_in, check_out, noches, personas, nombre, email, total')
+    .select('id, cabana_id, check_in, check_out, noches, personas, nombre, email, total, abono')
     .eq('estado', 'confirmada')
     .eq('check_in', fechaObjetivo);
 
@@ -73,7 +73,9 @@ module.exports = async function handler(req, res) {
           check_out:  r.check_out,
           noches:     r.noches,
           personas:   r.personas,
-          total:      r.total
+          total:      r.total,
+          abono:      r.abono,
+          saldo:      r.total - r.abono
         })
       });
 
