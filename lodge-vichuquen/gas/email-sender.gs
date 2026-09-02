@@ -153,108 +153,176 @@ function enviarHuespedTransferencia(p) {
 }
 
 // ── Email al huésped: información pre-llegada ─────────────────────────────────
+// El correo lleva las dos láminas que diseñó el lodge, tal cual. La primera se
+// pide a /api/bienvenida, que escribe los datos de la reserva sobre la plantilla
+// sin alterar el diseño. Debajo, en bloque aparte, el saldo pendiente y los
+// enlaces: los QR de la lámina no sirven en un correo que se lee en el mismo
+// teléfono con el que habría que escanearlos.
+
+var SITIO    = 'https://www.vichuquenlodgeymarina.cl';
+var URL_MAPS = 'https://www.google.com/maps/place/Vichuquen+Lodge+y+Marina/@-34.7857666,-72.0735737,17z';
+var URL_IG   = 'https://www.instagram.com/vichuquen_lodgeymarina/';
+var URL_FB   = 'https://www.facebook.com/vichuquen_lodgeymarina/';
+var URL_WA   = 'https://wa.me/56954177688';
+
+var COLOR_NAVY  = '#263852';
+var COLOR_ORO   = '#CEAC87';
+var COLOR_CREMA = '#FFF8EE';
+
 function enviarHuespedPreLlegada(p) {
   var subject = '¡Ya falta muy poco! Tu llegada a Vichuquén Lodge el ' + fmtFecha(p.check_in);
-  var mapsUrl = 'https://www.google.com/maps/place/Vichuquen+Lodge+y+Marina/@-34.7857666,-72.0735737,17z';
 
-  var body =
-    '<p>¡Hola, <strong>' + p.nombre + '</strong>!</p>' +
-    '<p>Ya queda muy poco para recibirte en Vichuquén Lodge y Marina. Para que disfrutes al máximo tu estadía, te compartimos algunos datos importantes antes de tu llegada.</p>' +
+  var imagenes = {};
+  var laminas  = '';
 
-    '<div style="margin:20px 0;">' +
+  var bienvenida = descargarImagen(urlBienvenida(p), 'bienvenida.jpg');
+  if (bienvenida) {
+    imagenes.bienvenida = bienvenida;
+    laminas += etiquetaLamina('bienvenida', 'Datos de tu reserva — Vichuquén Lodge y Marina');
+  }
+
+  var informacion = descargarImagen(SITIO + '/assets/plantillas/informacion-correo.jpg', 'informacion.jpg');
+  if (informacion) {
+    imagenes.informacion = informacion;
+    laminas += etiquetaLamina('informacion', 'Información para tu estadía');
+  }
+
+  // Si alguna lámina no se pudo obtener, el correo igual sale con los datos.
+  if (!laminas) laminas = respaldoTexto(p);
+
+  MailApp.sendEmail({
+    to:           p.email,
+    subject:      subject,
+    htmlBody:     cuerpoPreLlegada(p, laminas),
+    inlineImages: imagenes,
+    name:         LODGE_NOMBRE,
+    replyTo:      LODGE_EMAIL
+  });
+}
+
+// ── Obtención de las láminas ─────────────────────────────────────────────────
+
+function urlBienvenida(p) {
+  return SITIO + '/api/bienvenida'
+    + '?secret='    + encodeURIComponent(GAS_SECRET)
+    + '&nombre='    + encodeURIComponent(p.nombre)
+    + '&cabana='    + encodeURIComponent(p.cabana)
+    + '&check_in='  + encodeURIComponent(p.check_in)
+    + '&check_out=' + encodeURIComponent(p.check_out)
+    + '&noches='    + encodeURIComponent(p.noches)
+    + '&personas='  + encodeURIComponent(p.personas);
+}
+
+function descargarImagen(url, nombre) {
+  try {
+    var r = UrlFetchApp.fetch(url, { muteHttpExceptions: true, followRedirects: true });
+    if (r.getResponseCode() !== 200) {
+      console.error('pre-llegada: %s respondió %s', nombre, r.getResponseCode());
+      return null;
+    }
+    return r.getBlob().setName(nombre);
+  } catch (e) {
+    console.error('pre-llegada: no se pudo descargar %s — %s', nombre, e.message);
+    return null;
+  }
+}
+
+function etiquetaLamina(cid, alt) {
+  return '<img src="cid:' + cid + '" alt="' + alt + '" width="600" ' +
+         'style="width:100%;max-width:600px;height:auto;display:block;border:0;margin:0 0 14px;">';
+}
+
+function respaldoTexto(p) {
+  return '<p style="margin:0 0 12px;font-size:14px;color:#18262E;">' +
+    'No pudimos adjuntar la información gráfica de tu llegada. Estos son tus datos:</p>' +
     buildTabla([
       ['Cabaña',   p.cabana],
       ['Llegada',  fmtFecha(p.check_in)],
       ['Salida',   fmtFecha(p.check_out)],
       ['Noches',   String(p.noches)],
-      ['Personas', String(p.personas)]
+      ['Huéspedes', String(p.personas)]
     ]) +
-    '</div>' +
-
-    seccion('✔️ Antes de hacer tu maleta', [
-      item('Toallas',
-        'Tu cabaña incluye sábanas y plumones limpios, pero <strong>no incluye toallas de baño</strong> (solo dejamos una toalla de mano por baño). Recuerda traer tus toallas personales y para el lago o la playa.'),
-      item('Agua para consumo',
-        'El agua de los grifos proviene de pozo profundo y no es apta para beber. No necesitas traer agua, ya que encontrarás <strong>bidones de agua purificada</strong> en tu cabaña, los cuales reponemos gratuitamente durante tu estadía.'),
-      item('Cantidad de huéspedes',
-        'Si reservaste con tarifa de ocupación reducida, la cabaña y los insumos iniciales están preparados para la cantidad de personas indicada en tu reserva.<br><br>' +
-        'Si deseas agregar pasajeros, debes informarlo antes de tu llegada. El valor es de <strong>$10.000 por persona adicional por noche</strong>. No se permite registrar huéspedes adicionales durante el check-in ni recibir visitas que pernocten.'),
-      item('Mascotas',
-        'La primera mascota mediana es <strong>gratuita</strong>. Una segunda mascota requiere autorización previa y tiene un valor de <strong>$8.000 por noche</strong>.<br><br>' +
-        'Recuerda traer su cama y platos. Las mascotas deben permanecer bajo supervisión, no pueden subir a camas o sillones y sus desechos deben ser recogidos por sus dueños.')
-    ]) +
-
-    '<div style="margin:24px 0 8px;">' +
-    '<p style="margin:0 0 12px;font-weight:700;color:#273852;font-size:15px;">🚭 Normas importantes de convivencia</p>' +
-    '<div style="padding:14px 16px;background:#F4F1EB;border-radius:8px;border-left:3px solid #5AABB8;">' +
-    '<ul style="margin:0;padding-left:20px;font-size:13px;color:#18262E;line-height:1.9;">' +
-    '<li>Está <strong>prohibido fumar</strong> dentro de las cabañas.</li>' +
-    '<li>No está permitido realizar <strong>frituras al interior</strong> de las cabañas para evitar olores persistentes. Si tienes pensado freír alimentos, avísanos y te facilitaremos gratuitamente una cocinilla portátil para utilizar en la terraza.</li>' +
-    '<li>Por respeto a todos los huéspedes, te pedimos mantener <strong>niveles moderados de ruido</strong>, especialmente entre las 23:00 y las 10:00 hrs.</li>' +
-    '<li>No se permiten <strong>fiestas ni música a alto volumen</strong>.</li>' +
-    '<li>Ayúdanos a cuidar el humedal y la naturaleza que rodea el complejo, <strong>evitando dejar basura</strong> o intervenir la flora y fauna local.</li>' +
-    '</ul>' +
-    '</div>' +
-    '</div>' +
-
-    seccion('🕒 Horarios de ingreso y salida', [
-      item('Check-in', 'Desde las <strong>15:00 hrs.</strong>'),
-      item('Check-out', 'Hasta las <strong>12:00 hrs.</strong>'),
-      item('Recepción presencial',
-        'Nuestro equipo realizará la recepción presencial hasta las <strong>22:00 hrs.</strong> en la Administración (Cabaña N° 9).<br><br>' +
-        'Si estimas llegar <strong>después de las 22:00 hrs.</strong>, avísanos con anticipación para activar tu <strong>Check-in Autónomo</strong> y enviarte las instrucciones de acceso.')
-    ]) +
-
-    '<div style="margin:24px 0 8px;">' +
-    '<p style="margin:0 0 12px;font-weight:700;color:#273852;font-size:15px;">⏰ Horarios extendidos <span style="font-weight:400;font-size:12px;color:#5A6B78;">(sujetos a disponibilidad)</span></p>' +
-    '<div style="padding:14px 16px;background:#F4F1EB;border-radius:8px;border-left:3px solid #5AABB8;">' +
-    '<p style="margin:0 0 8px;font-size:13px;color:#18262E;">Si deseas disfrutar más tiempo de tu estadía, puedes solicitar:</p>' +
-    '<ul style="margin:0 0 12px;padding-left:20px;font-size:13px;color:#18262E;line-height:1.9;">' +
-    '<li><strong>Early Check-in:</strong> ingreso desde las 10:00 hrs. — <strong>$35.000</strong></li>' +
-    '<li><strong>Late Check-out:</strong> salida hasta las 17:00 hrs. — <strong>$35.000</strong></li>' +
-    '</ul>' +
-    '<p style="margin:0;font-size:13px;color:#18262E;">Estos servicios requieren solicitud y confirmación previa por parte de la administración.</p>' +
-    '<p style="margin:10px 0 0;font-size:12px;color:#c62828;"><strong>Importante:</strong> Si la cabaña no es desocupada antes de las 12:00 hrs. sin autorización previa, se aplicará un cobro equivalente a media noche de estadía.</p>' +
-    '</div>' +
-    '</div>' +
-
-    '<div style="background:#F4F1EB;border-radius:10px;padding:18px 20px;margin:20px 0;">' +
-    '<p style="margin:0 0 10px;font-weight:700;color:#273852;font-size:15px;">📍 Cómo llegar</p>' +
-    '<p style="margin:0 0 12px;font-size:13px;color:#18262E;">Puedes utilizar el siguiente enlace para llegar directamente con tu GPS:</p>' +
-    '<a href="' + mapsUrl + '" style="display:inline-block;background:#273852;color:#fff;text-decoration:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;">📍 Abrir en Google Maps</a>' +
-    '</div>' +
-
-    '<div style="background:#EAF4F7;border-radius:10px;padding:18px 20px;margin:20px 0;">' +
-    '<p style="margin:0 0 8px;font-weight:700;color:#273852;font-size:15px;">📞 Contacto</p>' +
-    '<p style="margin:0;font-size:13px;color:#18262E;">Si tienes cualquier consulta o necesitas coordinar tu llegada, puedes responder este correo o escribirnos por WhatsApp al:<br><br>' +
-    '<a href="https://wa.me/56954177688" style="color:#273852;font-weight:700;font-size:15px;">+56 9 5417 7688</a></p>' +
-    '</div>' +
-
-    '<p style="margin-top:24px;">Te deseamos un excelente viaje y esperamos que disfrutes una maravillosa estadía junto al lago y al humedal.</p>' +
-    '<p><strong>¡Nos vemos muy pronto!</strong><br>' +
-    '<span style="color:#5A6B78;font-size:13px;">Saludos cordiales,<br>Equipo Vichuquén Lodge y Marina</span></p>';
-
-  MailApp.sendEmail({
-    to:        p.email,
-    subject:   subject,
-    htmlBody:  buildEmailBase('¡Ya falta muy poco!', body, '', ''),
-    name:      LODGE_NOMBRE,
-    replyTo:   LODGE_EMAIL
-  });
+    '<p style="margin:12px 0 0;font-size:13px;color:#5A6B78;">' +
+    'Escríbenos por WhatsApp al <a href="' + URL_WA + '" style="color:' + COLOR_NAVY + ';">+56 9 5417 7688</a> ' +
+    'y te la reenviamos.</p>';
 }
 
-// Helpers para email pre-llegada
-function seccion(titulo, items) {
-  return '<div style="margin:24px 0 8px;">' +
-    '<p style="margin:0 0 12px;font-weight:700;color:#273852;font-size:15px;">' + titulo + '</p>' +
-    items.join('') +
-    '</div>';
+// ── Cuerpo del correo ────────────────────────────────────────────────────────
+
+function cuerpoPreLlegada(p, laminas) {
+  return [
+    '<!DOCTYPE html><html><head><meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width,initial-scale=1"></head>',
+    '<body style="margin:0;padding:0;background:' + COLOR_CREMA + ';',
+      'font-family:Helvetica,Arial,sans-serif;">',
+    '<table width="100%" cellpadding="0" cellspacing="0" role="presentation">',
+    '<tr><td align="center" style="padding:24px 12px;">',
+    '<table width="600" cellpadding="0" cellspacing="0" role="presentation" style="max-width:600px;">',
+
+    '<tr><td style="padding:0 0 16px;font-size:14px;color:#18262E;line-height:1.6;">',
+      '¡Hola, <strong>' + p.nombre + '</strong>! Ya queda muy poco para recibirte. ',
+      'Aquí va todo lo que necesitas saber antes de tu llegada.',
+    '</td></tr>',
+
+    '<tr><td>' + laminas + '</td></tr>',
+
+    '<tr><td>' + bloqueSaldo(p) + '</td></tr>',
+    '<tr><td>' + bloqueEnlaces() + '</td></tr>',
+
+    '<tr><td style="padding:18px 0 0;font-size:12px;color:#5A6B78;text-align:center;">',
+      'Si tienes cualquier duda, responde este correo o escríbenos por WhatsApp.',
+    '</td></tr>',
+
+    '</table></td></tr></table></body></html>'
+  ].join('');
 }
-function item(titulo, texto) {
-  return '<div style="margin-bottom:14px;padding:14px 16px;background:#F4F1EB;border-radius:8px;border-left:3px solid #5AABB8;">' +
-    '<p style="margin:0 0 4px;font-weight:700;font-size:13px;color:#273852;">' + titulo + '</p>' +
-    '<p style="margin:0;font-size:13px;color:#18262E;line-height:1.6;">' + texto + '</p>' +
-    '</div>';
+
+// ── Bloque aparte: saldo pendiente ───────────────────────────────────────────
+
+function bloqueSaldo(p) {
+  var saldo = Number(p.saldo || 0);
+  if (!(saldo > 0)) return '';
+
+  return '<table width="100%" cellpadding="0" cellspacing="0" role="presentation" ' +
+      'style="background:#fff;border:1px solid ' + COLOR_ORO + ';border-radius:10px;margin:4px 0 14px;">' +
+    '<tr><td style="padding:16px 20px;">' +
+      '<p style="margin:0 0 12px;font-size:12px;font-weight:700;letter-spacing:2px;' +
+        'text-transform:uppercase;color:' + COLOR_NAVY + ';">Saldo pendiente</p>' +
+      '<table width="100%" cellpadding="0" cellspacing="0" role="presentation" ' +
+        'style="font-size:13px;color:#18262E;">' +
+        '<tr><td style="padding:3px 0;">Total de la estadía</td>' +
+            '<td align="right" style="padding:3px 0;">' + fmtClp(p.total) + '</td></tr>' +
+        '<tr><td style="padding:3px 0;">Abono pagado</td>' +
+            '<td align="right" style="padding:3px 0;">− ' + fmtClp(p.abono) + '</td></tr>' +
+        '<tr><td style="padding:9px 0 0;border-top:1px solid #E2D5C2;font-weight:700;' +
+              'color:' + COLOR_NAVY + ';">Saldo al llegar</td>' +
+            '<td align="right" style="padding:9px 0 0;border-top:1px solid #E2D5C2;' +
+              'font-weight:700;color:' + COLOR_NAVY + ';">' + fmtClp(saldo) + '</td></tr>' +
+      '</table>' +
+      '<p style="margin:12px 0 0;font-size:12px;color:#5A6B78;line-height:1.5;">' +
+        'Puedes pagarlo al momento del check-in. Si prefieres adelantarlo por transferencia, ' +
+        'escríbenos por WhatsApp.</p>' +
+    '</td></tr></table>';
+}
+
+// ── Bloque aparte: enlaces (los QR de la lámina no son tocables) ──────────────
+
+function bloqueEnlaces() {
+  return '<table width="100%" cellpadding="0" cellspacing="0" role="presentation" ' +
+      'style="background:' + COLOR_NAVY + ';border-radius:10px;">' +
+    '<tr><td style="padding:18px 20px;text-align:center;">' +
+      '<p style="margin:0 0 12px;color:' + COLOR_ORO + ';font-size:11px;letter-spacing:2px;' +
+        'text-transform:uppercase;">Enlaces directos</p>' +
+      '<p style="margin:0;font-size:13px;line-height:2;">' +
+        '<a href="' + URL_MAPS + '" style="color:#fff;text-decoration:none;">Cómo llegar</a>' +
+        '<span style="color:' + COLOR_ORO + ';padding:0 8px;">·</span>' +
+        '<a href="' + URL_WA + '" style="color:#fff;text-decoration:none;">WhatsApp</a>' +
+        '<span style="color:' + COLOR_ORO + ';padding:0 8px;">·</span>' +
+        '<a href="' + URL_IG + '" style="color:#fff;text-decoration:none;">Instagram</a>' +
+        '<span style="color:' + COLOR_ORO + ';padding:0 8px;">·</span>' +
+        '<a href="' + URL_FB + '" style="color:#fff;text-decoration:none;">Facebook</a>' +
+      '</p>' +
+    '</td></tr></table>';
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

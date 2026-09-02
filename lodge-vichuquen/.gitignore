@@ -23,3 +23,7 @@ node_modules/
 # Archivos de trabajo local — no forman parte del sitio en Vercel
 .htaccess
 paleta-preview.html
+
+# Python
+__pycache__/
+*.pyc
