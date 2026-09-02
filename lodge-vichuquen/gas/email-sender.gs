@@ -12,18 +12,30 @@
 //  5. Hacer clic en "Implementar" → Copiar la URL de la aplicación web
 //  6. En Vercel → Settings → Environment Variables:
 //     - GAS_URL = <URL copiada>
-//     - GAS_SECRET = <una clave secreta que tú elijas, ej: vic2026lodge>
+//     - GAS_SECRET = <una clave secreta que tú elijas>
+//  4. En Apps Script: Configuración del proyecto > Propiedades del script,
+//     agregar la propiedad GAS_SECRET con esa misma clave.
 // ─────────────────────────────────────────────────────────────────────────────
 
 var LODGE_EMAIL  = 'vichulodge@gmail.com';
 var LODGE_NOMBRE = 'Vichuquén Lodge y Marina';
-var GAS_SECRET   = 'vic2026lodge'; // debe coincidir con la variable GAS_SECRET en Vercel
+// La clave compartida con Vercel NO va escrita aquí: este archivo está en un
+// repositorio público. Se guarda en las propiedades del script.
+//   Apps Script > Configuración del proyecto > Propiedades del script
+//   Propiedad: GAS_SECRET   Valor: la misma que la variable GAS_SECRET en Vercel
+function obtenerSecreto() {
+  var s = PropertiesService.getScriptProperties().getProperty('GAS_SECRET');
+  if (!s) {
+    throw new Error('Falta la propiedad GAS_SECRET en Configuración del proyecto de Apps Script');
+  }
+  return s;
+}
 
 function doPost(e) {
   try {
     var payload = JSON.parse(e.postData.contents);
 
-    if (payload.secret !== GAS_SECRET) {
+    if (payload.secret !== obtenerSecreto()) {
       return jsonOut({ ok: false, error: 'unauthorized' });
     }
 
@@ -204,7 +216,7 @@ function enviarHuespedPreLlegada(p) {
 
 function urlBienvenida(p) {
   return SITIO + '/api/bienvenida'
-    + '?secret='    + encodeURIComponent(GAS_SECRET)
+    + '?secret='    + encodeURIComponent(obtenerSecreto())
     + '&nombre='    + encodeURIComponent(p.nombre)
     + '&cabana='    + encodeURIComponent(p.cabana)
     + '&check_in='  + encodeURIComponent(p.check_in)
