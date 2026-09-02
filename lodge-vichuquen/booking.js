@@ -215,6 +215,7 @@
     if (dates.length !== 2) {
       st.checkIn = null; st.checkOut = null;
       hide('bwResumen');
+      actualizarPrecioDisplay();   // sin fechas, el banner vuelve al rango
       updateContinuarBtn();
       return;
     }
@@ -291,17 +292,56 @@
       .catch(function() { /* fail silently — backend valida de todas formas */ });
   }
 
+  // ── BANNER DE PRECIO ─────────────────────────────────────────
+  // El precio que se muestra lo dictan las fechas elegidas, no una tarifa fija.
+  // Si las noches caen en más de una temporada, la principal va arriba y las
+  // demás en una segunda línea.
+
+  var TEMPORADA = {
+    alta:  { badge: '🌞 Temporada alta',  corta: 'temporada alta'  },
+    media: { badge: '🌤 Temporada media', corta: 'temporada media' },
+    baja:  { badge: '🍂 Temporada baja',  corta: 'temporada baja'  }
+  };
+
+  function pintarBadge(texto, clase) {
+    var badge = qs('bwTemporadaBadge');
+    if (!badge) return;
+    badge.textContent = texto;
+    badge.className   = 'bw-badge ' + clase;
+  }
+
+  // Sin fechas todavía: se muestra el rango de tarifas de la cabaña.
   function actualizarPrecioDisplay() {
     if (!st.cabana) return;
-    txt('bwPrecioBase', 'Desde ' + fmtCLP(st.cabana.baja) + ' / noche');
-    var hoy = toISODate(new Date());
-    var t   = getTarifa(hoy);
-    var badge = qs('bwTemporadaBadge');
-    if (badge) {
-      var labels = { alta: '🌞 Temporada alta', media: '🌤 Temporada media', baja: '🍂 Temporada baja' };
-      badge.textContent = labels[t];
-      badge.className   = 'bw-badge ' + t;
-    }
+    var precios = [st.cabana.baja, st.cabana.media, st.cabana.alta];
+    var min = Math.min.apply(null, precios);
+    var max = Math.max.apply(null, precios);
+    txt('bwPrecioBase', min === max
+      ? fmtCLP(min) + ' por noche'
+      : fmtCLP(min) + ' – ' + fmtCLP(max) + ' por noche');
+    pintarBadge('Según las fechas', 'neutra');
+    hide('bwPrecioOtras');
+  }
+
+  // Con fechas elegidas: `tramos` viene de calcPrecio, ya ordenado.
+  function pintarPrecioDeTramos(tramos) {
+    if (!tramos.length) return;
+
+    var principal = tramos[0];
+    txt('bwPrecioBase', fmtCLP(principal.precio) + ' por noche');
+    pintarBadge(TEMPORADA[principal.tipo].badge, principal.tipo);
+
+    var linea = qs('bwPrecioOtras');
+    if (!linea) return;
+
+    var otros = tramos.slice(1);
+    if (!otros.length) { linea.hidden = true; return; }
+
+    linea.textContent = 'También: ' + otros.map(function(t) {
+      return t.noches + ' noche' + (t.noches > 1 ? 's' : '') + ' en ' +
+             TEMPORADA[t.tipo].corta + ' a ' + fmtCLP(t.precio) + ' por noche';
+    }).join(' · ');
+    linea.hidden = false;
   }
 
   // ── CÁLCULO DE PRECIO (día a día, 3 tarifas) ─────────────────
@@ -345,20 +385,15 @@
     st.baseBaja       = totalBaja;
     st.abono     = abono;
 
-    // Badge
-    var badge = qs('bwTemporadaBadge');
-    if (badge) {
-      var tipos = (diasAlta > 0 ? 1 : 0) + (diasMedia > 0 ? 1 : 0) + (diasBaja > 0 ? 1 : 0);
-      if (tipos > 1) {
-        badge.textContent = '🌗 Temporada mixta'; badge.className = 'bw-badge alta';
-      } else if (diasAlta === noches) {
-        badge.textContent = '🌞 Temporada alta';  badge.className = 'bw-badge alta';
-      } else if (diasMedia === noches) {
-        badge.textContent = '🌤 Temporada media'; badge.className = 'bw-badge media';
-      } else {
-        badge.textContent = '🍂 Temporada baja';  badge.className = 'bw-badge baja';
-      }
-    }
+    // Banner: precio por noche según las fechas elegidas.
+    // Arriba la temporada con más noches (a igualdad, la más cara); el resto,
+    // en la segunda línea. Se usan las mismas tarifas que el desglose de abajo.
+    var tramos = [];
+    if (diasAlta  > 0) tramos.push({ tipo: 'alta',  noches: diasAlta,  precio: st.cabana.alta  });
+    if (diasMedia > 0) tramos.push({ tipo: 'media', noches: diasMedia, precio: st.cabana.media });
+    if (diasBaja  > 0) tramos.push({ tipo: 'baja',  noches: diasBaja,  precio: st.cabana.baja  });
+    tramos.sort(function(a, b) { return (b.noches - a.noches) || (b.precio - a.precio); });
+    pintarPrecioDeTramos(tramos);
 
     // Descripción del precio
     var partes = [];
@@ -369,19 +404,16 @@
       var pu = diasAlta === noches ? st.cabana.alta : (diasMedia === noches ? st.cabana.media : st.cabana.baja);
       partes = [noches + ' noche' + (noches > 1 ? 's' : '') + ' × ' + fmtCLP(pu)];
     }
-    // Aplicar cupón si hay uno guardado
-    var cuponDesc = calcCuponDescuento(total);
-    var totalFinal = total - cuponDesc;
-    var abonoFinal = Math.ceil(totalFinal * 0.5 / 1000) * 1000;
-    st.total = totalFinal;
-    st.abono = abonoFinal;
-
-    txt('bwPrecioBase', 'Desde ' + fmtCLP(st.cabana.baja) + ' / noche');
+    // El cupón ya se descontó más arriba, al calcular `total`. Volver a
+    // aplicarlo aquí lo cobraba dos veces y mostraba al huésped menos de lo que
+    // realmente iba a pagar.
+    // La fila "Total" va SIN cupón, para que cuadre con el desglose de noches;
+    // el descuento aparece en su propia fila y el abono ya lo lleva restado.
     txt('bwCalcDesc',  partes.join(' + '));
-    txt('bwCalcTotal', fmtCLP(total));
+    txt('bwCalcTotal', fmtCLP(st.baseTotal));
     actualizarFilaCupon(cuponDesc);
-    txt('bwCalcAbono', fmtCLP(abonoFinal));
-    txt('bwCalcSaldo', fmtCLP(totalFinal - abonoFinal));
+    txt('bwCalcAbono', fmtCLP(abono));
+    txt('bwCalcSaldo', fmtCLP(total - abono));
 
     actualizarPagoOpciones();
     show('bwResumen');

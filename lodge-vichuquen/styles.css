@@ -1333,10 +1333,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.65rem;
   border-radius: 100px; letter-spacing: 0.02em;
 }
-.bw-badge.alta  { background: #fdeecb; color: #8a5a00; }
-.bw-badge.media { background: #e8f5e0; color: #3a6b20; }
-.bw-badge.baja  { background: #dceaf5; color: #1a4a6e; }
+.bw-badge.alta   { background: #fdeecb; color: #8a5a00; }
+.bw-badge.media  { background: #e8f5e0; color: #3a6b20; }
+.bw-badge.baja   { background: #dceaf5; color: #1a4a6e; }
+/* Antes de elegir fechas todavía no hay una temporada que mostrar */
+.bw-badge.neutra { background: #ece2d2; color: #6b5533; }
 .bw-cap { font-size: 0.8rem; color: var(--gray); margin-left: auto; }
+/* flex-basis:100% la empuja a su propia línea dentro de .bw-cabana-info */
+.bw-precio-otras {
+  flex-basis: 100%; margin: 0.15rem 0 0;
+  font-size: 0.78rem; line-height: 1.5; color: var(--navy); opacity: 0.75;
+}
 
 /* Flatpickr overrides */
 .bw-date-input {
