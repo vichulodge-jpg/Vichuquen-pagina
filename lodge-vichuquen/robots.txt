@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /agencias
+Disallow: /agencias.html
+Disallow: /qr-agencias.html
 Disallow: /reserva-confirmada.html
 Disallow: /reserva-fallida.html
 Disallow: /reserva-pendiente.html

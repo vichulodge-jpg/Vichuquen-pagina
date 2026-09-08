@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Vichuquén Lodge y Marina — Dossier para agencias de turismo</title>
+  <meta name="description" content="Ficha comercial de Vichuquén Lodge y Marina: 8 cabañas frente al Lago Vichuquén, hasta 44 huéspedes, muelle propio y quincho. Inventario, tarifario 2026–2027 y condiciones para agencias." />
+
+  <!-- Página privada: material de trabajo para agencias. No indexar. -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta name="googlebot" content="noindex, nofollow" />
+
+  <!-- Para cuando la agencia reenvía el link por WhatsApp -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://www.vichuquenlodgeymarina.cl/agencias" />
+  <meta property="og:title"       content="Vichuquén Lodge y Marina — Dossier para agencias" />
+  <meta property="og:description" content="8 cabañas frente al Lago Vichuquén, hasta 44 huéspedes, muelle y quincho propios. Inventario, tarifario y condiciones comerciales." />
+  <meta property="og:image"       content="https://www.vichuquenlodgeymarina.cl/assets/img/hero.jpg" />
+  <meta property="og:locale"      content="es_CL" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="theme-color"        content="#0D2230" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+
+<style>
+/* =============================================================
+   Vichuquén Lodge y Marina — Dossier B2B para agencias
+   Paleta heredada del sitio principal: navy · lino · ámbar · lago
+   ============================================================= */
+:root{
+  --navy:#273852;
+  --navy-deep:#0D2230;
+  --navy-mid:#1B2E42;
+  --cream:#F4F1EB;
+  --cream-2:#FAF8F4;
+  --sand:#E2D5C2;
+  --tan:#A87840;
+  --tan-lt:#C89A5E;
+  --blue:#5AABB8;
+  --sky:#9DCCD8;
+  --gray:#5A6B78;
+  --ink:#18262E;
+  --line:rgba(27,61,76,.14);
+  --line-dark:rgba(255,255,255,.16);
+  --radius:14px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --shell:1180px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+table{border-collapse:collapse;width:100%}
+
+.shell{max-width:var(--shell);margin-inline:auto;padding-inline:clamp(1.15rem,4.5vw,3rem)}
+
+/* Los items de grid tienen min-width:auto por defecto y pueden desbordar
+   la pantalla en movil. Aqui nunca queremos ese comportamiento. */
+.ubic-layout>*,.ficha-layout>*,.grupos-layout>*,.cta-card>*,
+.snap-grid>*,.reason-grid>*,.unit-grid>*,.seg-grid>*,.exp-grid>*,
+.pasos>*,.pol-grid>*,.temporadas>*,.extras-grid>*,.dist-grid>*{min-width:0}
+
+/* ── Tipografía de sección ───────────────────────────────── */
+.kicker{
+  font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--tan);margin-bottom:.7rem;
+}
+.kicker--light{color:var(--tan-lt)}
+h2.title{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-weight:500;line-height:1.05;color:var(--navy);
+  font-size:clamp(1.95rem,4.6vw,3.1rem);
+  letter-spacing:-.01em;text-wrap:balance;
+}
+h2.title em{font-style:italic;color:var(--tan)}
+.title.title--light{color:#fff}
+.title.title--light em{color:var(--sky)}
+.lede{
+  font-size:clamp(1rem,1.6vw,1.11rem);color:var(--gray);
+  max-width:62ch;margin-top:1rem;
+}
+.lede--light{color:rgba(255,255,255,.78)}
+h3{font-weight:600;font-size:1.02rem;letter-spacing:-.01em;color:var(--navy)}
+
+section{padding-block:clamp(3.4rem,8vw,6.2rem)}
+.sec-head{margin-bottom:clamp(2rem,4vw,3rem)}
+
+/* ── Barra superior ──────────────────────────────────────── */
+.topbar{
+  position:fixed;inset-inline:0;top:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.55rem clamp(1rem,4vw,2rem);
+  background:rgba(13,34,48,.92);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-dark);
+  transform:translateY(-102%);transition:transform .45s var(--ease);
+}
+.topbar.is-on{transform:translateY(0)}
+.topbar-brand{display:flex;align-items:center;gap:.6rem;min-width:0}
+.topbar-brand img{height:30px;width:auto;border-radius:4px}
+.topbar-brand span{
+  font-family:"Cormorant Garamond",serif;font-size:1.02rem;color:#fff;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.topbar-nav{display:none;gap:1.5rem;font-size:.78rem;letter-spacing:.04em;color:rgba(255,255,255,.72)}
+.topbar-nav a:hover{color:#fff}
+@media(min-width:900px){.topbar-nav{display:flex}}
+.topbar-wa{
+  display:inline-flex;align-items:center;gap:.45rem;flex-shrink:0;
+  background:#25D366;color:#062B14;font-weight:600;font-size:.79rem;
+  padding:.5rem .9rem;border-radius:999px;
+}
+.topbar-wa svg{width:15px;height:15px}
+
+/* ── HERO ────────────────────────────────────────────────── */
+.hero{position:relative;min-height:clamp(560px,92svh,860px);display:flex;flex-direction:column;color:#fff;overflow:hidden}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.hero-media::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(13,34,48,.72) 0%,rgba(13,34,48,.28) 32%,rgba(13,34,48,.62) 68%,rgba(13,34,48,.94) 100%),
+    linear-gradient(100deg,rgba(13,34,48,.5) 0%,transparent 62%);
+}
+.hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;flex:1;width:100%;
+  max-width:var(--shell);margin-inline:auto;padding:clamp(1.4rem,4vw,2.4rem) clamp(1.15rem,4.5vw,3rem) 0}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.hero-logo{
+  height:clamp(76px,17vw,108px);width:auto;
+  filter:drop-shadow(0 4px 18px rgba(0,0,0,.55)) drop-shadow(0 0 1px rgba(255,255,255,.35));
+}
+.hero-badge{
+  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  border:1px solid rgba(255,255,255,.34);border-radius:999px;
+  padding:.42rem .85rem;color:rgba(255,255,255,.9);
+  background:rgba(255,255,255,.07);backdrop-filter:blur(6px);text-align:center;line-height:1.35;
+}
+.hero-body{margin-top:auto;padding-block:clamp(2rem,6vw,3rem) 0;max-width:44ch}
+.hero-eyebrow{
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+  color:var(--sky);margin-bottom:1rem;
+}
+.hero h1{
+  font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;
+  font-size:clamp(2.5rem,8.5vw,4.6rem);line-height:.98;letter-spacing:-.015em;
+  text-wrap:balance;text-shadow:0 2px 30px rgba(0,0,0,.4);
+}
+.hero h1 em{font-style:italic;color:var(--sky);display:block}
+.hero-sub{
+  margin-top:1.15rem;font-size:clamp(.98rem,2.4vw,1.16rem);
+  color:rgba(255,255,255,.86);font-weight:300;max-width:46ch;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem}
+
+/* Franja de datos duros */
+.hero-stats{
+  position:relative;z-index:1;margin-top:clamp(2rem,5vw,3rem);
+  border-top:1px solid rgba(255,255,255,.18);
+  background:linear-gradient(180deg,rgba(13,34,48,.1),rgba(13,34,48,.5));
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.hero-stats-grid{
+  max-width:var(--shell);margin-inline:auto;
+  padding:clamp(1rem,3vw,1.5rem) clamp(1.15rem,4.5vw,3rem);
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem 1rem;
+}
+@media(min-width:720px){.hero-stats-grid{grid-template-columns:repeat(4,1fr)}}
+.hstat b{
+  display:block;font-family:"Cormorant Garamond",serif;font-weight:500;
+  font-size:clamp(1.7rem,4vw,2.3rem);line-height:1;color:#fff;
+}
+.hstat span{
+  display:block;margin-top:.3rem;font-size:.7rem;letter-spacing:.11em;
+  text-transform:uppercase;color:rgba(255,255,255,.62);
+}
+
+/* ── Botones ─────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font-size:.85rem;font-weight:600;letter-spacing:.02em;
+  padding:.85rem 1.5rem;border-radius:999px;border:1px solid transparent;
+  transition:transform .25s var(--ease),background .25s,color .25s,border-color .25s;
+  cursor:pointer;text-align:center;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn svg{width:16px;height:16px;flex-shrink:0}
+.btn-wa{background:#25D366;color:#062B14}
+.btn-wa:hover{background:#1FBF5B}
+.btn-ghost{border-color:rgba(255,255,255,.4);color:#fff;background:rgba(255,255,255,.06)}
+.btn-ghost:hover{background:rgba(255,255,255,.16)}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:var(--navy-deep)}
+.btn-outline{border-color:var(--navy);color:var(--navy)}
+.btn-outline:hover{background:var(--navy);color:#fff}
+
+/* ── Bloque "en 30 segundos" ─────────────────────────────── */
+.snapshot{background:var(--cream-2);border-bottom:1px solid var(--line)}
+.snap-grid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+@media(min-width:680px){.snap-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.snap-grid{grid-template-columns:repeat(4,1fr)}}
+.snap-cell{background:#fff;padding:1.5rem 1.4rem}
+.snap-cell .k{
+  font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--tan);font-weight:600;margin-bottom:.6rem;
+}
+.snap-cell p{font-size:.92rem;color:var(--gray);line-height:1.6}
+.snap-cell strong{color:var(--navy);font-weight:600}
+
+/* ── Razones ─────────────────────────────────────────────── */
+.reasons{background:var(--cream)}
+.reason-grid{display:grid;gap:1.1rem}
+@media(min-width:700px){.reason-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1040px){.reason-grid{grid-template-columns:repeat(3,1fr)}}
+.reason{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.7rem 1.5rem;position:relative;overflow:hidden;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease);
+}
+.reason:hover{transform:translateY(-4px);box-shadow:0 16px 44px -22px rgba(13,34,48,.4)}
+.reason::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--tan),var(--blue));opacity:0;transition:opacity .35s;
+}
+.reason:hover::before{opacity:1}
+.reason .num{
+  font-family:"Cormorant Garamond",serif;font-size:1.6rem;color:var(--sand);
+  line-height:1;margin-bottom:.9rem;font-weight:500;
+}
+.reason h3{margin-bottom:.55rem}
+.reason p{font-size:.9rem;color:var(--gray)}
+
+/* ── Ficha técnica ───────────────────────────────────────── */
+.ficha{background:var(--navy-deep);color:#fff}
+.ficha-layout{display:grid;gap:clamp(2rem,4vw,3rem)}
+@media(min-width:960px){.ficha-layout{grid-template-columns:1fr 1fr;align-items:start}}
+.spec-list{border-top:1px solid var(--line-dark)}
+.spec-row{
+  display:flex;justify-content:space-between;align-items:baseline;gap:1.5rem;
+  padding:.82rem 0;border-bottom:1px solid var(--line-dark);
+}
+.spec-row dt{font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:rgba(255,255,255,.5);flex-shrink:0}
+.spec-row dd{font-size:.93rem;color:#fff;text-align:right;font-weight:500}
+.incluye{
+  background:rgba(255,255,255,.05);border:1px solid var(--line-dark);
+  border-radius:var(--radius);padding:1.6rem 1.5rem;
+}
+.incluye h3{color:#fff;margin-bottom:1rem;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sky)}
+.incluye ul{display:grid;gap:.6rem}
+.incluye li{
+  display:flex;gap:.65rem;font-size:.89rem;color:rgba(255,255,255,.82);line-height:1.5;
+}
+.incluye li svg{width:15px;height:15px;flex-shrink:0;margin-top:.28rem;color:var(--blue)}
+.aviso{
+  margin-top:1.1rem;border-radius:var(--radius);
+  border:1px solid rgba(200,154,94,.42);background:rgba(168,120,64,.14);
+  padding:1.4rem 1.4rem;
+}
+.aviso h3{color:var(--tan-lt);font-size:.73rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.85rem}
+.aviso ul{display:grid;gap:.6rem}
+.aviso li{font-size:.865rem;color:rgba(255,255,255,.8);padding-left:1rem;position:relative;line-height:1.55}
+.aviso li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--tan-lt)}
+
+/* ── Tablas responsivas ──────────────────────────────────── */
+.tbl-wrap{
+  border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;background:#fff;
+  /* position:relative hace que el <thead> oculto en movil quede contenido
+     aqui dentro; sin esto se escapa del overflow y ensancha la pagina. */
+  position:relative;
+}
+.tbl{font-size:.88rem}
+.tbl thead th{
+  background:var(--navy);color:#fff;text-align:left;font-weight:600;
+  font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;
+  padding:.85rem 1rem;white-space:nowrap;
+}
+.tbl tbody td{padding:.85rem 1rem;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tbody tr:last-child td{border-bottom:none}
+.tbl tbody tr:nth-child(even){background:var(--cream-2)}
+.tbl .u-name{font-weight:600;color:var(--navy);white-space:nowrap}
+.tbl .u-code{
+  display:inline-block;font-size:.62rem;letter-spacing:.1em;color:var(--tan);
+  font-weight:600;margin-right:.45rem;
+}
+.tbl .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{
+  display:inline-block;font-size:.63rem;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;padding:.22rem .55rem;border-radius:999px;white-space:nowrap;
+}
+.tag-ok{background:rgba(90,171,184,.16);color:#2C6C77}
+.tag-off{background:rgba(90,107,120,.14);color:var(--gray)}
+.tag-x{background:rgba(168,120,64,.16);color:#8A5F2C}
+
+@media(max-width:760px){
+  .tbl thead{
+    /* Oculto visualmente pero legible por lectores de pantalla.
+       display:block es necesario: un thead en modo tabla ignora overflow
+       y su fila se sale ensanchando la pagina completa. */
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;border:0;
+    display:block;overflow:hidden;clip-path:inset(50%);white-space:nowrap;
+  }
+  .tbl tbody tr{display:block;border-bottom:1px solid var(--line);padding:.4rem 0}
+  .tbl tbody tr:last-child{border-bottom:none}
+  .tbl tbody td{
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+    border:none;padding:.42rem 1rem;text-align:right;
+  }
+  .tbl tbody td::before{
+    content:attr(data-l);text-align:left;flex-shrink:0;
+    font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--gray);font-weight:600;padding-top:.15rem;
+  }
+  .tbl tbody td[data-l=""]{display:block;text-align:left}
+  .tbl tbody td[data-l=""]::before{display:none}
+  .tbl .u-name{white-space:normal;font-size:1rem;padding-top:.6rem}
+}
+
+.tbl-note{
+  font-size:.79rem;color:var(--gray);margin-top:1rem;line-height:1.6;
+  display:flex;gap:.55rem;align-items:flex-start;
+}
+.tbl-note svg{width:14px;height:14px;flex-shrink:0;margin-top:.32rem;color:var(--tan)}
+
+/* ── Temporadas ──────────────────────────────────────────── */
+.temporadas{display:grid;gap:1rem;margin-bottom:1.8rem}
+@media(min-width:760px){.temporadas{grid-template-columns:repeat(3,1fr)}}
+.temp{
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.3rem 1.3rem;background:#fff;border-top:3px solid var(--sand);
+}
+.temp--alta{border-top-color:var(--tan)}
+.temp--media{border-top-color:var(--blue)}
+.temp--baja{border-top-color:var(--sky)}
+.temp .t-name{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--navy);margin-bottom:.6rem}
+.temp p{font-size:.855rem;color:var(--gray);line-height:1.58}
+
+/* ── Extras ──────────────────────────────────────────────── */
+.extras-grid{display:grid;gap:.85rem;margin-top:1.6rem}
+@media(min-width:620px){.extras-grid{grid-template-columns:repeat(3,1fr)}}
+.extra{
+  background:var(--cream-2);border:1px solid var(--line);border-radius:12px;
+  padding:1.05rem 1.1rem;
+}
+.extra b{display:block;font-family:"Cormorant Garamond",serif;font-size:1.5rem;color:var(--navy);line-height:1.1}
+.extra span{display:block;font-size:.78rem;color:var(--gray);margin-top:.25rem}
+
+/* ── Inventario visual de cabañas ────────────────────────── */
+.units{background:var(--cream-2)}
+.unit-grid{display:grid;gap:1.2rem;margin-bottom:2.6rem}
+@media(min-width:640px){.unit-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.unit-grid{grid-template-columns:repeat(3,1fr)}}
+.unit{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease);
+}
+.unit:hover{transform:translateY(-4px);box-shadow:0 18px 48px -24px rgba(13,34,48,.42)}
+.unit-photo{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--sand)}
+.unit-photo img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.unit:hover .unit-photo img{transform:scale(1.05)}
+.unit-cap{
+  position:absolute;right:.7rem;bottom:.7rem;
+  background:rgba(13,34,48,.86);color:#fff;font-size:.7rem;font-weight:600;
+  padding:.32rem .68rem;border-radius:999px;backdrop-filter:blur(4px);
+}
+.unit-body{padding:1.15rem 1.25rem 1.35rem;display:flex;flex-direction:column;flex:1}
+.unit-code{font-size:.62rem;letter-spacing:.16em;color:var(--tan);font-weight:600}
+.unit-body h3{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:1.42rem;margin:.15rem 0 .7rem;color:var(--navy)}
+.unit-beds{font-size:.83rem;color:var(--gray);line-height:1.55;flex:1}
+.unit-foot{display:flex;align-items:center;justify-content:space-between;gap:.8rem;margin-top:1rem;padding-top:.85rem;border-top:1px solid var(--line)}
+.unit-price{font-size:.8rem;color:var(--gray)}
+.unit-price b{font-family:"Cormorant Garamond",serif;font-size:1.22rem;color:var(--navy);font-weight:500}
+
+/* ── Segmentos ───────────────────────────────────────────── */
+.segs{background:#fff}
+.seg-grid{display:grid;gap:1rem}
+@media(min-width:640px){.seg-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.seg-grid{grid-template-columns:repeat(3,1fr)}}
+.seg{
+  border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem 1.4rem;
+  background:var(--cream-2);transition:background .35s,border-color .35s,transform .35s var(--ease);
+}
+.seg:hover{background:#fff;border-color:var(--sand);transform:translateY(-3px)}
+.seg-ico{
+  width:38px;height:38px;border-radius:10px;display:grid;place-items:center;
+  background:rgba(39,56,82,.07);color:var(--navy);margin-bottom:.95rem;
+}
+.seg-ico svg{width:20px;height:20px}
+.seg h3{margin-bottom:.45rem}
+.seg p{font-size:.865rem;color:var(--gray)}
+
+/* ── Grupos (bloque oscuro con fotos) ────────────────────── */
+.grupos{background:var(--navy);color:#fff;overflow:hidden}
+.grupos-layout{display:grid;gap:clamp(2rem,5vw,3.4rem);align-items:center}
+@media(min-width:940px){.grupos-layout{grid-template-columns:1fr 1.05fr}}
+.grupos-copy p{color:rgba(255,255,255,.76);font-size:.98rem;margin-top:1rem}
+.grupos-facts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.9rem}
+.gfact{border-left:2px solid var(--tan);padding-left:.9rem}
+.gfact b{display:block;font-family:"Cormorant Garamond",serif;font-size:1.75rem;line-height:1;color:#fff;font-weight:500}
+.gfact span{font-size:.73rem;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.58);display:block;margin-top:.3rem}
+.grupos-photos{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.grupos-photos figure{border-radius:12px;overflow:hidden;background:rgba(255,255,255,.06)}
+.grupos-photos img{width:100%;height:100%;object-fit:cover}
+.gp-tall{aspect-ratio:3/4}
+.gp-wide{aspect-ratio:4/3}
+.gp-span{grid-column:span 2;aspect-ratio:16/9}
+
+/* ── Experiencias ────────────────────────────────────────── */
+.exps{background:var(--cream)}
+.exp-grid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+@media(min-width:620px){.exp-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:980px){.exp-grid{grid-template-columns:repeat(3,1fr)}}
+.exp{background:#fff;padding:1.5rem 1.4rem;transition:background .35s}
+.exp:hover{background:var(--cream-2)}
+.exp-n{font-family:"Cormorant Garamond",serif;font-size:.95rem;color:var(--tan);letter-spacing:.06em;margin-bottom:.55rem}
+.exp h3{margin-bottom:.4rem}
+.exp p{font-size:.855rem;color:var(--gray)}
+
+/* ── Ubicación ───────────────────────────────────────────── */
+.ubic{background:#fff}
+.ubic-layout{display:grid;gap:clamp(1.8rem,4vw,3rem)}
+@media(min-width:940px){.ubic-layout{grid-template-columns:.9fr 1.1fr;align-items:start}}
+.ruta{margin-top:1.8rem;counter-reset:paso}
+.ruta li{
+  position:relative;padding-left:2.4rem;padding-bottom:1.2rem;
+  font-size:.9rem;color:var(--gray);line-height:1.55;
+}
+.ruta li:last-child{padding-bottom:0}
+.ruta li::before{
+  counter-increment:paso;content:counter(paso);
+  position:absolute;left:0;top:-.05rem;width:26px;height:26px;border-radius:50%;
+  display:grid;place-items:center;background:var(--navy);color:#fff;
+  font-size:.7rem;font-weight:600;
+}
+.ruta li::after{
+  content:"";position:absolute;left:12.5px;top:26px;bottom:.35rem;width:1px;background:var(--line);
+}
+.ruta li:last-child::after{display:none}
+.mapa{
+  border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+  aspect-ratio:4/3;min-width:0;
+}
+@media(max-width:620px){.mapa{aspect-ratio:1}}
+.mapa iframe{width:100%;height:100%;border:0;display:block}
+.dist-grid{display:grid;gap:.8rem;margin-top:1.5rem}
+@media(min-width:520px){.dist-grid{grid-template-columns:1fr 1fr}}
+.dist{background:var(--cream-2);border:1px solid var(--line);border-radius:12px;padding:.95rem 1.1rem}
+.dist b{display:block;font-size:.9rem;color:var(--navy);font-weight:600}
+.dist span{font-size:.78rem;color:var(--gray)}
+
+/* ── Cómo operamos ───────────────────────────────────────── */
+.proceso{background:var(--cream-2)}
+.pasos{display:grid;gap:1.1rem;margin-bottom:2.4rem}
+@media(min-width:820px){.pasos{grid-template-columns:repeat(3,1fr)}}
+.paso{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem 1.5rem;position:relative}
+.paso .p-n{
+  font-family:"Cormorant Garamond",serif;font-size:2.4rem;line-height:1;
+  color:var(--sand);font-weight:500;margin-bottom:.6rem;
+}
+.paso h3{margin-bottom:.5rem}
+.paso p{font-size:.875rem;color:var(--gray)}
+.pol-grid{display:grid;gap:1.1rem}
+@media(min-width:820px){.pol-grid{grid-template-columns:1fr 1fr}}
+.pol{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem 1.5rem}
+.pol h3{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tan);margin-bottom:1rem}
+.pol dl{display:grid;gap:.65rem}
+.pol .prow{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;font-size:.87rem;
+  padding-bottom:.6rem;border-bottom:1px dashed var(--line)}
+.pol .prow:last-child{border-bottom:none;padding-bottom:0}
+.pol dt{color:var(--gray);flex-shrink:0}
+.pol dd{color:var(--navy);font-weight:600;text-align:right}
+
+/* ── Galería ─────────────────────────────────────────────── */
+.galeria{background:var(--navy-deep)}
+.gal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}
+@media(min-width:700px){.gal-grid{grid-template-columns:repeat(4,1fr);gap:.75rem}}
+.gal-item{
+  border:0;padding:0;border-radius:10px;overflow:hidden;cursor:zoom-in;
+  aspect-ratio:1;background:rgba(255,255,255,.06);display:block;
+}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease),opacity .4s}
+.gal-item:hover img{transform:scale(1.07);opacity:.88}
+@media(min-width:700px){
+  .gal-item.is-big{grid-column:span 2;grid-row:span 2;aspect-ratio:1}
+}
+
+/* Lightbox */
+.lb{
+  position:fixed;inset:0;z-index:200;background:rgba(6,18,26,.96);
+  display:none;place-items:center;padding:1rem;
+}
+.lb[open],.lb.is-on{display:grid}
+.lb img{max-width:min(1100px,94vw);max-height:88svh;width:auto;border-radius:8px}
+.lb-close{
+  position:absolute;top:max(1rem,env(safe-area-inset-top));right:1rem;
+  width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);
+  color:#fff;font-size:1.3rem;line-height:1;display:grid;place-items:center;cursor:pointer;border:0;
+}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.12);
+  color:#fff;display:grid;place-items:center;cursor:pointer;border:0;
+}
+.lb-nav svg{width:22px;height:22px}
+.lb-prev{left:.8rem}.lb-next{right:.8rem}
+
+/* ── Contacto ────────────────────────────────────────────── */
+.contacto{background:var(--cream);position:relative;overflow:hidden}
+.cta-card{
+  background:var(--navy-deep);color:#fff;border-radius:20px;overflow:hidden;
+  display:grid;box-shadow:0 30px 80px -50px rgba(13,34,48,.9);
+}
+@media(min-width:940px){.cta-card{grid-template-columns:1.05fr .95fr}}
+.cta-copy{padding:clamp(1.9rem,4.5vw,3.2rem)}
+.cta-copy h2{
+  font-family:"Cormorant Garamond",serif;font-weight:500;color:#fff;
+  font-size:clamp(1.85rem,4.4vw,2.8rem);line-height:1.05;
+}
+.cta-copy h2 em{font-style:italic;color:var(--sky)}
+.cta-copy > p{color:rgba(255,255,255,.75);margin-top:1rem;font-size:.97rem;max-width:44ch}
+.cta-form{margin-top:1.7rem}
+.cta-form label{
+  display:block;font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);margin-bottom:.5rem;font-weight:600;
+}
+.cta-field{display:flex;flex-direction:column;gap:.65rem}
+@media(min-width:560px){.cta-field{flex-direction:row}}
+.cta-field input{
+  flex:1;min-width:0;background:rgba(255,255,255,.08);border:1px solid var(--line-dark);
+  border-radius:999px;padding:.85rem 1.25rem;color:#fff;font-family:inherit;font-size:.9rem;
+  transition:border-color .3s,background .3s;
+}
+.cta-field input::placeholder{color:rgba(255,255,255,.4)}
+.cta-field input:focus{outline:0;border-color:var(--blue);background:rgba(255,255,255,.13)}
+.cta-hint{font-size:.74rem;color:rgba(255,255,255,.45);margin-top:.8rem;line-height:1.5}
+.cta-side{
+  background:rgba(255,255,255,.045);border-left:1px solid var(--line-dark);
+  padding:clamp(1.9rem,4.5vw,3.2rem);display:flex;flex-direction:column;gap:1.15rem;justify-content:center;
+}
+@media(max-width:939px){.cta-side{border-left:0;border-top:1px solid var(--line-dark)}}
+.cline{display:flex;gap:.9rem;align-items:flex-start}
+.cline-ico{
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;display:grid;place-items:center;
+  background:rgba(255,255,255,.09);color:var(--sky);
+}
+.cline-ico svg{width:17px;height:17px}
+.cline .k{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:600}
+.cline .v{font-size:.95rem;color:#fff;font-weight:500;word-break:break-word}
+.cline .v:hover{color:var(--sky)}
+.cta-side .btn{margin-top:.4rem;width:100%}
+
+/* ── Footer ──────────────────────────────────────────────── */
+.foot{background:var(--navy-deep);color:rgba(255,255,255,.55);padding:2.6rem 0 calc(2.6rem + var(--dockpad,0px));border-top:1px solid var(--line-dark)}
+.foot-in{display:flex;flex-wrap:wrap;gap:1.4rem;align-items:center;justify-content:space-between}
+.foot img{height:52px;width:auto}
+.foot p{font-size:.78rem;line-height:1.6}
+.foot b{color:#fff;font-weight:600;display:block;font-family:"Cormorant Garamond",serif;font-size:1.1rem;letter-spacing:.01em}
+
+/* ── Dock inferior (móvil) ───────────────────────────────── */
+.dock{
+  position:fixed;inset-inline:0;bottom:0;z-index:70;
+  display:flex;gap:.55rem;padding:.6rem .8rem calc(.6rem + env(safe-area-inset-bottom));
+  background:rgba(13,34,48,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--line-dark);
+  transform:translateY(120%);transition:transform .45s var(--ease);
+}
+.dock.is-on{transform:translateY(0)}
+.dock .btn{flex:1;padding:.78rem .8rem;font-size:.8rem}
+@media(min-width:900px){.dock{display:none}}
+
+/* ── Reveal ──────────────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+@media print{
+  .topbar,.dock,.lb,.hero-actions{display:none!important}
+  body{background:#fff}
+  section{padding-block:1.5rem;break-inside:avoid}
+}
+</style>
+<noscript><style>.rv{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+
+<!-- ══ BARRA SUPERIOR ══ -->
+<header class="topbar" id="topbar">
+  <a href="#top" class="topbar-brand">
+    <img src="assets/img/logo.png" alt="" />
+    <span>Vichuquén Lodge y Marina</span>
+  </a>
+  <nav class="topbar-nav">
+    <a href="#inventario">Inventario</a>
+    <a href="#tarifas">Tarifas</a>
+    <a href="#grupos">Grupos</a>
+    <a href="#ubicacion">Ubicación</a>
+    <a href="#operar">Cómo operamos</a>
+  </nav>
+  <a class="topbar-wa" href="https://wa.me/56954177688?text=Hola%2C%20soy%20de%20una%20agencia%20de%20turismo%20y%20quiero%20conocer%20las%20condiciones%20de%20Vichuqu%C3%A9n%20Lodge%20y%20Marina." target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+    WhatsApp
+  </a>
+</header>
+
+<!-- ══ HERO ══ -->
+<div id="top"></div>
+<section class="hero">
+  <div class="hero-media">
+    <img src="assets/img/hero.jpg" alt="Vista del complejo Vichuquén Lodge y Marina desde el Lago Vichuquén" fetchpriority="high" />
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-top">
+      <img src="assets/img/logo.png" alt="Vichuquén Lodge y Marina" class="hero-logo" />
+      <div class="hero-badge">Material exclusivo<br>para agencias</div>
+    </div>
+
+    <div class="hero-body">
+      <p class="hero-eyebrow">Dossier comercial · Temporada 2026 – 2027</p>
+      <h1>Vichuquén<br><em>Lodge y Marina</em></h1>
+      <p class="hero-sub">
+        Ocho cabañas frente al agua, muelle propio y capacidad para 44 huéspedes,
+        a cuatro horas de Santiago. Un producto de naturaleza listo para vender todo el año.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-wa" href="https://wa.me/56954177688?text=Hola%2C%20soy%20de%20una%20agencia%20de%20turismo%20y%20quiero%20conocer%20las%20condiciones%20de%20Vichuqu%C3%A9n%20Lodge%20y%20Marina." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+          Hablar con el lodge
+        </a>
+        <a class="btn btn-ghost" href="#inventario">Ver inventario y tarifas</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stats-grid">
+      <div class="hstat"><b>8</b><span>Cabañas equipadas</span></div>
+      <div class="hstat"><b>44</b><span>Huéspedes máx.</span></div>
+      <div class="hstat"><b>4 h</b><span>Desde Santiago</span></div>
+      <div class="hstat"><b>9.2</b><span>Booking.com</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EN 30 SEGUNDOS ══ -->
+<section class="snapshot" style="padding-block:clamp(2.4rem,5vw,3.6rem)">
+  <div class="shell">
+    <div class="snap-grid rv">
+      <div class="snap-cell">
+        <p class="k">Qué es</p>
+        <p><strong>Complejo de 8 cabañas de madera</strong> independientes y totalmente equipadas, a orillas del Lago Vichuquén, con muelle, atracadero y quincho techado propios.</p>
+      </div>
+      <div class="snap-cell">
+        <p class="k">Dónde</p>
+        <p><strong>Lago Vichuquén, comuna de Licantén</strong>, Región del Maule. A unas 4 horas de Santiago por Ruta 5 Sur, colindante con un humedal declarado Reserva Natural.</p>
+      </div>
+      <div class="snap-cell">
+        <p class="k">Para quién</p>
+        <p><strong>Parejas, familias, delegaciones escolares, empresas y retiros.</strong> Recinto pet friendly, con estadías desde 1 unidad hasta el complejo completo en exclusiva.</p>
+      </div>
+      <div class="snap-cell">
+        <p class="k">Por qué venderlo</p>
+        <p><strong>Producto operativo todo el año</strong>, contraparte directa sin intermediarios, disponibilidad confirmada en el momento y reputación verificable en Booking y Airbnb.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ POR QUÉ INCLUIRNOS ══ -->
+<section class="reasons">
+  <div class="shell">
+    <div class="sec-head rv">
+      <p class="kicker">La propuesta</p>
+      <h2 class="title">Por qué incorporarnos<br>a <em>tu oferta</em>.</h2>
+      <p class="lede">Seis razones concretas por las que trabajar con nosotros es simple y rentable para una agencia.</p>
+    </div>
+
+    <div class="reason-grid">
+      <article class="reason rv">
+        <div class="num">01</div>
+        <h3>El complejo completo, en exclusiva</h3>
+        <p>Las 8 cabañas están bajo una sola administración. Puedes tomar el recinto entero para un grupo, un retiro o un viaje educativo, sin compartir instalaciones con otros huéspedes.</p>
+      </article>
+      <article class="reason rv">
+        <div class="num">02</div>
+        <h3>Capacidad real de grupo</h3>
+        <p>Hasta 44 huéspedes, quincho techado con espacio para charlas y comidas colectivas, y experiencia comprobada recibiendo delegaciones escolares y corporativas.</p>
+      </article>
+      <article class="reason rv">
+        <div class="num">03</div>
+        <h3>Opera los 12 meses</h3>
+        <p>Todas las cabañas tienen calefacción. La temporada baja de domingo a jueves ofrece márgenes muy competitivos: sirve para llenar tus meses valle, no solo el verano.</p>
+      </article>
+      <article class="reason rv">
+        <div class="num">04</div>
+        <h3>Contraparte directa</h3>
+        <p>Hablas con la administración del recinto, no con un intermediario. Bloqueos, cambios de fecha, requerimientos especiales y cortesías se resuelven el mismo día.</p>
+      </article>
+      <article class="reason rv">
+        <div class="num">05</div>
+        <h3>Confirmación inmediata y trazable</h3>
+        <p>Sistema de reservas propio: la disponibilidad se bloquea al momento, tu agencia queda registrada como canal de la reserva y el huésped recibe confirmación y correo de pre-llegada automáticos.</p>
+      </article>
+      <article class="reason rv">
+        <div class="num">06</div>
+        <h3>Reputación verificable</h3>
+        <p>9.2 en Booking.com («puntuación excepcional») y 4.8 / 5 en Airbnb. Puedes recomendarlo con respaldo público, no solo con nuestra palabra.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FICHA TÉCNICA ══ -->
+<section class="ficha" id="ficha">
+  <div class="shell">
+    <div class="sec-head rv">
+      <p class="kicker kicker--light">Ficha técnica</p>
+      <h2 class="title title--light">Todo el recinto,<br>en <em>datos duros</em>.</h2>
+    </div>
+
+    <div class="ficha-layout">
+      <div class="rv">
+        <dl class="spec-list">
+          <div class="spec-row"><dt>Unidades</dt><dd>8 cabañas independientes de madera</dd></div>
+          <div class="spec-row"><dt>Capacidad total</dt><dd>44 huéspedes</dd></div>
+          <div class="spec-row"><dt>Ubicación</dt><dd>Lago Vichuquén, Licantén · Maule</dd></div>
+          <div class="spec-row"><dt>Frente al lago</dt><dd>Acceso directo, playa y orilla propias</dd></div>
+          <div class="spec-row"><dt>Muelle y atracadero</dt><dd>Sí, de uso para huéspedes</dd></div>
+          <div class="spec-row"><dt>Quincho techado</dt><dd>Sí, más amplias áreas comunes</dd></div>
+          <div class="spec-row"><dt>Estacionamiento</dt><dd>Sí, dentro del recinto</dd></div>
+          <div class="spec-row"><dt>Mascotas</dt><dd>Pet friendly</dd></div>
+          <div class="spec-row"><dt>Spa</dt><dd>Servicio de masajes para huéspedes</dd></div>
+          <div class="spec-row"><dt>Entorno</dt><dd>Colindante a humedal Reserva Natural</dd></div>
+          <div class="spec-row"><dt>Check-in / Check-out</dt><dd>15:00 hrs / 12:00 hrs</dd></div>
+          <div class="spec-row"><dt>Temporada</dt><dd>Abierto todo el año</dd></div>
+        </dl>
+      </div>
+
+      <div class="rv">
+        <div class="incluye">
+          <h3>Cada cabaña incluye</h3>
+          <ul>
+            <li><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 14.5 3.8 10.3l1.4-1.4L8 11.7l6.8-6.8 1.4 1.4z"/></svg>Cocina equipada: refrigerador, cocina a gas, horno, microondas y utensilios</li>
+            <li><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 14.5 3.8 10.3l1.4-1.4L8 11.7l6.8-6.8 1.4 1.4z"/></svg>Comedor y living / sala de estar</li>
+            <li><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 14.5 3.8 10.3l1.4-1.4L8 11.7l6.8-6.8 1.4 1.4z"/></svg>Baño privado con ducha caliente</li>
+            <li><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 14.5 3.8 10.3l1.4-1.4L8 11.7l6.8-6.8 1.4 1.4z"/></svg>Camas vestidas: sábanas, almohadas y plumón incluidos</li>
+            <li><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 14.5 3.8 10.3l1.4-1.4L8 11.7l6.8-6.8 1.4 1.4z"/></svg>Calefacción</li>
+            <li><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 14.5 3.8 10.3l1.4-1.4L8 11.7l6.8-6.8 1.4 1.4z"/></svg>Terraza privada con zona de asado</li>
+            <li><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 14.5 3.8 10.3l1.4-1.4L8 11.7l6.8-6.8 1.4 1.4z"/></svg>Estacionamiento y acceso al embarcadero</li>
+            <li><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 14.5 3.8 10.3l1.4-1.4L8 11.7l6.8-6.8 1.4 1.4z"/></svg>Bidones de agua purificada, repuestos sin costo</li>
+          </ul>
+        </div>
+
+        <div class="aviso">
+          <h3>Para que informes bien a tu pasajero</h3>
+          <ul>
+            <li>Las cabañas <strong>no incluyen toallas de baño</strong>: se entrega solo 1 toalla de mano por baño. Cada huésped debe traer las suyas, también para el lago.</li>
+            <li>El agua de los grifos proviene de pozo subterráneo y <strong>no es apta para consumo</strong>. Por eso entregamos bidones de agua purificada dentro de la cabaña, repuestos sin costo.</li>
+            <li>No se permite freír al interior de las cabañas. La administración facilita cocinilla portátil y balón de gas para uso exterior, sin costo.</li>
+            <li>Horario de silencio entre 23:00 y 10:00 hrs. No se permiten fiestas: es un entorno de descanso junto a una reserva natural.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INVENTARIO ══ -->
+<section class="units" id="inventario">
+  <div class="shell">
+    <div class="sec-head rv">
+      <p class="kicker">Inventario</p>
+      <h2 class="title">Ocho cabañas,<br>cada una con <em>nombre de ave</em>.</h2>
+      <p class="lede">Cada cabaña lleva el nombre de una de las especies que habitan la reserva natural vecina. Todas son independientes, con terraza propia y vista al entorno del lago.</p>
+    </div>
+
+    <div class="unit-grid">
+      <article class="unit rv">
+        <div class="unit-photo">
+          <img src="assets/img/c1-tagua-1.jpg" alt="Cabaña Tagua" loading="lazy" />
+          <span class="unit-cap">5 huéspedes</span>
+        </div>
+        <div class="unit-body">
+          <p class="unit-code">C1</p>
+          <h3>Tagua</h3>
+          <p class="unit-beds">2 dormitorios · 1 cama matrimonial, 1 camarote doble y 1 cama individual. Cocina, comedor, living, baño privado y terraza con zona de asado.</p>
+          <div class="unit-foot"><span class="unit-price">Desde <b>$79.200</b></span><span class="tag tag-ok">Disponible</span></div>
+        </div>
+      </article>
+
+      <article class="unit rv">
+        <div class="unit-photo">
+          <img src="assets/img/c2-cisne-coscoroba-1.jpg" alt="Cabaña Cisne Coscoroba" loading="lazy" />
+          <span class="unit-cap">5 huéspedes</span>
+        </div>
+        <div class="unit-body">
+          <p class="unit-code">C2</p>
+          <h3>Cisne Coscoroba</h3>
+          <p class="unit-beds">2 dormitorios · 1 cama matrimonial, 1 camarote doble y 1 cama individual. Cocina, comedor, living, baño privado y terraza con zona de asado.</p>
+          <div class="unit-foot"><span class="unit-price">Desde <b>$79.200</b></span><span class="tag tag-ok">Disponible</span></div>
+        </div>
+      </article>
+
+      <article class="unit rv">
+        <div class="unit-photo">
+          <img src="assets/img/c3-siete-colores-1.jpg" alt="Cabaña Siete Colores" loading="lazy" />
+          <span class="unit-cap">7 huéspedes</span>
+        </div>
+        <div class="unit-body">
+          <p class="unit-code">C3</p>
+          <h3>Siete Colores</h3>
+          <p class="unit-beds">3 dormitorios · 1 cama matrimonial, 2 camarotes dobles y 1 cama individual. La unidad de mayor capacidad del complejo.</p>
+          <div class="unit-foot"><span class="unit-price">Desde <b>$95.200</b></span><span class="tag tag-ok">Disponible</span></div>
+        </div>
+      </article>
+
+      <article class="unit rv">
+        <div class="unit-photo">
+          <img src="assets/img/c4-cisne-cuello-negro-1.jpg" alt="Cabaña Cisne Cuello Negro" loading="lazy" />
+          <span class="unit-cap">6 huéspedes</span>
+        </div>
+        <div class="unit-body">
+          <p class="unit-code">C4</p>
+          <h3>Cisne Cuello Negro</h3>
+          <p class="unit-beds">2 dormitorios · 1 cama matrimonial y 2 camarotes dobles. Buena opción para familias grandes o dos grupos de amigos.</p>
+          <div class="unit-foot"><span class="unit-price">Desde <b>$87.200</b></span><span class="tag tag-ok">Disponible</span></div>
+        </div>
+      </article>
+
+      <article class="unit rv">
+        <div class="unit-photo">
+          <img src="assets/img/c5-huala-1.jpg" alt="Cabaña Huala" loading="lazy" />
+          <span class="unit-cap">5 huéspedes</span>
+        </div>
+        <div class="unit-body">
+          <p class="unit-code">C5</p>
+          <h3>Huala</h3>
+          <p class="unit-beds">2 dormitorios · 1 cama matrimonial, 1 camarote doble y 1 cama individual. Cocina, comedor, living, baño privado y terraza con zona de asado.</p>
+          <div class="unit-foot"><span class="unit-price">Desde <b>$79.200</b></span><span class="tag tag-ok">Disponible</span></div>
+        </div>
+      </article>
+
+      <article class="unit rv">
+        <div class="unit-photo">
+          <img src="assets/img/c6-run-run-1.jpg" alt="Cabaña Run Run" loading="lazy" />
+          <span class="unit-cap">5 huéspedes</span>
+        </div>
+        <div class="unit-body">
+          <p class="unit-code">C6</p>
+          <h3>Run Run</h3>
+          <p class="unit-beds">2 dormitorios · 1 cama matrimonial, 1 camarote doble y 1 cama individual. Cocina, comedor, living, baño privado y terraza con zona de asado.</p>
+          <div class="unit-foot"><span class="unit-price">Desde <b>$79.200</b></span><span class="tag tag-ok">Disponible</span></div>
+        </div>
+      </article>
+
+      <article class="unit rv">
+        <div class="unit-photo">
+          <img src="assets/img/c7-pitio-1.jpg" alt="Cabaña Pitío" loading="lazy" />
+          <span class="unit-cap">5 huéspedes</span>
+        </div>
+        <div class="unit-body">
+          <p class="unit-code">C7</p>
+          <h3>Pitío</h3>
+          <p class="unit-beds">2 dormitorios · 1 cama matrimonial, 1 camarote doble y 1 cama individual. Actualmente fuera de venta; consulta por su reapertura.</p>
+          <div class="unit-foot"><span class="unit-price">Consultar</span><span class="tag tag-off">No disponible</span></div>
+        </div>
+      </article>
+
+      <article class="unit rv">
+        <div class="unit-photo">
+          <img src="assets/img/c8-garza-cuca-1.jpg" alt="Cabaña Garza Cuca" loading="lazy" />
+          <span class="unit-cap">6 huéspedes</span>
+        </div>
+        <div class="unit-body">
+          <p class="unit-code">C8</p>
+          <h3>Garza Cuca</h3>
+          <p class="unit-beds">2 dormitorios · 1 cama matrimonial y camarotes. Se comercializa únicamente dentro del <strong>complejo completo</strong>: ideal para grupos grandes, retiros o eventos privados.</p>
+          <div class="unit-foot"><span class="unit-price">Consultar</span><span class="tag tag-x">Complejo completo</span></div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Tabla de distribución (rooming) -->
+    <div class="rv">
+      <h3 style="margin-bottom:1rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tan)">Distribución de camas y capacidad</h3>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Cabaña</th><th>Dorm.</th><th>Matrim.</th><th>Camarotes</th><th>Individ.</th><th>Máx. pax</th><th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-l="" class="u-name"><span class="u-code">C1</span>Tagua</td>
+              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
+              <td data-l="Camarotes" class="num">1</td><td data-l="Individuales" class="num">1</td>
+              <td data-l="Máx. pax" class="num"><strong>5</strong></td>
+              <td data-l="Estado"><span class="tag tag-ok">Disponible</span></td>
+            </tr>
+            <tr>
+              <td data-l="" class="u-name"><span class="u-code">C2</span>Cisne Coscoroba</td>
+              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
+              <td data-l="Camarotes" class="num">1</td><td data-l="Individuales" class="num">1</td>
+              <td data-l="Máx. pax" class="num"><strong>5</strong></td>
+              <td data-l="Estado"><span class="tag tag-ok">Disponible</span></td>
+            </tr>
+            <tr>
+              <td data-l="" class="u-name"><span class="u-code">C3</span>Siete Colores</td>
+              <td data-l="Dormitorios" class="num">3</td><td data-l="Matrimoniales" class="num">1</td>
+              <td data-l="Camarotes" class="num">2</td><td data-l="Individuales" class="num">1</td>
+              <td data-l="Máx. pax" class="num"><strong>7</strong></td>
+              <td data-l="Estado"><span class="tag tag-ok">Disponible</span></td>
+            </tr>
+            <tr>
+              <td data-l="" class="u-name"><span class="u-code">C4</span>Cisne Cuello Negro</td>
+              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
+              <td data-l="Camarotes" class="num">2</td><td data-l="Individuales" class="num">—</td>
+              <td data-l="Máx. pax" class="num"><strong>6</strong></td>
+              <td data-l="Estado"><span class="tag tag-ok">Disponible</span></td>
+            </tr>
+            <tr>
+              <td data-l="" class="u-name"><span class="u-code">C5</span>Huala</td>
+              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
+              <td data-l="Camarotes" class="num">1</td><td data-l="Individuales" class="num">1</td>
+              <td data-l="Máx. pax" class="num"><strong>5</strong></td>
+              <td data-l="Estado"><span class="tag tag-ok">Disponible</span></td>
+            </tr>
+            <tr>
+              <td data-l="" class="u-name"><span class="u-code">C6</span>Run Run</td>
+              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
+              <td data-l="Camarotes" class="num">1</td><td data-l="Individuales" class="num">1</td>
+              <td data-l="Máx. pax" class="num"><strong>5</strong></td>
+              <td data-l="Estado"><span class="tag tag-ok">Disponible</span></td>
+            </tr>
+            <tr>
+              <td data-l="" class="u-name"><span class="u-code">C7</span>Pitío</td>
+              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
+              <td data-l="Camarotes" class="num">1</td><td data-l="Individuales" class="num">1</td>
+              <td data-l="Máx. pax" class="num"><strong>5</strong></td>
+              <td data-l="Estado"><span class="tag tag-off">No disponible</span></td>
+            </tr>
+            <tr>
+              <td data-l="" class="u-name"><span class="u-code">C8</span>Garza Cuca</td>
+              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
+              <td data-l="Camarotes" class="num">2</td><td data-l="Individuales" class="num">—</td>
+              <td data-l="Máx. pax" class="num"><strong>6</strong></td>
+              <td data-l="Estado"><span class="tag tag-x">Complejo completo</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tbl-note">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 12H9v-2h2v2zm0-3H9V6h2v5z"/></svg>
+        <span>Cada camarote equivale a 2 plazas. Capacidad total del recinto: <strong>44 huéspedes</strong> en las 8 unidades; <strong>33 huéspedes</strong> en las 6 cabañas con venta directa vigente. Pasajero adicional, cuando la cabaña lo permite: $10.000 por noche, informado y pagado antes del arribo.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TARIFAS ══ -->
+<section id="tarifas" style="background:var(--cream)">
+  <div class="shell">
+    <div class="sec-head rv">
+      <p class="kicker">Tarifario 2026 – 2027</p>
+      <h2 class="title">Tarifas públicas<br>por <em>temporada</em>.</h2>
+      <p class="lede">Valores en pesos chilenos, por cabaña y por noche, sobre tarifa pública vigente. Las condiciones comerciales para agencias se acuerdan directamente.</p>
+    </div>
+
+    <div class="temporadas rv">
+      <div class="temp temp--alta">
+        <p class="t-name">Temporada alta</p>
+        <p>Verano, del 18 de diciembre al 15 de marzo, más los fines de semana largos y feriados del año.</p>
+      </div>
+      <div class="temp temp--media">
+        <p class="t-name">Temporada media</p>
+        <p>Viernes y sábados durante todo el año, vacaciones de invierno (15 de junio al 20 de julio) y del 15 de noviembre al 17 de diciembre.</p>
+      </div>
+      <div class="temp temp--baja">
+        <p class="t-name">Temporada baja</p>
+        <p>Domingo a jueves fuera de los períodos anteriores. Es la ventana más conveniente para grupos y viajes de estudio.</p>
+      </div>
+    </div>
+
+    <div class="tbl-wrap rv">
+      <table class="tbl">
+        <thead>
+          <tr><th>Cabaña</th><th>Máx. pax</th><th>Alta</th><th>Media</th><th>Baja</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-l="" class="u-name"><span class="u-code">C1</span>Tagua</td>
+            <td data-l="Máx. pax" class="num">5</td>
+            <td data-l="Alta" class="num">$119.000</td><td data-l="Media" class="num">$99.000</td><td data-l="Baja" class="num">$79.200</td>
+          </tr>
+          <tr>
+            <td data-l="" class="u-name"><span class="u-code">C2</span>Cisne Coscoroba</td>
+            <td data-l="Máx. pax" class="num">5</td>
+            <td data-l="Alta" class="num">$119.000</td><td data-l="Media" class="num">$99.000</td><td data-l="Baja" class="num">$79.200</td>
+          </tr>
+          <tr>
+            <td data-l="" class="u-name"><span class="u-code">C3</span>Siete Colores</td>
+            <td data-l="Máx. pax" class="num">7</td>
+            <td data-l="Alta" class="num">$139.000</td><td data-l="Media" class="num">$119.000</td><td data-l="Baja" class="num">$95.200</td>
+          </tr>
+          <tr>
+            <td data-l="" class="u-name"><span class="u-code">C4</span>Cisne Cuello Negro</td>
+            <td data-l="Máx. pax" class="num">6</td>
+            <td data-l="Alta" class="num">$129.000</td><td data-l="Media" class="num">$109.000</td><td data-l="Baja" class="num">$87.200</td>
+          </tr>
+          <tr>
+            <td data-l="" class="u-name"><span class="u-code">C5</span>Huala</td>
+            <td data-l="Máx. pax" class="num">5</td>
+            <td data-l="Alta" class="num">$119.000</td><td data-l="Media" class="num">$99.000</td><td data-l="Baja" class="num">$79.200</td>
+          </tr>
+          <tr>
+            <td data-l="" class="u-name"><span class="u-code">C6</span>Run Run</td>
+            <td data-l="Máx. pax" class="num">5</td>
+            <td data-l="Alta" class="num">$119.000</td><td data-l="Media" class="num">$99.000</td><td data-l="Baja" class="num">$79.200</td>
+          </tr>
+          <tr>
+            <td data-l="" class="u-name"><span class="u-code">C8</span>Garza Cuca</td>
+            <td data-l="Máx. pax" class="num">6</td>
+            <td data-l="Alta" class="num">Consultar</td><td data-l="Media" class="num">Consultar</td><td data-l="Baja" class="num">Consultar</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tbl-note rv">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 12H9v-2h2v2zm0-3H9V6h2v5z"/></svg>
+      <span>El valor es por cabaña completa, no por persona, e incluye ropa de cama, calefacción, estacionamiento y uso de muelle, quincho y áreas comunes. La cabaña C7 Pitío no se encuentra en venta. C8 Garza Cuca se cotiza dentro del complejo completo.</span>
+    </p>
+
+    <div class="extras-grid rv">
+      <div class="extra"><b>$10.000</b><span>Pasajero adicional, por noche (donde la cabaña lo permita)</span></div>
+      <div class="extra"><b>$8.000</b><span>Segunda mascota por noche. La primera mascota mediana es sin costo</span></div>
+      <div class="extra"><b>$35.000</b><span>Early check-in desde 10:00 o late check-out hasta 17:00, c/u según disponibilidad</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SEGMENTOS ══ -->
+<section class="segs">
+  <div class="shell">
+    <div class="sec-head rv">
+      <p class="kicker">Qué puedes vender</p>
+      <h2 class="title">Un mismo recinto,<br><em>siete productos</em> distintos.</h2>
+      <p class="lede">La combinación de cabañas independientes, muelle propio y áreas comunes permite armar programas muy diferentes con la misma infraestructura.</p>
+    </div>
+
+    <div class="seg-grid">
+      <article class="seg rv">
+        <div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 8.4a4.1 4.1 0 0 1 7 2.7c0 4.8-7 9.4-7 9.4z"/></svg></div>
+        <h3>Escapadas de pareja</h3>
+        <p>Cabañas para 5 personas usadas por dos, terraza privada frente al entorno del lago, spa con masajes y un cielo nocturno sin contaminación lumínica.</p>
+      </article>
+
+      <article class="seg rv">
+        <div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9.5" r="2.2"/><path d="M3 20v-1.5A4.5 4.5 0 0 1 7.5 14h3A4.5 4.5 0 0 1 15 18.5V20"/><path d="M17 14.5c2.2 0 4 1.6 4 3.6V20"/></svg></div>
+        <h3>Familias</h3>
+        <p>Cocina completa, camas para 5 a 7 personas, zona de asado propia y orilla de lago sin cortes de calle. Mascotas bienvenidas: viaja la familia entera.</p>
+      </article>
+
+      <article class="seg rv">
+        <div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5 12 4l10 4.5-10 4.5z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/></svg></div>
+        <h3>Viajes educativos</h3>
+        <p>Delegaciones escolares con alojamiento, quincho techado para charlas y actividades, y un humedal-reserva natural a pasos para trabajo de campo.</p>
+      </article>
+
+      <article class="seg rv">
+        <div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="12" rx="2"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5"/><path d="M3 12.5h18"/></svg></div>
+        <h3>Corporativo y retiros</h3>
+        <p>Complejo completo en exclusiva para jornadas de trabajo, incentivos y retiros: privacidad total, sin otros huéspedes, y todo el recinto a disposición.</p>
+      </article>
+
+      <article class="seg rv">
+        <div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c3-4 6-4 8 0-2 4-5 4-8 0z"/><path d="M10 12l6-3v6z"/><path d="M16 12l5-2M16 12l5 2"/></svg></div>
+        <h3>Pesca y náutica</h3>
+        <p>Muelle y atracadero propios para llegar con embarcación. Pesca deportiva, kayak, SUP y esquí acuático en uno de los lagos más reconocidos de la zona central.</p>
+      </article>
+
+      <article class="seg rv">
+        <div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18.5c0-3.5 2.5-5.5 6-7s5.5-4 7.5-4.5c1 2.5.5 6-3 8.5s-7.5 3-10.5 3z"/><path d="M9 11.5c-1.5-3 0-6 3-7"/><path d="M2 21c4-1.5 8-1.5 12 0"/></svg></div>
+        <h3>Naturaleza y birdwatching</h3>
+        <p>Avistamiento de aves en los humedales y bosques del entorno. Las cabañas llevan el nombre de las especies del lugar: tagua, huala, pitío, cisne coscoroba.</p>
+      </article>
+
+      <article class="seg rv" style="grid-column:1/-1;background:linear-gradient(120deg,var(--navy),var(--navy-mid));border-color:transparent;color:#fff">
+        <div class="seg-ico" style="background:rgba(255,255,255,.12);color:var(--sky)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V11l4.5-3L12 11l4.5-3L21 11v9z"/><path d="M3 20h18"/><path d="M9 20v-4h6v4"/></svg></div>
+        <h3 style="color:#fff;font-size:1.15rem">El complejo completo, en exclusiva</h3>
+        <p style="color:rgba(255,255,255,.78)">Las 8 cabañas, el muelle, el quincho y todas las áreas comunes para un solo grupo: hasta 44 huéspedes sin compartir el recinto con nadie más. Es nuestro producto diferenciador y la mejor herramienta para cerrar grupos grandes, matrimonios íntimos, retiros y celebraciones familiares.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GRUPOS ══ -->
+<section class="grupos" id="grupos">
+  <div class="shell">
+    <div class="grupos-layout">
+      <div class="grupos-copy rv">
+        <p class="kicker kicker--light">Grupos y eventos</p>
+        <h2 class="title title--light">Hasta 44 personas<br>en un <em>solo recinto</em>.</h2>
+        <p>Recibimos delegaciones escolares, actividades corporativas, encuentros familiares y celebraciones. El quincho techado funciona como sala de charlas, comedor colectivo y punto de reunión, y la orilla del lago permite actividades náuticas y recreativas sin salir del recinto.</p>
+        <p>Nuestro equipo acompaña la planificación de todos los detalles: distribución de cabañas, horarios, alimentación coordinada y logística de actividades.</p>
+
+        <div class="grupos-facts">
+          <div class="gfact"><b>44</b><span>Huéspedes máximo</span></div>
+          <div class="gfact"><b>8</b><span>Cabañas en exclusiva</span></div>
+          <div class="gfact"><b>1</b><span>Quincho techado</span></div>
+          <div class="gfact"><b>365</b><span>Días al año</span></div>
+        </div>
+
+        <a class="btn btn-wa" style="margin-top:1.8rem" href="https://wa.me/56954177688?text=Hola%2C%20soy%20de%20una%20agencia%20y%20quiero%20cotizar%20un%20grupo%20en%20Vichuqu%C3%A9n%20Lodge%20y%20Marina." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+          Cotizar un grupo
+        </a>
+      </div>
+
+      <div class="grupos-photos rv">
+        <figure class="gp-span"><img src="assets/img/grupos/g2.jpg" alt="Delegación escolar en actividad grupal en la playa del lodge" loading="lazy" /></figure>
+        <figure class="gp-tall"><img src="assets/img/grupos/g9.jpg" alt="Charla en el quincho techado del lodge" loading="lazy" /></figure>
+        <figure class="gp-tall"><img src="assets/img/grupos/g10.jpg" alt="Grupo reunido bajo el quincho techado" loading="lazy" /></figure>
+        <figure class="gp-wide"><img src="assets/img/grupos/g5.jpg" alt="Actividad de kayaks con un grupo en el Lago Vichuquén" loading="lazy" /></figure>
+        <figure class="gp-wide"><img src="assets/img/grupos/g6.jpg" alt="Grupo navegando en embarcación desde el muelle" loading="lazy" /></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERIENCIAS ══ -->
+<section class="exps">
+  <div class="shell">
+    <div class="sec-head rv">
+      <p class="kicker">El destino</p>
+      <h2 class="title">Qué hace el pasajero<br>cuando <em>llega al lago</em>.</h2>
+      <p class="lede">Argumentos de venta concretos para tu itinerario, dentro y alrededor del recinto.</p>
+    </div>
+
+    <div class="exp-grid rv">
+      <article class="exp"><p class="exp-n">01</p><h3>Deportes náuticos</h3><p>Kayak, stand up paddle, esquí acuático y actividades recreativas en el lago, con acceso directo desde la orilla del recinto.</p></article>
+      <article class="exp"><p class="exp-n">02</p><h3>Pesca deportiva</h3><p>Jornadas de pesca en uno de los lagos más reconocidos de la zona central de Chile.</p></article>
+      <article class="exp"><p class="exp-n">03</p><h3>Navegación</h3><p>Recorridos por el Lago Vichuquén en embarcación propia —tenemos muelle y atracadero— o mediante servicios locales.</p></article>
+      <article class="exp"><p class="exp-n">04</p><h3>Parques y reservas</h3><p>Áreas de conservación, senderos y ecosistemas de humedal a pocos minutos, ideales para programas de naturaleza.</p></article>
+      <article class="exp"><p class="exp-n">05</p><h3>Avistamiento de aves</h3><p>Especies nativas en los humedales y bosques del entorno; el recinto colinda con una reserva natural.</p></article>
+      <article class="exp"><p class="exp-n">06</p><h3>Cielo nocturno</h3><p>Sin contaminación lumínica: la Vía Láctea se ve a simple vista. Uno de los mejores cielos del centro-sur del país.</p></article>
+      <article class="exp"><p class="exp-n">07</p><h3>Spa del Lago</h3><p>Servicio de masajes disponible para huéspedes, coordinable como valor agregado dentro de tu programa.</p></article>
+      <article class="exp"><p class="exp-n">08</p><h3>Pet friendly</h3><p>Las mascotas son bienvenidas: el lago, los senderos y el entorno natural también son su paraíso.</p></article>
+      <article class="exp"><p class="exp-n">09</p><h3>Alrededores del Maule</h3><p>Playas del litoral de Curicó, viñedos y reservas naturales cerca, para combinar el lago con otros atractivos regionales.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ UBICACIÓN ══ -->
+<section class="ubic" id="ubicacion">
+  <div class="shell">
+    <div class="sec-head rv">
+      <p class="kicker">Ubicación y accesos</p>
+      <h2 class="title">Dónde estamos<br>y <em>cómo se llega</em>.</h2>
+    </div>
+
+    <div class="ubic-layout">
+      <div class="rv">
+        <div class="dist-grid" style="margin-top:0">
+          <div class="dist"><b>Lago Vichuquén, Licantén</b><span>Región del Maule, Chile</span></div>
+          <div class="dist"><b>≈ 4 horas desde Santiago</b><span>Por Ruta 5 Sur</span></div>
+          <div class="dist"><b>≈ 80 km desde Curicó</b><span>Camino a Licantén</span></div>
+          <div class="dist"><b>7 km desde Licantén</b><span>Hasta el Lago Vichuquén</span></div>
+        </div>
+
+        <ol class="ruta">
+          <li>Tomar la Ruta 5 Sur desde Santiago hacia el sur.</li>
+          <li>En Curicó, seguir la señalización hacia Licantén (aprox. 80 km).</li>
+          <li>Desde Licantén, continuar hacia el Lago Vichuquén (7 km).</li>
+          <li>Las instrucciones exactas de acceso se envían al confirmar cada reserva.</li>
+        </ol>
+
+        <p class="tbl-note">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 12H9v-2h2v2zm0-3H9V6h2v5z"/></svg>
+          <span>Camino accesible en vehículo particular y en bus de turismo. Estacionamiento dentro del recinto.</span>
+        </p>
+      </div>
+
+      <div class="mapa rv">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2530.1346621635125!2d-72.0735737252528!3d-34.78576656713369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9666a5da9ff6a2c7%3A0xf1f785585efa8426!2sVichuquen%20Lodge%20y%20Marina!5e1!3m2!1ses!2scl!4v1780555432812!5m2!1ses!2scl"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa — Vichuquén Lodge y Marina"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CÓMO OPERAMOS ══ -->
+<section class="proceso" id="operar">
+  <div class="shell">
+    <div class="sec-head rv">
+      <p class="kicker">Trabajar con nosotros</p>
+      <h2 class="title">Tres pasos<br>y <em>queda reservado</em>.</h2>
+    </div>
+
+    <div class="pasos">
+      <article class="paso rv">
+        <div class="p-n">01</div>
+        <h3>Nos consultas disponibilidad</h3>
+        <p>Escríbenos por WhatsApp o correo con fechas, número de pasajeros y perfil del grupo. Respondemos con la disponibilidad real y una propuesta de distribución de cabañas.</p>
+      </article>
+      <article class="paso rv">
+        <div class="p-n">02</div>
+        <h3>Bloqueamos y confirmamos</h3>
+        <p>Cerradas las fechas, las bloqueamos en nuestro sistema con tu agencia identificada como canal de la reserva. La estadía queda trazable y el huésped recibe su confirmación y el correo de pre-llegada de forma automática.</p>
+      </article>
+      <article class="paso rv">
+        <div class="p-n">03</div>
+        <h3>Acordamos condiciones</h3>
+        <p>Comisión, tarifas netas, cupos en bloque y formas de pago se conversan directamente y se ajustan según volumen, temporada y tipo de programa. Cada agencia tiene su realidad: preferimos armar el acuerdo contigo.</p>
+      </article>
+    </div>
+
+    <div class="pol-grid">
+      <div class="pol rv">
+        <h3>Horarios y estadía</h3>
+        <dl>
+          <div class="prow"><dt>Check-in</dt><dd>Desde 15:00 hrs</dd></div>
+          <div class="prow"><dt>Recepción presencial</dt><dd>Hasta 22:00 hrs</dd></div>
+          <div class="prow"><dt>Check-out</dt><dd>Hasta 12:00 hrs</dd></div>
+          <div class="prow"><dt>Llegada después de 22:00</dt><dd>Con 24 hrs de aviso</dd></div>
+          <div class="prow"><dt>Early check-in / late check-out</dt><dd>$35.000 c/u</dd></div>
+        </dl>
+      </div>
+      <div class="pol rv">
+        <h3>Pago y cancelación</h3>
+        <dl>
+          <div class="prow"><dt>Reserva</dt><dd>Abono 50% o pago total</dd></div>
+          <div class="prow"><dt>Medios de pago</dt><dd>Transferencia, tarjeta y MercadoPago</dd></div>
+          <div class="prow"><dt>Hasta 15 días antes</dt><dd>Devolución 100%</dd></div>
+          <div class="prow"><dt>Entre 14 y 6 días antes</dt><dd>Devolución 80%</dd></div>
+          <div class="prow"><dt>5 días o menos</dt><dd>Sin devolución, con derecho a una reprogramación</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <p class="tbl-note rv">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 12H9v-2h2v2zm0-3H9V6h2v5z"/></svg>
+      <span>Se permite 1 mascota mediana por cabaña sin costo; una segunda requiere autorización previa. Toda reprogramación tiene vigencia de 6 meses, por una única vez, sujeta a disponibilidad y reajuste tarifario según temporada. Las condiciones completas se entregan al formalizar cada reserva.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ══ GALERÍA ══ -->
+<section class="galeria" id="galeria">
+  <div class="shell">
+    <div class="sec-head rv">
+      <p class="kicker kicker--light">El lugar</p>
+      <h2 class="title title--light">Vichuquén,<br><em>en imágenes</em>.</h2>
+    </div>
+    <div class="gal-grid rv" id="galGrid">
+      <button class="gal-item is-big" type="button"><img src="assets/img/gal-7.jpg" alt="Living de cabaña con ventanal hacia el lago" loading="lazy" /></button>
+      <button class="gal-item" type="button"><img src="assets/img/about-lugar.jpg" alt="Muelle de madera sobre el Lago Vichuquén" loading="lazy" /></button>
+      <button class="gal-item" type="button"><img src="assets/img/entorno-341.jpg" alt="Reposeras y quitasol en la orilla del lago" loading="lazy" /></button>
+      <button class="gal-item" type="button"><img src="assets/img/gal-2.jpg" alt="Dormitorio con cama matrimonial y ventana al entorno" loading="lazy" /></button>
+      <button class="gal-item" type="button"><img src="assets/img/entorno-37.jpg" alt="Muelle del lodge con las cabañas al fondo" loading="lazy" /></button>
+      <button class="gal-item" type="button"><img src="assets/img/gal-4.jpg" alt="Living y comedor de una cabaña" loading="lazy" /></button>
+      <button class="gal-item" type="button"><img src="assets/img/entorno-5.jpg" alt="Amanecer con niebla sobre el Lago Vichuquén" loading="lazy" /></button>
+      <button class="gal-item" type="button"><img src="assets/img/gal-8.jpg" alt="Cocina equipada de una cabaña" loading="lazy" /></button>
+      <button class="gal-item" type="button"><img src="assets/img/entorno-31.jpg" alt="El complejo completo visto desde el lago" loading="lazy" /></button>
+      <button class="gal-item" type="button"><img src="assets/img/entorno-347.jpg" alt="Sendero interior del recinto junto a la orilla" loading="lazy" /></button>
+      <button class="gal-item" type="button"><img src="assets/img/gal-1.jpg" alt="Terraza de madera de una cabaña" loading="lazy" /></button>
+      <button class="gal-item" type="button"><img src="assets/img/entorno-333.jpg" alt="Muelle y kayak en la orilla del lago" loading="lazy" /></button>
+      <button class="gal-item" type="button"><img src="assets/img/gal-3.jpg" alt="Dormitorio con camarote" loading="lazy" /></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACTO ══ -->
+<section class="contacto" id="contacto">
+  <div class="shell">
+    <div class="cta-card rv">
+      <div class="cta-copy">
+        <p class="kicker kicker--light">Contacto comercial</p>
+        <h2>Conversemos<br><em>las condiciones</em>.</h2>
+        <p>Cuéntanos quién eres y qué tipo de programas armas. Te respondemos con disponibilidad, una propuesta a medida y las condiciones comerciales que correspondan a tu volumen.</p>
+
+        <div class="cta-form">
+          <label for="agencia">Escríbenos directo por WhatsApp</label>
+          <div class="cta-field">
+            <input type="text" id="agencia" name="agencia" placeholder="Nombre de tu agencia" autocomplete="organization" />
+            <button type="button" class="btn btn-wa" id="waSend">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+              Enviar mensaje
+            </button>
+          </div>
+          <p class="cta-hint">Se abre WhatsApp con el mensaje ya redactado. Nada se guarda en esta página.</p>
+        </div>
+      </div>
+
+      <div class="cta-side">
+        <div class="cline">
+          <div class="cline-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg></div>
+          <div><p class="k">WhatsApp</p><a class="v" href="https://wa.me/56954177688" target="_blank" rel="noopener">+56 9 5417 7688</a></div>
+        </div>
+        <div class="cline">
+          <div class="cline-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+          <div><p class="k">Correo</p><a class="v" href="mailto:vichulodge@gmail.com?subject=Agencia%20de%20turismo%20%E2%80%94%20Vichuqu%C3%A9n%20Lodge%20y%20Marina">vichulodge@gmail.com</a></div>
+        </div>
+        <div class="cline">
+          <div class="cline-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.15-3.23 1.66-4.77 4.92-4.92C8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zM12 16a4 4 0 110-8 4 4 0 010 8zm6.41-11.85a1.44 1.44 0 100 2.89 1.44 1.44 0 000-2.89z"/></svg></div>
+          <div><p class="k">Instagram</p><a class="v" href="https://www.instagram.com/vichuquen_lodgeymarina/" target="_blank" rel="noopener">@vichuquen_lodgeymarina</a></div>
+        </div>
+        <div class="cline">
+          <div class="cline-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg></div>
+          <div><p class="k">Sitio web</p><a class="v" href="https://www.vichuquenlodgeymarina.cl" target="_blank" rel="noopener">vichuquenlodgeymarina.cl</a></div>
+        </div>
+
+        <a class="btn btn-ghost" href="assets/vichuquen-lodge-y-marina.vcf" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>
+          Guardar contacto
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="foot">
+  <div class="shell foot-in">
+    <img src="assets/img/logo.png" alt="Vichuquén Lodge y Marina" />
+    <div>
+      <b>Vichuquén Lodge y Marina</b>
+      <p>Lago Vichuquén · Licantén · Región del Maule · Chile</p>
+    </div>
+    <p>
+      Dossier comercial temporada 2026 – 2027.<br>
+      Documento de trabajo para agencias de turismo, no destinado a publicación.
+    </p>
+  </div>
+</footer>
+
+<!-- ══ DOCK MÓVIL ══ -->
+<div class="dock" id="dock">
+  <a class="btn btn-wa" href="https://wa.me/56954177688?text=Hola%2C%20soy%20de%20una%20agencia%20de%20turismo%20y%20quiero%20conocer%20las%20condiciones%20de%20Vichuqu%C3%A9n%20Lodge%20y%20Marina." target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+    WhatsApp
+  </a>
+  <a class="btn btn-ghost" href="#tarifas">Tarifas</a>
+  <a class="btn btn-ghost" href="#contacto">Contacto</a>
+</div>
+
+<!-- ══ LIGHTBOX ══ -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Galería de fotos">
+  <button class="lb-close" id="lbClose" aria-label="Cerrar">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18 9 12l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <img id="lbImg" alt="" />
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ── Reveal al hacer scroll ──────────────────────────────
+  var items = document.querySelectorAll('.rv');
+  function revelarTodo() {
+    items.forEach(function (el) { el.classList.add('on'); });
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0 });
+    items.forEach(function (el) { io.observe(el); });
+    // Red de seguridad: si por lo que sea el observer no dispara
+    // (pestana en segundo plano, navegador raro), nada queda invisible.
+    setTimeout(revelarTodo, 2500);
+  } else {
+    revelarTodo();
+  }
+
+  // ── Barra superior + dock: aparecen tras el hero ────────
+  var topbar = document.getElementById('topbar');
+  var dock   = document.getElementById('dock');
+  function onScroll() {
+    var pasado = window.scrollY > window.innerHeight * 0.75;
+    topbar.classList.toggle('is-on', pasado);
+    dock.classList.toggle('is-on', pasado);
+    document.body.style.setProperty('--dockpad', pasado && window.innerWidth < 900 ? '58px' : '0px');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  // ── WhatsApp con el nombre de la agencia ────────────────
+  var input = document.getElementById('agencia');
+  var send  = document.getElementById('waSend');
+  function abrirWhatsApp() {
+    var agencia = (input.value || '').trim();
+    var msg = agencia
+      ? 'Hola, les escribo de ' + agencia + '. Nos interesa trabajar con Vichuquén Lodge y Marina y queremos conocer disponibilidad y condiciones para agencias.'
+      : 'Hola, soy de una agencia de turismo y quiero conocer las condiciones de Vichuquén Lodge y Marina.';
+    window.open('https://wa.me/56954177688?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+  }
+  if (send)  send.addEventListener('click', abrirWhatsApp);
+  if (input) input.addEventListener('keydown', function (e) { if (e.key === 'Enter') abrirWhatsApp(); });
+
+  // ── Lightbox de la galería ──────────────────────────────
+  var grid  = document.getElementById('galGrid');
+  var lb    = document.getElementById('lb');
+  var lbImg = document.getElementById('lbImg');
+  var fotos = grid ? Array.prototype.slice.call(grid.querySelectorAll('img')) : [];
+  var idx   = 0;
+
+  function mostrar(i) {
+    idx = (i + fotos.length) % fotos.length;
+    lbImg.src = fotos[idx].src;
+    lbImg.alt = fotos[idx].alt;
+  }
+  function abrir(i) { mostrar(i); lb.classList.add('is-on'); document.body.style.overflow = 'hidden'; }
+  function cerrar() { lb.classList.remove('is-on'); document.body.style.overflow = ''; }
+
+  fotos.forEach(function (img, i) {
+    img.parentElement.addEventListener('click', function () { abrir(i); });
+  });
+  document.getElementById('lbClose').addEventListener('click', cerrar);
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); mostrar(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); mostrar(idx + 1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb || e.target === lbImg) cerrar(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('is-on')) return;
+    if (e.key === 'Escape')     cerrar();
+    if (e.key === 'ArrowLeft')  mostrar(idx - 1);
+    if (e.key === 'ArrowRight') mostrar(idx + 1);
+  });
+})();
+</script>
+</body>
+</html>

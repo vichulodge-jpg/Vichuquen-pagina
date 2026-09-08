@@ -13,6 +13,14 @@
     {
       "source": "/admin/",
       "destination": "/admin/index.html"
+    },
+    {
+      "source": "/agencias",
+      "destination": "/agencias.html"
+    },
+    {
+      "source": "/agencias/",
+      "destination": "/agencias.html"
     }
   ],
   "headers": [

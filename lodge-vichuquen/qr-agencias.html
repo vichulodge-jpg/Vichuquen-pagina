@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>QR para imprimir — Dossier de agencias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#273852; --navy-deep:#0D2230; --cream:#F4F1EB;
+    --sand:#E2D5C2; --tan:#A87840; --sky:#9DCCD8; --gray:#5A6B78;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Inter",system-ui,sans-serif;background:#9aa3ab;color:var(--navy-deep)}
+
+  @page{size:A4;margin:0}
+
+  .hoja{
+    width:210mm;height:297mm;background:#fff;margin:0 auto 8mm;
+    padding:12mm 10mm;display:flex;flex-direction:column;
+    page-break-after:always;break-after:page;
+  }
+  .hoja:last-child{page-break-after:auto;break-after:auto}
+
+  /* ── Tarjeta grande, para la mesa o el atril ── */
+  .grande{
+    flex:1;border:1.2pt dashed var(--sand);border-radius:6mm;
+    background:var(--navy-deep);color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:14mm 12mm;gap:0;
+  }
+  .grande .logo{width:34mm;height:auto;margin-bottom:6mm}
+  .grande .eyebrow{
+    font-size:8.5pt;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--sky);font-weight:600;margin-bottom:4mm;
+  }
+  .grande h1{
+    font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;
+    font-size:34pt;line-height:1.02;letter-spacing:-.01em;
+  }
+  .grande h1 em{font-style:italic;color:var(--sky);display:block}
+  .grande .claim{
+    font-size:11pt;color:rgba(255,255,255,.8);margin-top:5mm;
+    max-width:120mm;line-height:1.55;font-weight:300;
+  }
+  .qr-box{
+    background:#fff;border-radius:4mm;padding:5mm;margin-top:9mm;
+    box-shadow:0 2mm 8mm rgba(0,0,0,.28);
+  }
+  .qr-box img{display:block;width:52mm;height:52mm}
+  .grande .cta{
+    font-size:11.5pt;font-weight:600;margin-top:6mm;color:#fff;letter-spacing:.01em;
+  }
+  .grande .url{
+    font-size:9.5pt;color:var(--sky);margin-top:2mm;letter-spacing:.04em;
+  }
+  .grande .datos{
+    margin-top:7mm;padding-top:5mm;border-top:.6pt solid rgba(255,255,255,.22);
+    font-size:9pt;color:rgba(255,255,255,.66);line-height:1.7;width:100%;max-width:120mm;
+  }
+  .grande .datos b{color:#fff;font-weight:600}
+
+  /* ── Tarjetas chicas, para repartir (85 x 55 mm) ── */
+  .rejilla{
+    flex:1;display:grid;grid-template-columns:repeat(2,85mm);
+    grid-auto-rows:55mm;gap:4mm;justify-content:center;align-content:center;
+  }
+  .mini{
+    border:.6pt dashed #b9c1c7;border-radius:2.5mm;overflow:hidden;
+    background:var(--cream);display:grid;grid-template-columns:1fr 33mm;
+  }
+  .mini-txt{padding:5mm 4mm 5mm 5mm;display:flex;flex-direction:column;justify-content:center}
+  .mini .k{
+    font-size:5.6pt;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--tan);font-weight:600;margin-bottom:1.6mm;
+  }
+  .mini h2{
+    font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;
+    font-size:15pt;line-height:1.04;color:var(--navy);
+  }
+  .mini h2 em{font-style:italic;display:block;color:var(--tan)}
+  .mini .sub{font-size:6.6pt;color:var(--gray);margin-top:2mm;line-height:1.5}
+  .mini .pie{font-size:6.4pt;color:var(--navy);margin-top:auto;padding-top:3mm;font-weight:500;line-height:1.55}
+  .mini .pie span{display:block;color:var(--gray);font-weight:400}
+  .mini-qr{
+    background:var(--navy-deep);display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:1.6mm;padding:3mm 2mm;
+  }
+  .mini-qr img{width:25mm;height:25mm;background:#fff;border-radius:1mm;padding:1mm}
+  .mini-qr small{
+    font-size:5.2pt;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--sky);text-align:center;line-height:1.35;
+  }
+
+  .nota{
+    max-width:210mm;margin:0 auto 6mm;padding:5mm 8mm;background:#fff;
+    border-radius:3mm;font-size:9.5pt;color:var(--gray);line-height:1.6;
+  }
+  .nota b{color:var(--navy)}
+  @media print{ .nota{display:none} body{background:#fff} .hoja{margin:0} }
+</style>
+</head>
+<body>
+
+<div class="nota">
+  <b>Para imprimir:</b> Ctrl/Cmd + P → tamaño A4, márgenes «ninguno», activar «gráficos de fondo».
+  La hoja 1 es el cartel para la mesa; la hoja 2 trae 6 tarjetas de 85 × 55 mm para recortar por la línea punteada y repartir.
+  El QR apunta a <b>vichuquenlodgeymarina.cl/agencias</b>.
+</div>
+
+<!-- ══ HOJA 1 — cartel de mesa ══ -->
+<section class="hoja">
+  <div class="grande">
+    <img src="assets/img/logo.png" alt="" class="logo" />
+    <p class="eyebrow">Cabañas y marina · Lago Vichuquén</p>
+    <h1>Vichuquén<em>Lodge y Marina</em></h1>
+    <p class="claim">
+      Ocho cabañas frente al agua, muelle propio y capacidad para 44 huéspedes,
+      a cuatro horas de Santiago.
+    </p>
+
+    <div class="qr-box"><img src="assets/qr-agencias.png" alt="Código QR del dossier para agencias" /></div>
+
+    <p class="cta">Escanea y revisa el dossier para agencias</p>
+    <p class="url">vichuquenlodgeymarina.cl/agencias</p>
+
+    <div class="datos">
+      Inventario completo · tarifario 2026–2027 · capacidad de grupos · políticas<br>
+      <b>WhatsApp +56 9 5417 7688</b> &nbsp;·&nbsp; vichulodge@gmail.com
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOJA 2 — tarjetas para repartir ══ -->
+<section class="hoja">
+  <div class="rejilla">
+
+    <article class="mini">
+      <div class="mini-txt">
+        <p class="k">Lago Vichuquén · Maule</p>
+        <h2>Vichuquén<em>Lodge y Marina</em></h2>
+        <p class="sub">8 cabañas frente al agua · hasta 44 huéspedes · muelle y quincho propios.</p>
+        <p class="pie">WhatsApp +56 9 5417 7688<span>vichuquenlodgeymarina.cl/agencias</span></p>
+      </div>
+      <div class="mini-qr">
+        <img src="assets/qr-agencias.png" alt="" />
+        <small>Dossier para<br>agencias</small>
+      </div>
+    </article>
+
+    <article class="mini">
+      <div class="mini-txt">
+        <p class="k">Lago Vichuquén · Maule</p>
+        <h2>Vichuquén<em>Lodge y Marina</em></h2>
+        <p class="sub">8 cabañas frente al agua · hasta 44 huéspedes · muelle y quincho propios.</p>
+        <p class="pie">WhatsApp +56 9 5417 7688<span>vichuquenlodgeymarina.cl/agencias</span></p>
+      </div>
+      <div class="mini-qr">
+        <img src="assets/qr-agencias.png" alt="" />
+        <small>Dossier para<br>agencias</small>
+      </div>
+    </article>
+
+    <article class="mini">
+      <div class="mini-txt">
+        <p class="k">Lago Vichuquén · Maule</p>
+        <h2>Vichuquén<em>Lodge y Marina</em></h2>
+        <p class="sub">8 cabañas frente al agua · hasta 44 huéspedes · muelle y quincho propios.</p>
+        <p class="pie">WhatsApp +56 9 5417 7688<span>vichuquenlodgeymarina.cl/agencias</span></p>
+      </div>
+      <div class="mini-qr">
+        <img src="assets/qr-agencias.png" alt="" />
+        <small>Dossier para<br>agencias</small>
+      </div>
+    </article>
+
+    <article class="mini">
+      <div class="mini-txt">
+        <p class="k">Lago Vichuquén · Maule</p>
+        <h2>Vichuquén<em>Lodge y Marina</em></h2>
+        <p class="sub">8 cabañas frente al agua · hasta 44 huéspedes · muelle y quincho propios.</p>
+        <p class="pie">WhatsApp +56 9 5417 7688<span>vichuquenlodgeymarina.cl/agencias</span></p>
+      </div>
+      <div class="mini-qr">
+        <img src="assets/qr-agencias.png" alt="" />
+        <small>Dossier para<br>agencias</small>
+      </div>
+    </article>
+
+    <article class="mini">
+      <div class="mini-txt">
+        <p class="k">Lago Vichuquén · Maule</p>
+        <h2>Vichuquén<em>Lodge y Marina</em></h2>
+        <p class="sub">8 cabañas frente al agua · hasta 44 huéspedes · muelle y quincho propios.</p>
+        <p class="pie">WhatsApp +56 9 5417 7688<span>vichuquenlodgeymarina.cl/agencias</span></p>
+      </div>
+      <div class="mini-qr">
+        <img src="assets/qr-agencias.png" alt="" />
+        <small>Dossier para<br>agencias</small>
+      </div>
+    </article>
+
+    <article class="mini">
+      <div class="mini-txt">
+        <p class="k">Lago Vichuquén · Maule</p>
+        <h2>Vichuquén<em>Lodge y Marina</em></h2>
+        <p class="sub">8 cabañas frente al agua · hasta 44 huéspedes · muelle y quincho propios.</p>
+        <p class="pie">WhatsApp +56 9 5417 7688<span>vichuquenlodgeymarina.cl/agencias</span></p>
+      </div>
+      <div class="mini-qr">
+        <img src="assets/qr-agencias.png" alt="" />
+        <small>Dossier para<br>agencias</small>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+</body>
+</html>
