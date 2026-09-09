@@ -136,6 +136,10 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
 .hero{position:relative;min-height:clamp(560px,92svh,860px);display:flex;flex-direction:column;color:#fff;overflow:hidden}
 .hero-media{position:absolute;inset:0;z-index:0}
 .hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+/* El video se encuadra igual que la foto y queda debajo del degradado (::after). */
+.hero-video{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 60%;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.hero-video{display:none}}
 .hero-media::after{
   content:"";position:absolute;inset:0;
   background:
@@ -521,7 +525,8 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 
 @media print{
-  .topbar,.dock,.lb,.hero-actions{display:none!important}
+  /* En papel el video no aporta: se imprime hero.jpg, que está debajo. */
+  .topbar,.dock,.lb,.hero-actions,.hero-video{display:none!important}
   body{background:#fff}
   section{padding-block:1.5rem;break-inside:avoid}
 }
@@ -553,6 +558,13 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
 <section class="hero">
   <div class="hero-media">
     <img src="assets/img/hero.jpg" alt="Vista del complejo Vichuquén Lodge y Marina desde el Lago Vichuquén" fetchpriority="high" />
+    <!-- Vista aérea del recinto, sobre la foto. Si el video no carga, el visitante
+         pidió menos movimiento o la página se imprime, queda hero.jpg. -->
+    <video class="hero-video" poster="assets/img/hero-poster.jpg"
+           autoplay muted loop playsinline preload="metadata"
+           aria-hidden="true" tabindex="-1">
+      <source src="assets/video/hero-lago.mp4" type="video/mp4" />
+    </video>
   </div>
 
   <div class="hero-inner">
@@ -1064,6 +1076,22 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
 <script>
 (function () {
   'use strict';
+
+  // ── Video del hero ──────────────────────────────────────
+  // Con ahorro de datos o conexión lenta no se descarga: basta hero.jpg.
+  var heroVideo = document.querySelector('.hero-video');
+  if (heroVideo) {
+    var con = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (con && (con.saveData ||
+                con.effectiveType === 'slow-2g' || con.effectiveType === '2g')) {
+      heroVideo.remove();
+    } else {
+      // Autoplay puede fallar (política del navegador, batería baja): no es un
+      // error, simplemente queda la foto de fondo.
+      var intento = heroVideo.play();
+      if (intento && intento.catch) intento.catch(function () {});
+    }
+  }
 
   // ── Reveal al hacer scroll ──────────────────────────────
   var items = document.querySelectorAll('.rv');
