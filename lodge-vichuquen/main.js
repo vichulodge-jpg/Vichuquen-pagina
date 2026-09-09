@@ -88,9 +88,28 @@
     if (img.complete) hero.classList.add("is-loaded");
     else img.addEventListener("load", function () { hero.classList.add("is-loaded"); });
 
+    var video = qs(".hero-video");
+    var capas = video ? [img, video] : [img];
+
+    if (video) {
+      // Con ahorro de datos o conexión lenta no se descarga el video: basta la foto.
+      var con = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (con && (con.saveData ||
+                  con.effectiveType === "slow-2g" || con.effectiveType === "2g")) {
+        video.remove();
+        video = null;
+        capas = [img];
+      } else {
+        // Autoplay puede fallar (política del navegador, batería baja): no es un
+        // error, simplemente queda hero.jpg de fondo.
+        var intento = video.play();
+        if (intento && intento.catch) intento.catch(function () {});
+      }
+    }
+
     if (window.gsap && window.ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
-      gsap.to(img, {
+      gsap.to(capas, {
         yPercent: 20, ease: "none",
         scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true }
       });

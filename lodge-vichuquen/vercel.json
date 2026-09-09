@@ -77,6 +77,15 @@
           "value": "public, max-age=2592000, immutable"
         }
       ]
+    },
+    {
+      "source": "/:path*.mp4",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000, immutable"
+        }
+      ]
     }
   ],
   "functions": {

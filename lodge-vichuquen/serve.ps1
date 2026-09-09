@@ -18,6 +18,7 @@ $mimeTypes = @{
   ".svg"  = "image/svg+xml"
   ".ico"  = "image/x-icon"
   ".json" = "application/json"
+  ".mp4"  = "video/mp4"
   ".woff2"= "font/woff2"
   ".woff" = "font/woff"
   ".pdf"  = "application/pdf"

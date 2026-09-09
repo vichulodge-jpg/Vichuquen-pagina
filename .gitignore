@@ -9,3 +9,6 @@ Vuelos en el recinto/
 *.mov
 *.MOV
 *.docx
+
+# Excepcion: el video del hero si forma parte del sitio y tiene que llegar a Vercel.
+!lodge-vichuquen/assets/video/*.mp4
