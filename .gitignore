@@ -1,2 +1,11 @@
 # Configuracion local de previsualizacion (depende de esta maquina)
 .claude/
+
+# Material de trabajo pesado que vive en la raiz y no forma parte del sitio.
+# Sin esto, un "git add -A" intenta subir cientos de MB de video.
+Vuelos en el recinto/
+*.mp4
+*.MP4
+*.mov
+*.MOV
+*.docx

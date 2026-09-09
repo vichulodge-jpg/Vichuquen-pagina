@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Vichuquén Lodge y Marina — Dossier para agencias de turismo</title>
-  <meta name="description" content="Ficha comercial de Vichuquén Lodge y Marina: 8 cabañas frente al Lago Vichuquén, hasta 44 huéspedes, muelle propio y quincho. Inventario, tarifario 2026–2027 y condiciones para agencias." />
+  <meta name="description" content="Ficha comercial de Vichuquén Lodge y Marina: 8 cabañas frente al Lago Vichuquén, hasta 51 huéspedes, muelle y quincho propios. Capacidad de grupos, experiencias y condiciones para agencias." />
 
   <!-- Página privada: material de trabajo para agencias. No indexar. -->
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
@@ -14,7 +14,7 @@
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://www.vichuquenlodgeymarina.cl/agencias" />
   <meta property="og:title"       content="Vichuquén Lodge y Marina — Dossier para agencias" />
-  <meta property="og:description" content="8 cabañas frente al Lago Vichuquén, hasta 44 huéspedes, muelle y quincho propios. Inventario, tarifario y condiciones comerciales." />
+  <meta property="og:description" content="8 cabañas frente al Lago Vichuquén, hasta 51 huéspedes, muelle y quincho propios. Capacidad de grupos y condiciones comerciales para agencias." />
   <meta property="og:image"       content="https://www.vichuquenlodgeymarina.cl/assets/img/hero.jpg" />
   <meta property="og:locale"      content="es_CL" />
   <meta name="twitter:card"       content="summary_large_image" />
@@ -76,8 +76,9 @@ table{border-collapse:collapse;width:100%}
 /* Los items de grid tienen min-width:auto por defecto y pueden desbordar
    la pantalla en movil. Aqui nunca queremos ese comportamiento. */
 .ubic-layout>*,.ficha-layout>*,.grupos-layout>*,.cta-card>*,
-.snap-grid>*,.reason-grid>*,.unit-grid>*,.seg-grid>*,.exp-grid>*,
-.pasos>*,.pol-grid>*,.temporadas>*,.extras-grid>*,.dist-grid>*{min-width:0}
+.snap-grid>*,.reason-grid>*,.seg-grid>*,.exp-grid>*,
+.pasos>*,.pol-grid>*,.dist-grid>*,.estrategica>*,
+.alianzas-layout>*,.alianzas-lista>*{min-width:0}
 
 /* ── Tipografía de sección ───────────────────────────────── */
 .kicker{
@@ -279,116 +280,11 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
 .aviso li{font-size:.865rem;color:rgba(255,255,255,.8);padding-left:1rem;position:relative;line-height:1.55}
 .aviso li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--tan-lt)}
 
-/* ── Tablas responsivas ──────────────────────────────────── */
-.tbl-wrap{
-  border:1px solid var(--line);border-radius:var(--radius);
-  overflow:hidden;background:#fff;
-  /* position:relative hace que el <thead> oculto en movil quede contenido
-     aqui dentro; sin esto se escapa del overflow y ensancha la pagina. */
-  position:relative;
-}
-.tbl{font-size:.88rem}
-.tbl thead th{
-  background:var(--navy);color:#fff;text-align:left;font-weight:600;
-  font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;
-  padding:.85rem 1rem;white-space:nowrap;
-}
-.tbl tbody td{padding:.85rem 1rem;border-bottom:1px solid var(--line);vertical-align:top}
-.tbl tbody tr:last-child td{border-bottom:none}
-.tbl tbody tr:nth-child(even){background:var(--cream-2)}
-.tbl .u-name{font-weight:600;color:var(--navy);white-space:nowrap}
-.tbl .u-code{
-  display:inline-block;font-size:.62rem;letter-spacing:.1em;color:var(--tan);
-  font-weight:600;margin-right:.45rem;
-}
-.tbl .num{font-variant-numeric:tabular-nums;white-space:nowrap}
-.tag{
-  display:inline-block;font-size:.63rem;font-weight:600;letter-spacing:.07em;
-  text-transform:uppercase;padding:.22rem .55rem;border-radius:999px;white-space:nowrap;
-}
-.tag-ok{background:rgba(90,171,184,.16);color:#2C6C77}
-.tag-off{background:rgba(90,107,120,.14);color:var(--gray)}
-.tag-x{background:rgba(168,120,64,.16);color:#8A5F2C}
-
-@media(max-width:760px){
-  .tbl thead{
-    /* Oculto visualmente pero legible por lectores de pantalla.
-       display:block es necesario: un thead en modo tabla ignora overflow
-       y su fila se sale ensanchando la pagina completa. */
-    position:absolute;width:1px;height:1px;padding:0;margin:-1px;border:0;
-    display:block;overflow:hidden;clip-path:inset(50%);white-space:nowrap;
-  }
-  .tbl tbody tr{display:block;border-bottom:1px solid var(--line);padding:.4rem 0}
-  .tbl tbody tr:last-child{border-bottom:none}
-  .tbl tbody td{
-    display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
-    border:none;padding:.42rem 1rem;text-align:right;
-  }
-  .tbl tbody td::before{
-    content:attr(data-l);text-align:left;flex-shrink:0;
-    font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--gray);font-weight:600;padding-top:.15rem;
-  }
-  .tbl tbody td[data-l=""]{display:block;text-align:left}
-  .tbl tbody td[data-l=""]::before{display:none}
-  .tbl .u-name{white-space:normal;font-size:1rem;padding-top:.6rem}
-}
-
 .tbl-note{
   font-size:.79rem;color:var(--gray);margin-top:1rem;line-height:1.6;
   display:flex;gap:.55rem;align-items:flex-start;
 }
 .tbl-note svg{width:14px;height:14px;flex-shrink:0;margin-top:.32rem;color:var(--tan)}
-
-/* ── Temporadas ──────────────────────────────────────────── */
-.temporadas{display:grid;gap:1rem;margin-bottom:1.8rem}
-@media(min-width:760px){.temporadas{grid-template-columns:repeat(3,1fr)}}
-.temp{
-  border:1px solid var(--line);border-radius:var(--radius);
-  padding:1.3rem 1.3rem;background:#fff;border-top:3px solid var(--sand);
-}
-.temp--alta{border-top-color:var(--tan)}
-.temp--media{border-top-color:var(--blue)}
-.temp--baja{border-top-color:var(--sky)}
-.temp .t-name{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--navy);margin-bottom:.6rem}
-.temp p{font-size:.855rem;color:var(--gray);line-height:1.58}
-
-/* ── Extras ──────────────────────────────────────────────── */
-.extras-grid{display:grid;gap:.85rem;margin-top:1.6rem}
-@media(min-width:620px){.extras-grid{grid-template-columns:repeat(3,1fr)}}
-.extra{
-  background:var(--cream-2);border:1px solid var(--line);border-radius:12px;
-  padding:1.05rem 1.1rem;
-}
-.extra b{display:block;font-family:"Cormorant Garamond",serif;font-size:1.5rem;color:var(--navy);line-height:1.1}
-.extra span{display:block;font-size:.78rem;color:var(--gray);margin-top:.25rem}
-
-/* ── Inventario visual de cabañas ────────────────────────── */
-.units{background:var(--cream-2)}
-.unit-grid{display:grid;gap:1.2rem;margin-bottom:2.6rem}
-@media(min-width:640px){.unit-grid{grid-template-columns:1fr 1fr}}
-@media(min-width:1000px){.unit-grid{grid-template-columns:repeat(3,1fr)}}
-.unit{
-  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-  overflow:hidden;display:flex;flex-direction:column;
-  transition:transform .4s var(--ease),box-shadow .4s var(--ease);
-}
-.unit:hover{transform:translateY(-4px);box-shadow:0 18px 48px -24px rgba(13,34,48,.42)}
-.unit-photo{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--sand)}
-.unit-photo img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-.unit:hover .unit-photo img{transform:scale(1.05)}
-.unit-cap{
-  position:absolute;right:.7rem;bottom:.7rem;
-  background:rgba(13,34,48,.86);color:#fff;font-size:.7rem;font-weight:600;
-  padding:.32rem .68rem;border-radius:999px;backdrop-filter:blur(4px);
-}
-.unit-body{padding:1.15rem 1.25rem 1.35rem;display:flex;flex-direction:column;flex:1}
-.unit-code{font-size:.62rem;letter-spacing:.16em;color:var(--tan);font-weight:600}
-.unit-body h3{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:1.42rem;margin:.15rem 0 .7rem;color:var(--navy)}
-.unit-beds{font-size:.83rem;color:var(--gray);line-height:1.55;flex:1}
-.unit-foot{display:flex;align-items:center;justify-content:space-between;gap:.8rem;margin-top:1rem;padding-top:.85rem;border-top:1px solid var(--line)}
-.unit-price{font-size:.8rem;color:var(--gray)}
-.unit-price b{font-family:"Cormorant Garamond",serif;font-size:1.22rem;color:var(--navy);font-weight:500}
 
 /* ── Segmentos ───────────────────────────────────────────── */
 .segs{background:#fff}
@@ -435,6 +331,38 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
 .exp h3{margin-bottom:.4rem}
 .exp p{font-size:.855rem;color:var(--gray)}
 
+/* ── Ubicación estratégica ────────────────────── */
+.estrategica{
+  display:grid;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  margin-bottom:clamp(1.8rem,4vw,2.6rem);
+}
+@media(min-width:560px){.estrategica{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.estrategica{grid-template-columns:repeat(4,1fr)}}
+.estr{background:#fff;padding:1.4rem 1.3rem}
+.estr b{
+  display:block;font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;
+  font-size:clamp(1.9rem,3.6vw,2.5rem);line-height:1;color:var(--tan);
+}
+.estr .q{display:block;font-size:.9rem;font-weight:600;color:var(--navy);margin-top:.55rem}
+.estr .d{display:block;font-size:.79rem;color:var(--gray);margin-top:.2rem;line-height:1.45}
+
+/* ── Turismo asociativo ──────────────────────── */
+.alianzas{background:var(--cream)}
+.alianzas-layout{display:grid;gap:clamp(1.8rem,4vw,3.2rem);align-items:center}
+@media(min-width:940px){.alianzas-layout{grid-template-columns:1.05fr .95fr}}
+.alianzas-layout .lede+.lede{margin-top:.9rem}
+.alianzas-lista{display:grid;gap:.7rem}
+@media(min-width:560px){.alianzas-lista{grid-template-columns:1fr 1fr}}
+.alianza{
+  display:flex;align-items:center;gap:.7rem;
+  background:#fff;border:1px solid var(--line);border-radius:999px;
+  padding:.8rem 1.2rem;font-size:.88rem;font-weight:500;color:var(--navy);
+  transition:border-color .3s,transform .3s var(--ease);
+}
+.alianza:hover{border-color:var(--sand);transform:translateY(-2px)}
+.alianza svg{width:17px;height:17px;color:var(--tan);flex-shrink:0}
+
 /* ── Ubicación ───────────────────────────────────────────── */
 .ubic{background:#fff}
 .ubic-layout{display:grid;gap:clamp(1.8rem,4vw,3rem)}
@@ -479,7 +407,7 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
 .paso h3{margin-bottom:.5rem}
 .paso p{font-size:.875rem;color:var(--gray)}
 .pol-grid{display:grid;gap:1.1rem}
-@media(min-width:820px){.pol-grid{grid-template-columns:1fr 1fr}}
+/* Una sola ficha: ocupa el ancho completo en vez de dejar media columna vacia. */
 .pol{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem 1.5rem}
 .pol h3{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tan);margin-bottom:1rem}
 .pol dl{display:grid;gap:.65rem}
@@ -609,8 +537,7 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
     <span>Vichuquén Lodge y Marina</span>
   </a>
   <nav class="topbar-nav">
-    <a href="#inventario">Inventario</a>
-    <a href="#tarifas">Tarifas</a>
+    <a href="#ficha">El recinto</a>
     <a href="#grupos">Grupos</a>
     <a href="#ubicacion">Ubicación</a>
     <a href="#operar">Cómo operamos</a>
@@ -638,7 +565,7 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
       <p class="hero-eyebrow">Dossier comercial · Temporada 2026 – 2027</p>
       <h1>Vichuquén<br><em>Lodge y Marina</em></h1>
       <p class="hero-sub">
-        Ocho cabañas frente al agua, muelle propio y capacidad para 44 huéspedes,
+        Ocho cabañas frente al agua, muelle propio y capacidad para 51 huéspedes,
         a cuatro horas de Santiago. Un producto de naturaleza listo para vender todo el año.
       </p>
       <div class="hero-actions">
@@ -646,7 +573,7 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
           Hablar con el lodge
         </a>
-        <a class="btn btn-ghost" href="#inventario">Ver inventario y tarifas</a>
+        <a class="btn btn-ghost" href="#ficha">Conocer el recinto</a>
       </div>
     </div>
   </div>
@@ -654,8 +581,8 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
   <div class="hero-stats">
     <div class="hero-stats-grid">
       <div class="hstat"><b>8</b><span>Cabañas equipadas</span></div>
-      <div class="hstat"><b>44</b><span>Huéspedes máx.</span></div>
-      <div class="hstat"><b>4 h</b><span>Desde Santiago</span></div>
+      <div class="hstat"><b>51</b><span>Huéspedes máx.</span></div>
+      <div class="hstat"><b>3:30 h</b><span>Desde Santiago</span></div>
       <div class="hstat"><b>9.2</b><span>Booking.com</span></div>
     </div>
   </div>
@@ -671,7 +598,7 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
       </div>
       <div class="snap-cell">
         <p class="k">Dónde</p>
-        <p><strong>Lago Vichuquén, comuna de Licantén</strong>, Región del Maule. A unas 4 horas de Santiago por Ruta 5 Sur, colindante con un humedal declarado Reserva Natural.</p>
+        <p><strong>Lago Vichuquén, comuna de Licantén</strong>, Región del Maule. A 3 horas y media de Santiago por Ruta 5 Sur, colindante con un humedal declarado Reserva Natural.</p>
       </div>
       <div class="snap-cell">
         <p class="k">Para quién</p>
@@ -703,7 +630,7 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
       <article class="reason rv">
         <div class="num">02</div>
         <h3>Capacidad real de grupo</h3>
-        <p>Hasta 44 huéspedes, quincho techado con espacio para charlas y comidas colectivas, y experiencia comprobada recibiendo delegaciones escolares y corporativas.</p>
+        <p>Hasta 51 huéspedes, quincho techado con espacio para charlas y comidas colectivas, y experiencia comprobada recibiendo delegaciones escolares y corporativas.</p>
       </article>
       <article class="reason rv">
         <div class="num">03</div>
@@ -741,7 +668,7 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
       <div class="rv">
         <dl class="spec-list">
           <div class="spec-row"><dt>Unidades</dt><dd>8 cabañas independientes de madera</dd></div>
-          <div class="spec-row"><dt>Capacidad total</dt><dd>44 huéspedes</dd></div>
+          <div class="spec-row"><dt>Capacidad total</dt><dd>51 huéspedes</dd></div>
           <div class="spec-row"><dt>Ubicación</dt><dd>Lago Vichuquén, Licantén · Maule</dd></div>
           <div class="spec-row"><dt>Frente al lago</dt><dd>Acceso directo, playa y orilla propias</dd></div>
           <div class="spec-row"><dt>Muelle y atracadero</dt><dd>Sí, de uso para huéspedes</dd></div>
@@ -780,280 +707,6 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
           </ul>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ INVENTARIO ══ -->
-<section class="units" id="inventario">
-  <div class="shell">
-    <div class="sec-head rv">
-      <p class="kicker">Inventario</p>
-      <h2 class="title">Ocho cabañas,<br>cada una con <em>nombre de ave</em>.</h2>
-      <p class="lede">Cada cabaña lleva el nombre de una de las especies que habitan la reserva natural vecina. Todas son independientes, con terraza propia y vista al entorno del lago.</p>
-    </div>
-
-    <div class="unit-grid">
-      <article class="unit rv">
-        <div class="unit-photo">
-          <img src="assets/img/c1-tagua-1.jpg" alt="Cabaña Tagua" loading="lazy" />
-          <span class="unit-cap">5 huéspedes</span>
-        </div>
-        <div class="unit-body">
-          <p class="unit-code">C1</p>
-          <h3>Tagua</h3>
-          <p class="unit-beds">2 dormitorios · 1 cama matrimonial, 1 camarote doble y 1 cama individual. Cocina, comedor, living, baño privado y terraza con zona de asado.</p>
-          <div class="unit-foot"><span class="unit-price">Desde <b>$79.200</b></span><span class="tag tag-ok">Disponible</span></div>
-        </div>
-      </article>
-
-      <article class="unit rv">
-        <div class="unit-photo">
-          <img src="assets/img/c2-cisne-coscoroba-1.jpg" alt="Cabaña Cisne Coscoroba" loading="lazy" />
-          <span class="unit-cap">5 huéspedes</span>
-        </div>
-        <div class="unit-body">
-          <p class="unit-code">C2</p>
-          <h3>Cisne Coscoroba</h3>
-          <p class="unit-beds">2 dormitorios · 1 cama matrimonial, 1 camarote doble y 1 cama individual. Cocina, comedor, living, baño privado y terraza con zona de asado.</p>
-          <div class="unit-foot"><span class="unit-price">Desde <b>$79.200</b></span><span class="tag tag-ok">Disponible</span></div>
-        </div>
-      </article>
-
-      <article class="unit rv">
-        <div class="unit-photo">
-          <img src="assets/img/c3-siete-colores-1.jpg" alt="Cabaña Siete Colores" loading="lazy" />
-          <span class="unit-cap">7 huéspedes</span>
-        </div>
-        <div class="unit-body">
-          <p class="unit-code">C3</p>
-          <h3>Siete Colores</h3>
-          <p class="unit-beds">3 dormitorios · 1 cama matrimonial, 2 camarotes dobles y 1 cama individual. La unidad de mayor capacidad del complejo.</p>
-          <div class="unit-foot"><span class="unit-price">Desde <b>$95.200</b></span><span class="tag tag-ok">Disponible</span></div>
-        </div>
-      </article>
-
-      <article class="unit rv">
-        <div class="unit-photo">
-          <img src="assets/img/c4-cisne-cuello-negro-1.jpg" alt="Cabaña Cisne Cuello Negro" loading="lazy" />
-          <span class="unit-cap">6 huéspedes</span>
-        </div>
-        <div class="unit-body">
-          <p class="unit-code">C4</p>
-          <h3>Cisne Cuello Negro</h3>
-          <p class="unit-beds">2 dormitorios · 1 cama matrimonial y 2 camarotes dobles. Buena opción para familias grandes o dos grupos de amigos.</p>
-          <div class="unit-foot"><span class="unit-price">Desde <b>$87.200</b></span><span class="tag tag-ok">Disponible</span></div>
-        </div>
-      </article>
-
-      <article class="unit rv">
-        <div class="unit-photo">
-          <img src="assets/img/c5-huala-1.jpg" alt="Cabaña Huala" loading="lazy" />
-          <span class="unit-cap">5 huéspedes</span>
-        </div>
-        <div class="unit-body">
-          <p class="unit-code">C5</p>
-          <h3>Huala</h3>
-          <p class="unit-beds">2 dormitorios · 1 cama matrimonial, 1 camarote doble y 1 cama individual. Cocina, comedor, living, baño privado y terraza con zona de asado.</p>
-          <div class="unit-foot"><span class="unit-price">Desde <b>$79.200</b></span><span class="tag tag-ok">Disponible</span></div>
-        </div>
-      </article>
-
-      <article class="unit rv">
-        <div class="unit-photo">
-          <img src="assets/img/c6-run-run-1.jpg" alt="Cabaña Run Run" loading="lazy" />
-          <span class="unit-cap">5 huéspedes</span>
-        </div>
-        <div class="unit-body">
-          <p class="unit-code">C6</p>
-          <h3>Run Run</h3>
-          <p class="unit-beds">2 dormitorios · 1 cama matrimonial, 1 camarote doble y 1 cama individual. Cocina, comedor, living, baño privado y terraza con zona de asado.</p>
-          <div class="unit-foot"><span class="unit-price">Desde <b>$79.200</b></span><span class="tag tag-ok">Disponible</span></div>
-        </div>
-      </article>
-
-      <article class="unit rv">
-        <div class="unit-photo">
-          <img src="assets/img/c7-pitio-1.jpg" alt="Cabaña Pitío" loading="lazy" />
-          <span class="unit-cap">5 huéspedes</span>
-        </div>
-        <div class="unit-body">
-          <p class="unit-code">C7</p>
-          <h3>Pitío</h3>
-          <p class="unit-beds">2 dormitorios · 1 cama matrimonial, 1 camarote doble y 1 cama individual. Actualmente fuera de venta; consulta por su reapertura.</p>
-          <div class="unit-foot"><span class="unit-price">Consultar</span><span class="tag tag-off">No disponible</span></div>
-        </div>
-      </article>
-
-      <article class="unit rv">
-        <div class="unit-photo">
-          <img src="assets/img/c8-garza-cuca-1.jpg" alt="Cabaña Garza Cuca" loading="lazy" />
-          <span class="unit-cap">6 huéspedes</span>
-        </div>
-        <div class="unit-body">
-          <p class="unit-code">C8</p>
-          <h3>Garza Cuca</h3>
-          <p class="unit-beds">2 dormitorios · 1 cama matrimonial y camarotes. Se comercializa únicamente dentro del <strong>complejo completo</strong>: ideal para grupos grandes, retiros o eventos privados.</p>
-          <div class="unit-foot"><span class="unit-price">Consultar</span><span class="tag tag-x">Complejo completo</span></div>
-        </div>
-      </article>
-    </div>
-
-    <!-- Tabla de distribución (rooming) -->
-    <div class="rv">
-      <h3 style="margin-bottom:1rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tan)">Distribución de camas y capacidad</h3>
-      <div class="tbl-wrap">
-        <table class="tbl">
-          <thead>
-            <tr>
-              <th>Cabaña</th><th>Dorm.</th><th>Matrim.</th><th>Camarotes</th><th>Individ.</th><th>Máx. pax</th><th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td data-l="" class="u-name"><span class="u-code">C1</span>Tagua</td>
-              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
-              <td data-l="Camarotes" class="num">1</td><td data-l="Individuales" class="num">1</td>
-              <td data-l="Máx. pax" class="num"><strong>5</strong></td>
-              <td data-l="Estado"><span class="tag tag-ok">Disponible</span></td>
-            </tr>
-            <tr>
-              <td data-l="" class="u-name"><span class="u-code">C2</span>Cisne Coscoroba</td>
-              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
-              <td data-l="Camarotes" class="num">1</td><td data-l="Individuales" class="num">1</td>
-              <td data-l="Máx. pax" class="num"><strong>5</strong></td>
-              <td data-l="Estado"><span class="tag tag-ok">Disponible</span></td>
-            </tr>
-            <tr>
-              <td data-l="" class="u-name"><span class="u-code">C3</span>Siete Colores</td>
-              <td data-l="Dormitorios" class="num">3</td><td data-l="Matrimoniales" class="num">1</td>
-              <td data-l="Camarotes" class="num">2</td><td data-l="Individuales" class="num">1</td>
-              <td data-l="Máx. pax" class="num"><strong>7</strong></td>
-              <td data-l="Estado"><span class="tag tag-ok">Disponible</span></td>
-            </tr>
-            <tr>
-              <td data-l="" class="u-name"><span class="u-code">C4</span>Cisne Cuello Negro</td>
-              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
-              <td data-l="Camarotes" class="num">2</td><td data-l="Individuales" class="num">—</td>
-              <td data-l="Máx. pax" class="num"><strong>6</strong></td>
-              <td data-l="Estado"><span class="tag tag-ok">Disponible</span></td>
-            </tr>
-            <tr>
-              <td data-l="" class="u-name"><span class="u-code">C5</span>Huala</td>
-              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
-              <td data-l="Camarotes" class="num">1</td><td data-l="Individuales" class="num">1</td>
-              <td data-l="Máx. pax" class="num"><strong>5</strong></td>
-              <td data-l="Estado"><span class="tag tag-ok">Disponible</span></td>
-            </tr>
-            <tr>
-              <td data-l="" class="u-name"><span class="u-code">C6</span>Run Run</td>
-              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
-              <td data-l="Camarotes" class="num">1</td><td data-l="Individuales" class="num">1</td>
-              <td data-l="Máx. pax" class="num"><strong>5</strong></td>
-              <td data-l="Estado"><span class="tag tag-ok">Disponible</span></td>
-            </tr>
-            <tr>
-              <td data-l="" class="u-name"><span class="u-code">C7</span>Pitío</td>
-              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
-              <td data-l="Camarotes" class="num">1</td><td data-l="Individuales" class="num">1</td>
-              <td data-l="Máx. pax" class="num"><strong>5</strong></td>
-              <td data-l="Estado"><span class="tag tag-off">No disponible</span></td>
-            </tr>
-            <tr>
-              <td data-l="" class="u-name"><span class="u-code">C8</span>Garza Cuca</td>
-              <td data-l="Dormitorios" class="num">2</td><td data-l="Matrimoniales" class="num">1</td>
-              <td data-l="Camarotes" class="num">2</td><td data-l="Individuales" class="num">—</td>
-              <td data-l="Máx. pax" class="num"><strong>6</strong></td>
-              <td data-l="Estado"><span class="tag tag-x">Complejo completo</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="tbl-note">
-        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 12H9v-2h2v2zm0-3H9V6h2v5z"/></svg>
-        <span>Cada camarote equivale a 2 plazas. Capacidad total del recinto: <strong>44 huéspedes</strong> en las 8 unidades; <strong>33 huéspedes</strong> en las 6 cabañas con venta directa vigente. Pasajero adicional, cuando la cabaña lo permite: $10.000 por noche, informado y pagado antes del arribo.</span>
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ══ TARIFAS ══ -->
-<section id="tarifas" style="background:var(--cream)">
-  <div class="shell">
-    <div class="sec-head rv">
-      <p class="kicker">Tarifario 2026 – 2027</p>
-      <h2 class="title">Tarifas públicas<br>por <em>temporada</em>.</h2>
-      <p class="lede">Valores en pesos chilenos, por cabaña y por noche, sobre tarifa pública vigente. Las condiciones comerciales para agencias se acuerdan directamente.</p>
-    </div>
-
-    <div class="temporadas rv">
-      <div class="temp temp--alta">
-        <p class="t-name">Temporada alta</p>
-        <p>Verano, del 18 de diciembre al 15 de marzo, más los fines de semana largos y feriados del año.</p>
-      </div>
-      <div class="temp temp--media">
-        <p class="t-name">Temporada media</p>
-        <p>Viernes y sábados durante todo el año, vacaciones de invierno (15 de junio al 20 de julio) y del 15 de noviembre al 17 de diciembre.</p>
-      </div>
-      <div class="temp temp--baja">
-        <p class="t-name">Temporada baja</p>
-        <p>Domingo a jueves fuera de los períodos anteriores. Es la ventana más conveniente para grupos y viajes de estudio.</p>
-      </div>
-    </div>
-
-    <div class="tbl-wrap rv">
-      <table class="tbl">
-        <thead>
-          <tr><th>Cabaña</th><th>Máx. pax</th><th>Alta</th><th>Media</th><th>Baja</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-l="" class="u-name"><span class="u-code">C1</span>Tagua</td>
-            <td data-l="Máx. pax" class="num">5</td>
-            <td data-l="Alta" class="num">$119.000</td><td data-l="Media" class="num">$99.000</td><td data-l="Baja" class="num">$79.200</td>
-          </tr>
-          <tr>
-            <td data-l="" class="u-name"><span class="u-code">C2</span>Cisne Coscoroba</td>
-            <td data-l="Máx. pax" class="num">5</td>
-            <td data-l="Alta" class="num">$119.000</td><td data-l="Media" class="num">$99.000</td><td data-l="Baja" class="num">$79.200</td>
-          </tr>
-          <tr>
-            <td data-l="" class="u-name"><span class="u-code">C3</span>Siete Colores</td>
-            <td data-l="Máx. pax" class="num">7</td>
-            <td data-l="Alta" class="num">$139.000</td><td data-l="Media" class="num">$119.000</td><td data-l="Baja" class="num">$95.200</td>
-          </tr>
-          <tr>
-            <td data-l="" class="u-name"><span class="u-code">C4</span>Cisne Cuello Negro</td>
-            <td data-l="Máx. pax" class="num">6</td>
-            <td data-l="Alta" class="num">$129.000</td><td data-l="Media" class="num">$109.000</td><td data-l="Baja" class="num">$87.200</td>
-          </tr>
-          <tr>
-            <td data-l="" class="u-name"><span class="u-code">C5</span>Huala</td>
-            <td data-l="Máx. pax" class="num">5</td>
-            <td data-l="Alta" class="num">$119.000</td><td data-l="Media" class="num">$99.000</td><td data-l="Baja" class="num">$79.200</td>
-          </tr>
-          <tr>
-            <td data-l="" class="u-name"><span class="u-code">C6</span>Run Run</td>
-            <td data-l="Máx. pax" class="num">5</td>
-            <td data-l="Alta" class="num">$119.000</td><td data-l="Media" class="num">$99.000</td><td data-l="Baja" class="num">$79.200</td>
-          </tr>
-          <tr>
-            <td data-l="" class="u-name"><span class="u-code">C8</span>Garza Cuca</td>
-            <td data-l="Máx. pax" class="num">6</td>
-            <td data-l="Alta" class="num">Consultar</td><td data-l="Media" class="num">Consultar</td><td data-l="Baja" class="num">Consultar</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="tbl-note rv">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 12H9v-2h2v2zm0-3H9V6h2v5z"/></svg>
-      <span>El valor es por cabaña completa, no por persona, e incluye ropa de cama, calefacción, estacionamiento y uso de muelle, quincho y áreas comunes. La cabaña C7 Pitío no se encuentra en venta. C8 Garza Cuca se cotiza dentro del complejo completo.</span>
-    </p>
-
-    <div class="extras-grid rv">
-      <div class="extra"><b>$10.000</b><span>Pasajero adicional, por noche (donde la cabaña lo permita)</span></div>
-      <div class="extra"><b>$8.000</b><span>Segunda mascota por noche. La primera mascota mediana es sin costo</span></div>
-      <div class="extra"><b>$35.000</b><span>Early check-in desde 10:00 o late check-out hasta 17:00, c/u según disponibilidad</span></div>
     </div>
   </div>
 </section>
@@ -1107,8 +760,31 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
       <article class="seg rv" style="grid-column:1/-1;background:linear-gradient(120deg,var(--navy),var(--navy-mid));border-color:transparent;color:#fff">
         <div class="seg-ico" style="background:rgba(255,255,255,.12);color:var(--sky)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V11l4.5-3L12 11l4.5-3L21 11v9z"/><path d="M3 20h18"/><path d="M9 20v-4h6v4"/></svg></div>
         <h3 style="color:#fff;font-size:1.15rem">El complejo completo, en exclusiva</h3>
-        <p style="color:rgba(255,255,255,.78)">Las 8 cabañas, el muelle, el quincho y todas las áreas comunes para un solo grupo: hasta 44 huéspedes sin compartir el recinto con nadie más. Es nuestro producto diferenciador y la mejor herramienta para cerrar grupos grandes, matrimonios íntimos, retiros y celebraciones familiares.</p>
+        <p style="color:rgba(255,255,255,.78)">Las 8 cabañas, el muelle, el quincho y todas las áreas comunes para un solo grupo: hasta 51 huéspedes sin compartir el recinto con nadie más. Es nuestro producto diferenciador y la mejor herramienta para cerrar grupos grandes, matrimonios íntimos, retiros y celebraciones familiares.</p>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TURISMO ASOCIATIVO ══ -->
+<section class="alianzas">
+  <div class="shell">
+    <div class="alianzas-layout">
+      <div class="rv">
+        <p class="kicker">Turismo asociativo</p>
+        <h2 class="title">Una sola contraparte<br>para <em>todo el programa</em>.</h2>
+        <p class="lede">No entregamos solo alojamiento. Trabajamos de forma asociativa con actores locales del territorio, así que podemos dar solución a los requerimientos completos de tu grupo sin que tengas que salir a coordinar proveedor por proveedor.</p>
+        <p class="lede">Tú armas y vendes el programa; nosotros lo operamos en terreno con gente de la zona que conoce el lago.</p>
+      </div>
+
+      <ul class="alianzas-lista rv">
+        <li class="alianza"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v14"/><path d="M12 5 19 16H5z"/><path d="M4 20q4 2 8 0t8 0"/></svg>Equipos náuticos</li>
+        <li class="alianza"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v8a2 2 0 0 0 4 0V3"/><path d="M8 11v10"/><path d="M17 3c-1.5 2-2 4-2 6s.7 3 2 3 2-1 2-3-.5-4-2-6z"/><path d="M17 12v9"/></svg>Gastronomía</li>
+        <li class="alianza"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15 9-2 5-5 2 2-5z"/></svg>Tours y excursiones</li>
+        <li class="alianza"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9"/><path d="M3 16h18"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="16.5" cy="18.5" r="1.5"/><path d="M4 10h16"/></svg>Traslados</li>
+        <li class="alianza"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M5 21v-1a7 7 0 0 1 14 0v1"/></svg>Guías</li>
+        <li class="alianza"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>Y lo que necesites</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -1119,12 +795,12 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
     <div class="grupos-layout">
       <div class="grupos-copy rv">
         <p class="kicker kicker--light">Grupos y eventos</p>
-        <h2 class="title title--light">Hasta 44 personas<br>en un <em>solo recinto</em>.</h2>
+        <h2 class="title title--light">Hasta 51 personas<br>en un <em>solo recinto</em>.</h2>
         <p>Recibimos delegaciones escolares, actividades corporativas, encuentros familiares y celebraciones. El quincho techado funciona como sala de charlas, comedor colectivo y punto de reunión, y la orilla del lago permite actividades náuticas y recreativas sin salir del recinto.</p>
         <p>Nuestro equipo acompaña la planificación de todos los detalles: distribución de cabañas, horarios, alimentación coordinada y logística de actividades.</p>
 
         <div class="grupos-facts">
-          <div class="gfact"><b>44</b><span>Huéspedes máximo</span></div>
+          <div class="gfact"><b>51</b><span>Huéspedes máximo</span></div>
           <div class="gfact"><b>8</b><span>Cabañas en exclusiva</span></div>
           <div class="gfact"><b>1</b><span>Quincho techado</span></div>
           <div class="gfact"><b>365</b><span>Días al año</span></div>
@@ -1175,14 +851,37 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
   <div class="shell">
     <div class="sec-head rv">
       <p class="kicker">Ubicación y accesos</p>
-      <h2 class="title">Dónde estamos<br>y <em>cómo se llega</em>.</h2>
+      <h2 class="title">Una ubicación<br><em>estratégica</em>.</h2>
+      <p class="lede">Lago, mar y bosque nativo desde una misma base. Permite armar itinerarios de varios días sin cambiar de alojamiento ni sumar traslados largos.</p>
+    </div>
+
+    <div class="estrategica rv">
+      <div class="estr">
+        <b>3:30 h</b>
+        <span class="q">Desde Santiago</span>
+        <span class="d">Por Ruta 5 Sur, camino pavimentado</span>
+      </div>
+      <div class="estr">
+        <b>1 min</b>
+        <span class="q">Del lago</span>
+        <span class="d">Acceso directo, con orilla y muelle propios</span>
+      </div>
+      <div class="estr">
+        <b>10 min</b>
+        <span class="q">Del bosque</span>
+        <span class="d">Reserva Nacional Laguna Torca</span>
+      </div>
+      <div class="estr">
+        <b>15 min</b>
+        <span class="q">Del mar</span>
+        <span class="d">Playa de Llico, litoral de la Región del Maule</span>
+      </div>
     </div>
 
     <div class="ubic-layout">
       <div class="rv">
-        <div class="dist-grid" style="margin-top:0">
+        <div class="dist-grid" style="margin-top:0;grid-template-columns:1fr">
           <div class="dist"><b>Lago Vichuquén, Licantén</b><span>Región del Maule, Chile</span></div>
-          <div class="dist"><b>≈ 4 horas desde Santiago</b><span>Por Ruta 5 Sur</span></div>
           <div class="dist"><b>≈ 80 km desde Curicó</b><span>Camino a Licantén</span></div>
           <div class="dist"><b>7 km desde Licantén</b><span>Hasta el Lago Vichuquén</span></div>
         </div>
@@ -1244,24 +943,13 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
           <div class="prow"><dt>Recepción presencial</dt><dd>Hasta 22:00 hrs</dd></div>
           <div class="prow"><dt>Check-out</dt><dd>Hasta 12:00 hrs</dd></div>
           <div class="prow"><dt>Llegada después de 22:00</dt><dd>Con 24 hrs de aviso</dd></div>
-          <div class="prow"><dt>Early check-in / late check-out</dt><dd>$35.000 c/u</dd></div>
-        </dl>
-      </div>
-      <div class="pol rv">
-        <h3>Pago y cancelación</h3>
-        <dl>
-          <div class="prow"><dt>Reserva</dt><dd>Abono 50% o pago total</dd></div>
-          <div class="prow"><dt>Medios de pago</dt><dd>Transferencia, tarjeta y MercadoPago</dd></div>
-          <div class="prow"><dt>Hasta 15 días antes</dt><dd>Devolución 100%</dd></div>
-          <div class="prow"><dt>Entre 14 y 6 días antes</dt><dd>Devolución 80%</dd></div>
-          <div class="prow"><dt>5 días o menos</dt><dd>Sin devolución, con derecho a una reprogramación</dd></div>
         </dl>
       </div>
     </div>
 
     <p class="tbl-note rv">
       <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 12H9v-2h2v2zm0-3H9V6h2v5z"/></svg>
-      <span>Se permite 1 mascota mediana por cabaña sin costo; una segunda requiere autorización previa. Toda reprogramación tiene vigencia de 6 meses, por una única vez, sujeta a disponibilidad y reajuste tarifario según temporada. Las condiciones completas se entregan al formalizar cada reserva.</span>
+      <span>Se permite 1 mascota mediana por cabaña sin costo; una segunda requiere autorización previa. Las condiciones completas de reserva, pago y cancelación se entregan al formalizar cada reserva.</span>
     </p>
   </div>
 </section>
@@ -1361,7 +1049,7 @@ section{padding-block:clamp(3.4rem,8vw,6.2rem)}
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
     WhatsApp
   </a>
-  <a class="btn btn-ghost" href="#tarifas">Tarifas</a>
+  <a class="btn btn-ghost" href="#ficha">El recinto</a>
   <a class="btn btn-ghost" href="#contacto">Contacto</a>
 </div>
 
