@@ -1,6 +1,6 @@
 'use strict';
 
-const { validarCupon } = require('./_cupones');
+const { cuponDisponible } = require('./_cupones');
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', process.env.SITE_URL || '*');
@@ -10,11 +10,14 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { codigo, subtotal } = req.body || {};
-  if (!codigo || !subtotal) return res.status(400).json({ error: 'Faltan campos' });
+  const { codigo, cabana_id, check_in, check_out } = req.body || {};
+  if (!codigo) return res.status(400).json({ error: 'Faltan campos' });
 
-  const result = await validarCupon(codigo, Number(subtotal));
-  if (!result) return res.status(200).json({ valido: false });
+  const cupon = await cuponDisponible(codigo, { cabana_id, check_in, check_out });
+  if (!cupon) return res.status(200).json({ valido: false });
 
-  return res.status(200).json({ valido: true, ...result });
+  // El widget calcula el monto noche a noche; con la ventana y las cabañas lo
+  // recalcula (o quita el cupón) si el huésped cambia fechas o cabaña.
+  const { tipo, valor, descripcion, nochesDesde = null, nochesHasta = null, cabanas = null } = cupon;
+  return res.status(200).json({ valido: true, tipo, valor, descripcion, nochesDesde, nochesHasta, cabanas });
 };

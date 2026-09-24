@@ -63,10 +63,34 @@
     return 'baja';
   }
 
-  function calcCuponDescuento(subtotal) {
+  // Noches que rebaja el cupón: las de su ventana si la trae (en cualquier
+  // temporada); si no, las de temporada alta y media. Igual que api/_cupones.js.
+  function subtotalCupon() {
+    var c = st.cupon;
+    if (!c.nochesDesde) return st.baseAlta + st.baseMedia;
+    var suma = 0;
+    var d    = new Date(st.checkIn  + 'T12:00:00');
+    var endD = new Date(st.checkOut + 'T12:00:00');
+    while (d < endD) {
+      var ds = toISODate(d);
+      if (ds >= c.nochesDesde && ds <= c.nochesHasta) suma += getPrecio(st.cabana, ds);
+      d.setDate(d.getDate() + 1);
+    }
+    return suma;
+  }
+
+  function calcCuponDescuento() {
     if (!st.cupon) return 0;
+    var subtotal = subtotalCupon();
     if (st.cupon.tipo === 'porcentaje') return Math.round(subtotal * st.cupon.valor / 100);
     return Math.min(st.cupon.valor, subtotal);
+  }
+
+  // ¿El cupón aplicado vale para la cabaña y las fechas elegidas? Igual que api/_cupones.js.
+  function cuponAplica() {
+    var c = st.cupon;
+    if (c.cabanas && c.cabanas.indexOf(st.cabana.id) === -1) return false;
+    return !c.nochesDesde || (st.checkIn <= c.nochesHasta && st.checkOut > c.nochesDesde);
   }
 
   function getPrecio(cabana, dateStr) {
@@ -261,6 +285,9 @@
     st.cabana = CABANAS.filter(function(c) { return c.id === cabId; })[0] || null;
     if (!st.cabana) return;
 
+    // Un cupón limitado a otras cabañas deja de valer apenas se cambia de cabaña
+    if (st.cupon && st.cupon.cabanas && st.cupon.cabanas.indexOf(cabId) === -1) quitarCuponQueNoAplica();
+
     // Reset fechas
     if (fp) fp.clear();
     st.checkIn = null; st.checkOut = null;
@@ -368,22 +395,26 @@
     }
 
     var totalMedia = totalMediaDesc + totalMediaFixed;
-    // Cupón solo sobre alta + media
-    var subtotalElegible = totalAlta + totalMedia;
-    var cuponDesc = calcCuponDescuento(subtotalElegible);
-    var total = (subtotalElegible - cuponDesc) + totalBaja;
-    var abono = Math.ceil(total * 0.5 / 1000) * 1000;
 
     st.noches         = noches;
-    st.precio         = Math.round(total / noches);
-    st.total          = total;
-    st.baseTotal      = subtotalElegible + totalBaja;
+    st.baseTotal      = totalAlta + totalMedia + totalBaja;
     st.baseMedia      = totalMedia;
     st.baseMediaDesc  = totalMediaDesc;
     st.baseMediaFixed = totalMediaFixed;
     st.baseAlta       = totalAlta;
     st.baseBaja       = totalBaja;
-    st.abono     = abono;
+
+    // Un cupón limitado a ciertas noches o cabañas puede dejar de valer al
+    // cambiar la selección: se quita, para no mostrar un descuento que el
+    // servidor no va a aplicar.
+    if (st.cupon && !cuponAplica()) quitarCuponQueNoAplica();
+
+    var cuponDesc = calcCuponDescuento();
+    var total = st.baseTotal - cuponDesc;
+    var abono = Math.ceil(total * 0.5 / 1000) * 1000;
+    st.precio = Math.round(total / noches);
+    st.total  = total;
+    st.abono  = abono;
 
     // Banner: precio por noche según las fechas elegidas.
     // Arriba la temporada con más noches (a igualdad, la más cara); el resto,
@@ -613,10 +644,9 @@
 
     var mediaDescFinal   = conDesc ? Math.round(st.baseMediaDesc * 0.8) : st.baseMediaDesc;
     var mediaFinal       = mediaDescFinal + st.baseMediaFixed;
-    // Cupón solo sobre alta + media (después del descuento del 20%)
-    var subtotalElegible = st.baseAlta + mediaFinal;
-    var cuponDesc        = calcCuponDescuento(subtotalElegible);
-    st.total  = (subtotalElegible - cuponDesc) + st.baseBaja;
+    // El 20% y el cupón son excluyentes: con cupón, las noches van a precio lista
+    var cuponDesc        = calcCuponDescuento();
+    st.total  = st.baseAlta + mediaFinal + st.baseBaja - cuponDesc;
     st.abono  = Math.ceil(st.total * 0.5 / 1000) * 1000;
     var esPagoTotal = st.pagoTipo === 'total';
     st.pagoHoy = esPagoTotal ? st.total : st.abono;
@@ -671,6 +701,15 @@
     actualizarPagoOpciones();
   }
 
+  function quitarCuponQueNoAplica() {
+    var codigo = st.cupon.codigo;
+    eliminarCupon();
+    var msg = qs('bwCuponMsg');
+    if (!msg) return;
+    msg.textContent = 'El cupón ' + codigo + ' no aplica a la cabaña o las fechas elegidas.';
+    msg.className = 'bw-cupon-msg err'; msg.hidden = false;
+  }
+
   function onAplicarCupon() {
     var input = qs('bwCuponInput');
     var msg   = qs('bwCuponMsg');
@@ -680,23 +719,30 @@
     var codigo = input.value.trim().toUpperCase();
     if (!codigo) { msg.textContent = 'Ingresa un código.'; msg.className = 'bw-cupon-msg err'; msg.hidden = false; return; }
 
-    // Cupón aplica solo sobre alta + media (sin tarifa baja)
-    var subtotalBase = st.baseAlta + st.baseMedia;
     if (btn) btn.disabled = true;
 
+    // El servidor valida el código para esta cabaña y estas fechas
     fetch('/api/validar-cupon', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ codigo: codigo, subtotal: subtotalBase })
+      body: JSON.stringify({
+        codigo:    codigo,
+        cabana_id: st.cabana && st.cabana.id,
+        check_in:  st.checkIn,
+        check_out: st.checkOut
+      })
     })
     .then(function(r) { return r.json(); })
     .then(function(data) {
       if (btn) btn.disabled = false;
       if (data.valido) {
-        st.cupon = { tipo: data.tipo, valor: data.valor, descripcion: data.descripcion, codigo: codigo };
+        st.cupon = {
+          codigo: codigo, tipo: data.tipo, valor: data.valor, descripcion: data.descripcion,
+          nochesDesde: data.nochesDesde, nochesHasta: data.nochesHasta, cabanas: data.cabanas
+        };
         // Recalcular total con cupón
-        var cuponDesc = calcCuponDescuento(subtotalBase);
-        st.total = (subtotalBase - cuponDesc) + st.baseBaja;
+        var cuponDesc = calcCuponDescuento();
+        st.total = st.baseTotal - cuponDesc;
         st.abono = Math.ceil(st.total * 0.5 / 1000) * 1000;
         actualizarFilaCupon(cuponDesc);
         txt('bwCalcAbono', fmtCLP(st.abono));
@@ -708,7 +754,7 @@
         if (btn)   { btn.textContent = 'Eliminar'; btn.classList.add('eliminar'); }
       } else {
         st.cupon = null;
-        msg.textContent = 'Código no válido o vencido.';
+        msg.textContent = 'Código no válido o no disponible para estas fechas.';
         msg.className = 'bw-cupon-msg err'; msg.hidden = false;
       }
     })

@@ -1,7 +1,7 @@
 'use strict';
 
 const supabase = require('./_db');
-const { validarCupon, esCuponValido } = require('./_cupones');
+const { cuponDisponible, descuentoCupon } = require('./_cupones');
 
 const TEMPORADAS_ALTA = [
   { from: '2026-06-26', to: '2026-06-28' }, { from: '2026-07-15', to: '2026-07-18' },
@@ -75,28 +75,30 @@ module.exports = async function handler(req, res) {
   const DESCUENTO_HASTA   = '2026-11-15';
 
   let totalAlta = 0, totalMediaDesc = 0, totalMediaFixed = 0, totalBaja = 0;
+  const detalleNoches = [];  // { fecha, tarifa, precio } noche a noche, para el cupón
   const cursor  = new Date(check_in  + 'T12:00:00');
   const endDate = new Date(check_out + 'T12:00:00');
   while (cursor < endDate) {
     const ds = cursor.toISOString().split('T')[0];
-    if      (diaEsAlta(ds))   totalAlta += cabana.precio_alta;
-    else if (diaEsMedia(ds))  { ds <= DESCUENTO_HASTA ? totalMediaDesc += cabana.precio_media : totalMediaFixed += cabana.precio_media; }
-    else                       totalBaja += cabana.precio_baja;
+    const tarifa = diaEsAlta(ds) ? 'alta' : (diaEsMedia(ds) ? 'media' : 'baja');
+    const precio = cabana['precio_' + tarifa];
+    detalleNoches.push({ fecha: ds, tarifa, precio });
+    if      (tarifa === 'alta')  totalAlta += precio;
+    else if (tarifa === 'media') { ds <= DESCUENTO_HASTA ? totalMediaDesc += precio : totalMediaFixed += precio; }
+    else                          totalBaja += precio;
     cursor.setDate(cursor.getDate() + 1);
   }
 
   // Descuento 20% en noches media vigentes (< 16-nov-2026) para ≤3 personas
   // No aplica si se usa un cupón de descuento (son excluyentes)
-  const cuponActivo = await esCuponValido(cupon_codigo);
-  if (!cuponActivo && DESCUENTO_CABANAS.includes(cabana_id) && numPersonas <= 3 && totalMediaDesc > 0) {
+  const cupon = await cuponDisponible(cupon_codigo, { cabana_id, check_in, check_out });
+  if (!cupon && DESCUENTO_CABANAS.includes(cabana_id) && numPersonas <= 3 && totalMediaDesc > 0) {
     totalMediaDesc = Math.round(totalMediaDesc * 0.8);
   }
 
-  // Cupón aplica solo sobre alta + media (tarifa baja excluida)
-  const subtotalElegible = totalAlta + totalMediaDesc + totalMediaFixed;
-  const cupon = cuponActivo ? await validarCupon(cupon_codigo, subtotalElegible) : null;
-  const cuponDesc = cupon ? cupon.descuento : 0;
-  let total = (subtotalElegible - cuponDesc) + totalBaja;
+  // Qué noches rebaja el cupón lo decide _cupones.js (por defecto, alta + media)
+  const cuponDesc = cupon ? descuentoCupon(cupon, detalleNoches) : 0;
+  const total = totalAlta + totalMediaDesc + totalMediaFixed + totalBaja - cuponDesc;
 
   const precioNoche = Math.round(total / noches);
   const abono       = Math.ceil(total * 0.5 / 1000) * 1000;
@@ -129,7 +131,7 @@ module.exports = async function handler(req, res) {
       estado:   'pendiente',
       canal:      'web',
       creada_por: 'web',
-      cupon_codigo: cupon ? String(cupon_codigo).trim().toUpperCase() : null
+      cupon_codigo: cupon ? cupon.codigo : null
     })
     .select('id')
     .single();
