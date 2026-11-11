@@ -857,4 +857,19 @@
   function hide(id) { var el = qs(id); if (el) el.hidden = true; }
   function showMsg(id, msg) { var el = qs(id); if (el) { el.textContent = msg; el.hidden = false; } }
 
+  // Lo que comparten las pestañas que viven en su propio archivo (ingresos.js).
+  window.LodgeAdmin = {
+    apiFetch: apiFetch,
+    CABANAS: CABANAS,
+    MESES: MESES,
+    canalInfo: canalInfo,
+    nombreCompleto: nombreCompleto,
+    isoLocal: isoLocal,
+    capitalize: capitalize,
+    fmtCLP: fmtCLP,
+    fmtDate: fmtDate,
+    pad: pad,
+    esc: esc
+  };
+
 })();

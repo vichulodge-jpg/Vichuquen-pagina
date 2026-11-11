@@ -44,6 +44,7 @@
         <button class="tab active" data-tab="reservas">Reservas</button>
         <button class="tab" data-tab="calendario">Calendario</button>
         <button class="tab" data-tab="bloqueos">Bloqueos</button>
+        <button class="tab" data-tab="ingresos">Ingresos</button>
         <button class="tab" data-tab="correos">Correos</button>
       </div>
 
@@ -176,6 +177,36 @@
               <tr><td colspan="6" class="loading">Cargando…</td></tr>
             </tbody>
           </table>
+        </div>
+      </section>
+
+      <!-- TAB: INGRESOS -->
+      <section id="tabIngresos" class="tab-panel" hidden>
+        <div class="panel-toolbar">
+          <div class="cal-nav">
+            <div class="segmento" role="group" aria-label="Tipo de resumen">
+              <button class="seg active" data-ing-modo="mes" aria-pressed="true">Mensual</button>
+              <button class="seg" data-ing-modo="semana" aria-pressed="false">Semanal</button>
+            </div>
+            <button class="btn-secondary" id="btnIngAnterior" aria-label="Período anterior">‹</button>
+            <span class="cal-mes ing-periodo" id="ingPeriodoLabel">—</span>
+            <button class="btn-secondary" id="btnIngSiguiente" aria-label="Período siguiente">›</button>
+            <button class="btn-secondary" id="btnIngHoy">Actual</button>
+          </div>
+          <div class="ing-acciones">
+            <button class="btn-secondary" id="btnIngImprimir" disabled>Imprimir / PDF</button>
+            <button class="btn-nueva" id="btnIngDescargar" disabled>↓ Descargar Excel (.csv)</button>
+          </div>
+        </div>
+
+        <p class="hint">
+          Cuenta solo las reservas <strong>confirmadas</strong>. El ingreso se reparte por noche:
+          si una estadía de 4 noches tiene solo 1 dentro del período, aquí entra un cuarto de su total
+          y el resto aparece en el período siguiente. Las semanas van de lunes a domingo.
+        </p>
+
+        <div id="ingresosWrap">
+          <p class="loading">Cargando…</p>
         </div>
       </section>
 
@@ -312,6 +343,7 @@
     </div>
   </div>
 
-  <script src="admin.js?v=20260902"></script>
+  <script src="admin.js?v=20261111"></script>
+  <script src="ingresos.js?v=20261111"></script>
 </body>
 </html>

@@ -364,6 +364,81 @@ body.modal-abierto { overflow: hidden; }
   .btn-nueva { width: 100%; }
 }
 
+/* ================================================================
+   INGRESOS — resumen semanal / mensual
+   ================================================================ */
+.tabs { flex-wrap: wrap; }
+
+.segmento { display: inline-flex; border: 1.5px solid var(--line); border-radius: 7px; overflow: hidden; margin-right: .4rem; }
+.seg {
+  padding: .5rem .95rem; background: #fff; color: var(--gray);
+  border: none; font-family: inherit; font-size: .82rem; font-weight: 500; cursor: pointer;
+}
+.seg + .seg { border-left: 1.5px solid var(--line); }
+.seg.active { background: var(--navy); color: #fff; }
+
+.ing-periodo { min-width: 15.5rem; }
+.ing-acciones { display: flex; gap: .5rem; flex-wrap: wrap; }
+.ing-acciones button:disabled { opacity: .5; cursor: default; }
+
+.ing-tiles {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  gap: .75rem; margin-bottom: 1.5rem;
+}
+.ing-tile {
+  background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius);
+  padding: .95rem 1.1rem; display: flex; flex-direction: column; gap: .2rem;
+}
+.ing-tile span {
+  font-size: .7rem; font-weight: 700; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--gray);
+}
+.ing-tile strong { font-size: 1.45rem; font-weight: 600; color: var(--navy); font-variant-numeric: tabular-nums; }
+.ing-tile small  { font-size: .7rem; color: var(--gray); }
+
+.ing-dos { display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.25rem; align-items: start; margin-bottom: 1.5rem; }
+.ing-subtitulo { font-size: 1rem; color: var(--navy); margin-bottom: .6rem; }
+.ing-vacio {
+  background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius);
+  padding: 1.5rem; text-align: center; color: var(--gray);
+}
+
+.ing-nota { font-size: .76rem; color: var(--gray); margin-top: .5rem; }
+.cal-nav { flex-wrap: wrap; }
+
+th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tfoot td {
+  padding: .65rem .9rem; font-weight: 700; color: var(--navy);
+  background: #f9fafb; border-top: 1.5px solid var(--line);
+}
+
+.solo-print { display: none; }
+
+@media (max-width: 860px) {
+  .ing-dos { grid-template-columns: 1fr; }
+  .ing-periodo { min-width: 0; flex: 1; }
+}
+
+/* Al imprimir (o guardar como PDF) queda solo el contenido de la pestaña. */
+@page { size: A4 landscape; margin: 12mm; }   /* el detalle tiene 10 columnas: de pie no cabe */
+@media print {
+  body { background: #fff; font-size: 9pt; }
+  table { font-size: 8.5pt; }
+  .admin-header, .tabs, .panel-toolbar, .hint, .admin-toast, .modal { display: none !important; }
+  .admin-main { max-width: none; padding: 0; }
+  .solo-print { display: block; }
+  .ing-print-head { margin-bottom: 1rem; }
+  .ing-print-head h1 { font-family: 'Cormorant Garamond', serif; font-size: 20pt; color: var(--navy); }
+  .ing-print-head p  { color: var(--gray); }
+  .table-wrap { overflow: visible; }
+  .ing-tiles { grid-template-columns: repeat(5, 1fr); }
+  .ing-tile strong { font-size: 13pt; }
+  .ing-dos { grid-template-columns: 1.35fr 1fr; }
+  .ing-tile, .ing-dos > div, tr { break-inside: avoid; }
+  .canal-badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  thead th, tbody td, tfoot td { padding: .35rem .5rem; }
+}
+
 /* Aviso flotante (correo enviado, error de envío) */
 .admin-toast {
   position: fixed; left: 50%; bottom: 1.5rem; transform: translateX(-50%);
