@@ -12,7 +12,8 @@
   'use strict';
 
   var A = window.LodgeAdmin;
-  if (!A) return;
+  var UI = window.LodgeUI;
+  if (!A || !UI) return;
 
   var MS_DIA = 86400000;
   var DIAS_SEMANA = 7;
@@ -203,10 +204,15 @@
       : String(l.nochesPeriodo);
   }
 
-  function tile(etiqueta, valor, nota) {
-    return '<div class="ing-tile"><span>' + A.esc(etiqueta) + '</span>' +
+  /**
+   * @param {{nota?: string, ayuda?: string, clase?: string}} [op]
+   */
+  function tile(etiqueta, valor, op) {
+    op = op || {};
+    return '<div class="ing-tile ' + (op.clase || '') + '"><span>' + A.esc(etiqueta) +
+           (op.ayuda ? UI.ayudaHTML(op.ayuda, 'Qué significa «' + etiqueta + '»') : '') + '</span>' +
            '<strong>' + A.esc(valor) + '</strong>' +
-           (nota ? '<small>' + A.esc(nota) + '</small>' : '') + '</div>';
+           (op.nota ? '<small>' + A.esc(op.nota) + '</small>' : '') + '</div>';
   }
 
   function tablaCabanas(resumen) {
@@ -282,11 +288,22 @@
         ' (' + A.fmtDate(periodo.desde) + ' al ' + A.fmtDate(periodo.ultimoDia) + ')</p>' +
       '</div>' +
       '<div class="ing-tiles">' +
-        tile('Ingresos del período', A.fmtCLP(t.ingreso)) +
+        tile('Ingresos del período', A.fmtCLP(t.ingreso), {
+          clase: 'ing-tile-principal',
+          ayuda: 'Solo reservas confirmadas, repartidas por noche. Si una estadía de 4 noches tiene 1 dentro ' +
+                 'del período, aquí entra un cuarto de su total; el resto aparece en el período siguiente.'
+        }) +
         tile('Noches vendidas', String(t.noches)) +
-        tile('Ocupación', fmtPct(t.ocupacion), 'de ' + A.CABANAS.length + ' cabañas × ' + periodo.dias + ' días') +
+        tile('Ocupación', fmtPct(t.ocupacion), {
+          nota: 'de ' + A.CABANAS.length + ' cabañas × ' + periodo.dias + ' días',
+          ayuda: 'Noches vendidas dividido por todas las noches que se podían vender en el período.'
+        }) +
         tile('Reservas', String(t.reservas)) +
-        tile('Saldo por cobrar', A.fmtCLP(t.saldo), 'estadías completas de estas reservas, sin repartir') +
+        tile('Saldo por cobrar', A.fmtCLP(t.saldo), {
+          clase: t.saldo > 0 ? 'ing-tile-aviso' : '',
+          nota: 'de las estadías completas, sin repartir',
+          ayuda: 'Lo que los huéspedes de estas reservas todavía deben: total menos abono de cada estadía completa.'
+        }) +
       '</div>' +
       '<div class="ing-dos">' +
         '<div><h3 class="ing-subtitulo">Por cabaña</h3>' + tablaCabanas(resumen) + '</div>' +
@@ -320,7 +337,7 @@
       .catch(function (e) {
         if (pedido !== pedidoEnCurso) return;
         qs('ingresosWrap').innerHTML =
-          '<p class="loading">No se pudo cargar el resumen: ' + A.esc(e.message) + '</p>';
+          '<p class="vacio"><strong>No se pudo cargar el resumen.</strong>' + A.esc(e.message) + '</p>';
       });
   }
 

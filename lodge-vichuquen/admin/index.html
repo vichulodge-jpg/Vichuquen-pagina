@@ -3,89 +3,199 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
   <title>Admin — Vichuquén Lodge</title>
   <link rel="icon" href="../favicon.ico" sizes="any" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="admin.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css?v=20261112" />
+  <link rel="stylesheet" href="ayuda.css?v=20261112" />
 </head>
 <body>
+
+  <!-- Íconos: se dibujan una vez y se reutilizan con <use> -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-inicio" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></symbol>
+    <symbol id="i-reservas" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4" cy="6" r="1.2"/><circle cx="4" cy="12" r="1.2"/><circle cx="4" cy="18" r="1.2"/></symbol>
+    <symbol id="i-calendario" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M16 3v4M8 3v4M3 10h18"/></symbol>
+    <symbol id="i-bloqueos" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></symbol>
+    <symbol id="i-ingresos" viewBox="0 0 24 24"><path d="M3 20h18"/><path d="M6 20v-7M11 20V5M16 20v-10"/></symbol>
+    <symbol id="i-correos" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7.5 8.5 6 8.5-6"/></symbol>
+    <symbol id="i-manual" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
+    <symbol id="i-salir" viewBox="0 0 24 24"><path d="M9 21H5.5A2.5 2.5 0 0 1 3 18.5v-13A2.5 2.5 0 0 1 5.5 3H9"/><path d="m16 17 5-5-5-5M21 12H9"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  </svg>
 
   <!-- LOGIN -->
   <div id="loginScreen" class="login-screen">
     <div class="login-card">
-      <img src="../assets/img/logo.jpg" alt="Logo" class="login-logo" />
+      <img src="../assets/img/logo.jpg" alt="Vichuquén Lodge y Marina" class="login-logo" />
       <h1>Panel de administración</h1>
       <p class="login-sub">Vichuquén Lodge y Marina</p>
       <div class="form-group">
         <label for="secretInput">Clave de acceso</label>
-        <input type="password" id="secretInput" placeholder="••••••••••••" autocomplete="current-password" />
+        <input type="password" id="secretInput" placeholder="Escribe la clave" autocomplete="current-password" />
       </div>
-      <p class="login-error" id="loginError" hidden>Clave incorrecta.</p>
+      <p class="login-error" id="loginError" role="alert" hidden>Clave incorrecta.</p>
       <button class="btn-primary" id="btnLogin">Ingresar</button>
+      <p class="login-nota">La sesión se cierra sola al cerrar esta pestaña.</p>
     </div>
   </div>
 
   <!-- PANEL -->
-  <div id="adminPanel" hidden>
+  <div id="adminPanel" class="app" hidden>
 
-    <header class="admin-header">
-      <div class="header-brand">
-        <img src="../assets/img/logo.jpg" alt="Logo" class="header-logo" />
-        <span>Admin</span>
+    <aside class="lateral">
+      <div class="marca">
+        <img src="../assets/img/logo.jpg" alt="" class="marca-logo" />
+        <div class="marca-texto">
+          <strong>Vichuquén Lodge</strong>
+          <small>Panel de administración</small>
+        </div>
       </div>
-      <button class="btn-ghost" id="btnLogout">Cerrar sesión</button>
-    </header>
+
+      <nav class="tabs" aria-label="Secciones del panel">
+        <button class="tab active" data-tab="inicio"><svg class="ico"><use href="#i-inicio"/></svg><span>Inicio</span></button>
+        <button class="tab" data-tab="reservas"><svg class="ico"><use href="#i-reservas"/></svg><span>Reservas</span><b class="tab-aviso" id="navPendientes" hidden></b></button>
+        <button class="tab" data-tab="calendario"><svg class="ico"><use href="#i-calendario"/></svg><span>Calendario</span></button>
+        <button class="tab" data-tab="bloqueos"><svg class="ico"><use href="#i-bloqueos"/></svg><span>Bloqueos</span></button>
+        <button class="tab" data-tab="ingresos"><svg class="ico"><use href="#i-ingresos"/></svg><span>Ingresos</span></button>
+        <button class="tab" data-tab="correos"><svg class="ico"><use href="#i-correos"/></svg><span>Correos</span></button>
+        <span class="tabs-sep" aria-hidden="true"></span>
+        <button class="tab tab-manual" data-tab="manual"><svg class="ico"><use href="#i-manual"/></svg><span>Manual de uso</span></button>
+      </nav>
+
+      <button class="btn-salir" id="btnLogout"><svg class="ico"><use href="#i-salir"/></svg><span>Cerrar sesión</span></button>
+    </aside>
 
     <main class="admin-main">
 
-      <!-- TABS -->
-      <div class="tabs">
-        <button class="tab active" data-tab="reservas">Reservas</button>
-        <button class="tab" data-tab="calendario">Calendario</button>
-        <button class="tab" data-tab="bloqueos">Bloqueos</button>
-        <button class="tab" data-tab="ingresos">Ingresos</button>
-        <button class="tab" data-tab="correos">Correos</button>
-      </div>
+      <!-- TAB: INICIO -->
+      <section id="tabInicio" class="tab-panel">
+        <header class="seccion-head">
+          <div>
+            <h1 id="inicioSaludo">Hola</h1>
+            <p id="inicioFecha">Esto es lo que pasa hoy en el lodge.</p>
+          </div>
+          <div class="seccion-acciones">
+            <button class="btn-secondary" id="btnRefreshInicio">↻ Actualizar</button>
+            <button class="btn-nueva" data-nueva-reserva>+ Nueva reserva</button>
+          </div>
+        </header>
+
+        <div class="aviso-bienvenida" id="avisoBienvenida" hidden>
+          <div>
+            <strong>¿Primera vez por aquí?</strong>
+            El manual explica cada tarea paso a paso y se lee en cinco minutos.
+            Además, cada <span class="ayuda ayuda-muestra" aria-hidden="true">?</span> que veas abre una explicación corta.
+          </div>
+          <div class="aviso-botones">
+            <button class="btn-secondary" data-manual="m-inicio">Abrir el manual</button>
+            <button class="btn-ghost" id="btnCerrarBienvenida">Entendido</button>
+          </div>
+        </div>
+
+        <div class="hoy-tarjetas" id="inicioTarjetas">
+          <p class="loading">Cargando…</p>
+        </div>
+
+        <div class="inicio-dos">
+          <div class="tarjeta">
+            <div class="tarjeta-head">
+              <h2>Próximas llegadas</h2>
+              <span class="tarjeta-sub">Los siguientes 7 días</span>
+            </div>
+            <div id="inicioLlegadas"><p class="loading">Cargando…</p></div>
+          </div>
+
+          <div class="tarjeta">
+            <div class="tarjeta-head">
+              <h2>¿Qué quieres hacer?</h2>
+            </div>
+            <div class="atajos">
+              <button class="atajo atajo-verde" data-nueva-reserva>
+                <strong>Cargar una reserva</strong>
+                <small>Booking, Airbnb, WhatsApp o directa</small>
+              </button>
+              <button class="atajo" data-ir="calendario">
+                <strong>Ver qué está ocupado</strong>
+                <small>El mes completo, cabaña por cabaña</small>
+              </button>
+              <button class="atajo" data-ir="bloqueos">
+                <strong>Cerrar fechas</strong>
+                <small>Mantención o uso propio, sin huésped</small>
+              </button>
+              <button class="atajo" data-ir="ingresos">
+                <strong>Revisar los ingresos</strong>
+                <small>Resumen semanal o mensual, descargable</small>
+              </button>
+              <button class="atajo" data-ir="correos">
+                <strong>Cambiar el texto de los correos</strong>
+                <small>Confirmación y pre-llegada</small>
+              </button>
+              <button class="atajo" data-manual="m-inicio">
+                <strong>Aprender a usar el panel</strong>
+                <small>Manual paso a paso</small>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="leyenda-colores">
+          <span class="leyenda-titulo">Los colores del panel:</span>
+          <span><i class="punto punto-verde"></i><b>Verde</b> crea, guarda o confirma</span>
+          <span><i class="punto punto-ambar"></i><b>Ámbar</b> espera una acción tuya</span>
+          <span><i class="punto punto-rojo"></i><b>Rojo</b> cancela o elimina</span>
+          <span><i class="punto punto-neutro"></i><b>Blanco</b> solo mira o navega</span>
+        </div>
+      </section>
 
       <!-- TAB: RESERVAS -->
-      <section id="tabReservas" class="tab-panel">
-        <div class="panel-toolbar">
-          <div class="filters">
+      <section id="tabReservas" class="tab-panel" hidden>
+        <header class="seccion-head">
+          <div>
+            <h1>Reservas</h1>
+            <p>Todas las reservas: las que llegan por la web y las que cargas a mano.</p>
+          </div>
+          <div class="seccion-acciones">
+            <button class="btn-enlace" data-manual="m-nueva">¿Cómo se usa?</button>
             <button class="btn-nueva" id="btnNuevaReserva">+ Nueva reserva</button>
-            <select id="filtroEstado">
-              <option value="">Todos los estados</option>
-              <option value="pendiente">Pendiente</option>
-              <option value="confirmada">Confirmada</option>
-              <option value="cancelada">Cancelada</option>
-            </select>
-            <select id="filtroCabana"></select>
-            <select id="filtroCanal"></select>
+          </div>
+        </header>
+
+        <div class="barra-filtros">
+          <div class="chips" role="group" aria-label="Filtrar por estado" id="chipsEstado">
+            <button class="chip active" data-estado="" aria-pressed="true">Todas</button>
+            <button class="chip" data-estado="pendiente" aria-pressed="false"><i class="punto punto-ambar"></i>Pendientes</button>
+            <button class="chip" data-estado="confirmada" aria-pressed="false"><i class="punto punto-verde"></i>Confirmadas</button>
+            <button class="chip" data-estado="cancelada" aria-pressed="false"><i class="punto punto-rojo"></i>Canceladas</button>
+            <button type="button" class="ayuda" aria-label="Qué significa cada estado"
+              data-ayuda="Pendiente: el huésped reservó en la web pero el pago aún no está comprobado. Confirmada: las fechas están ocupadas y el huésped recibió su correo. Cancelada: las fechas quedaron libres; la reserva se conserva como historial.">?</button>
+          </div>
+          <div class="filtros">
+            <input type="search" id="filtroTexto" placeholder="Buscar huésped o correo…" aria-label="Buscar por nombre o correo" />
+            <select id="filtroCabana" aria-label="Filtrar por cabaña"></select>
+            <select id="filtroCanal" aria-label="Filtrar por canal"></select>
             <button class="btn-secondary" id="btnRefreshReservas">↻ Actualizar</button>
           </div>
-          <span class="count" id="reservasCount"></span>
         </div>
+        <p class="count" id="reservasCount"></p>
+
         <div class="table-wrap">
           <table id="reservasTable">
             <thead>
               <tr>
-                <th>Cabaña</th>
                 <th>Huésped</th>
-                <th>Canal</th>
-                <th>Teléfono / WA</th>
-                <th>Check-in</th>
-                <th>Check-out</th>
-                <th>Pers.</th>
-                <th>Total</th>
-                <th>Abono</th>
-                <th>Saldo</th>
+                <th>Cabaña y canal <button type="button" class="ayuda" aria-label="Qué es el canal" data-ayuda="Bajo el nombre de la cabaña va el canal: por dónde llegó la reserva (página web, Booking, Airbnb, WhatsApp, Instagram o directa). En el calendario cada canal usa ese mismo color.">?</button></th>
+                <th>Estadía</th>
+                <th>Contacto</th>
+                <th>Pago <button type="button" class="ayuda" aria-label="Cómo leer el pago" data-ayuda="«Pagado» en verde: no debe nada. «Debe» en ámbar: es el saldo que falta, o sea el total menos lo que ya abonó.">?</button></th>
                 <th>Estado</th>
-                <th>Creada</th>
-                <th>Acción</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody id="reservasTbody">
-              <tr><td colspan="13" class="loading">Cargando…</td></tr>
+              <tr><td colspan="7" class="loading">Cargando…</td></tr>
             </tbody>
           </table>
         </div>
@@ -93,22 +203,26 @@
 
       <!-- TAB: CALENDARIO -->
       <section id="tabCalendario" class="tab-panel" hidden>
+        <header class="seccion-head">
+          <div>
+            <h1>Calendario</h1>
+            <p>Una fila por cabaña, una columna por día. Clic en una barra para abrir la reserva; clic en un día libre para crear una.</p>
+          </div>
+          <div class="seccion-acciones">
+            <button class="btn-enlace" data-manual="m-calendario">¿Cómo se lee?</button>
+            <button class="btn-nueva" id="btnNuevaReservaCal">+ Nueva reserva</button>
+          </div>
+        </header>
+
         <div class="panel-toolbar">
           <div class="cal-nav">
-            <button class="btn-secondary" id="btnMesAnterior" aria-label="Mes anterior">‹</button>
+            <button class="btn-secondary btn-cuadrado" id="btnMesAnterior" aria-label="Mes anterior">‹</button>
             <span class="cal-mes" id="calMesLabel">—</span>
-            <button class="btn-secondary" id="btnMesSiguiente" aria-label="Mes siguiente">›</button>
-            <button class="btn-secondary" id="btnMesHoy">Hoy</button>
+            <button class="btn-secondary btn-cuadrado" id="btnMesSiguiente" aria-label="Mes siguiente">›</button>
+            <button class="btn-secondary" id="btnMesHoy">Ir a hoy</button>
           </div>
-          <button class="btn-nueva" id="btnNuevaReservaCal">+ Nueva reserva</button>
+          <div class="cal-leyenda" id="calLeyenda"></div>
         </div>
-
-        <p class="hint">
-          Cada barra es una reserva confirmada o pendiente. El color indica el canal de origen.
-          Haz clic en una barra para ver y editar la reserva.
-        </p>
-
-        <div class="cal-leyenda" id="calLeyenda"></div>
 
         <div class="cal-wrap">
           <div class="cal-grid" id="calGrid">
@@ -119,48 +233,60 @@
 
       <!-- TAB: BLOQUEOS -->
       <section id="tabBloqueos" class="tab-panel" hidden>
-        <div class="panel-toolbar">
-          <button class="btn-secondary" id="btnRefreshBloqueos">↻ Actualizar</button>
+        <header class="seccion-head">
+          <div>
+            <h1>Bloqueos</h1>
+            <p>Cierra fechas de una cabaña cuando no hay huésped: mantención, uso propio.</p>
+          </div>
+          <div class="seccion-acciones">
+            <button class="btn-enlace" data-manual="m-bloqueos">¿Cómo se usa?</button>
+            <button class="btn-secondary" id="btnRefreshBloqueos">↻ Actualizar</button>
+          </div>
+        </header>
+
+        <div class="nota nota-info">
+          <strong>¿Bloqueo o reserva?</strong>
+          Un bloqueo solo cierra fechas y no le escribe a nadie. Si hay un huésped
+          (aunque venga de Booking o Airbnb), cárgalo con
+          <button class="btn-enlace" data-nueva-reserva>+ Nueva reserva</button>:
+          así queda registrado y recibe sus correos.
         </div>
 
-        <!-- Formulario nuevo bloqueo -->
-        <div class="bloqueo-form-wrap">
-          <h3>Agregar bloqueo manual</h3>
-          <p class="hint">
-            Un bloqueo cierra fechas sin datos de huésped (mantención, uso propio).
-            Si la reserva tiene huésped, úsala desde <strong>+ Nueva reserva</strong>:
-            así además se le envían los correos.
-          </p>
+        <div class="tarjeta bloqueo-form-wrap">
+          <div class="tarjeta-head"><h2>Cerrar fechas</h2></div>
           <div class="bloqueo-form">
             <div class="form-group">
-              <label for="blCabana">Cabaña</label>
+              <label for="blCabana"><span class="mini-num">1</span>Cabaña</label>
               <select id="blCabana"></select>
             </div>
             <div class="form-group">
-              <label for="blDesde">Desde</label>
+              <label for="blDesde"><span class="mini-num">2</span>Desde</label>
               <input type="date" id="blDesde" />
             </div>
             <div class="form-group">
-              <label for="blHasta">Hasta</label>
+              <div class="label-fila">
+                <label for="blHasta"><span class="mini-num">3</span>Hasta</label>
+                <button type="button" class="ayuda" aria-label="Sobre la fecha de término"
+                  data-ayuda="Es el día en que la cabaña vuelve a estar disponible. Ejemplo: desde el 10 hasta el 12 cierra las noches del 10 y del 11.">?</button>
+              </div>
               <input type="date" id="blHasta" />
             </div>
             <div class="form-group">
-              <label for="blMotivo">Motivo</label>
+              <label for="blMotivo"><span class="mini-num">4</span>Motivo</label>
               <select id="blMotivo">
-                <option value="airbnb">Airbnb</option>
-                <option value="booking">Booking.com</option>
                 <option value="mantencion">Mantención</option>
-                <option value="manual">Manual</option>
+                <option value="manual">Uso propio u otro</option>
+                <option value="airbnb">Airbnb (sin datos del huésped)</option>
+                <option value="booking">Booking (sin datos del huésped)</option>
               </select>
             </div>
-            <button class="btn-primary" id="btnAgregarBloqueo">Agregar bloqueo</button>
+            <button class="btn-primary" id="btnAgregarBloqueo">Cerrar estas fechas</button>
           </div>
-          <p class="form-error" id="blError" hidden></p>
-          <p class="form-ok"    id="blOk"    hidden></p>
+          <p class="form-error" id="blError" role="alert" hidden></p>
+          <p class="form-ok"    id="blOk"    role="status" hidden></p>
         </div>
 
-        <!-- Tabla de bloqueos activos -->
-        <h3 style="margin-bottom:.75rem">Bloqueos activos</h3>
+        <h2 class="subtitulo">Bloqueos vigentes</h2>
         <div class="table-wrap">
           <table id="bloqueosTable">
             <thead>
@@ -182,28 +308,32 @@
 
       <!-- TAB: INGRESOS -->
       <section id="tabIngresos" class="tab-panel" hidden>
+        <header class="seccion-head">
+          <div>
+            <h1>Ingresos</h1>
+            <p>Cuánto rinde cada cabaña, por semana o por mes. Solo cuenta reservas confirmadas.</p>
+          </div>
+          <div class="seccion-acciones">
+            <button class="btn-enlace" data-manual="m-ingresos">¿Cómo se calcula?</button>
+          </div>
+        </header>
+
         <div class="panel-toolbar">
           <div class="cal-nav">
             <div class="segmento" role="group" aria-label="Tipo de resumen">
               <button class="seg active" data-ing-modo="mes" aria-pressed="true">Mensual</button>
               <button class="seg" data-ing-modo="semana" aria-pressed="false">Semanal</button>
             </div>
-            <button class="btn-secondary" id="btnIngAnterior" aria-label="Período anterior">‹</button>
+            <button class="btn-secondary btn-cuadrado" id="btnIngAnterior" aria-label="Período anterior">‹</button>
             <span class="cal-mes ing-periodo" id="ingPeriodoLabel">—</span>
-            <button class="btn-secondary" id="btnIngSiguiente" aria-label="Período siguiente">›</button>
-            <button class="btn-secondary" id="btnIngHoy">Actual</button>
+            <button class="btn-secondary btn-cuadrado" id="btnIngSiguiente" aria-label="Período siguiente">›</button>
+            <button class="btn-secondary" id="btnIngHoy">Período actual</button>
           </div>
           <div class="ing-acciones">
             <button class="btn-secondary" id="btnIngImprimir" disabled>Imprimir / PDF</button>
-            <button class="btn-nueva" id="btnIngDescargar" disabled>↓ Descargar Excel (.csv)</button>
+            <button class="btn-nueva" id="btnIngDescargar" disabled>↓ Descargar para Excel</button>
           </div>
         </div>
-
-        <p class="hint">
-          Cuenta solo las reservas <strong>confirmadas</strong>. El ingreso se reparte por noche:
-          si una estadía de 4 noches tiene solo 1 dentro del período, aquí entra un cuarto de su total
-          y el resto aparece en el período siguiente. Las semanas van de lunes a domingo.
-        </p>
 
         <div id="ingresosWrap">
           <p class="loading">Cargando…</p>
@@ -212,16 +342,235 @@
 
       <!-- TAB: CORREOS -->
       <section id="tabCorreos" class="tab-panel" hidden>
-        <div class="panel-toolbar">
-          <button class="btn-secondary" id="btnRefreshPlantillas">↻ Actualizar</button>
+        <header class="seccion-head">
+          <div>
+            <h1>Correos</h1>
+            <p>El texto de los dos correos que el sistema envía solo: confirmación y pre-llegada.</p>
+          </div>
+          <div class="seccion-acciones">
+            <button class="btn-enlace" data-manual="m-correos">¿Cómo se usa?</button>
+            <button class="btn-secondary" id="btnRefreshPlantillas">↻ Actualizar</button>
+          </div>
+        </header>
+
+        <div class="nota nota-info">
+          <strong>Qué se edita aquí.</strong>
+          Solo la parte <em>redactada</em> de cada correo. La tabla con los datos de la reserva,
+          las láminas de la pre-llegada, el saldo y el pie los sigue armando el sistema.
+          Mientras el interruptor de una plantilla esté apagado, se envía el correo de siempre.
         </div>
-        <p class="hint">
-          Aquí se edita el <strong>texto redactado</strong> de cada correo. La tabla con los datos
-          de la reserva, las láminas de la pre-llegada, el saldo y el pie los sigue armando el
-          sistema. Mientras una plantilla esté desactivada se usa el correo actual de siempre.
-        </p>
+
         <div id="plantillasWrap">
           <p class="loading">Cargando…</p>
+        </div>
+      </section>
+
+      <!-- TAB: MANUAL -->
+      <section id="tabManual" class="tab-panel" hidden>
+        <header class="seccion-head">
+          <div>
+            <h1>Manual de uso</h1>
+            <p>Cada tarea, paso a paso. No hace falta leerlo entero: ve directo a lo que necesites.</p>
+          </div>
+          <div class="seccion-acciones">
+            <button class="btn-secondary" id="btnImprimirManual">Imprimir el manual</button>
+          </div>
+        </header>
+
+        <div class="manual">
+          <nav class="manual-indice" aria-label="Índice del manual">
+            <strong>En este manual</strong>
+            <a href="#m-inicio">Lo básico en un minuto</a>
+            <a href="#m-colores">Qué significa cada color</a>
+            <a href="#m-nueva">Cargar una reserva</a>
+            <a href="#m-confirmar">Confirmar una pendiente</a>
+            <a href="#m-editar">Cambiar o cancelar</a>
+            <a href="#m-calendario">Leer el calendario</a>
+            <a href="#m-bloqueos">Cerrar fechas</a>
+            <a href="#m-ingresos">Revisar los ingresos</a>
+            <a href="#m-correos">Editar los correos</a>
+            <a href="#m-faq">Preguntas frecuentes</a>
+          </nav>
+
+          <div class="manual-cuerpo">
+
+            <article id="m-inicio" class="manual-seccion">
+              <h2>Lo básico en un minuto</h2>
+              <p>
+                El panel sirve para cuatro cosas: <strong>llevar las reservas</strong>,
+                <strong>cerrar fechas</strong>, <strong>ver cuánto ingresó</strong> y
+                <strong>ajustar los correos</strong> que reciben los huéspedes.
+              </p>
+              <ul class="manual-lista">
+                <li>El <strong>menú</strong> (a la izquierda; en el teléfono, arriba) cambia de sección. <em>Inicio</em> resume lo que pide atención hoy.</li>
+                <li>El <strong>botón verde</strong> de cada pantalla es la acción principal: lo que normalmente vienes a hacer ahí.</li>
+                <li>Cada <span class="ayuda ayuda-muestra" aria-hidden="true">?</span> abre una burbuja con una explicación corta. Pasa el mouse por encima, o tócala en el teléfono.</li>
+                <li>Nada se borra por accidente: todo lo que cancela o elimina <strong>pregunta antes</strong>.</li>
+              </ul>
+            </article>
+
+            <article id="m-colores" class="manual-seccion">
+              <h2>Qué significa cada color</h2>
+              <p>Los colores no son decoración: dicen qué hace cada botón y en qué estado está cada cosa.</p>
+              <div class="color-guia">
+                <div class="color-fila">
+                  <span class="tecla tecla-verde">Crear reserva</span>
+                  <div><strong>Verde — avanzar.</strong> Crea, guarda o confirma. Es el botón que termina lo que estás haciendo. También marca lo que está en orden: <span class="badge badge-confirmada">Confirmada</span> <span class="pago-pill pago-ok">Pagado</span></div>
+                </div>
+                <div class="color-fila">
+                  <span class="badge badge-pendiente">Pendiente</span>
+                  <div><strong>Ámbar — espera algo de ti.</strong> Una reserva sin confirmar o un saldo por cobrar: <span class="pago-pill pago-debe">Debe $120.000</span></div>
+                </div>
+                <div class="color-fila">
+                  <span class="tecla tecla-roja">Cancelar</span>
+                  <div><strong>Rojo — cuidado.</strong> Cancela o elimina. Siempre pide confirmación antes de hacerlo.</div>
+                </div>
+                <div class="color-fila">
+                  <span class="tecla">Ver / editar</span>
+                  <div><strong>Blanco con borde — neutro.</strong> Abre, actualiza o te lleva a otra parte. Por sí solo no cambia nada.</div>
+                </div>
+                <div class="color-fila">
+                  <span class="ayuda ayuda-muestra" aria-hidden="true">?</span>
+                  <div><strong>Azul claro — información.</strong> Burbujas y recuadros que explican; no hay que hacer nada con ellos.</div>
+                </div>
+              </div>
+            </article>
+
+            <article id="m-nueva" class="manual-seccion">
+              <h2>Cargar una reserva que llegó por fuera de la web</h2>
+              <p>Para las reservas de Booking, Airbnb, WhatsApp, Instagram o las que tomas directamente. Quedan igual que una reserva de la web: ocupan las fechas y el huésped recibe sus correos.</p>
+              <ol class="manual-pasos">
+                <li>Pulsa <span class="tecla tecla-verde">+ Nueva reserva</span>. Está en <em>Inicio</em>, <em>Reservas</em> y <em>Calendario</em>. En el calendario también puedes hacer clic en un día libre y el formulario se abre con la cabaña y la fecha ya puestas.</li>
+                <li><strong>Paso 1 · La estadía.</strong> Cabaña, llegada, salida y número de huéspedes. La noche del día de salida no cuenta: del 10 al 12 son dos noches.</li>
+                <li><strong>Paso 2 · El huésped.</strong> Nombre y correo son obligatorios. A ese correo llegan la confirmación y la pre-llegada.</li>
+                <li><strong>Paso 3 · El pago.</strong> Total de la estadía y lo que ya abonó. El saldo se calcula solo.</li>
+                <li><strong>Paso 4 · Origen y notas.</strong> Por dónde llegó la reserva y cualquier nota interna (hora de llegada, mascotas, pedidos).</li>
+                <li>Pulsa <span class="tecla tecla-verde">Crear reserva</span>.</li>
+              </ol>
+              <div class="nota nota-ok">
+                <strong>Qué pasa al guardar.</strong> Las fechas dejan de ofrecerse en la página web, el huésped recibe el correo de confirmación y la pre-llegada queda programada para 3 días antes de su llegada.
+              </div>
+              <ul class="manual-lista">
+                <li>El círculo de cada paso se pone <strong>verde</strong> cuando ese paso está completo.</li>
+                <li>Si las fechas chocan con otra reserva o con un bloqueo, el panel avisa y <strong>no guarda</strong>.</li>
+                <li>¿Es una reserva antigua y no quieres escribirle al huésped? Desmarca la casilla <em>«Enviar el correo de confirmación»</em> antes de guardar.</li>
+              </ul>
+            </article>
+
+            <article id="m-confirmar" class="manual-seccion">
+              <h2>Confirmar una reserva pendiente</h2>
+              <p>Una reserva queda <span class="badge badge-pendiente">Pendiente</span> cuando alguien reservó en la web y su pago todavía no está comprobado; por ejemplo, eligió pagar por transferencia. Los pagos con MercadoPago se confirman solos.</p>
+              <ol class="manual-pasos">
+                <li>En <em>Inicio</em>, la tarjeta ámbar <strong>«Por confirmar»</strong> dice cuántas hay. Pulsa <span class="tecla">Revisar</span>. (También: <em>Reservas</em> → <em>Pendientes</em>.)</li>
+                <li>Comprueba en tu banco que la transferencia llegó.</li>
+                <li>Pulsa <span class="tecla tecla-verde">Confirmar</span> en la fila de esa reserva. El huésped recibe su correo de confirmación.</li>
+              </ol>
+              <div class="nota nota-aviso">
+                <strong>Conviene no dejarlas esperando.</strong> Una reserva pendiente no asegura las fechas: pasados unos minutos, otra persona puede reservar esas mismas noches. Si el pago nunca llegó, pulsa <span class="tecla tecla-roja">Cancelar</span>.
+              </div>
+            </article>
+
+            <article id="m-editar" class="manual-seccion">
+              <h2>Cambiar o cancelar una reserva</h2>
+              <ol class="manual-pasos">
+                <li>Búscala en <em>Reservas</em> (puedes escribir el nombre o el correo en el buscador) o haz clic en su barra en el <em>Calendario</em>.</li>
+                <li>Pulsa <span class="tecla">Ver / editar</span>. Se abre la ficha con todos sus datos.</li>
+                <li>Cambia lo que necesites: fechas, cabaña, huéspedes, pago, notas. Pulsa <span class="tecla tecla-verde">Guardar cambios</span>.</li>
+              </ol>
+              <ul class="manual-lista">
+                <li>Si cambias las fechas o la cabaña, la disponibilidad de la web se mueve con la reserva.</li>
+                <li><span class="tecla tecla-roja">Cancelar reserva</span> deja las fechas libres otra vez. La reserva <strong>no se borra</strong>: queda guardada como cancelada y puedes verla con el filtro <em>Canceladas</em>.</li>
+                <li>Al final de la ficha se ve cuándo salió cada correo.</li>
+              </ul>
+            </article>
+
+            <article id="m-calendario" class="manual-seccion">
+              <h2>Leer el calendario</h2>
+              <p>Cada fila es una cabaña y cada columna un día del mes. El día de hoy va destacado en color arena.</p>
+              <ul class="manual-lista">
+                <li><strong>Barra de color:</strong> una reserva. El color dice por qué canal llegó (la leyenda está arriba del calendario).</li>
+                <li><strong>Barra con borde punteado:</strong> reserva pendiente de pago.</li>
+                <li><strong>Barra gris rayada:</strong> un bloqueo; fechas cerradas sin huésped.</li>
+                <li><strong>Espacio vacío:</strong> cabaña libre. Haz clic ahí para crear una reserva con esa cabaña y ese día.</li>
+              </ul>
+              <p>Las flechas <span class="tecla">‹</span> <span class="tecla">›</span> cambian de mes, y <span class="tecla">Ir a hoy</span> vuelve al mes actual.</p>
+            </article>
+
+            <article id="m-bloqueos" class="manual-seccion">
+              <h2>Cerrar fechas sin huésped (bloqueos)</h2>
+              <p>Sirve para sacar una cabaña de la venta por mantención o uso propio. Un bloqueo no tiene huésped y no envía ningún correo.</p>
+              <ol class="manual-pasos">
+                <li>Ve a <em>Bloqueos</em>.</li>
+                <li>Elige la cabaña, el día desde el que se cierra y el día en que vuelve a estar disponible.</li>
+                <li>Elige el motivo y pulsa <span class="tecla tecla-verde">Cerrar estas fechas</span>.</li>
+              </ol>
+              <p>Para reabrir las fechas, busca el bloqueo en la lista de abajo y pulsa <span class="tecla tecla-roja">Eliminar</span>.</p>
+              <div class="nota nota-info">
+                <strong>Si hay un huésped, no es un bloqueo.</strong> Una reserva de Booking o Airbnb con nombre y correo se carga con <em>+ Nueva reserva</em>: así queda en el historial, cuenta en los ingresos y la persona recibe sus correos.
+              </div>
+            </article>
+
+            <article id="m-ingresos" class="manual-seccion">
+              <h2>Revisar los ingresos</h2>
+              <ol class="manual-pasos">
+                <li>Ve a <em>Ingresos</em> y elige <strong>Mensual</strong> o <strong>Semanal</strong> (las semanas van de lunes a domingo).</li>
+                <li>Muévete entre períodos con las flechas.</li>
+                <li>Para guardar el resumen: <span class="tecla tecla-verde">↓ Descargar para Excel</span>, o <span class="tecla">Imprimir / PDF</span>.</li>
+              </ol>
+              <div class="nota nota-info">
+                <strong>Cómo se calcula.</strong> Solo cuentan las reservas confirmadas, y el ingreso se reparte por noche. Si una estadía de 4 noches tiene solo 1 dentro del período, aquí entra un cuarto de su total; el resto aparece en el período siguiente. Así, al sumar dos meses seguidos, nada se cuenta dos veces.
+              </div>
+            </article>
+
+            <article id="m-correos" class="manual-seccion">
+              <h2>Editar el texto de los correos</h2>
+              <p>El sistema envía dos correos por su cuenta: la <strong>confirmación</strong> (cuando la reserva queda confirmada) y la <strong>pre-llegada</strong> (3 días antes del check-in).</p>
+              <ol class="manual-pasos">
+                <li>Ve a <em>Correos</em>. Cada correo tiene su tarjeta.</li>
+                <li>Escribe el asunto y el texto. Para poner un dato del huésped, haz clic en una <strong>variable</strong> (por ejemplo <code>{{nombre_huesped}}</code>): se inserta donde esté el cursor y, al enviarse, se reemplaza por el dato real.</li>
+                <li>Enciende el interruptor <strong>«Usar este texto»</strong>.</li>
+                <li>Pulsa <span class="tecla tecla-verde">Guardar plantilla</span>.</li>
+              </ol>
+              <div class="nota nota-aviso">
+                <strong>El interruptor manda.</strong> Con el interruptor apagado, lo que escribas queda guardado pero no se usa: se sigue enviando el correo de siempre.
+              </div>
+            </article>
+
+            <article id="m-faq" class="manual-seccion">
+              <h2>Preguntas frecuentes</h2>
+
+              <details class="faq">
+                <summary>¿Qué correos salen solos y cuándo?</summary>
+                <p>La <strong>confirmación</strong> sale cuando la reserva queda confirmada. La <strong>pre-llegada</strong> sale 3 días antes del check-in; si cargas una reserva con 3 días o menos de anticipación, sale de inmediato. Ningún correo se envía dos veces, y las estadías que ya terminaron no generan correos.</p>
+              </details>
+
+              <details class="faq">
+                <summary>El panel dice que las fechas están ocupadas y no me deja guardar.</summary>
+                <p>Esa cabaña ya tiene una reserva confirmada o un bloqueo en alguna de esas noches. Abre el <em>Calendario</em> en ese mes para ver qué la ocupa, y cambia las fechas o la cabaña.</p>
+              </details>
+
+              <details class="faq">
+                <summary>No me deja guardar por la cantidad de huéspedes.</summary>
+                <p>Cada cabaña tiene una capacidad máxima. Baja el número de huéspedes o elige una cabaña más grande.</p>
+              </details>
+
+              <details class="faq">
+                <summary>¿Puedo borrar una reserva?</summary>
+                <p>No se borran: se cancelan. Así las fechas quedan libres pero se conserva el registro de lo que pasó.</p>
+              </details>
+
+              <details class="faq">
+                <summary>Me equivoqué al cargar una reserva. ¿Qué hago?</summary>
+                <p>Ábrela con <em>Ver / editar</em>, corrige y guarda. Si el correo de confirmación ya salió, no vuelve a enviarse; si hace falta, avísale tú al huésped por WhatsApp con el botón verde de su fila.</p>
+              </details>
+
+              <details class="faq">
+                <summary>El panel me volvió a pedir la clave.</summary>
+                <p>La sesión dura mientras la pestaña del navegador esté abierta. Al cerrarla, hay que ingresar la clave otra vez.</p>
+              </details>
+            </article>
+
+          </div>
         </div>
       </section>
 
@@ -233,91 +582,127 @@
     <div class="modal-backdrop" data-cerrar-modal></div>
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="rvTitulo">
       <header class="modal-head">
-        <h2 id="rvTitulo">Nueva reserva</h2>
+        <div>
+          <h2 id="rvTitulo">Nueva reserva</h2>
+          <p class="modal-intro" id="rvIntro">Completa los pasos en orden. Los campos con * son obligatorios.</p>
+        </div>
         <button class="modal-close" data-cerrar-modal aria-label="Cerrar">×</button>
       </header>
 
       <div class="modal-body">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="rvCabana">Cabaña *</label>
-            <select id="rvCabana"></select>
-          </div>
-          <div class="form-group">
-            <label for="rvCanal">Canal de origen *</label>
-            <select id="rvCanal"></select>
-          </div>
-          <div class="form-group">
-            <label for="rvEstado">Estado *</label>
-            <select id="rvEstado">
-              <option value="confirmada">Confirmada</option>
-              <option value="cancelada">Cancelada</option>
-            </select>
-          </div>
 
-          <div class="form-group">
-            <label for="rvCheckIn">Check-in *</label>
-            <input type="date" id="rvCheckIn" />
+        <section class="paso" data-paso="1" aria-labelledby="pasoT1">
+          <h3 class="paso-titulo" id="pasoT1"><span class="paso-num">1</span>La estadía <small>Qué cabaña y qué noches</small></h3>
+          <div class="form-grid form-grid-4">
+            <div class="form-group">
+              <label for="rvCabana">Cabaña *</label>
+              <select id="rvCabana"></select>
+            </div>
+            <div class="form-group">
+              <label for="rvCheckIn">Llegada (check-in) *</label>
+              <input type="date" id="rvCheckIn" />
+            </div>
+            <div class="form-group">
+              <div class="label-fila">
+                <label for="rvCheckOut">Salida (check-out) *</label>
+                <button type="button" class="ayuda" aria-label="Sobre la fecha de salida"
+                  data-ayuda="El día en que el huésped se va. Esa noche no se cuenta ni se cobra: del 10 al 12 son 2 noches, y la cabaña queda libre desde el 12.">?</button>
+              </div>
+              <input type="date" id="rvCheckOut" />
+            </div>
+            <div class="form-group">
+              <label for="rvPersonas">Huéspedes *</label>
+              <input type="number" id="rvPersonas" min="1" max="20" value="2" />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="rvCheckOut">Check-out *</label>
-            <input type="date" id="rvCheckOut" />
-          </div>
-          <div class="form-group">
-            <label for="rvPersonas">N.º de huéspedes *</label>
-            <input type="number" id="rvPersonas" min="1" max="20" value="2" />
-          </div>
+          <p class="paso-resumen" id="rvResumenEstadia" hidden></p>
+        </section>
 
-          <div class="form-group">
-            <label for="rvNombre">Nombre *</label>
-            <input type="text" id="rvNombre" autocomplete="off" />
+        <section class="paso" data-paso="2" aria-labelledby="pasoT2">
+          <h3 class="paso-titulo" id="pasoT2"><span class="paso-num">2</span>El huésped <small>A quién se le reserva</small></h3>
+          <div class="form-grid form-grid-4">
+            <div class="form-group">
+              <label for="rvNombre">Nombre *</label>
+              <input type="text" id="rvNombre" autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label for="rvApellido">Apellido</label>
+              <input type="text" id="rvApellido" autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <div class="label-fila">
+                <label for="rvEmail">Correo electrónico *</label>
+                <button type="button" class="ayuda" aria-label="Para qué se usa el correo"
+                  data-ayuda="A esta dirección llegan la confirmación y la pre-llegada. Si la reserva es de Booking o Airbnb y solo tienes el correo que entrega la plataforma, sirve igual.">?</button>
+              </div>
+              <input type="email" id="rvEmail" autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label for="rvTelefono">Teléfono / WhatsApp</label>
+              <input type="tel" id="rvTelefono" placeholder="+56 9 …" autocomplete="off" />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="rvApellido">Apellido</label>
-            <input type="text" id="rvApellido" autocomplete="off" />
-          </div>
-          <div class="form-group">
-            <label for="rvTelefono">Teléfono / WhatsApp</label>
-            <input type="tel" id="rvTelefono" placeholder="+56 9 …" autocomplete="off" />
-          </div>
+        </section>
 
-          <div class="form-group form-col-2">
-            <label for="rvEmail">Correo electrónico *</label>
-            <input type="email" id="rvEmail" autocomplete="off" />
-            <small class="campo-nota">A esta dirección se envían la confirmación y la pre-llegada.</small>
+        <section class="paso" data-paso="3" aria-labelledby="pasoT3">
+          <h3 class="paso-titulo" id="pasoT3"><span class="paso-num">3</span>El pago <small>Cuánto cuesta y cuánto abonó</small></h3>
+          <div class="form-grid form-grid-4">
+            <div class="form-group">
+              <label for="rvTotal">Total de la estadía (CLP)</label>
+              <input type="number" id="rvTotal" min="0" step="1000" value="0" />
+            </div>
+            <div class="form-group">
+              <div class="label-fila">
+                <label for="rvAbono">Abono ya pagado (CLP)</label>
+                <button type="button" class="ayuda" aria-label="Qué es el abono"
+                  data-ayuda="Lo que el huésped ya pagó. Si pagó todo, escribe aquí el mismo monto del total. Si lo cobró Booking o Airbnb, anótalo igual y elige «Cobrado por el canal».">?</button>
+              </div>
+              <input type="number" id="rvAbono" min="0" step="1000" value="0" />
+            </div>
+            <div class="form-group">
+              <label for="rvSaldo">Saldo por pagar</label>
+              <input type="text" id="rvSaldo" readonly class="campo-calculado" tabindex="-1" />
+              <small class="campo-nota">Se calcula solo: total − abono.</small>
+            </div>
+            <div class="form-group">
+              <label for="rvFormaPago">Forma de pago</label>
+              <select id="rvFormaPago">
+                <option value="">Sin especificar</option>
+                <option value="transferencia">Transferencia</option>
+                <option value="efectivo">Efectivo</option>
+                <option value="mercadopago">MercadoPago</option>
+                <option value="tarjeta">Tarjeta</option>
+                <option value="canal_externo">Cobrado por el canal</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="rvFormaPago">Forma de pago</label>
-            <select id="rvFormaPago">
-              <option value="">Sin especificar</option>
-              <option value="transferencia">Transferencia</option>
-              <option value="efectivo">Efectivo</option>
-              <option value="mercadopago">MercadoPago</option>
-              <option value="tarjeta">Tarjeta</option>
-              <option value="canal_externo">Cobrado por el canal</option>
-              <option value="otro">Otro</option>
-            </select>
-          </div>
+        </section>
 
-          <div class="form-group">
-            <label for="rvTotal">Precio total de la estadía (CLP)</label>
-            <input type="number" id="rvTotal" min="0" step="1000" value="0" />
+        <section class="paso" data-paso="4" aria-labelledby="pasoT4">
+          <h3 class="paso-titulo" id="pasoT4"><span class="paso-num">4</span>Origen y notas <small>De dónde vino y qué hay que recordar</small></h3>
+          <div class="form-grid form-grid-4">
+            <div class="form-group">
+              <label for="rvCanal">Canal de origen *</label>
+              <select id="rvCanal"></select>
+            </div>
+            <div class="form-group">
+              <div class="label-fila">
+                <label for="rvEstado">Estado *</label>
+                <button type="button" class="ayuda" aria-label="Qué estado elegir"
+                  data-ayuda="Confirmada: ocupa las fechas y dispara los correos; es lo normal al cargar una reserva. Cancelada: deja las fechas libres y guarda la reserva solo como historial.">?</button>
+              </div>
+              <select id="rvEstado">
+                <option value="confirmada">Confirmada</option>
+                <option value="cancelada">Cancelada</option>
+              </select>
+            </div>
+            <div class="form-group form-col-2">
+              <label for="rvObservaciones">Notas internas</label>
+              <textarea id="rvObservaciones" rows="2" placeholder="Hora de llegada, mascotas, pedidos especiales… (el huésped no las ve)"></textarea>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="rvAbono">Abono pagado (CLP)</label>
-            <input type="number" id="rvAbono" min="0" step="1000" value="0" />
-          </div>
-          <div class="form-group">
-            <label for="rvSaldo">Saldo por pagar</label>
-            <input type="text" id="rvSaldo" readonly class="campo-calculado" />
-            <small class="campo-nota">Se calcula solo: total − abono.</small>
-          </div>
-
-          <div class="form-group form-col-3">
-            <label for="rvObservaciones">Observaciones</label>
-            <textarea id="rvObservaciones" rows="3" placeholder="Notas internas: hora de llegada, mascotas, pedidos especiales…"></textarea>
-          </div>
-        </div>
+        </section>
 
         <label class="check-linea" id="rvEnviarEmailWrap">
           <input type="checkbox" id="rvEnviarEmail" checked />
@@ -329,21 +714,29 @@
 
         <div class="reserva-meta" id="rvMeta" hidden></div>
 
-        <p class="form-error" id="rvError" hidden></p>
-        <p class="form-ok"    id="rvOk"    hidden></p>
+        <p class="form-error" id="rvError" role="alert" hidden></p>
+        <p class="form-ok"    id="rvOk"    role="status" hidden></p>
       </div>
 
       <footer class="modal-foot">
         <button class="btn-danger" id="btnCancelarReserva" hidden>Cancelar reserva</button>
         <div class="modal-actions">
-          <button class="btn-ghost" data-cerrar-modal>Cerrar</button>
-          <button class="btn-primary" id="btnGuardarReserva">Guardar reserva</button>
+          <button class="btn-ghost" data-cerrar-modal>Cerrar sin guardar</button>
+          <button class="btn-primary" id="btnGuardarReserva">Crear reserva</button>
         </div>
       </footer>
     </div>
   </div>
 
-  <script src="admin.js?v=20261111"></script>
-  <script src="ingresos.js?v=20261111"></script>
+  <!-- Avisos flotantes: la caja existe desde el inicio para que los lectores de pantalla la anuncien -->
+  <div id="adminToast" class="admin-toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="ui.js?v=20261112"></script>
+  <script src="admin.js?v=20261112"></script>
+  <script src="inicio.js?v=20261112"></script>
+  <script src="calendario.js?v=20261112"></script>
+  <script src="bloqueos.js?v=20261112"></script>
+  <script src="ingresos.js?v=20261112"></script>
+  <script src="correos.js?v=20261112"></script>
 </body>
 </html>
